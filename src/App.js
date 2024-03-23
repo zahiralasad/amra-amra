@@ -1,17 +1,22 @@
-import {BrowserRouter, Routes, Route} from "react-router-dom";
-import logo from './logo.svg';
-import './App.css';
-// import TheComponent from "./TheComponent/TheComponent.js"
-import Home from "./Components/Home.js"
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Sidebar from "./components/Sidebar";
+import Home from "./components/Home";
 
 function App() {
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </BrowserRouter>
-  );
+    <BrowserRouter>
+      <div className="App">
+        <div class="wrapper">
+          <Sidebar />
+          <div class="main p-3">
+            <Routes>
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </div>
+        </div>
+      </div>
+    </BrowserRouter>
+  )
 }
 
 export default App;
