@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Home from "./components/Home";
+import Picnic2024 from "./components/Picnic2024";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           <div class="main p-3">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="picnic2024" element={<Picnic2024 />} />
             </Routes>
           </div>
         </div>

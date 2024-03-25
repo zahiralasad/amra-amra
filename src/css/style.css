@@ -91,6 +91,9 @@ a.sidebar-link {
     white-space: nowrap;
     border-left: 3px solid transparent;
 }
+span.sidebar-link {
+    padding: 1rem;
+}
 
 .sidebar-link i {
     font-size: 1.1rem;
@@ -104,6 +107,9 @@ a.sidebar-link:hover {
 
 .sidebar-item {
     position: relative;
+}
+.sidebar-subitem {
+    padding-left: 1.9rem;
 }
 
 #sidebar:not(.expand) .sidebar-item .sidebar-dropdown {
