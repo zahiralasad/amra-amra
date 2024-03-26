@@ -5,7 +5,7 @@ import "./Sidebar.css"
 
 function Sidebar() {
     const handleClick = () => {
-        document.querySelector("#sidebar").classList.toggle("expand")
+        document.querySelector("#sidebar").classList.toggle("mini")
     }
     return (
         <aside id="sidebar">
