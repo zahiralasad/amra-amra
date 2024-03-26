@@ -1,6 +1,6 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css"
-import "../css/style.css"
+import "./Sidebar.css"
 
 
 function Sidebar() {
