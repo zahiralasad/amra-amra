@@ -1,69 +1,66 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css"
-import "./Sidebar.css"
+import "bootstrap-icons/font/bootstrap-icons.css"
+import "./sidebar.css"
+import logo from "../../images/logo2.png"
 
 
 function Sidebar() {
-    const handleClick = () => {
-        document.querySelector("#sidebar").classList.toggle("mini")
-    }
     return (
-        <aside id="sidebar">
-            <div className="d-flex tmp">
-                <button className="toggle-btn" type="button" onClick={handleClick}>
-                    <i class="lni lni-grid-alt"></i>
-                </button>
-                <div class="sidebar-logo">
-                    <a href="#">আমরা আমরা</a>
-                </div>
-            </div>
-            <ul class="sidebar-nav">
-                <li class="sidebar-item">
-                    <a href="/" class="sidebar-link">
-                        <i class="lni lni-user"></i>
-                        <span>Home</span>
-                    </a>
+        <div className="flex-shrink-0 p-3 bg-dark" style={{ width: "280px", height: "100vh" }}>
+            {/* brand and logo */}
+            <a className="brand text-decoration-none text-white" href="/">
+                <img className="" src={logo} alt="logo" />
+                <span>আমরা-আমরা</span>
+            </a>
+            {/* sidebar menu  */}
+            <ul className="list-unstyled ps-0">
+                <li className="mb-1">
+                    <button className="btn btn-toggle align-items-center">
+                        Home
+                    </button>
                 </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
-                        data-bs-target="#multi" aria-expanded="false" aria-controls="multi">
-                        <i class="lni lni-layout"></i>
-                        <span>Events</span>
-                    </a>
-                    <ul id="multi" class="sidebar-dropdown list-unstyled collapse" data-bs-parent="#sidebar">
-                        <li class="sidebar-subitem">
-                            <a href="picnic2024" class="sidebar-link">Picnic 2024</a>
-                        </li>
-                        <li class="sidebar-subitem">
-                            <a href="#" class="sidebar-link">Picnic 2023</a>
-                        </li>
-                        <li class="sidebar-subitem">
-                            <a href="#" class="sidebar-link">Picnic 2022</a>
-                        </li>
-                    </ul>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-agenda"></i>
-                        <span>About Us</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a href="#" class="sidebar-link">
-                        <i class="lni lni-popup"></i>
-                        <span>Contacts</span>
-                    </a>
-                </li>
-            </ul>
-            <div class="sidebar-footer">
-                <div>Admin</div>
-                <a href="#" class="sidebar-link">
-                    <i class="lni lni-exit"></i>
-                    <span>Logout</span>
-                </a>
-            </div>
-        </aside>
 
+                <li className="mb-1">
+                    <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+                        Events
+                    </button>
+                    <div className="collapse " id="dashboard-collapse">
+                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="picnic2024" className="rounded">Picnic 2024</a></li>
+                            <li><a href="#" className="rounded">Picnic 2023</a></li>
+                            <li><a href="#" className="rounded">Picnic 2022</a></li>
+                            <li><a href="#" className="rounded">Picnic 2021</a></li>
+                            <li><a href="#" className="rounded">Picnic 2019</a></li>
+                        </ul>
+                    </div>
+                </li>
+                <li className="mb-1">
+                    <button className="btn btn-toggle align-items-center rounded">
+                        Contacts
+                    </button>
+                </li>
+                <li className="border-top my-3"></li>
+                {/* sidebar admin part */}
+                <li className="mb-1">
+                    <button className="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+                        Admin
+                    </button>
+                    <div className="collapse" id="account-collapse">
+                        <ul className="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                            <li><a href="#" className="rounded">New...</a></li>
+                            <li><a href="#" className="rounded">Profile</a></li>
+                            <li><a href="#" className="rounded">Settings</a></li>
+                            <li><a href="#" className="rounded">Sign out</a></li>
+                        </ul>
+                    </div>
+                </li>
+
+
+            </ul>
+
+
+        </div>
     )
 }
 export default Sidebar;
