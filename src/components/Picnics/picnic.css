@@ -1,0 +1,25 @@
+.picnic{
+    color: white;
+}
+
+.picnic h4{
+    display: flex;
+    justify-content: center;
+}
+
+.form-size {
+    display: flex;
+    flex-direction: column;
+    justify-items:  center;
+    width: 80%;
+}
+.picnic select {
+    font-size: 15px;
+}
+
+.form-check input {
+    font-size: 20px;
+}
+.form-check label {
+    font-size: 17px;
+}
