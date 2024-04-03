@@ -1,4 +1,4 @@
-import React from "react";
+import React from "react"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import "./sidebar.css"
@@ -32,6 +32,7 @@ function Sidebar() {
                             <li><a href="#" className="rounded">Picnic 2022</a></li>
                             <li><a href="#" className="rounded">Picnic 2021</a></li>
                             <li><a href="#" className="rounded">Picnic 2019</a></li>
+                            <li><a href="picnic" className="rounded">Picnic</a></li>
                         </ul>
                     </div>
                 </li>

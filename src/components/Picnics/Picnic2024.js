@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
 import Form from "react-bootstrap/Form"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
-
 
 import "./picnic.css"
 
@@ -37,7 +36,15 @@ function Picnic2024() {
       const span2 = document.createElement("span")
       span2.setAttribute("class", "input-group-text");
       span2.setAttribute("style", "width: '80px'");
-      span2.textContent = "Adult " + i;
+  
+      if (divId == "adultContainer") {
+        span2.textContent = "Adult " + i;
+      } else if(divId == "childContainer") {
+        span2.textContent = "Child " + i;
+      } else {
+        span2.textContent = "Baby " + i;
+
+      } 
 
       const input = document.createElement("input");
       input.setAttribute("class", "form-control");
@@ -63,7 +70,7 @@ function Picnic2024() {
           </div>
           <span className="input-group-text" style={{ width: "370px" }}> Number of adults</span>
           <select class="custom-select" onChange={(event) => onChange(event, "adultContainer")}>
-            <option selected>1</option>
+            <option value="1" selected>1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="10">10</option>
@@ -84,7 +91,7 @@ function Picnic2024() {
           </div>
           <span className="input-group-text" style={{ width: "370px" }}> Number of children born between 2013 to 2020</span>
           <select class="custom-select" onChange={(event) => onChange(event, "childContainer")}>
-            <option selected>1</option>
+            <option value="1" selected>1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="10">10</option>
@@ -107,7 +114,7 @@ function Picnic2024() {
           <span className="input-group-text" style={{ width: "370px" }}> Number of children born between 2013 to 2020</span>
           <select class="custom-select" onChange={(event) => onChange(event, "babyContainer")}>
 
-            <option selected>1</option>
+            <option value="1" selected>1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="10">10</option>
@@ -118,7 +125,7 @@ function Picnic2024() {
             <div class="input-group-prepend">
               <span class="input-group-text"> <i class="bi bi-person-fillr"></i> </span>
             </div>
-            <span class="input-group-text" style={{ width: "80px" }}>Child 1</span>
+            <span class="input-group-text" style={{ width: "80px" }}>Baby 1</span>
             <input name="" class="form-control" placeholder="Full name" type="text" />
           </div>
         </div>
@@ -154,9 +161,6 @@ function Picnic2024() {
             </label>
           </div>
         </div>
-
-
-
 
         <div class="form-group">
           <button type="submit" class="btn btn-primary btn-block"> Register</button>

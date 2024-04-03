@@ -6,45 +6,6 @@ import "bootstrap-icons/font/bootstrap-icons.css"
 import "./picnic.css"
 import { event } from "jquery";
 
-// function onChange(event,divId) {
-//     const number = event.target.value;
-//     var divContainer = document.getElementById("inputContainer");
-//     divContainer.innerHTML = ''; // Clear previous inputs
-
-//     for (var i = 0; i < number; i++) {
-//         const mainDiv = document.createElement("div");
-//         mainDiv.setAttribute("class", "form-group input-group mb-3");
-
-//         const nextedDiv1 = document.createElement("div");
-//         nextedDiv1.setAttribute("class", "input-group-prepend");
-
-//         const span1 = document.createElement("span");
-//         span1.setAttribute("class","input-group-text");
-        
-//         const icon = document.createElement("i");
-//         icon.setAttribute("class", "fa fa-phone");
-//         span1.appendChild(icon);
-
-//         nextedDiv1.appendChild(span1);
-//         mainDiv.appendChild(nextedDiv1);
-
-//         const span2 = document.createElement("span")
-//         span2.setAttribute("class", "input-group-text");
-//         span2.setAttribute("style", "width: '80px'");
-
-//         const input = document.createElement("input");
-//         input.setAttribute("class", "form-control");
-//         input.setAttribute("placeholder", "Full name");
-//         input.setAttribute("type", "text");
-
-//         mainDiv.appendChild(span2);
-//         mainDiv.appendChild(input);
-
-//         divContainer.appendChild(mainDiv);
-//     }
-
-// }
-
 const test = (event,id) => {
     console.log("Event: ", event);
     console.log("id: ", id);
@@ -52,8 +13,6 @@ const test = (event,id) => {
 }
 
 function Picnic2023() {
-
-
     const [adults, setAdults] = useState(0);
     const [kids, setKids] = useState(0);
     const [babys, setBabys] = useState(0);
