@@ -11,6 +11,14 @@ const test = (event,id) => {
     console.log("id: ", id);
     const number = event.target.value;
 }
+// useEffect(()=>{
+//   document.addEventListener(()=>{})
+//   // document.querySelector("#sidebar").classList.toggle("mini");
+//         // document.querySelector("#sidebar").className
+
+//     //   document.title = `You clicked ${count} times`;
+
+// })
 
 function Picnic2023() {
     const [adults, setAdults] = useState(0);
@@ -77,7 +85,7 @@ function Picnic2023() {
               <span class="input-group-text"> <i class="bi bi-person-fillr"></i> </span>
             </div>
             <span class="input-group-text" style={{ width: "80px" }}>Adult 1</span>
-            <input name="" class="form-control" placeholder="Full name" type="text" />
+            <input id="" name="" class="form-control" placeholder="Full name" type="text" />
           </div>
         </div>
             

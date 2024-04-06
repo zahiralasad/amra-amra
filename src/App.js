@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Picnic2024 from "./components/Picnics/Picnic2024";
 import Picnic2023 from "./components/Picnics/Picnic2023";
 import Picnic from "./components/Picnics/Picnic";
+import Picnic2022 from "./components/Picnics/Picnic2022";
 import "./App.css"
 
 
@@ -19,6 +20,7 @@ function App() {
               <Route path="picnic2024" element={<Picnic2024 />} />
               <Route path="picnic2023" element={<Picnic2023 />} />
               <Route path="picnic" element={<Picnic />} />
+              <Route path="picnic2022" element={<Picnic2022 />} />
             </Routes>
           </div>
         </div>
