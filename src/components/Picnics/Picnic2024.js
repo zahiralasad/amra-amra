@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react"
-import Form from "react-bootstrap/Form"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css";
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import "./picnic.css"
 
@@ -14,13 +12,13 @@ function Picnic2024() {
   const [bigkids, setBigKids] = useState(0);
   const [smallkids, setSmallKids] = useState(0);
   const [babys, setBabys] = useState(0);
-  const [selectednumber, setSelectedNumber] = useState(0);
+  // const [selectednumber, setSelectedNumber] = useState(0);
 
 
-  useEffect(()=>{
-    let cost= adults*375 + bigkids*275 + smallkids* 245;
+  useEffect(() => {
+    let cost = adults * 375 + bigkids * 275 + smallkids * 245 + babys * 0;
     document.getElementById("cost").innerHTML = cost;
-  
+
   })
 
   const addInput = (event, divId) => {
@@ -34,33 +32,33 @@ function Picnic2024() {
       mainDiv.setAttribute("class", "form-group input-group mb-3");
 
       const icon = document.createElement("i");
-      if (divId == "adultContainer") {
+      if (divId === "adultContainer") {
         icon.setAttribute("class", "bi bi-person-fill me-2");
-      } else if (divId == "bigKidContainer") {
+      } else if (divId === "bigKidContainer") {
         icon.setAttribute("class", "bi bi-person-standing me-2");
-      } else if (divId == "smallKidContainer"){
+      } else if (divId === "smallKidContainer") {
         icon.setAttribute("class", "bi bi-person-arms-up me-2");
       } else {
         icon.setAttribute("class", "bi bi-balloon-fill me-2");
       }
-      
+
       mainDiv.appendChild(icon);
 
       const span2 = document.createElement("span")
       span2.setAttribute("class", "input-group-text");
       span2.setAttribute("style", "width: '80px'");
 
-      if (divId == "adultContainer") {
+      if (divId === "adultContainer") {
         span2.textContent = "Adult " + i;
         setAdults(i);
-      } else if (divId == "bigKidContainer") {
+      } else if (divId === "bigKidContainer") {
         span2.textContent = "Big Kid " + i;
         setBigKids(1);
-      } 
-      else if (divId == "smallKidContainer"){
+      }
+      else if (divId === "smallKidContainer") {
         span2.textContent = "Small Kid " + i;
         setSmallKids(1);
-      }else {
+      } else {
         span2.textContent = "Baby " + i;
         setBabys(i);
       }
@@ -101,7 +99,7 @@ function Picnic2024() {
               </div>
               <div id="adultContainer">
                 <div class="form-group input-group mb-3">
-                 <i className="bi bi-person-fill me-2"></i>
+                  <i className="bi bi-person-fill me-2"></i>
                   <span class="input-group-text" style={{ width: "80px" }}>Adult 1</span>
                   <input name="" class="form-control" placeholder="Full name" type="text" />
                 </div>
@@ -109,9 +107,7 @@ function Picnic2024() {
             </div>
             <div className="mt-2 p-4 rounded border">
               <div class="form-group input-group mb-3 border-bottom pb-1">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-                </div>
+                <i class="bi bi-person-standing me-2"></i>
                 <span className="input-group-text" style={{ width: "370px" }}> Number of children born between 2013 to 2018</span>
                 <select class="custom-select" onChange={(event) => addInput(event, "bigKidContainer")}>
                   <option value="0" selected>0</option>
@@ -126,12 +122,10 @@ function Picnic2024() {
             </div>
             <div className="mt-2 p-4 rounded border">
               <div class="form-group input-group  mb-3 border-bottom pb-1">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-                </div>
+                <i class="bi bi-person-arms-up me-2"></i>
                 <span className="input-group-text" style={{ width: "370px" }}> Number of children born between 2019 to 2020</span>
                 <select class="custom-select" onChange={(event) => addInput(event, "smallKidContainer")}>
-                <option value="0" selected>0</option>
+                  <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -143,12 +137,10 @@ function Picnic2024() {
             </div>
             <div className="mt-2 p-4 rounded border">
               <div class="form-group input-group  mb-3 border-bottom pb-1">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-                </div>
+                <i class="bi bi-balloon-fill me-2"></i>
                 <span className="input-group-text" style={{ width: "370px" }}> Number of children born between 2021 to 2024</span>
                 <select class="custom-select" onChange={(event) => addInput(event, "babyContainer")}>
-                <option value="0" selected>0</option>
+                  <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -160,27 +152,21 @@ function Picnic2024() {
             </div>
             <div className="mt-2 p-4 rounded border">
               <div class="form-group input-group  mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                </div>
+                <i class="bi bi-envelope-fill me-2"></i>
                 <span class="input-group-text" style={{ width: "80px" }}>Email</span>
                 <input name="" class="form-control" placeholder="Email address" type="email" />
               </div>
             </div>
             <div className="mt-2 p-4 rounded border">
               <div class="form-group input-group  mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-                </div>
+                <i class="bi bi-telephone-fill me-2"></i>
                 <span class="input-group-text" style={{ width: "80px" }}>Phone</span>
                 <input name="" class="form-control" placeholder="Phone number" type="text" />
               </div>
             </div>
             <div className="mt-2 p-4 rounded border">
               <div class="form-group input-group  mb-3">
-                <div class="input-group-prepend">
-                  <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-                </div>
+                <i class="bi bi-bus-front-fill me-2"></i>
                 <span class="input-group-text" style={{ width: "90px" }}>Bus Stop</span>
                 <div class="form-check">
                   <input class="form-check-input" type="radio" name="busstop" id="busstop1" />
@@ -203,6 +189,14 @@ function Picnic2024() {
                 <p>kr</p>
               </div>
             </div>
+            <div className="mt-2 rounded border p-2">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="swish" />
+              <label class="form-check-label" for="swish">
+                I have swished.
+              </label>
+            </div>
+            </div>
             <div class="form-group mt-3">
               <button type="submit" class="btn btn-primary btn-block"> Register</button>
             </div>
@@ -210,15 +204,6 @@ function Picnic2024() {
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
-    // </div>
-
   );
 }
 
