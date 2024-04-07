@@ -79,9 +79,6 @@ function Picnic2024() {
 
   return (
     <div className="picnic">
-      {/* <i className="icon bi-envelope"></i> 
-      <i class="bi bi-people"></i>
-      */}
       <div className="container">
         <div className="p-4 rounded bg-dark">
           <h4>Registration Form for Picnic 2024</h4>
@@ -123,7 +120,7 @@ function Picnic2024() {
                   <option value="3">3</option>
                   <option value="10">10</option>
                 </select>
-                <p className="ms-2">(275kr/adult)</p>
+                <p className="ms-2">(275kr/child)</p>
               </div>
               <div id="bigKidContainer"></div>
             </div>
@@ -140,7 +137,7 @@ function Picnic2024() {
                   <option value="3">3</option>
                   <option value="10">10</option>
                 </select>
-                <p className="ms-2">(2455kr/adult)</p>
+                <p className="ms-2">(2455kr/child)</p>
               </div>
               <div id="smallKidContainer"></div>
             </div>
@@ -157,7 +154,7 @@ function Picnic2024() {
                   <option value="3">3</option>
                   <option value="10">10</option>
                 </select>
-                <p className="ms-2">(0kr/adult)</p>
+                <p className="ms-2">(0kr/child)</p>
               </div>
               <div id="babyContainer"></div>
             </div>
