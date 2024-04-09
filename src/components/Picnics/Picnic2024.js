@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css";
+import "jquery"
 
 import "./picnic.css"
 
