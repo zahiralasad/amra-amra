@@ -86,11 +86,11 @@ function Picnic2024() {
         <div className="mt-2 p-4 rounded bg-dark">
           <form>
             <div className="mt-2 p-4 rounded border">
-              <div class="form-group input-group mb-3 border-bottom pb-1">
+              <div className="form-group input-group mb-3 border-bottom pb-1">
                 <i className="bi bi-people-fill me-2"></i>
                 <span className="input-group-text" style={{ width: "370px" }}> Number of adults</span>
-                <select class="custom-select" onChange={(event) => addInput(event, "adultContainer")}>
-                  <option value="1" b-1elected>1</option>
+                <select className="custom-select" onChange={(event) => addInput(event, "adultContainer")}>
+                  <option value="1" selected>1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="10">10</option>
@@ -98,18 +98,18 @@ function Picnic2024() {
                 <p className="ms-2">(375kr/adult)</p>
               </div>
               <div id="adultContainer">
-                <div class="form-group input-group mb-3">
+                <div className="form-group input-group mb-3">
                   <i className="bi bi-person-fill me-2"></i>
-                  <span class="input-group-text" style={{ width: "80px" }}>Adult 1</span>
-                  <input name="" class="form-control" placeholder="Full name" type="text" />
+                  <span className="input-group-text" style={{ width: "80px" }}>Adult 1</span>
+                  <input name="" className="form-control" placeholder="Full name" type="text" />
                 </div>
               </div>
             </div>
             <div className="mt-2 p-4 rounded border">
-              <div class="form-group input-group mb-3 border-bottom pb-1">
-                <i class="bi bi-person-standing me-2"></i>
+              <div className="form-group input-group mb-3 border-bottom pb-1">
+                <i className="bi bi-person-standing me-2"></i>
                 <span className="input-group-text" style={{ width: "370px" }}> Number of children born between 2013 to 2018</span>
-                <select class="custom-select" onChange={(event) => addInput(event, "bigKidContainer")}>
+                <select className="custom-select" onChange={(event) => addInput(event, "bigKidContainer")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -121,10 +121,10 @@ function Picnic2024() {
               <div id="bigKidContainer"></div>
             </div>
             <div className="mt-2 p-4 rounded border">
-              <div class="form-group input-group  mb-3 border-bottom pb-1">
-                <i class="bi bi-person-arms-up me-2"></i>
+              <div className="form-group input-group  mb-3 border-bottom pb-1">
+                <i className="bi bi-person-arms-up me-2"></i>
                 <span className="input-group-text" style={{ width: "370px" }}> Number of children born between 2019 to 2020</span>
-                <select class="custom-select" onChange={(event) => addInput(event, "smallKidContainer")}>
+                <select className="custom-select" onChange={(event) => addInput(event, "smallKidContainer")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -136,10 +136,10 @@ function Picnic2024() {
               <div id="smallKidContainer"></div>
             </div>
             <div className="mt-2 p-4 rounded border">
-              <div class="form-group input-group  mb-3 border-bottom pb-1">
-                <i class="bi bi-balloon-fill me-2"></i>
+              <div className="form-group input-group  mb-3 border-bottom pb-1">
+                <i className="bi bi-balloon-fill me-2"></i>
                 <span className="input-group-text" style={{ width: "370px" }}> Number of children born between 2021 to 2024</span>
-                <select class="custom-select" onChange={(event) => addInput(event, "babyContainer")}>
+                <select className="custom-select" onChange={(event) => addInput(event, "babyContainer")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -151,32 +151,32 @@ function Picnic2024() {
               <div id="babyContainer"></div>
             </div>
             <div className="mt-2 p-4 rounded border">
-              <div class="form-group input-group  mb-3">
-                <i class="bi bi-envelope-fill me-2"></i>
-                <span class="input-group-text" style={{ width: "80px" }}>Email</span>
-                <input name="" class="form-control" placeholder="Email address" type="email" />
+              <div className="form-group input-group  mb-3">
+                <i className="bi bi-envelope-fill me-2"></i>
+                <span className="input-group-text" style={{ width: "80px" }}>Email</span>
+                <input name="" className="form-control" placeholder="Email address" type="email" />
               </div>
             </div>
             <div className="mt-2 p-4 rounded border">
-              <div class="form-group input-group  mb-3">
-                <i class="bi bi-telephone-fill me-2"></i>
-                <span class="input-group-text" style={{ width: "80px" }}>Phone</span>
-                <input name="" class="form-control" placeholder="Phone number" type="text" />
+              <div className="form-group input-group  mb-3">
+                <i className="bi bi-telephone-fill me-2"></i>
+                <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
+                <input name="" className="form-control" placeholder="Phone number" type="text" />
               </div>
             </div>
             <div className="mt-2 p-4 rounded border">
-              <div class="form-group input-group  mb-3">
-                <i class="bi bi-bus-front-fill me-2"></i>
-                <span class="input-group-text" style={{ width: "90px" }}>Bus Stop</span>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="busstop" id="busstop1" />
-                  <label class="form-check-label" for="busstop1">
+              <div className="form-group input-group  mb-3">
+                <i className="bi bi-bus-front-fill me-2"></i>
+                <span className="input-group-text" style={{ width: "90px" }}>Bus Stop</span>
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="busstop" id="busstop1" />
+                  <label className="form-check-label" htmlFor="busstop1">
                     Sollentuna
                   </label>
                 </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="busstop" id="busstop2" />
-                  <label class="form-check-label" for="busstop2">
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="busstop" id="busstop2" />
+                  <label className="form-check-label" htmlFor="busstop2">
                     Kungs Kurva
                   </label>
                 </div>
@@ -190,15 +190,15 @@ function Picnic2024() {
               </div>
             </div>
             <div className="mt-2 rounded border p-2">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="swish" />
-              <label class="form-check-label" for="swish">
+            <div className="form-check">
+              <input className="form-check-input" type="checkbox" value="" id="swish" />
+              <label className="form-check-label" htmlFor="swish">
                 I have swished.
               </label>
             </div>
             </div>
-            <div class="form-group mt-3">
-              <button type="submit" class="btn btn-primary btn-block"> Register</button>
+            <div className="form-group mt-3">
+              <button type="submit" className="btn btn-primary btn-block"> Register</button>
             </div>
           </form>
         </div>

@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Aboutus() {
+function Admin() {
     return (
         <div className="text-center text-white">
-            About Us
+            Admin
         </div>
     )
 }
-export default Aboutus;
+export default Admin;

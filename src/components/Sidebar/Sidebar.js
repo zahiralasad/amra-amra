@@ -1,7 +1,7 @@
 import React from "react"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
-import "./sidebar.css"
+import "./Sidebar.css"
 import logo from "../../images/logo2.png"
 
 
@@ -32,14 +32,19 @@ function Sidebar() {
                             <li><a href="picnic2022" className="rounded">Picnic 2022</a></li>
                             <li><a href="#" className="rounded">Picnic 2021</a></li>
                             <li><a href="#" className="rounded">Picnic 2019</a></li>
-                            <li><a href="picnic" className="rounded">Picnic</a></li>
+                            <li><a href="test" className="rounded">Test</a></li>
                         </ul>
                     </div>
                 </li>
                 <li className="mb-1">
-                    <button className="btn btn-toggle align-items-center">
+                    <a href="contacts" className="btn btn-toggle align-items-center">
                         Contacts
-                    </button>
+                    </a>
+                </li>
+                <li className="mb-1">
+                    <a href="aboutus" className="btn btn-toggle align-items-center">
+                        About Us
+                    </a>
                 </li>
                 <li className="border-top my-3"></li>
                 {/* sidebar admin part */}

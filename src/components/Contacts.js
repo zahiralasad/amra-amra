@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Aboutus() {
+function Contacts() {
     return (
         <div className="text-center text-white">
-            About Us
+            Contacts
         </div>
     )
 }
-export default Aboutus;
+export default Contacts;

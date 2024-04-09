@@ -1,10 +1,10 @@
 import React from 'react';
 
-function Aboutus() {
+function Test() {
     return (
         <div className="text-center text-white">
-            About Us
+            Test
         </div>
     )
 }
-export default Aboutus;
+export default Test;
