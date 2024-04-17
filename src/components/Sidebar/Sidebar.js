@@ -2,12 +2,12 @@ import React from "react"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import "./Sidebar.css"
-import logo from "../../images/logo2.png"
+import logo from "./logo_125x125.png"
 
 
 function Sidebar() {
     return (
-        <div className="flex-shrink-0 p-3 bg-dark" style={{ width: "280px", height: "100vh" }}>
+        <div id="sidebar" className="flex-shrink-0 p-3 bg-dark" style={{ width: "280px", height: "100vh" }}>
             {/* brand and logo */}
             <a className="brand text-decoration-none text-white" href="/">
                 <img className="" src={logo} alt="logo" />
@@ -30,9 +30,8 @@ function Sidebar() {
                             <li><a href="picnic2024" className="rounded">Picnic 2024</a></li>
                             <li><a href="picnic2023" className="rounded">Picnic 2023</a></li>
                             <li><a href="picnic2022" className="rounded">Picnic 2022</a></li>
-                            <li><a href="#" className="rounded">Picnic 2021</a></li>
-                            <li><a href="#" className="rounded">Picnic 2019</a></li>
-                            <li><a href="test" className="rounded">Test</a></li>
+                            <li><a href="picnic2021" className="rounded">Picnic 2021</a></li>
+                            <li><a href="picnic2019" className="rounded">Picnic 2019</a></li>
                         </ul>
                     </div>
                 </li>
