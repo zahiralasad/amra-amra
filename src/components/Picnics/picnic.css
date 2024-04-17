@@ -26,3 +26,7 @@
 .picnic p {
     font-size: 18px;
 }
+
+span {
+    word-wrap: break-word;
+} 
