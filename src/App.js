@@ -22,7 +22,7 @@ function App() {
         <Header />
         <div className="wrapper">
           <Sidebar />
-          <div className="main p-3">
+          <div className="main p-1">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="picnic2024" element={<Picnic2024 />} />

@@ -26,7 +26,11 @@
 .picnic p {
     font-size: 18px;
 }
-
-span {
+.input-group-text {
+    white-space: nowrap;
     word-wrap: break-word;
-} 
+}
+  
+/* span {
+    word-wrap: break-word;
+}  */
