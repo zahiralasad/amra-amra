@@ -34,6 +34,7 @@ function Picnic2024() {
     inputContainer.innerHTML = ''; // Clear previous inputs
 
     for (var i = 1; i <= number; i++) {
+      let id="";
       const mainDiv = document.createElement("div");
       mainDiv.setAttribute("class", "form-group input-group mb-3");
 
@@ -57,22 +58,27 @@ function Picnic2024() {
       if (divId === "adultContainer") {
         span2.textContent = "Adult " + i;
         setAdults(i);
+        id="adult"+i;
       } else if (divId === "bigKidContainer") {
         span2.textContent = "Big Kid " + i;
         setBigKids(1);
+        id="bigkid"+i;
       }
       else if (divId === "smallKidContainer") {
         span2.textContent = "Small Kid " + i;
         setSmallKids(1);
+        id="smallkid"+i;
       } else {
         span2.textContent = "Baby " + i;
         setBabys(i);
+        id="baby"+i;
       }
 
       const input = document.createElement("input");
       input.setAttribute("class", "form-control");
       input.setAttribute("placeholder", "Full name");
       input.setAttribute("type", "text");
+      input.setAttribute("id", id);
       input.setAttribute("required", true)
 
       mainDiv.appendChild(span2);
@@ -95,7 +101,7 @@ function Picnic2024() {
                 <i className="bi bi-people-fill me-2"></i>
                 <span className="input-group-text"> Number of adults</span>
                 <select className="custom-select" onChange={(event) => addInput(event, "adultContainer")}>
-                  <option value="1" selected>1</option>
+                  <option value="1" id="adult1" selected>1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -183,14 +189,14 @@ function Picnic2024() {
             <div className="form-group input-group  mb-3">
               <i className="bi bi-envelope-fill me-2"></i>
               <span className="input-group-text" style={{ width: "80px" }}>Email</span>
-              <input name="" className="form-control" placeholder="Email address" type="email" required />
+              <input id="email" className="form-control" placeholder="Email address" type="email" required />
             </div>
           </div>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="form-group input-group  mb-3">
               <i className="bi bi-telephone-fill me-2"></i>
               <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
-              <input name="" className="form-control" placeholder="Phone number" type="text" required />
+              <input id="phone" className="form-control" placeholder="Phone number" type="text" required />
             </div>
           </div>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
