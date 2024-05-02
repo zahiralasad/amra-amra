@@ -7,7 +7,7 @@ import Picnic2023 from "./components/Picnics/Picnic2023";
 import Picnic2022 from "./components/Picnics/Picnic2022";
 import Picnic2021 from "./components/Picnics/Picnic2021";
 import Picnic2019 from "./components/Picnics/Picnic2019";
-// import Picnic from "./components/Picnics/Picnic";
+import Picnic from "./components/Picnics/Picnic";
 import "./App.css"
 import Contacts from "./components/Contacts";
 import Aboutus from "./components/Aboutus";
@@ -34,6 +34,7 @@ function App() {
               <Route path="aboutus" element={<Aboutus />} />
               <Route path="admin" element={<Admin />} />
               <Route path="test" element={<Test />} />
+              <Route path="picnic" element={<Picnic />} />
             </Routes>
           </div>
         </div>

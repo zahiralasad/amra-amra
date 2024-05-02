@@ -3,6 +3,7 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css";
 import banner from "../../images/form-banner.jpg"
 
+import axios from 'axios';
 
 import "./picnic.css"
 
@@ -26,15 +27,32 @@ function Picnic2024() {
     // formData.swishTo= number;
 
   })
+  function Submit(e) {
+      const url ='https://script.google.com/macros/s/AKfycbwp7J4DWew4vutOKcpcYLG-ybzW2sODQxBESuSkISIQlNn06_m-rLHbpB__hExQU9rz/exec';
+      const formElm = document.querySelector('form');
+      e.preventDefault();
+      console.log(formElm);
+      console.log("mamu2");
+      const formData = new FormData(formElm);
+      fetch(url, {
+        // mode: 'no-cors',
+        method: "POST",
+        body: formData,
+      })
+      .then((res) => res.json)
+      .then((data) => console.log(data))
+      .catch((error) => console.log(error))
+
+  }
 
   const addInput = (event, divId) => {
-    event.preventDefault();
+    // event.preventDefault();
     const number = event.target.value;
     var inputContainer = document.getElementById(divId);
     inputContainer.innerHTML = ''; // Clear previous inputs
 
     for (var i = 1; i <= number; i++) {
-      let id="";
+      let name = "";
       const mainDiv = document.createElement("div");
       mainDiv.setAttribute("class", "form-group input-group mb-3");
 
@@ -58,27 +76,27 @@ function Picnic2024() {
       if (divId === "adultContainer") {
         span2.textContent = "Adult " + i;
         setAdults(i);
-        id="adult"+i;
+        name = "Adult" + i;
       } else if (divId === "bigKidContainer") {
         span2.textContent = "Big Kid " + i;
         setBigKids(1);
-        id="bigkid"+i;
+        name = "Bigkid" + i;
       }
       else if (divId === "smallKidContainer") {
         span2.textContent = "Small Kid " + i;
         setSmallKids(1);
-        id="smallkid"+i;
+        name = "Smallkid" + i;
       } else {
         span2.textContent = "Baby " + i;
         setBabys(i);
-        id="baby"+i;
+        name = "Baby" + i;
       }
 
       const input = document.createElement("input");
       input.setAttribute("class", "form-control");
       input.setAttribute("placeholder", "Full name");
       input.setAttribute("type", "text");
-      input.setAttribute("id", id);
+      input.setAttribute("name", name);
       input.setAttribute("required", true)
 
       mainDiv.appendChild(span2);
@@ -92,40 +110,40 @@ function Picnic2024() {
     <div className="picnic">
       <div className="p-4 text-center rounded bg-dark">
         <h4>Registration Form for Picnic 2024</h4>
-        <img src={banner} className="img-fluid"/>
+        <img src={banner} className="img-fluid" />
       </div>
       <div className="mt-1 p-2 rounded bg-dark">
-        <form className="needs-validation" novalidate>
+        <form className="needs-validation" onSubmit={(e) => Submit(e)}>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-            <div className="d-flex mb-3 input-group border-bottom pb-1">  
-                <i className="bi bi-people-fill me-2"></i>
-                <span className="input-group-text"> Number of adults</span>
-                <select className="custom-select" onChange={(event) => addInput(event, "adultContainer")}>
-                  <option value="1" id="adult1" selected>1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-                <p className="ms-2">(375kr/adult)</p>  
+            <div className="d-flex mb-3 input-group border-bottom pb-1">
+              <i className="bi bi-people-fill me-2"></i>
+              <span className="input-group-text"> Number of adults</span>
+              <select className="custom-select" onChange={(event) => addInput(event, "adultContainer")}>
+                <option value="1" selected>1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+              <p className="ms-2">(375kr/adult)</p>
             </div>
             <div id="adultContainer">
               <div className="input-group  mb-3">
                 <i className="bi bi-person-fill me-2"></i>
                 <span className="input-group-text">Adult 1</span>
-                <input name="" className="form-control" placeholder="Full name" type="text" required />
+                <input name="Adult1" className="form-control" placeholder="Full name" type="text" required />
               </div>
             </div>
           </div>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="d-flex input-group mb-3 border-bottom pb-1">
-                <i className="bi bi-person-standing me-2"></i>
-                <span className="input-group-text text-wrap"> Number of children born between 2013 to 2018</span>
+              <i className="bi bi-person-standing me-2"></i>
+              <span className="input-group-text text-wrap"> Number of children born between 2013 to 2018</span>
               <select className="custom-select" onChange={(event) => addInput(event, "bigKidContainer")}>
                 <option value="0" selected>0</option>
                 <option value="1">1</option>
@@ -160,7 +178,7 @@ function Picnic2024() {
                 <option value="9">9</option>
                 <option value="10">10</option>
               </select>
-              <p className="ms-2">(2455kr/child)</p>
+              <p className="ms-2">(245kr/child)</p>
             </div>
             <div id="smallKidContainer"></div>
           </div>
@@ -189,14 +207,14 @@ function Picnic2024() {
             <div className="form-group input-group  mb-3">
               <i className="bi bi-envelope-fill me-2"></i>
               <span className="input-group-text" style={{ width: "80px" }}>Email</span>
-              <input id="email" className="form-control" placeholder="Email address" type="email" required />
+              <input name="Email" className="form-control" placeholder="Email address" type="email" required />
             </div>
           </div>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="form-group input-group  mb-3">
               <i className="bi bi-telephone-fill me-2"></i>
               <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
-              <input id="phone" className="form-control" placeholder="Phone number" type="text" required />
+              <input name="Phone" className="form-control" placeholder="Phone number" type="text" required />
             </div>
           </div>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
@@ -204,13 +222,13 @@ function Picnic2024() {
               <i className="bi bi-bus-front-fill me-2"></i>
               <span className="input-group-text me-1" style={{ width: "90px" }}>Bus Stop</span>
               <div className="form-check">
-                <input className="form-check-input" type="radio" name="busstop" id="busstop1" required />
+                <input className="form-check-input" type="radio" name="Busstop" id="busstop1" required />
                 <label className="form-check-label" htmlFor="busstop1">
                   Sollentuna
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="radio" name="busstop" id="busstop2" required />
+                <input className="form-check-input" type="radio" name="Busstop" id="busstop2" required />
                 <label className="form-check-label" htmlFor="busstop2">
                   Kungs Kurva
                 </label>

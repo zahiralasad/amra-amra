@@ -1,0 +1,13 @@
+.form{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+.form input{
+    height: 30px;
+    margin-top: 10px;
+}
+.button {
+    width: 100px;
+    background-color: rgb(219, 219, 243);
+}
