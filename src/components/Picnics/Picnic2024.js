@@ -18,17 +18,19 @@ function Picnic2024() {
 
   useEffect(() => {
     let cost = adults * 375 + bigkids * 275 + smallkids * 245 + babys * 0;
+    document.getElementById("totalFee").value = cost;
     document.getElementById("cost").innerHTML = cost;
     const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944014)", "Md Tarek Hasan (0700295808)", "Mohammad Delower Hossin (0760151904)", "Mohammad Haque (0762268977)"];
     const randomIndex = Math.floor(Math.random() * numbers.length);
     const number = numbers[randomIndex];
     document.getElementById('swishTo').innerHTML = number;
+    document.getElementById('swish').value = number;
     // output.value = number;
     // formData.swishTo= number;
 
   })
   function Submit(e) {
-      const url ='https://script.google.com/macros/s/AKfycbwp7J4DWew4vutOKcpcYLG-ybzW2sODQxBESuSkISIQlNn06_m-rLHbpB__hExQU9rz/exec';
+      const url ='https://script.google.com/macros/s/AKfycbyiypM2snPQe9PQmP_GpnoMTuTCzLWKdjj4pGsXfTez2Aitw3nO3XBzZZOUTAbR8f4N/exec';
       const formElm = document.querySelector('form');
       e.preventDefault();
       console.log(formElm);
@@ -222,13 +224,13 @@ function Picnic2024() {
               <i className="bi bi-bus-front-fill me-2"></i>
               <span className="input-group-text me-1" style={{ width: "90px" }}>Bus Stop</span>
               <div className="form-check">
-                <input className="form-check-input" type="radio" name="Busstop" id="busstop1" required />
+                <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" required />
                 <label className="form-check-label" htmlFor="busstop1">
                   Sollentuna
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="radio" name="Busstop" id="busstop2" required />
+                <input className="form-check-input" type="radio" name="Busstop" value="Kungs Kurva" id="busstop2" required />
                 <label className="form-check-label" htmlFor="busstop2">
                   Kungs Kurva
                 </label>
@@ -238,13 +240,14 @@ function Picnic2024() {
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="form-group input-group ">
               <p className="mx-2">Total fee:</p>
-              <p className="p" id="cost"></p>
+              <p className="p" name="Cost" id="cost"></p>
               <p>kr</p>
             </div>
+            <input type="hidden" name="Cost" id="totalFee"/>
           </div>
           <div className="mt-2 rounded border p-2">
             <div className="form-check">
-              <input className="form-check-input" type="checkbox" value="" id="swish" required />
+              <input className="form-check-input" type="checkbox" Name="Swish" id="swish" required />
               <label className="form-check-label" htmlFor="swish">
                 I have swished to
               </label>
