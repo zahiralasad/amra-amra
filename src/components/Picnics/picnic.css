@@ -14,23 +14,29 @@
     width: 80%;
 }
 .picnic select {
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .form-check input {
-    font-size: 20px;
+    font-size: 12px;
 }
 .form-check label {
-    font-size: 17px;
+    font-size: 12px;
 }
 .picnic p {
-    font-size: 18px;
+    font-size: 12px;
 }
 .input-group-text {
     white-space: nowrap;
     word-wrap: break-word;
+    font-size: 12px;
 }
-  
+.form-control {
+    font-size: 12px;
+}
+input {
+    font-size: 20px;
+}
 /* span {
     word-wrap: break-word;
 }  */

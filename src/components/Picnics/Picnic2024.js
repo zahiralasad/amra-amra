@@ -251,7 +251,7 @@ function Picnic2024() {
               <label className="form-check-label" htmlFor="swish">
                 I have swished to
               </label>
-              <span id="swishTo" className="ms-2 h6"></span>
+              <span id="swishTo" className="ms-2 h9"></span>
             </div>
           </div>
           <div className="form-group mt-3">
