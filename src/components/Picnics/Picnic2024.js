@@ -13,6 +13,7 @@ function Picnic2024() {
   const [bigkids, setBigKids] = useState(0);
   const [smallkids, setSmallKids] = useState(0);
   const [babys, setBabys] = useState(0);
+  const url ='https://script.google.com/macros/s/AKfycbzL3Tnvv3DbE-jDrtyyY-w9i8zXY2dUvwhZSQ5NhzYcudgWkmp6bLSv2h_3smP06zSj/exec';
   // const [selectednumber, setSelectedNumber] = useState(0);
 
 
@@ -30,18 +31,15 @@ function Picnic2024() {
 
   })
   function Submit(e) {
-      const url ='https://script.google.com/macros/s/AKfycbyiypM2snPQe9PQmP_GpnoMTuTCzLWKdjj4pGsXfTez2Aitw3nO3XBzZZOUTAbR8f4N/exec';
       const formElm = document.querySelector('form');
       e.preventDefault();
-      console.log(formElm);
-      console.log("mamu2");
       const formData = new FormData(formElm);
       fetch(url, {
         // mode: 'no-cors',
         method: "POST",
         body: formData,
       })
-      .then((res) => res.json)
+      .then((res) => res.text())
       .then((data) => console.log(data))
       .catch((error) => console.log(error))
 
@@ -60,19 +58,19 @@ function Picnic2024() {
 
       const icon = document.createElement("i");
       if (divId === "adultContainer") {
-        icon.setAttribute("class", "bi bi-person-fill me-2");
+        icon.setAttribute("className", "bi bi-person-fill me-2");
       } else if (divId === "bigKidContainer") {
-        icon.setAttribute("class", "bi bi-person-standing me-2");
+        icon.setAttribute("className", "bi bi-person-standing me-2");
       } else if (divId === "smallKidContainer") {
-        icon.setAttribute("class", "bi bi-person-arms-up me-2");
+        icon.setAttribute("className", "bi bi-person-arms-up me-2");
       } else {
-        icon.setAttribute("class", "bi bi-balloon-fill me-2");
+        icon.setAttribute("className", "bi bi-balloon-fill me-2");
       }
 
       mainDiv.appendChild(icon);
 
       const span2 = document.createElement("span")
-      span2.setAttribute("class", "input-group-text");
+      span2.setAttribute("className", "input-group-text");
       span2.setAttribute("style", "width: '80px'");
 
       if (divId === "adultContainer") {
@@ -95,10 +93,10 @@ function Picnic2024() {
       }
 
       const input = document.createElement("input");
-      input.setAttribute("class", "form-control");
+      input.setAttribute("className", "form-control");
       input.setAttribute("placeholder", "Full name");
       input.setAttribute("type", "text");
-      input.setAttribute("name", name);
+      input.setAttribute("Name", name);
       input.setAttribute("required", true)
 
       mainDiv.appendChild(span2);
@@ -138,7 +136,7 @@ function Picnic2024() {
               <div className="input-group  mb-3">
                 <i className="bi bi-person-fill me-2"></i>
                 <span className="input-group-text">Adult 1</span>
-                <input name="Adult1" className="form-control" placeholder="Full name" type="text" required />
+                <input Name="Adult1" className="form-control" placeholder="Full name" type="text" required />
               </div>
             </div>
           </div>
@@ -209,14 +207,14 @@ function Picnic2024() {
             <div className="form-group input-group  mb-3">
               <i className="bi bi-envelope-fill me-2"></i>
               <span className="input-group-text" style={{ width: "80px" }}>Email</span>
-              <input name="Email" className="form-control" placeholder="Email address" type="email" required />
+              <input Name="Email" className="form-control" placeholder="Email address" type="email" required />
             </div>
           </div>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="form-group input-group  mb-3">
               <i className="bi bi-telephone-fill me-2"></i>
               <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
-              <input name="Phone" className="form-control" placeholder="Phone number" type="text" required />
+              <input Name="Phone" className="form-control" placeholder="Phone number" type="text" required />
             </div>
           </div>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
@@ -224,13 +222,13 @@ function Picnic2024() {
               <i className="bi bi-bus-front-fill me-2"></i>
               <span className="input-group-text me-1" style={{ width: "90px" }}>Bus Stop</span>
               <div className="form-check">
-                <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" required />
+                <input className="form-check-input" type="radio" Name="Busstop" value="Sollentuna" id="busstop1" required />
                 <label className="form-check-label" htmlFor="busstop1">
                   Sollentuna
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="radio" name="Busstop" value="Kungs Kurva" id="busstop2" required />
+                <input className="form-check-input" type="radio" Name="Busstop" value="Kungs Kurva" id="busstop2" required />
                 <label className="form-check-label" htmlFor="busstop2">
                   Kungs Kurva
                 </label>
@@ -240,10 +238,10 @@ function Picnic2024() {
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="form-group input-group ">
               <p className="mx-2">Total fee:</p>
-              <p className="p" name="Cost" id="cost"></p>
+              <p className="p" Name="Cost" id="cost"></p>
               <p>kr</p>
             </div>
-            <input type="hidden" name="Cost" id="totalFee"/>
+            <input type="hidden" Name="Cost" id="totalFee"/>
           </div>
           <div className="mt-2 rounded border p-2">
             <div className="form-check">
