@@ -3,6 +3,8 @@ import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css";
 import banner from "../../images/form-banner.jpg"
 
+import axios from 'axios';
+
 import "./picnic.css"
 
 
@@ -11,6 +13,8 @@ function Picnic2024() {
   const [bigkids, setBigKids] = useState(0);
   const [smallkids, setSmallKids] = useState(0);
   const [babys, setBabys] = useState(0);
+  const [response, setResponse] = useState("");
+
   const url ='https://script.google.com/macros/s/AKfycbzL3Tnvv3DbE-jDrtyyY-w9i8zXY2dUvwhZSQ5NhzYcudgWkmp6bLSv2h_3smP06zSj/exec';
   // const [selectednumber, setSelectedNumber] = useState(0);
 
@@ -32,15 +36,44 @@ function Picnic2024() {
       const formElm = document.querySelector('form');
       e.preventDefault();
       const formData = new FormData(formElm);
-      fetch(url, {
-        // mode: 'no-cors',
-        method: "POST",
-        body: formData,
-      })
-      .then((res) => res.text())
-      .then((data) => console.log(data))
-      .catch((error) => console.log(error))
+      // fetch(url, {
+      //   // mode: 'no-cors',
+      //   method: "POST",
+      //   body: formData,
+      // })
+      // .then((res) => res.text())
+      // .then((data) => console.log(data))
+      // .catch((error) => console.log(error));
 
+      // let result = fetch(url, {
+      //   // mode: 'no-cors',
+      //   method: "POST",
+      //   body: formData,
+      // })
+      // // .then((res) => res.text())
+      // // .then((data) => console.log(data))
+      // // .catch((error) => console.log(error));
+      // .then((res) => {return res.text()})
+      // .catch((error) => console.log(error));
+      // console.log(result);
+
+    axios.post(url, formData)
+    .then(response => setResponse(response.data))
+    .catch(error => setResponse(error));
+
+    console.log(response);
+      sendEmail();
+
+
+  }
+
+  const sendEmail = () => {
+    const data = {"message": "This is just a test"}
+    const url = "https://amra-amra.se/db"
+    console.log(data);
+    axios.post(url, data)
+    .then(response => alert(response.data))
+    .catch(error => alert(error));
   }
 
   const addInput = (event, divId) => {
