@@ -24,7 +24,7 @@ function Picnic2024() {
 
 
   useEffect(() => {
-    let cost = adults * 375 + bigkids * 275 + smallkids * 245 + babys * 0;
+    let cost = adults * 385 + bigkids * 285 + smallkids * 255 + babys * 0;
     document.getElementById("totalFee").value = cost;
     document.getElementById("cost").innerHTML = cost;
     const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)", "Mohammad Delower Hossin (0760151904)", "Mohammad Haque (0762268977)"];
@@ -35,7 +35,7 @@ function Picnic2024() {
     // output.value = number;
     // formData.swishTo= number;
 
-  })
+  }) 
   function Submit(e) {
       const formElm = document.querySelector('form');
       e.preventDefault();
@@ -155,7 +155,7 @@ function Picnic2024() {
                 <option value="9">9</option>
                 <option value="10">10</option>
               </select>
-              <p className="ms-2">(375kr/adult)</p>
+              <p className="ms-2">(385kr/adult)</p>
             </div>
             <div id="adultContainer">
               <div className="input-group  mb-3">
@@ -182,7 +182,7 @@ function Picnic2024() {
                 <option value="9">9</option>
                 <option value="10">10</option>
               </select>
-              <p className="ms-2">(275kr/child)</p>
+              <p className="ms-2">(285kr/child)</p>
             </div>
             <div id="bigKidContainer"></div>
           </div>
@@ -203,7 +203,7 @@ function Picnic2024() {
                 <option value="9">9</option>
                 <option value="10">10</option>
               </select>
-              <p className="ms-2">(245kr/child)</p>
+              <p className="ms-2">(255kr/child)</p>
             </div>
             <div id="smallKidContainer"></div>
           </div>
@@ -255,7 +255,7 @@ function Picnic2024() {
               <div className="form-check">
                 <input className="form-check-input" type="radio" Name="Busstop" value="Kungs Kurva" id="busstop2" required />
                 <label className="form-check-label" htmlFor="busstop2">
-                  Kungs Kurva
+                  Kungens Kurva
                 </label>
               </div>
             </div>
