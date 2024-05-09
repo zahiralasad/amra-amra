@@ -27,7 +27,7 @@ function Picnic2024() {
     let cost = adults * 375 + bigkids * 275 + smallkids * 245 + babys * 0;
     document.getElementById("totalFee").value = cost;
     document.getElementById("cost").innerHTML = cost;
-    const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944014)", "Md Tarek Hasan (0700295808)", "Mohammad Delower Hossin (0760151904)", "Mohammad Haque (0762268977)"];
+    const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)", "Mohammad Delower Hossin (0760151904)", "Mohammad Haque (0762268977)"];
     const randomIndex = Math.floor(Math.random() * numbers.length);
     const number = numbers[randomIndex];
     document.getElementById('swishTo').innerHTML = number;
