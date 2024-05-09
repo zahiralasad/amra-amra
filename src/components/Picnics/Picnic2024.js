@@ -1,11 +1,12 @@
-import { useState, useEffect } from "react"
-import "bootstrap/dist/css/bootstrap.css"
+import { useState, useEffect } from "react";
+import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import banner from "../../images/form-banner.jpg"
+import banner from "../../images/form-banner.jpg";
 
 import axios from 'axios';
 
-import "./picnic.css"
+import "./picnic.css";
+import Notification from '../Notification';
 
 
 function Picnic2024() {
@@ -14,8 +15,11 @@ function Picnic2024() {
   const [smallkids, setSmallKids] = useState(0);
   const [babys, setBabys] = useState(0);
   const [response, setResponse] = useState("");
-
-  const url ='https://script.google.com/macros/s/AKfycbzL3Tnvv3DbE-jDrtyyY-w9i8zXY2dUvwhZSQ5NhzYcudgWkmp6bLSv2h_3smP06zSj/exec';
+  
+  const [modalShow, setModalShow] = useState(false);
+  const [clearForm, setClearForm] = useState(false);
+  const url ='https://script.google.com/macros/s/AKfycbzTwtHYRTt5UdmXaVI0Lpfo2nLuGmPhh_94o0o7KbGHVkSrfz9xQ0wwY0nBsNOPHwOG/exec';
+  const apiUrl = "https://amra-amra.se/emailApi/";
   // const [selectednumber, setSelectedNumber] = useState(0);
 
 
@@ -36,44 +40,34 @@ function Picnic2024() {
       const formElm = document.querySelector('form');
       e.preventDefault();
       const formData = new FormData(formElm);
-      // fetch(url, {
-      //   // mode: 'no-cors',
-      //   method: "POST",
-      //   body: formData,
-      // })
-      // .then((res) => res.text())
-      // .then((data) => console.log(data))
-      // .catch((error) => console.log(error));
-
-      // let result = fetch(url, {
-      //   // mode: 'no-cors',
-      //   method: "POST",
-      //   body: formData,
-      // })
-      // // .then((res) => res.text())
-      // // .then((data) => console.log(data))
-      // // .catch((error) => console.log(error));
-      // .then((res) => {return res.text()})
-      // .catch((error) => console.log(error));
-      // console.log(result);
 
     axios.post(url, formData)
     .then(response => setResponse(response.data))
     .catch(error => setResponse(error));
 
-    console.log(response);
-      sendEmail();
-
-
+    if (response === "successful" ) {
+      sendEmail(formData);
+    } else {
+      console.log(response);
+      alert(response);
+    }
   }
 
-  const sendEmail = () => {
-    const data = {"message": "This is just a test"}
-    const url = "https://amra-amra.se/db"
-    console.log(data);
-    axios.post(url, data)
-    .then(response => alert(response.data))
-    .catch(error => alert(error));
+  const sendEmail = (fData) => {
+    
+    //let fData = new FormData(formElm);
+    
+    fData.append('request', 'sendemail');
+    
+    // console.log("I am here");
+    
+    axios.post(apiUrl, fData)
+      .then(response => {console.log(response.data); setClearForm(true); setModalShow(true)})
+      .catch(error => alert(error));
+
+      if (clearForm === true ) {
+        document.getElementById("picnicForm").reset();
+      }
   }
 
   const addInput = (event, divId) => {
@@ -144,7 +138,7 @@ function Picnic2024() {
         <img src={banner} className="img-fluid" />
       </div>
       <div className="mt-1 p-2 rounded bg-dark">
-        <form className="needs-validation" onSubmit={(e) => Submit(e)}>
+        <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="d-flex mb-3 input-group border-bottom pb-1">
               <i className="bi bi-people-fill me-2"></i>
@@ -288,6 +282,10 @@ function Picnic2024() {
           </div>
         </form>
       </div>
+      <Notification
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      />
     </div>
   );
 }
