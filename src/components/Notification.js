@@ -13,12 +13,12 @@ function Notification(props) {
     >
       <Modal.Header closeButton>
         <Modal.Title id="contained-modal-title-vcenter">
-          Registration Completed
+          {props.title}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <p>
-          We have received your information and the confirmation is sent to your emial. (Please check Spam mails in case you dont find in your Inbox )
+          {props.message}
         </p>
       </Modal.Body>
       <Modal.Footer>

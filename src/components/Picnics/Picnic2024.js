@@ -15,10 +15,12 @@ function Picnic2024() {
   const [smallkids, setSmallKids] = useState(0);
   const [babys, setBabys] = useState(0);
   const [response, setResponse] = useState("");
+  const [title, setTitle] = useState("");
+  const [message,setMessage] = useState("");
   
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
-  const url ='https://script.google.com/macros/s/AKfycbzTwtHYRTt5UdmXaVI0Lpfo2nLuGmPhh_94o0o7KbGHVkSrfz9xQ0wwY0nBsNOPHwOG/exec';
+  const url ='https://script.google.com/macros/s/AKfycbw0Y6DBSROylbb32gx8fLXDTwVUNnJt7sujHMqNWv1ufd4Sak0upYp73Qk2ctaXGkwn/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
   // const [selectednumber, setSelectedNumber] = useState(0);
 
@@ -27,30 +29,61 @@ function Picnic2024() {
     let cost = adults * 385 + bigkids * 285 + smallkids * 255 + babys * 0;
     document.getElementById("totalFee").value = cost;
     document.getElementById("cost").innerHTML = cost;
-    const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)", "Mohammad Delower Hossin (0760151904)", "Mohammad Haque (0762268977)"];
-    const randomIndex = Math.floor(Math.random() * numbers.length);
-    const number = numbers[randomIndex];
-    document.getElementById('swishTo').innerHTML = number;
-    document.getElementById('swish').value = number;
+    // const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)", "Mohammad Delower Hossin (0760151904)", "Mohammad Haque (0762268977)"];
+    // const randomIndex = Math.floor(Math.random() * numbers.length);
+    // const number = numbers[randomIndex];
+    // document.getElementById('swishTo').innerHTML = number;
+    // document.getElementById('swish').value = number;
     // output.value = number;
     // formData.swishTo= number;
 
   }) 
+  
+
+
   function Submit(e) {
       const formElm = document.querySelector('form');
       e.preventDefault();
       const formData = new FormData(formElm);
 
     axios.post(url, formData)
-    .then(response => setResponse(response.data))
-    .catch(error => setResponse(error));
-
-    if (response === "successful" ) {
-      sendEmail(formData);
-    } else {
-      console.log(response);
-      alert(response);
-    }
+    .then(response => {
+      if(response.data === "successful"){
+        sendEmail(formData);
+      }else {
+        setTitle("Warning");
+        setMessage(response.data);
+        setModalShow(true);
+      }
+    }).catch(error => setResponse(error));
+    
+    // insertData(formData);
+    
+    // if (response === "successful" ) {
+    //   sendEmail(formData);
+    // } else {
+    //   setTitle("Failed to Register");
+    //   setMessage(response); 
+    //   setModalShow(true);
+    // }
+  }
+  // const insertData = async(formData) => {
+  //   try
+  //   {
+  //     const result = await axios.post(url, formData);
+  //     console.log("inside: "+result.data);
+  //     setResponse(result.data);
+  //     console.log("inside2: "+response);
+  //   } catch(error){
+  //     setResponse(error);
+  //   }
+  // }
+  const randomName = () => {
+    const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)", "Mohammad Delower Hossin (0760151904)", "Mohammad Haque (0762268977)"];
+    const randomIndex = Math.floor(Math.random() * numbers.length);
+    const number = numbers[randomIndex];
+    document.getElementById('swishTo').innerHTML = number;
+    document.getElementById('swish').value = number;
   }
 
   const sendEmail = (fData) => {
@@ -62,8 +95,21 @@ function Picnic2024() {
     // console.log("I am here");
     
     axios.post(apiUrl, fData)
-      .then(response => {console.log(response.data); setClearForm(true); setModalShow(true)})
-      .catch(error => alert(error));
+      .then(response => {
+        console.log(response.data); 
+        setClearForm(true);
+        setTitle("Registration Completed");
+        //setMessage("We have received your information and sent you a confirmation to your email. (Please check your Spam email in case you dont find it in your inbox)"); 
+        setMessage(response.data);
+        setModalShow(true);
+      })
+      .catch(error => {
+        console.log(error);
+        setTitle("Failed to Register");
+        setMessage(error); 
+        setModalShow(true);
+      })
+        //alert(error));
 
       if (clearForm === true ) {
         document.getElementById("picnicForm").reset();
@@ -247,13 +293,13 @@ function Picnic2024() {
               <i className="bi bi-bus-front-fill me-2"></i>
               <span className="input-group-text me-1" style={{ width: "90px" }}>Bus Stop</span>
               <div className="form-check">
-                <input className="form-check-input" type="radio" Name="Busstop" value="Sollentuna" id="busstop1" required />
+                <input className="form-check-input" type="radio" Name="Busstop" value="Sollentuna" id="busstop1"  onChange={randomName} required />
                 <label className="form-check-label" htmlFor="busstop1">
                   Sollentuna
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="radio" Name="Busstop" value="Kungs Kurva" id="busstop2" required />
+                <input className="form-check-input" type="radio" Name="Busstop" value="Kungs Kurva" id="busstop2"  onChange={randomName} required />
                 <label className="form-check-label" htmlFor="busstop2">
                   Kungens Kurva
                 </label>
@@ -285,6 +331,8 @@ function Picnic2024() {
       <Notification
         show={modalShow}
         onHide={() => setModalShow(false)}
+        title = {title}
+        message = {message}
       />
     </div>
   );
