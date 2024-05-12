@@ -79,7 +79,7 @@ function Picnic2024() {
   //   }
   // }
   const randomName = () => {
-    const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)", "Mohammad Delower Hossin (0760151904)", "Mohammad Haque (0762268977)"];
+    const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)"];
     const randomIndex = Math.floor(Math.random() * numbers.length);
     const number = numbers[randomIndex];
     document.getElementById('swishTo').innerHTML = number;
