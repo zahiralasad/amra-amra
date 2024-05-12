@@ -97,7 +97,7 @@
     line-height: 1.25;
 }
 
-@media (prefers-reduced-motion: no-preference) {
+/* @media (prefers-reduced-motion: no-preference) {
     .brand img {
         animation: App-logo-spin infinite 20s linear;
     }
@@ -111,7 +111,7 @@
     to {
         transform: rotate(-360deg);
     }
-}
+} */
 /* Media query for mobile screens */
 @media screen and (max-width: 768px) {
     #sidebar {

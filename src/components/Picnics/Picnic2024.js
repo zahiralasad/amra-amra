@@ -142,7 +142,6 @@ function Picnic2024() {
 
       const span2 = document.createElement("span")
       span2.setAttribute("className", "input-group-text");
-      span2.setAttribute("style", "width: '80px'");
 
       if (divId === "adultContainer") {
         span2.textContent = "Adult " + i;
@@ -299,7 +298,7 @@ function Picnic2024() {
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="radio" Name="Busstop" value="Kungs Kurva" id="busstop2"  onChange={randomName} required />
+                <input className="form-check-input" type="radio" Name="Busstop" value="Kungens Kurva" id="busstop2"  onChange={randomName} required />
                 <label className="form-check-label" htmlFor="busstop2">
                   Kungens Kurva
                 </label>
