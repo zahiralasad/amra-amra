@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import logo from "./logo_40x40.png";
+import logo from "./logo_40x33.jpg";
 import "./header.css";
 import {useState, useEffect} from "react"
 

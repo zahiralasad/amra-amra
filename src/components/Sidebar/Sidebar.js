@@ -2,7 +2,7 @@ import React from "react"
 import "bootstrap/dist/css/bootstrap.css"
 import "bootstrap-icons/font/bootstrap-icons.css"
 import "./Sidebar.css"
-import logo from "./logo_125x100_10.jpg"
+import logo from "./logo_122x100.jpg"
 
 
 function Sidebar() {
