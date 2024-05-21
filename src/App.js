@@ -19,7 +19,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
+        {/* <Header /> */}
+        <Test/>
         <div className="wrapper">
           <Sidebar />
           <div className="main p-1">
