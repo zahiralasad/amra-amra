@@ -18,15 +18,11 @@ li:hover {
     background-color: #323945;
 }
 
-#smallmenu {
+#menu {
     display: none;
 }
-#smallmenu.show {
+#menu.show {
     display: block;
-}
-
-#bigmenu.hide{
-    display:  
 }
 #crossicon{
     display: none;
@@ -34,7 +30,7 @@ li:hover {
 /* #menuicon {
     display: block;
 } */
-#burgericon.hide {
+#menuicon.hide {
     display: none;
 }
 #crossicon.show{
@@ -59,21 +55,8 @@ li:hover {
     text-decoration: none;
 }
 
-.dropdown-small{
-    left: 50% !important;
-    transform: translateX(-50%) !important;
-    top: 100% !important;
-}
-@media screen and (max-width: 767px) {
-    #bigmenu{
-        display: none;
-    }
-}
 @media screen and (min-width: 768px) {
-    #burgericon {
-        display: none;
-    }
-    #menuicons{
+    #menuicon {
         display: none;
     }
 }
