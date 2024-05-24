@@ -78,8 +78,11 @@ function Header() {
         <Nav.Item>
           <Nav.Link eventKey="home" href="/">Home</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="events" href="events">Events</Nav.Link>
+        </Nav.Item>
 
-        <Dropdown as={Nav.Item}>
+        {/* <Dropdown as={Nav.Item}>
           <Dropdown.Toggle as={Nav.Link}>
             Events
           </Dropdown.Toggle>
@@ -91,7 +94,7 @@ function Header() {
             <Dropdown.Item href="picnic2021" className="rounded">Picnic 2021</Dropdown.Item>
             <Dropdown.Item href="picnic2019" className="rounded">Picnic 2019</Dropdown.Item>
           </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown> */}
 
         <Nav.Item>
           <Nav.Link eventKey="contacts" href="contacts">Contacts</Nav.Link>

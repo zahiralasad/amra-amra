@@ -22,7 +22,7 @@ function App() {
       <div className="App">
         <Header />
         <div className="wrapper">
-          <Sidebar />
+          {/* <Sidebar /> */}
           <div className="main p-1">
             <Routes>
               <Route path="/" element={<Home />} />

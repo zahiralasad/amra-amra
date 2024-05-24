@@ -4,6 +4,7 @@
     background-color: black;
     height: auto;
     width: 100%;
+    font-size: 16px;
 }
 
 ul {
@@ -25,9 +26,9 @@ li:hover {
     display: block;
 }
 
-#bigmenu.hide{
+/* #bigmenu.hide{
     display:  
-}
+} */
 #crossicon{
     display: none;
 }
@@ -37,10 +38,11 @@ li:hover {
 #burgericon.hide {
     display: none;
 }
-#crossicon.show{
+#crossicon.show {
     display: block;
 }
-#events {
+
+/* #events {
     display: none;
 }
 
@@ -57,7 +59,7 @@ li:hover {
 #events li:hover {
     background-color: black;
     text-decoration: none;
-}
+} */
 
 .dropdown-small{
     left: 50% !important;
@@ -73,7 +75,7 @@ li:hover {
     #burgericon {
         display: none;
     }
-    #menuicons{
+    #menuicons {
         display: none;
     }
 }
