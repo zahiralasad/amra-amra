@@ -22,26 +22,17 @@ function Picnic2024() {
   const [clearForm, setClearForm] = useState(false);
   const url ='https://script.google.com/macros/s/AKfycbw0Y6DBSROylbb32gx8fLXDTwVUNnJt7sujHMqNWv1ufd4Sak0upYp73Qk2ctaXGkwn/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
-  // const [selectednumber, setSelectedNumber] = useState(0);
-
 
   useEffect(() => {
     let cost = adults * 385 + bigkids * 285 + smallkids * 255 + babys * 0;
     document.getElementById("totalFee").value = cost;
     document.getElementById("cost").innerHTML = cost;
-    // const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)", "Mohammad Delower Hossin (0760151904)", "Mohammad Haque (0762268977)"];
-    // const randomIndex = Math.floor(Math.random() * numbers.length);
-    // const number = numbers[randomIndex];
-    // document.getElementById('swishTo').innerHTML = number;
-    // document.getElementById('swish').value = number;
-    // output.value = number;
-    // formData.swishTo= number;
-
   }) 
   
 
 
   function Submit(e) {
+      document.getElementById("register").disabled=true;
       const formElm = document.querySelector('form');
       e.preventDefault();
       const formData = new FormData(formElm);
@@ -54,30 +45,11 @@ function Picnic2024() {
         setTitle("Warning");
         setMessage(response.data);
         setModalShow(true);
+        document.getElementById("register").disabled=false;
       }
     }).catch(error => setResponse(error));
-    
-    // insertData(formData);
-    
-    // if (response === "successful" ) {
-    //   sendEmail(formData);
-    // } else {
-    //   setTitle("Failed to Register");
-    //   setMessage(response); 
-    //   setModalShow(true);
-    // }
   }
-  // const insertData = async(formData) => {
-  //   try
-  //   {
-  //     const result = await axios.post(url, formData);
-  //     console.log("inside: "+result.data);
-  //     setResponse(result.data);
-  //     console.log("inside2: "+response);
-  //   } catch(error){
-  //     setResponse(error);
-  //   }
-  // }
+
   const randomName = () => {
     const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)"];
     const randomIndex = Math.floor(Math.random() * numbers.length);
@@ -87,19 +59,12 @@ function Picnic2024() {
   }
 
   const sendEmail = (fData) => {
-    
-    //let fData = new FormData(formElm);
-    
     fData.append('request', 'sendemail');
-    
-    // console.log("I am here");
-    
     axios.post(apiUrl, fData)
       .then(response => {
         console.log(response.data); 
         setClearForm(true);
         setTitle("Registration Completed");
-        //setMessage("We have received your information and sent you a confirmation to your email. (Please check your Spam email in case you dont find it in your inbox)"); 
         setMessage(response.data);
         setModalShow(true);
       })
@@ -110,7 +75,6 @@ function Picnic2024() {
         setModalShow(true);
       })
         //alert(error));
-
       if (clearForm === true ) {
         document.getElementById("picnicForm").reset();
       }
@@ -125,7 +89,7 @@ function Picnic2024() {
     for (var i = 1; i <= number; i++) {
       let name = "";
       const mainDiv = document.createElement("div");
-      mainDiv.setAttribute("class", "form-group input-group mb-3");
+      mainDiv.setAttribute("class", "input-group mb-3");
 
       const icon = document.createElement("i");
       if (divId === "adultContainer") {
@@ -149,12 +113,12 @@ function Picnic2024() {
         name = "Adult" + i;
       } else if (divId === "bigKidContainer") {
         span2.textContent = "Big Kid " + i;
-        setBigKids(1);
+        setBigKids(i);
         name = "Bigkid" + i;
       }
       else if (divId === "smallKidContainer") {
         span2.textContent = "Small Kid " + i;
-        setSmallKids(1);
+        setSmallKids(i);
         name = "Smallkid" + i;
       } else {
         span2.textContent = "Baby " + i;
@@ -319,11 +283,11 @@ function Picnic2024() {
               <label className="form-check-label" htmlFor="swish">
                 I have swished to
               </label>
-              <span id="swishTo" className="ms-2 h9"></span>
+              <span id="swishTo" className="swishto ms-2 h9"></span>
             </div>
           </div>
           <div className="form-group mt-3">
-            <button type="submit" className="btn btn-primary btn-block"> Register</button>
+            <button type="submit" id="register" className="btn btn-primary btn-block"> Register</button>
           </div>
         </form>
       </div>
