@@ -2,7 +2,7 @@ import React from 'react';
 
 function Aboutus() {
     return (
-        <div className="text-center text-white">
+        <div className="pt-5 text-center text-white">
             <dl>
                 <dt>‘আমরা-আমরা’ কী?</dt>    
                 <dd>‘আমরা-আমরা’ একটি অলাভজনক সামাজিক সংগঠন।</dd>
