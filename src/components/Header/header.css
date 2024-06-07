@@ -42,6 +42,22 @@ li:hover {
     display: block;
 }
 
+.nav {
+    background-color : #0080003f;
+}
+.nav-link {
+    /* background-color: red; */
+    color: white;
+}
+.nav-item.hover,
+.nav-link:hover {
+    color:rgba(255, 0, 0, 0.566);
+}
+.nav-item.active {
+    background-color : #00800071;
+}
+
+
 /* #events {
     display: none;
 }
