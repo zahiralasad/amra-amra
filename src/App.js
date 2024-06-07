@@ -14,6 +14,7 @@ import Admin from "./components/Admin";
 import Header from "./components/Header/Header"
 import Events from "./components/Events";
 import Test from "./components/Test/Test";
+import Info from "./components/Info";
 
 
 function App() {
@@ -25,8 +26,9 @@ function App() {
           {/* <Sidebar /> */}
           <div className="main p-1">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="picnic2024" element={<Picnic2024/>} />
+              {/* <Route path="/" element={<Home />} /> */}
+              <Route path="/" element={<Info />} />
+              {/* <Route path="picnic2024" element={<Picnic2024/>} /> */}
               <Route path="picnic2023" element={<Picnic2023/>} />
               <Route path="picnic2022" element={<Picnic2022/>} />
               <Route path="picnic2021" element={<Picnic2021/>} />
@@ -37,6 +39,7 @@ function App() {
               <Route path="events" element={<Events/>} />
               <Route path="test" element={<Test/>} />
               <Route path="picnic" element={<Picnic/>} />
+              <Route path="info" element={<Info/>} />
             </Routes>
           </div>
         </div>

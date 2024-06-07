@@ -59,13 +59,15 @@ li:hover {
 #events li:hover {
     background-color: black;
     text-decoration: none;
-} */
+} 
 
 .dropdown-small{
     left: 50% !important;
     transform: translateX(-50%) !important;
     top: 100% !important;
 }
+*/
+
 @media screen and (max-width: 767px) {
     #bigmenu{
         display: none;
