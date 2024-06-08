@@ -31,7 +31,7 @@ function Header() {
 
   return (
     <div id="header">
-      <div className="row text-white" id="menuicons">
+      <div className="row banner text-white" id="menuicons">
         <div className='col mx-3'>
           <img className="" src={logo} alt="logo" style={{ height: "36px" }} />
           <span className="mx-2 text-white">আমরা-আমরা</span>

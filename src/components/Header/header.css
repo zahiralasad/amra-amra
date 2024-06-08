@@ -42,12 +42,19 @@ li:hover {
     display: block;
 }
 
+.banner {
+    background-color : #0080003f;
+}
+
 .nav {
     background-color : #0080003f;
 }
 .nav-link {
     /* background-color: red; */
     color: white;
+}
+.nav-item:active {
+    background-color: black; /* Ensure color doesn't change on click */
 }
 .nav-item.hover,
 .nav-link:hover {
