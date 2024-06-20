@@ -60,10 +60,11 @@ li:hover {
 .nav-link:hover {
     color:rgba(255, 0, 0, 0.566);
 }
-.nav-item.active {
-    background-color : #00800071;
-}
 
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show  {
+    color: white;
+    background-color:red;
+}
 
 /* #events {
     display: none;
