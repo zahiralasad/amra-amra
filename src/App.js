@@ -26,9 +26,9 @@ function App() {
           {/* <Sidebar /> */}
           <div className="main p-1">
             <Routes>
-              {/* <Route path="/" element={<Home />} /> */}
-              <Route path="/" element={<Info />} />
-              {/* <Route path="picnic2024" element={<Picnic2024/>} /> */}
+              <Route path="/" element={<Home />} />
+              {/* <Route path="/" element={<Info />} /> */}
+              <Route path="picnic2024" element={<Picnic2024/>} />
               <Route path="picnic2023" element={<Picnic2023/>} />
               <Route path="picnic2022" element={<Picnic2022/>} />
               <Route path="picnic2021" element={<Picnic2021/>} />
