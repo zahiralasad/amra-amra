@@ -256,15 +256,21 @@ function Picnic2024() {
               <i className="bi bi-bus-front-fill me-2"></i>
               <span className="input-group-text me-1" style={{ width: "90px" }}>Bus Stop</span>
               <div className="form-check">
-                <input className="form-check-input" type="radio" Name="Busstop" value="Sollentuna" id="busstop1"  onChange={randomName} required />
+                <input className="form-check-input" type="radio" Name="Busstop" value="Sollentuna" id="busstop1"  onChange={randomName} disabled />
                 <label className="form-check-label" htmlFor="busstop1">
                   Sollentuna
                 </label>
               </div>
               <div className="form-check">
-                <input className="form-check-input" type="radio" Name="Busstop" value="Kungens Kurva" id="busstop2"  onChange={randomName} required />
+                <input className="form-check-input" type="radio" Name="Busstop" value="Kungens Kurva" id="busstop2"  onChange={randomName} disabled />
                 <label className="form-check-label" htmlFor="busstop2">
                   Kungens Kurva
+                </label>
+              </div>
+              <div className="form-check">
+                <input className="form-check-input" type="radio" Name="Busstop" value="Car" id="busstop3"  onChange={randomName} required />
+                <label className="form-check-label" htmlFor="busstop3">
+                  Car
                 </label>
               </div>
             </div>
