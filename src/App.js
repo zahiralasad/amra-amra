@@ -15,6 +15,7 @@ import Header from "./components/Header/Header"
 import Events from "./components/Events";
 import Test from "./components/Test/Test";
 import Info from "./components/Info";
+import Members from "./components/Members";
 
 
 function App() {
@@ -39,10 +40,13 @@ function App() {
               <Route path="events" element={<Events/>} />
               <Route path="test" element={<Test/>} />
               <Route path="picnic" element={<Picnic/>} />
+              <Route path="members" element={<Members/>} />
               <Route path="info" element={<Info/>} />
             </Routes>
           </div>
         </div>
+        {/* <Footer/> */}
+        <Header />
       </div>
     </BrowserRouter>
   )
