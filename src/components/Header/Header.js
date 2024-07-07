@@ -69,6 +69,9 @@ function Header() {
         <Nav.Item>
           <Nav.Link eventKey="aboutus" href="aboutus">About Us</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="members" href="members">Members</Nav.Link>
+        </Nav.Item>
       </Nav>
 
       <Nav fill variant="tabs" id="bigmenu" activeKey={activeKey} onSelect={handleSelect} defaultActiveKey="/home">
@@ -104,7 +107,7 @@ function Header() {
           <Nav.Link eventKey="aboutus" href="aboutus">About Us</Nav.Link>
         </Nav.Item>
         <Nav.Item>
-          <Nav.Link eventKey="admin" href="admin">Admin</Nav.Link>
+          <Nav.Link eventKey="members" href="members">Members</Nav.Link>
         </Nav.Item>
       </Nav>
     </div>
