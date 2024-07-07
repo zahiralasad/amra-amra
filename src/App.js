@@ -16,6 +16,8 @@ import Events from "./components/Events";
 import Test from "./components/Test/Test";
 import Info from "./components/Info";
 import Members from "./components/Members";
+import RegisterMember from "./components/RegisterMember";
+import RegisterToPicnic from "./components/RegisterToPicnic";
 
 
 function App() {
@@ -40,7 +42,9 @@ function App() {
               <Route path="events" element={<Events/>} />
               <Route path="test" element={<Test/>} />
               <Route path="picnic" element={<Picnic/>} />
+              <Route path="registertopicnic" element={<RegisterToPicnic/>} />
               <Route path="members" element={<Members/>} />
+              <Route path="registermember" element={<RegisterMember/>} />
               <Route path="info" element={<Info/>} />
             </Routes>
           </div>
