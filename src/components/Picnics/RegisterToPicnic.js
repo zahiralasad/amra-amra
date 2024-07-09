@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-// import banner from "../../images/form-banner.jpg";
+import banner from "../../images/form-banner.jpg";
 
 import axios from 'axios';
 
-// import "./picnic.css";
-// import Notification from '../Notification';
+import "./picnic.css";
+import Notification from '../Notification';
 
 
 function RegisterToPicnic() {
@@ -144,7 +144,7 @@ function RegisterToPicnic() {
     <div className="picnic">
       <div className="p-4 text-center rounded bg-dark">
         <h4>Registration Form for Picnic 2024</h4>
-        {/* <img src={banner} className="img-fluid" /> */}
+        <img src={banner} className="img-fluid" />
       </div>
       <div className="mt-1 p-2 rounded bg-dark">
         <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
@@ -297,12 +297,12 @@ function RegisterToPicnic() {
           </div>
         </form>
       </div>
-      {/* <Notification
+      <Notification
         show={modalShow}
         onHide={() => setModalShow(false)}
         title = {title}
         message = {message}
-      /> */}
+      />
     </div>
   );
 }

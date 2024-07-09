@@ -7,7 +7,7 @@ import Picnic2022 from "./components/Picnics/Picnic2022";
 import Picnic2021 from "./components/Picnics/Picnic2021";
 import Picnic2019 from "./components/Picnics/Picnic2019";
 import Picnic from "./components/Picnics/Picnic";
-import "./App.css"
+import RegisterToPicnic from "./components/Picnics/RegisterToPicnic";
 import Contacts from "./components/Contacts";
 import Aboutus from "./components/Aboutus";
 import Admin from "./components/Admin";
@@ -17,7 +17,7 @@ import Test from "./components/Test/Test";
 import Info from "./components/Info";
 import Members from "./components/Members";
 import RegisterMember from "./components/RegisterMember";
-import RegisterToPicnic from "./components/RegisterToPicnic";
+import "./App.css"
 
 
 function App() {
