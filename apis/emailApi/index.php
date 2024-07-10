@@ -45,8 +45,8 @@
                     $mail->Subject = "Registration Confirmed";
                     $mail->Body = "Hi ".$name.", \n We confim that we have received your information and you swished to ". $swishto. "\nThanks for your participation. \nBest Regards, \nAmra-Amra";
                     $mail->send();                   
-
-                    echo "Hi $name, \n We have received your registration request. \n A confirmation email has sent to $email. \n Thanks for being with us \n Amra-Amra";
+                    $returnMessage = "Hi $name, \n We have received your registration request. \n A confirmation email has sent to $email. \n Thanks for being with us \n Amra-Amra";
+                    echo $returnMessage;
                     break;
                     case "memberRegistrationEmail":
                         $name = $_POST['Name'];
@@ -68,8 +68,8 @@
                         $mail->Subject = "Registration Confirmed";
                         $mail->Body = "Hi ".$name.", \n We confim that we have received your information. Please make sure your payment is done. We will update your membership status as soon as we will recieve your payment. Please check our Members page. \nThanks for your participation. \nBest Regards, \nAmra-Amra";
                         $mail->send();                   
-    
-                        echo "Hi $name, \n We have received your registration request. \n A confirmation email has sent to $email. \n Thanks for joning with us \n Amra-Amra";
+                        $returnMessage = "Hi $name, \n We have received your registration request. \n A confirmation email has sent to $email. \n Thanks for joning with us. \n -- Amra-Amra";
+                        echo $returnMessage;
                         break;
                 case "gamereg":
                     break;

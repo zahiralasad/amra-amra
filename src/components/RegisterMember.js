@@ -24,14 +24,17 @@ function RegisterMember() {
     }
 
     const sendEmail = (fData) => {
-        fData.append('request', 'picnicRegistrationEmail');
+        fData.append('request', 'memberRegistrationEmail');
         axios.post(apiUrl, fData)
             .then(response => {
                 console.log(response.data);
                 setClearForm(true);
+                document.getElementById("register").disabled = false;
                 setTitle("Registration Completed");
                 setMessage(response.data);
                 setModalShow(true);
+                setClearForm(true);
+                document.getElementById("register").disabled = false;
             })
             .catch(error => {
                 console.log(error);
@@ -41,7 +44,7 @@ function RegisterMember() {
             })
         //alert(error));
         if (clearForm === true) {
-            document.getElementById("picnicForm").reset();
+            document.getElementById("memberForm").reset();
         }
     }
 
@@ -49,6 +52,7 @@ function RegisterMember() {
         const formFile = document.querySelector("form")
         e.preventDefault()
         console.log("Submitted")
+        document.getElementById("register").disabled = true;
         const formData = new FormData(formFile)
         
 
@@ -77,7 +81,7 @@ function RegisterMember() {
                 {/* <img src={banner} className="img-fluid" /> */}
             </div>
             <div className="mt-1 p-2 rounded bg-dark">
-                <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
+                <form className="needs-validation" id="memberForm" onSubmit={(e) => Submit(e)}>
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                         <div className="input-group  mb-3">
                             <i className="bi bi-person-fill me-2"></i>
