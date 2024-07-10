@@ -6,25 +6,51 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from 'axios';
 
 // import "./picnic.css";
-// import Notification from '../Notification';
+import Notification from './Notification';
 
 
 function RegisterMember() {
-
     const [response, setResponse] = useState("");
     const [title, setTitle] = useState("");
     const [message, setMessage] = useState("");
+    const [modalShow, setModalShow] = useState(false);
+    const [clearForm, setClearForm] = useState(false);
+
+    const url = "https://script.google.com/macros/s/AKfycbyNJ8bOqFrEaQ4CPUjbDmsqokym-Hj3QxYB54JwaAmaS1lGxb2BVm2-vfoZw3J59haawA/exec";
+    const apiUrl = "https://amra-amra.se/emailApi/";
 
     function CheckExpired() {
 
     }
 
+    const sendEmail = (fData) => {
+        fData.append('request', 'picnicRegistrationEmail');
+        axios.post(apiUrl, fData)
+            .then(response => {
+                console.log(response.data);
+                setClearForm(true);
+                setTitle("Registration Completed");
+                setMessage(response.data);
+                setModalShow(true);
+            })
+            .catch(error => {
+                console.log(error);
+                setTitle("Failed to Register");
+                setMessage(error);
+                setModalShow(true);
+            })
+        //alert(error));
+        if (clearForm === true) {
+            document.getElementById("picnicForm").reset();
+        }
+    }
+
     function Submit(e) {
         const formFile = document.querySelector("form")
-        // e.preventDefault()
+        e.preventDefault()
         console.log("Submitted")
         const formData = new FormData(formFile)
-        const url = "https://script.google.com/macros/s/AKfycbxDVEfeRd1xwC1wuXgYiym6w7hfqOGoOx-Ob4M61jsQldRRkeQuVx5OFIbh4bNwTSaxLA/exec";
+        
 
         // fetch("https://script.google.com/macros/s/AKfycbwD_ff2bXXvsCNRy5IoEnhkX2IpHUcO3tk04Yzu-hcuwvzEef7n5nZYMVZ-qBotI1xNIg/exec", {
         //     method: "POST",
@@ -34,29 +60,16 @@ function RegisterMember() {
         axios.post(url, formData)
             .then(response => {
                 if (response.data === "successful") {
-                    // sendEmail(formData);
+                    sendEmail(formData);
+                    console.log("successful");
                 } else {
                     setTitle("Warning");
                     setMessage(response.data);
-                    // setModalShow(true);
-                    // document.getElementById("register").disabled = false;
+                    setModalShow(true);
+                    document.getElementById("register").disabled = false;
                 }
             }).catch(error => setResponse(error));
-
     }
-
-    // return (
-    //     <div>
-    //         <div>Member Registeration form</div>
-    //         <form className="form" onSubmit={(e) => Submit(e)}>
-    //             <input placeholder="Name" name="Name" type="text"/>
-    //             <input placeholder="Email" name="Email" type="email"/>
-    //             <input placeholder="Phone" name="Phone" type="tel"/>
-    //             <input placeholder="Address" name="Address" type="text"/>
-    //             <input className="button" type="submit"/>
-    //         </form>
-    //     </div>
-    // );
     return (
         <div className="picnic">
             <div className="p-4 text-center rounded bg-dark">
@@ -109,12 +122,12 @@ function RegisterMember() {
                     </div>
                 </form>
             </div>
-            {/* <Notification
+            <Notification
                 show={modalShow}
                 onHide={() => setModalShow(false)}
                 title={title}
                 message={message}
-            /> */}
+            />
         </div>
     );
 }

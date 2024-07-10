@@ -1,62 +1,85 @@
 <?php
+
     error_reporting(E_ALL);
+
     ini_set('display_errors', 1);
+
     header("Access-Control-Allow-Origin: *");
     header("Access-Control-Allow-Headers: *");
     header("Access-Control-Allow-Methods: *");
 
-    require "vandor/autoload.php";
+    require "vendor/autoload.php";
+
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
 
-    
-    <!-- $objDb = new DbConnect;
-    $conn = $objDb->connect();
     $method = $_SERVER['REQUEST_METHOD'];
-    $teams = array(); -->
 
+//    echo $method;
     switch($method){
-        <!-- case "GET":
-            $sql = "select * from ssbc_tournament_2023";
-            $res = mysqli_query($conn, $sql);
-            while( $team = mysqli_fetch_assoc($res))
-            {
-                $teams[] = $team;
-            }
-            echo json_encode($teams);
-            break; -->
+        case "GET":
+                echo "I am in get";
+            break;
         case "POST":
             switch($_POST['request']) {
-                case "sendemail":
-                    // SMTP setup
+                case "login":
+                    break;
+                case "picnicRegistrationEmail":
+                    $name = strtok($_POST['Name'], " ");
+                    $email = $_POST['Email'];
+                    $swishto = $_POST['Swish'];
+                    
                     $mail = new PHPMailer(true);
                     $mail->isSMTP();
-                    $mail->Host       = 'mail.amra-amra.se';                     // Set the SMTP server to send through
-                    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-                    $mail->Username   = 'info@amra-amra.se';               // SMTP username
-                    $mail->Password   = 'AmraShobaiAdmin';                        // SMTP password
-                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTAALS;
-                    $mail->Port       = 587; 
+                    $mail->SMTPAuth = true;
+                    $mail->Host = 'mail.amra-amra.se';
+                    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                    $mail->Username = "info@amra-amra.se";
+                    $mail->Password = "AmraShobaiAdmin";
+                    $mail->Port = 587;
+                    $mail->setFrom("info@amra-amra.se", "AmraAmra");
 
-                    // receiver email
+                    //$mail->addAddress("zahiralasad@yahoo.com", "Zahir");
 
-                    $mail->Subject = "Registration confirmed";
+                    $mail->addAddress($email, $name);
+                    $mail->Subject = "Registration Confirmed";
+                    $mail->Body = "Hi ".$name.", \n We confim that we have received your information and you swished to ". $swishto. "\nThanks for your participation. \nBest Regards, \nAmra-Amra";
+                    $mail->send();                   
 
-                    $email = $_POST['Email'];
-                    $swishto = $_POST['SwishTo'];
-                    $name = strtok($_POST['Name'], " ");
-                    $mail->Body = "Dear " . $name . ",\n" . This is a confirmation email. \n We have received your infromation and you swish to ". $swishto . "\n You are now registed to the Picnic 2024.\n Best Regards,\n Admin \ amra-amra\n" 
-                    
-                    $mail->send();
-                    
-                    echo "Email sent";
+                    echo "Hi $name, \n We have received your registration request. \n A confirmation email has sent to $email. \n Thanks for being with us \n Amra-Amra";
                     break;
-                case "adminlogin":
+                    case "memberRegistrationEmail":
+                        $name = $_POST['Name'];
+                        $email = $_POST['Email'];
+                        
+                        $mail = new PHPMailer(true);
+                        $mail->isSMTP();
+                        $mail->SMTPAuth = true;
+                        $mail->Host = 'mail.amra-amra.se';
+                        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                        $mail->Username = "info@amra-amra.se";
+                        $mail->Password = "AmraShobaiAdmin";
+                        $mail->Port = 587;
+                        $mail->setFrom("info@amra-amra.se", "AmraAmra");
+    
+                        //$mail->addAddress("zahiralasad@yahoo.com", "Zahir");
+    
+                        $mail->addAddress($email, $name);
+                        $mail->Subject = "Registration Confirmed";
+                        $mail->Body = "Hi ".$name.", \n We confim that we have received your information. Please make sure your payment is done. We will update your membership status as soon as we will recieve your payment. Please check our Members page. \nThanks for your participation. \nBest Regards, \nAmra-Amra";
+                        $mail->send();                   
+    
+                        echo "Hi $name, \n We have received your registration request. \n A confirmation email has sent to $email. \n Thanks for joning with us \n Amra-Amra";
+                        break;
+                case "gamereg":
+                    break;
+                case "memberreg":
                     break;
                 case "adminreg":
-                    echo "I am in admin reg";
+                    echo "I am in adminreg";
                     break;
             }
+
     }
-    $conn->close();
+
 ?>

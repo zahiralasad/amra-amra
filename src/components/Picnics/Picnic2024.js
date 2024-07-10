@@ -59,7 +59,7 @@ function Picnic2024() {
   }
 
   const sendEmail = (fData) => {
-    fData.append('request', 'sendemail');
+    fData.append('request', 'picnicRegistrationEmail');
     axios.post(apiUrl, fData)
       .then(response => {
         console.log(response.data); 
