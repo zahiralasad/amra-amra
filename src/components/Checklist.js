@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 function Checklist() {
-    const url = "";
+    //const url = "https://script.google.com/macros/s/AKfycbyHlPtLBBEoWFs3aKPqf4xM1X2GW9XS8aPDUPePdXUBXVJVSVNO2vNP8VCeHi3U5P-_-w/exec";
+    const url ="https://script.google.com/macros/s/AKfycby0GPcRIXtO3Pi1MK4u9AcoklsypIvoz1u1ZTw2om9JX_8dct5rS2bhA8WlPAWYr15q/exec";
     // const apiUrl = "https://amra-amra.se/emailApi/";
     const [entries, setEntries] = useState([]);
     const [error, setError] = useState(null);
