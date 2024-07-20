@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 
 function Checklist() {
     //const url = "https://script.google.com/macros/s/AKfycbyHlPtLBBEoWFs3aKPqf4xM1X2GW9XS8aPDUPePdXUBXVJVSVNO2vNP8VCeHi3U5P-_-w/exec";
-    const url ="https://script.google.com/macros/s/AKfycbxFZGnYUV660OpWKLJ03ZITJPeJMYcPZeIMKVAeVj0oI8YMJt-JHt42KDaadqOwHolS/exec";
+    const url ="https://script.google.com/macros/s/AKfycby3IN1Ffzijd_Gdwxdp_ETSePm_4irVzbP3gHBczPLHe28EOx2fB3Y3KQvolsmX51FR/exec";
     // const apiUrl = "https://amra-amra.se/emailApi/";
     const [entries, setEntries] = useState([]);
     const [error, setError] = useState(null);
@@ -36,11 +36,18 @@ function Checklist() {
                     <th>BigKids</th>
                     <th>SmallKids</th>
                     <th>Babies</th>
+                    <th>Phone</th>
+                    <th>Bus Stop</th>
                 </thead>
             {entries.map((entry) => 
                 <tr>
                     <th>{entry.entryNo}</th>
-                    <th>{entry.adults}</th>
+                    <th>{entry.adults.join(", ")}</th>
+                    <th>{entry.bigKids.join(", ")}</th>
+                    <th>{entry.smallKids.join(", ")}</th>
+                    <th>{entry.babies.join(", ")}</th>
+                    <th>{entry.phone}</th>
+                    <th>{entry.busStop}</th>
                 </tr>
                 
             )}

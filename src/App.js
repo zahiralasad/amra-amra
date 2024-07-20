@@ -53,7 +53,6 @@ function App() {
           </div>
         </div>
         {/* <Footer/> */}
-        <Header />
       </div>
     </BrowserRouter>
   )
