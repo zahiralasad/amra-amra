@@ -109,6 +109,9 @@ function Header() {
         <Nav.Item>
           <Nav.Link eventKey="members" href="members">Members</Nav.Link>
         </Nav.Item>
+        <Nav.Item>
+          <Nav.Link eventKey="admin" href="admin">Admin</Nav.Link>
+        </Nav.Item>
       </Nav>
     </div>
   );

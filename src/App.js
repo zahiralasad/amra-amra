@@ -10,13 +10,14 @@ import Picnic from "./components/Picnics/Picnic";
 import RegisterToPicnic from "./components/Picnics/RegisterToPicnic";
 import Contacts from "./components/Contacts";
 import Aboutus from "./components/Aboutus";
-import Admin from "./components/Admin";
+import Admin from "./components/Admin/Admin";
 import Header from "./components/Header/Header"
 import Events from "./components/Events";
 import Info from "./components/Info";
 import Members from "./components/Members";
 import RegisterMember from "./components/RegisterMember";
-import Checklist from "./components/Checklist";
+import StickyLoginButton from "./components/Admin/StickyLoginButton";
+import Checklist from "./components/Picnics/Checklist";
 import Test from "./components/Test/Test";
 
 import "./App.css"
@@ -47,12 +48,12 @@ function App() {
               <Route path="members" element={<Members/>} />
               <Route path="registermember" element={<RegisterMember/>} />
               <Route path="info" element={<Info/>} />
+              <Route path="adminlogin" element={<StickyLoginButton/>} />
               <Route path="checklist" element={<Checklist/>} />
               <Route path="test" element={<Test/>} />
             </Routes>
           </div>
         </div>
-        {/* <Footer/> */}
       </div>
     </BrowserRouter>
   )
