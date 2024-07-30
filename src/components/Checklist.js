@@ -4,7 +4,7 @@ import Table from 'react-bootstrap/Table';
 
 function Checklist() {
     //const url = "https://script.google.com/macros/s/AKfycbyHlPtLBBEoWFs3aKPqf4xM1X2GW9XS8aPDUPePdXUBXVJVSVNO2vNP8VCeHi3U5P-_-w/exec";
-    const url ="https://script.google.com/macros/s/AKfycbxFZGnYUV660OpWKLJ03ZITJPeJMYcPZeIMKVAeVj0oI8YMJt-JHt42KDaadqOwHolS/exec";
+    const url ="https://script.google.com/macros/s/AKfycbxK35hx548GJF6BMMsvxYir2FnJZnU57nRcyXA98vS5IRcO-1OVyx8IkEPlAvyxqqO_/exec";
     // const apiUrl = "https://amra-amra.se/emailApi/";
     const [entries, setEntries] = useState([]);
     const [error, setError] = useState(null);
@@ -40,7 +40,10 @@ function Checklist() {
             {entries.map((entry) => 
                 <tr>
                     <th>{entry.entryNo}</th>
-                    <th>{entry.adults}</th>
+                    <th>{entry.adults.join(", ")}</th>
+                    <th>{entry.bigKids.join(", ")}</th>
+                    <th>{entry.smallKids.join(", ")}</th>
+                    <th>{entry.babies.join(", ")}</th>
                 </tr>
                 
             )}
