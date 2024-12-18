@@ -14,25 +14,24 @@
 .Banner-top-row{
     height: 60%; /* Each row takes 50% of the left column height */
     background-color: black; /* Example background */
-    padding: 10px;
+    padding: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
 }
 .Banner-bottom-row{
     height: 40%; /* Each row takes 50% of the left column height */
     padding: 10px;
     text-align: center;
 }
-/* .Banner-right-column {
-    text-align: center;                                 
-    padding: 50px 0 90px 0;
-    background: #e31837;
-} */
 .Banner-right-column{
-    width: 85%;
+    width: 100%;
     height: 100%;
     background-color: black; /* Base color */
     clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0 100%);
     position: relative;
     color: white;
+    padding: 20px;
+    overflow: visible;
+    text-align: center;
 }
 .Ad-field{
     width: 100%;
@@ -40,4 +39,42 @@
     background-color: #051400f5;
     margin-top: 5px;
     border: 1px solid white; /* Add a white border */
+}
+.Ad-field h5{
+    text-transform: uppercase;
+    color: red;
+    text-align: right;
+    animation: 
+        move-rtl 9000ms linear infinite,
+        blink 1s infinite;
+}
+.banner-item{
+    width: 150px; /* Size of the square */
+    height: 200px;
+    background-color: red; /* Background color of the square */
+    position: absolute; /* Positioning relative to the parent */
+    top: 40px; /* Position from the top of the parent */
+    left: 20px; /* Position from the left of the parent */
+    border: 2px solid white; /* Optional border */
+    z-index: 1; 
+}
+
+@keyframes move-rtl {
+    0% {
+        transform: translate(0);
+    }
+    100% {
+        transform: translate(-100%);
+    }
+}
+@keyframes blink {
+    0%{
+        color: red;
+    }
+    50%{
+        color: white;
+    }
+    100% {
+        color: red;
+    }
 }
