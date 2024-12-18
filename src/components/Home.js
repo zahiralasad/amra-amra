@@ -1,10 +1,15 @@
 import React from 'react';
-import logo from '../images/logo.png';
+//import logo from '../images/logo.png';
+import Banner from './Banner/Banner';
+
 
 function Home() {
     return (
-        <div className="text-center text-white">
-            Home page
+        <div>
+            <Banner/>
+            <div className="text-center text-white">
+                Home page
+            </div>
         </div>
     )
 }
