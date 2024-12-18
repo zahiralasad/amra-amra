@@ -1,25 +1,25 @@
 .Banner {
     display: flex;
     width: 100%;
-    height: 300px;
+    height: 400px;
     background-color: rgb(236, 200, 38);
     border: 1px solid white; /* Add a white border */
     
 }
 .Banner-left-column{
-    width: 20%; /* Left column takes 20% of the container width */
+    width: 250px; /* Left column takes 20% of the container width */
     display: flex;
     flex-direction: column; /* Stack rows vertically */
 }
 .Banner-top-row{
-    height: 50%; /* Each row takes 50% of the left column height */
-    background-color: lightgreen; /* Example background */
+    height: 60%; /* Each row takes 50% of the left column height */
+    background-color: black; /* Example background */
     padding: 10px;
 }
 .Banner-bottom-row{
-    height: 50%; /* Each row takes 50% of the left column height */
-    background-color: lightgreen; /* Example background */
+    height: 40%; /* Each row takes 50% of the left column height */
     padding: 10px;
+    text-align: center;
 }
 /* .Banner-right-column {
     text-align: center;                                 
@@ -27,21 +27,17 @@
     background: #e31837;
 } */
 .Banner-right-column{
-    width: 80%; /* Right column takes 80% of the container width */
-    position: relative; /* Needed for positioning the line */
-    /* background-color: black; */
-    
+    width: 85%;
+    height: 100%;
+    background-color: black; /* Base color */
+    clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0 100%);
+    position: relative;
+    color: white;
 }
-.Banner-right-column::after {
-    content: '';
-    position: absolute;
-    top: 60%; /* Start below the line */
-    left: 0;
+.Ad-field{
     width: 100%;
-    height: 60%; /* Adjust this height based on the remaining space */
-    background-color: black; /* Background color below the line */
-    transform: rotate(-4deg);
-    z-index: 1; /* Place background behind the line */
+    height: 30px;
+    background-color: #051400f5;
+    margin-top: 5px;
+    border: 1px solid white; /* Add a white border */
 }
-
-

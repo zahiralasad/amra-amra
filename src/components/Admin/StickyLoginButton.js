@@ -1,6 +1,9 @@
-import React from 'react';
+import {React, useState} from 'react';
+import Admin from './Admin';
 
 const StickyLoginButton = () => {
+  const [modalShow, setModalShow]=useState(false);
+  
   const buttonStyle = {
     position: 'fixed',
     bottom: '20px',
@@ -19,13 +22,20 @@ const StickyLoginButton = () => {
 
   const handleClick = () => {
     // Handle the login action here
-    alert('Login button clicked!');
+    setModalShow(true);  
   };
 
   return (
-    <button style={buttonStyle} onClick={handleClick}>
-      Admin Login
-    </button>
+    <>
+      <button style={buttonStyle} onClick={handleClick}>
+        Admin Login
+      </button>
+      {/* <Admin 
+        show={modalShow}
+        onHide={() => setModalShow(false)}
+      /> */}
+      <div>Help</div>
+    </>
   );
 };
 
