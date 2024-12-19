@@ -31,8 +31,8 @@ function Header() {
 
   return (
     <div id="header">
-      <div className="row banner text-white" id="menuicons">
-        <div className='col mx-3'>
+      <div className="row text-white" id="menuicons">
+        <div className='col mx-2'>
           <img className="" src={logo} alt="logo" style={{ height: "36px" }} />
           <span className="mx-2 text-white">আমরা-আমরা</span>
         </div>
@@ -48,21 +48,6 @@ function Header() {
         <Nav.Item>
           <Nav.Link eventKey="events" href="events">Events</Nav.Link>
         </Nav.Item>
-
-        {/* <Dropdown as={Nav.Item}>
-          <Dropdown.Toggle as={Nav.Link}>
-            Events
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu className='dropdown-small'>
-            <Dropdown.Item href="picnic2024" className="rounded">Picnic 2024</Dropdown.Item>
-            <Dropdown.Item href="picnic2023" className="rounded">Picnic 2023</Dropdown.Item>
-            <Dropdown.Item href="picnic2022" className="rounded">Picnic 2022</Dropdown.Item>
-            <Dropdown.Item href="picnic2021" className="rounded">Picnic 2021</Dropdown.Item>
-            <Dropdown.Item href="picnic2019" className="rounded">Picnic 2019</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown> */}
-
         <Nav.Item>
           <Nav.Link eventKey="contacts" href="contacts">Contacts</Nav.Link>
         </Nav.Item>
@@ -85,21 +70,6 @@ function Header() {
         <Nav.Item>
           <Nav.Link eventKey="events" href="events">Events</Nav.Link>
         </Nav.Item>
-
-        {/* <Dropdown as={Nav.Item}>
-          <Dropdown.Toggle as={Nav.Link}>
-            Events
-          </Dropdown.Toggle>
-
-          <Dropdown.Menu>
-            <Dropdown.Item href="picnic2024" className="rounded">Picnic 2024</Dropdown.Item>
-            <Dropdown.Item href="picnic2023" className="rounded">Picnic 2023</Dropdown.Item>
-            <Dropdown.Item href="picnic2022" className="rounded">Picnic 2022</Dropdown.Item>
-            <Dropdown.Item href="picnic2021" className="rounded">Picnic 2021</Dropdown.Item>
-            <Dropdown.Item href="picnic2019" className="rounded">Picnic 2019</Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown> */}
-
         <Nav.Item>
           <Nav.Link eventKey="contacts" href="contacts">Contacts</Nav.Link>
         </Nav.Item>

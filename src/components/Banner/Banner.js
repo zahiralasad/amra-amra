@@ -5,7 +5,7 @@ import logo from './logo_122x100.jpg';
 function Banner() {
     return (
         <>
-            <div className="Banner">
+            <div className="Banner" id="bigscreen">
                 <div className="Banner-left-column">
                     <img className="Banner-top-row" src={logo} />
                     <div className="Banner-bottom-row">

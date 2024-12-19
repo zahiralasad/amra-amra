@@ -60,6 +60,13 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
 }
 
+#smallscreen{
+    display: none;
+}
+#smallscreen.show{
+    display: block;
+}
+
 @keyframes move-rtl {
     0% {
         transform: translate(20%);
@@ -77,5 +84,25 @@
     }
     100% {
         color: red;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    #bigscreen{
+        display: none;
+    }
+    .Ad-field{
+        height: 25px;
+    }
+    .Ad-field h5{
+        font-size:medium;
+    }
+    @keyframes move-rtl {
+        0% {
+            transform: translate(50%);
+        }
+        100% {
+            transform: translate(-100%);
+        }
     }
 }
