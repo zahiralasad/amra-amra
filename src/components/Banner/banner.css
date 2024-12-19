@@ -48,20 +48,21 @@
         move-rtl 9000ms linear infinite,
         blink 1s infinite;
 }
-.banner-item{
+.Banner-item{
     width: 150px; /* Size of the square */
-    height: 200px;
+    height: 180px;
     background-color: red; /* Background color of the square */
     position: absolute; /* Positioning relative to the parent */
     top: 40px; /* Position from the top of the parent */
     left: 20px; /* Position from the left of the parent */
-    border: 2px solid white; /* Optional border */
-    z-index: 1; 
+    border: 3px solid white; /* Optional border */
+    transform: rotate(-5deg);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
 }
 
 @keyframes move-rtl {
     0% {
-        transform: translate(0);
+        transform: translate(20%);
     }
     100% {
         transform: translate(-100%);

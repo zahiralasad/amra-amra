@@ -16,10 +16,16 @@ function Banner() {
                 <div className="Banner-right-column">
                     {/* <div className="banner-item"></div> */}
                 </div>
+                <div className="Banner-item" style={{left:"27%", top:"24%"}}></div>
+                <div className="Banner-item" style={{left:"45%", top:"21%"}}></div>
+                <div className="Banner-item" style={{left:"63%", top:"18%"}}></div>
+                <div className="Banner-item" style={{left:"81%", top:"15%"}}></div>
             </div>
+            
             <div className="Ad-field">
                 <h5>New event coming soon</h5>
             </div>
+            
         </>
     )
 }

@@ -1,0 +1,172 @@
+[08-May-2024 11:35:30 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in /home1/amraamra/public_html/emailApi/index.php on line 13
+[08-May-2024 11:37:42 America/Chicago] PHP Warning:  require(vandor/autoload.php): Failed to open stream: No such file or directory in /home1/amraamra/public_html/emailApi/index.php on line 8
+[08-May-2024 11:37:42 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required 'vandor/autoload.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home1/amraamra/public_html/emailApi/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /home1/amraamra/public_html/emailApi/index.php on line 8
+[08-May-2024 11:39:35 America/Chicago] PHP Warning:  require(vandor/autoload.php): Failed to open stream: No such file or directory in /home1/amraamra/public_html/emailApi/index.php on line 8
+[08-May-2024 11:39:35 America/Chicago] PHP Fatal error:  Uncaught Error: Failed opening required 'vandor/autoload.php' (include_path='.:/opt/cpanel/ea-php82/root/usr/share/pear') in /home1/amraamra/public_html/emailApi/index.php:8
+Stack trace:
+#0 {main}
+  thrown in /home1/amraamra/public_html/emailApi/index.php on line 8
+[08-May-2024 11:44:25 America/Chicago] PHP Warning:  Undefined variable $method in /home1/amraamra/public_html/emailApi/index.php on line 14
+[08-May-2024 11:44:25 America/Chicago] PHP Warning:  Undefined variable $method in /home1/amraamra/public_html/emailApi/index.php on line 23
+[08-May-2024 11:44:25 America/Chicago] PHP Warning:  Undefined variable $conn in /home1/amraamra/public_html/emailApi/index.php on line 100
+[08-May-2024 11:44:25 America/Chicago] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in /home1/amraamra/public_html/emailApi/index.php:100
+Stack trace:
+#0 {main}
+  thrown in /home1/amraamra/public_html/emailApi/index.php on line 100
+[08-May-2024 11:45:55 America/Chicago] PHP Warning:  Undefined variable $conn in /home1/amraamra/public_html/emailApi/index.php on line 101
+[08-May-2024 11:45:55 America/Chicago] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in /home1/amraamra/public_html/emailApi/index.php:101
+Stack trace:
+#0 {main}
+  thrown in /home1/amraamra/public_html/emailApi/index.php on line 101
+[08-May-2024 11:46:19 America/Chicago] PHP Warning:  Undefined variable $conn in /home1/amraamra/public_html/emailApi/index.php on line 101
+[08-May-2024 11:46:19 America/Chicago] PHP Fatal error:  Uncaught Error: Call to a member function close() on null in /home1/amraamra/public_html/emailApi/index.php:101
+Stack trace:
+#0 {main}
+  thrown in /home1/amraamra/public_html/emailApi/index.php on line 101
+[08-May-2024 11:47:57 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 15
+[08-May-2024 11:48:43 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 15
+[08-May-2024 11:49:27 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 15
+[08-May-2024 11:50:02 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 15
+[08-May-2024 11:51:36 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 15
+[08-May-2024 11:51:51 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 15
+[08-May-2024 11:54:06 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 16
+[08-May-2024 11:55:47 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 17
+[08-May-2024 11:59:03 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 17
+[08-May-2024 14:29:24 America/Chicago] PHP Parse error:  syntax error, unexpected token "<", expecting "case" or "default" or "}" in /home1/amraamra/public_html/emailApi/index.php on line 17
+[08-May-2024 15:41:37 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined method PHPMailer\PHPMailer\PHPMailer::setForm() in /home1/amraamra/public_html/emailApi/index.php:31
+Stack trace:
+#0 {main}
+  thrown in /home1/amraamra/public_html/emailApi/index.php on line 31
+[08-May-2024 17:16:02 America/Chicago] PHP Warning:  Undefined array key "Name" in /home1/amraamra/public_html/emailApi/index.php on line 24
+[08-May-2024 17:16:02 America/Chicago] PHP Deprecated:  strtok(): Passing null to parameter #1 ($string) of type string is deprecated in /home1/amraamra/public_html/emailApi/index.php on line 24
+[08-May-2024 17:16:02 America/Chicago] PHP Warning:  Undefined array key "Email" in /home1/amraamra/public_html/emailApi/index.php on line 25
+[08-May-2024 17:16:02 America/Chicago] PHP Warning:  Undefined array key "Swish" in /home1/amraamra/public_html/emailApi/index.php on line 26
+[08-May-2024 17:16:02 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', NULL, false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress(NULL, false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:00:56 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:02:39 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:03:52 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:40:09 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:42:27 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:42:27 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:42:28 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:42:28 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:42:28 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:42:28 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:42:28 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:42:29 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 05:42:29 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 06:00:19 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 06:00:35 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 06:13:31 America/Chicago] PHP Fatal error:  Uncaught PHPMailer\PHPMailer\Exception: Invalid address:  (to):  in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php:1101
+Stack trace:
+#0 /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php(1021): PHPMailer\PHPMailer\PHPMailer->addOrEnqueueAnAddress('to', '', false)
+#1 /home1/amraamra/public_html/emailApi/index.php(38): PHPMailer\PHPMailer\PHPMailer->addAddress('', false)
+#2 {main}
+  thrown in /home1/amraamra/public_html/emailApi/vendor/phpmailer/phpmailer/src/PHPMailer.php on line 1101
+[09-May-2024 06:53:14 America/Chicago] PHP Warning:  Undefined array key "Name" in /home1/amraamra/public_html/emailApi/index.php on line 24
+[09-May-2024 06:53:14 America/Chicago] PHP Deprecated:  strtok(): Passing null to parameter #1 ($string) of type string is deprecated in /home1/amraamra/public_html/emailApi/index.php on line 24
+[09-May-2024 07:02:46 America/Chicago] PHP Warning:  Undefined array key "Name" in /home1/amraamra/public_html/emailApi/index.php on line 24
+[09-May-2024 07:02:46 America/Chicago] PHP Deprecated:  strtok(): Passing null to parameter #1 ($string) of type string is deprecated in /home1/amraamra/public_html/emailApi/index.php on line 24
+[09-May-2024 07:02:47 America/Chicago] PHP Warning:  Undefined array key "Name" in /home1/amraamra/public_html/emailApi/index.php on line 24
+[09-May-2024 07:02:47 America/Chicago] PHP Deprecated:  strtok(): Passing null to parameter #1 ($string) of type string is deprecated in /home1/amraamra/public_html/emailApi/index.php on line 24
+[09-May-2024 07:18:42 America/Chicago] PHP Warning:  Undefined array key "Name" in /home1/amraamra/public_html/emailApi/index.php on line 24
+[09-May-2024 07:18:42 America/Chicago] PHP Deprecated:  strtok(): Passing null to parameter #1 ($string) of type string is deprecated in /home1/amraamra/public_html/emailApi/index.php on line 24
+[10-Jul-2024 07:11:28 America/Chicago] PHP Warning:  Undefined array key "Name" in /home1/amraamra/public_html/emailApi/index.php on line 28
+[10-Jul-2024 07:11:28 America/Chicago] PHP Deprecated:  strtok(): Passing null to parameter #1 ($string) of type string is deprecated in /home1/amraamra/public_html/emailApi/index.php on line 28
+[10-Jul-2024 07:12:32 America/Chicago] PHP Warning:  Undefined array key "Name" in /home1/amraamra/public_html/emailApi/index.php on line 28
+[10-Jul-2024 07:12:32 America/Chicago] PHP Deprecated:  strtok(): Passing null to parameter #1 ($string) of type string is deprecated in /home1/amraamra/public_html/emailApi/index.php on line 28
+[10-Jul-2024 07:15:29 America/Chicago] PHP Warning:  Undefined array key "Name" in /home1/amraamra/public_html/emailApi/index.php on line 28
+[10-Jul-2024 07:15:29 America/Chicago] PHP Deprecated:  strtok(): Passing null to parameter #1 ($string) of type string is deprecated in /home1/amraamra/public_html/emailApi/index.php on line 28
+[10-Jul-2024 07:17:45 America/Chicago] PHP Warning:  Undefined array key "Name" in /home1/amraamra/public_html/emailApi/index.php on line 28
+[10-Jul-2024 07:17:45 America/Chicago] PHP Deprecated:  strtok(): Passing null to parameter #1 ($string) of type string is deprecated in /home1/amraamra/public_html/emailApi/index.php on line 28
+[10-Jul-2024 07:54:57 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function n12br() in /home1/amraamra/public_html/emailApi/index.php:72
+Stack trace:
+#0 {main}
+  thrown in /home1/amraamra/public_html/emailApi/index.php on line 72
+[10-Jul-2024 07:59:48 America/Chicago] PHP Fatal error:  Uncaught Error: Call to undefined function n12br() in /home1/amraamra/public_html/emailApi/index.php:72
+Stack trace:
+#0 {main}
+  thrown in /home1/amraamra/public_html/emailApi/index.php on line 72

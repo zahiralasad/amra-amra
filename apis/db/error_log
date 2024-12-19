@@ -1,0 +1,5 @@
+[08-May-2024 06:49:15 America/Chicago] PHP Fatal error:  Uncaught mysqli_sql_exception: Table 'amraamra_picnics.team_entries' doesn't exist in /home1/amraamra/public_html/db/index.php:18
+Stack trace:
+#0 /home1/amraamra/public_html/db/index.php(18): mysqli_query(Object(mysqli), 'select * from t...')
+#1 {main}
+  thrown in /home1/amraamra/public_html/db/index.php on line 18
