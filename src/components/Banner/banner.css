@@ -49,8 +49,8 @@
         blink 1s infinite;
 }
 .Banner-item{
-    width: 150px; /* Size of the square */
-    height: 180px;
+    width: 15%; /* Size of the square */
+    height: 25%;
     background-color: red; /* Background color of the square */
     position: absolute; /* Positioning relative to the parent */
     top: 40px; /* Position from the top of the parent */
@@ -97,6 +97,10 @@
     .Ad-field h5{
         font-size:medium;
     }
+    /* .Banner-item {
+        width: 100px;
+        height: 120px;
+    } */
     @keyframes move-rtl {
         0% {
             transform: translate(50%);

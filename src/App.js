@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar_old";
-import Home from "./components/Home";
+import Home from "./components/Home/Home";
 import Picnic2024 from "./components/Picnics/Picnic2024";
 import Picnic2023 from "./components/Picnics/Picnic2023";
 import Picnic2022 from "./components/Picnics/Picnic2022";
