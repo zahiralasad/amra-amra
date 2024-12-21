@@ -7,18 +7,17 @@
     
 }
 .Banner-left-column{
-    width: 250px; /* Left column takes 20% of the container width */
+    width: 230px; /* Left column takes 20% of the container width */
     display: flex;
     flex-direction: column; /* Stack rows vertically */
 }
 .Banner-top-row{
-    height: 60%; /* Each row takes 50% of the left column height */
+    height: 230px; /* Each row takes 50% of the left column height */
     background-color: black; /* Example background */
     padding: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
 }
 .Banner-bottom-row{
-    height: 40%; /* Each row takes 50% of the left column height */
     padding: 10px;
     text-align: center;
 }
@@ -26,7 +25,7 @@
     width: 100%;
     height: 100%;
     background-color: black; /* Base color */
-    clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0 100%);
+    clip-path: polygon(0 230px, 100% 130px, 100% 100%, 0 100%);
     position: relative;
     color: white;
     padding: 20px;
@@ -49,8 +48,8 @@
         blink 1s infinite;
 }
 .Banner-item{
-    width: 15%; /* Size of the square */
-    height: 25%;
+    width: 50px; /* Size of the square */
+    height: 70px;
     background-color: red; /* Background color of the square */
     position: absolute; /* Positioning relative to the parent */
     top: 40px; /* Position from the top of the parent */
