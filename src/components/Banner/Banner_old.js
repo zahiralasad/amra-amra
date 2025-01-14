@@ -7,9 +7,9 @@ function Banner() {
     return (
         <div className="container">
             <div className="row Banner" id="bigscreen">
-
                 <div className="col-1 Banner-left-column">
-                    <img className="Banner-top-row" style={{background: "black"}} src={logo} />
+                    {/* <img className="Banner-top-row" style={{background: "black"}} src={logo} /> */}
+                    <div className="Banner-top-row"></div>
                     <div className="Banner-bottom-row">
                         <h5>আমরা-আমরা</h5>
                         <h7> সুইডেনে বসবাসরত বাংলাদেশীদের নিয়ে গঠিত একটি অলাভজনক সংগঠন যার লক্ষ্য দেশীয় সংস্কৃতি চর্চা করা</h7>

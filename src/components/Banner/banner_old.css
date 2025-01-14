@@ -1,24 +1,20 @@
 .Banner {
     display: flex;
-    width: 100%;
     height: 400px;
-    background-color: rgb(236, 200, 38);
+    background-color: rgb(236, 200, 38); 
     border: 1px solid white; /* Add a white border */
-
 }
 .Banner-left-column{
-    width: 250px; /* Left column takes 20% of the container width */
+    width: 230px; /* Left column takes 20% of the container width */
     display: flex;
     flex-direction: column; /* Stack rows vertically */
 }
 .Banner-top-row{
-    height: 60%; /* Each row takes 50% of the left column height */
+    height: 230px; /* Each row takes 50% of the left column height */
     background-color: black; /* Example background */
-    padding: 0;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
 }
 .Banner-bottom-row{
-    height: 40%; /* Each row takes 50% of the left column height */
     padding: 10px;
     text-align: center;
 }
@@ -26,7 +22,7 @@
     width: 100%;
     height: 100%;
     background-color: black; /* Base color */
-    clip-path: polygon(0 60%, 100% 40%, 100% 100%, 0 100%);
+    clip-path: polygon(0 230px, 100% 130px, 100% 100%, 0 100%);
     position: relative;
     color: white;
     padding: 20px;
@@ -34,7 +30,6 @@
     text-align: center;
 }
 .Ad-field{
-    width: 100%;
     height: 30px;
     background-color: #051400f5;
     margin-top: 5px;
@@ -48,19 +43,28 @@
         move-rtl 9000ms linear infinite,
         blink 1s infinite;
 }
-.banner-item{
-    width: 150px; /* Size of the square */
-    height: 200px;
+.Banner-item{
+    width: 50px; /* Size of the square */
+    height: 70px;
     background-color: red; /* Background color of the square */
     position: absolute; /* Positioning relative to the parent */
     top: 40px; /* Position from the top of the parent */
     left: 20px; /* Position from the left of the parent */
-    border: 2px solid white; /* Optional border */
-    z-index: 1; 
+    border: 3px solid white; /* Optional border */
+    transform: rotate(-5deg);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
 }
+
+#smallscreen{
+    display: none;
+}
+#smallscreen.show{
+    display: block;
+}
+
 @keyframes move-rtl {
     0% {
-        transform: translate(0);
+        transform: translate(20%);
     }
     100% {
         transform: translate(-100%);
@@ -78,17 +82,26 @@
     }
 }
 
-@media only screen and (min-width: 431px) and (max-width: 768px) {
-    .Banner{
-        height: 300px;
+@media screen and (max-width: 767px) {
+    #bigscreen{
+        display: none;
     }
-
-}
-@media only screen and (max-width: 430px) {
-    .Banner-left-column{
-        display: none! important;
+    .Ad-field{
+        height: 25px;
     }
-    .Banner-bottom-row{
-        padding-bottom: 1px;
+    .Ad-field h5{
+        font-size:medium;
+    }
+    /* .Banner-item {
+        width: 100px;
+        height: 120px;
+    } */
+    @keyframes move-rtl {
+        0% {
+            transform: translate(50%);
+        }
+        100% {
+            transform: translate(-100%);
+        }
     }
 }
