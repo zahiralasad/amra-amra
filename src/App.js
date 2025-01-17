@@ -18,6 +18,7 @@ import Members from "./components/Members";
 import RegisterMember from "./components/RegisterMember";
 import StickyLoginButton from "./components/Admin/StickyLoginButton";
 import Checklist from "./components/Picnics/Checklist";
+import RegisterToEnter from "./components/IndorGames/RegisterToEnter";
 import Test from "./components/Test/Test";
 
 import "./App.css"
@@ -33,23 +34,30 @@ function App() {
           <div className="main p-1">
             <Routes>
               <Route path="/" element={<Home />} />
+              <Route path="contacts" element={<Contacts/>} />
+              <Route path="aboutus" element={<Aboutus/>} />
+              <Route path="admin" element={<Admin/>} />
+              <Route path="events" element={<Events/>} />
+              <Route path="members" element={<Members/>} />
+              <Route path="registermember" element={<RegisterMember/>} />
+              <Route path="info" element={<Info/>} />
+              {/* <Route path="adminlogin" element={<StickyLoginButton/>} /> */}
+              <Route path="checklist" element={<Checklist/>} />
               {/* <Route path="/" element={<Info />} /> */}
+
+              {/************ Picnics *************/}
               <Route path="picnic2024" element={<Picnic2024/>} />
               <Route path="picnic2023" element={<Picnic2023/>} />
               <Route path="picnic2022" element={<Picnic2022/>} />
               <Route path="picnic2021" element={<Picnic2021/>} />
               <Route path="picnic2019" element={<Picnic2019/>} />
-              <Route path="contacts" element={<Contacts/>} />
-              <Route path="aboutus" element={<Aboutus/>} />
-              <Route path="admin" element={<Admin/>} />
-              <Route path="events" element={<Events/>} />
               <Route path="picnic" element={<Picnic/>} />
               <Route path="registertopicnic" element={<RegisterToPicnic/>} />
-              <Route path="members" element={<Members/>} />
-              <Route path="registermember" element={<RegisterMember/>} />
-              <Route path="info" element={<Info/>} />
-              <Route path="adminlogin" element={<StickyLoginButton/>} />
-              <Route path="checklist" element={<Checklist/>} />
+
+              {/************ Indor Games *************/}
+              <Route path="entryform" element={<RegisterToEnter/>} />
+
+              {/************ Test *************/}
               <Route path="test" element={<Test/>} />
             </Routes>
           </div>

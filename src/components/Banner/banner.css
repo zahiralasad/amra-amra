@@ -4,7 +4,7 @@
     height: 400px;
     background-color: rgb(236, 200, 38);
     border: 1px solid white; /* Add a white border */
-
+    padding: 0;
 }
 .Banner-left-column{
     width: 250px; /* Left column takes 20% of the container width */
@@ -48,15 +48,16 @@
         move-rtl 9000ms linear infinite,
         blink 1s infinite;
 }
-.banner-item{
-    width: 150px; /* Size of the square */
-    height: 200px;
+.Banner-item{
+    width: 70px; /* Size of the square */
+    height: 100px;
     background-color: red; /* Background color of the square */
     position: absolute; /* Positioning relative to the parent */
     top: 40px; /* Position from the top of the parent */
     left: 20px; /* Position from the left of the parent */
-    border: 2px solid white; /* Optional border */
-    z-index: 1; 
+    border: 3px solid white; /* Optional border */
+    /* transform: rotate(-4.8deg); */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Shadow effect */
 }
 @keyframes move-rtl {
     0% {

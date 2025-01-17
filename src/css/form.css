@@ -1,0 +1,45 @@
+.form{
+    color: white;
+}
+
+.form h4{
+    display: flex;
+    justify-content: center;
+}
+
+.form-size {
+    display: flex;
+    flex-direction: column;
+    justify-items:  center;
+    width: 80%;
+}
+.form select {
+    font-size: 12px;
+}
+
+.form-check input {
+    font-size: 12px;
+}
+.form-check label {
+    font-size: 12px;
+}
+.form p {
+    font-size: 12px;
+}
+.input-group-text {
+    white-space: nowrap;
+    word-wrap: break-word;
+    font-size: 12px;
+}
+.form-control {
+    font-size: 12px;
+}
+input {
+    font-size: 20px;
+}
+.swishto{
+    font-size: 12;
+}
+/* span {
+    word-wrap: break-word;
+}  */
