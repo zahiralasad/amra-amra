@@ -63,7 +63,7 @@ function RegisterToEnter() {
   }
 
   const sendEmail = (fData) => {
-    fData.append('request', 'picnicRegistrationEmail');
+    fData.append('request', 'picnicRegistrationEmail'); // need to change
     axios.post(apiUrl, fData)
       .then(response => {
         console.log(response.data); 
@@ -79,8 +79,10 @@ function RegisterToEnter() {
         setModalShow(true);
       })
         //alert(error));
+        console.log("In Clear form: ",clearForm);
       if (clearForm === true ) {
-        document.getElementById("picnicForm").reset();
+        console.log("In Clear form: ",clearForm);
+        document.getElementById("entryForm").reset();
       }
   }
 
@@ -145,13 +147,13 @@ function RegisterToEnter() {
   }
 
   return (
-    <div className="picnic">
+    <div className="form">
       <div className="p-4 text-center rounded bg-dark">
         <h4>Registration Form for the Indoor Games Event</h4>
         <img src={banner} className="img-fluid" />
       </div>
       <div className="mt-1 p-2 rounded bg-dark">
-        <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
+        <form className="needs-validation" id="entryForm" onSubmit={(e) => Submit(e)}>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="d-flex mb-3 input-group border-bottom pb-1">
               <i className="bi bi-people-fill me-2"></i>
