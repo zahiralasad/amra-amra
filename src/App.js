@@ -18,7 +18,7 @@ import Members from "./components/Members";
 import RegisterMember from "./components/RegisterMember";
 import StickyLoginButton from "./components/Admin/StickyLoginButton";
 import Checklist from "./components/Picnics/Checklist";
-import RegisterToEnter from "./components/IndorGames/RegisterToEnter";
+import RegisterToEnter from "./components/IndoorGames/RegisterToEnter";
 import Test from "./components/Test/Test";
 
 import "./App.css"

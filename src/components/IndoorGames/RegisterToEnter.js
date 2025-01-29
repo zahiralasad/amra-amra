@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import banner from "../../images/form-banner.jpg";
+import banner from "../../images/form-banner-1.jpg";
 
 import axios from 'axios';
 
@@ -16,42 +16,45 @@ function RegisterToEnter() {
   const [babys, setBabys] = useState(0);
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
-  const [message,setMessage] = useState("");
-  
+  const [message, setMessage] = useState("");
+
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
-  const url ='https://script.google.com/macros/s/AKfycbyX44rC2CJZtHsnrW1YJb226BcU6uKdUiLHeufsLZP1l1mdyOQXceyeBEuNnJrLuNfc/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbyX44rC2CJZtHsnrW1YJb226BcU6uKdUiLHeufsLZP1l1mdyOQXceyeBEuNnJrLuNfc/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
 
   useEffect(() => {
     let cost = adults * 385 + bigkids * 285 + smallkids * 255 + babys * 0;
     document.getElementById("totalFee").value = cost;
     document.getElementById("cost").innerHTML = cost;
-  }) 
+  })
 
   useEffect(() => {
     randomName();
-}, []);
-  
+  }, []);
+
 
 
   function Submit(e) {
-      document.getElementById("register").disabled=true;
-      const formElm = document.querySelector('form');
-      e.preventDefault();
-      const formData = new FormData(formElm);
+    document.getElementById("register").disabled = true;
+    const formElm = document.querySelector('form');
+    e.preventDefault();
+    const formData = new FormData(formElm);
 
-    axios.post(url, formData)
-    .then(response => {
-      if(response.data === "successful"){
-        sendEmail(formData);
-      }else {
-        setTitle("Warning");
-        setMessage(response.data);
-        setModalShow(true);
-        document.getElementById("register").disabled=false;
-      }
-    }).catch(error => setResponse(error));
+    for (let [key, value] of formData.entries()) {
+      console.log(`${key}: ${value}`);
+    }
+    // axios.post(url, formData)
+    //   .then(response => {
+    //     if (response.data === "successful") {
+    //       sendEmail(formData);
+    //     } else {
+    //       setTitle("Warning");
+    //       setMessage(response.data);
+    //       setModalShow(true);
+    //       document.getElementById("register").disabled = false;
+    //     }
+    //   }).catch(error => setResponse(error));
   }
 
   const randomName = () => {
@@ -66,7 +69,7 @@ function RegisterToEnter() {
     fData.append('request', 'picnicRegistrationEmail'); // need to change
     axios.post(apiUrl, fData)
       .then(response => {
-        console.log(response.data); 
+        console.log(response.data);
         setClearForm(true);
         setTitle("Registration Completed");
         setMessage(response.data);
@@ -75,15 +78,15 @@ function RegisterToEnter() {
       .catch(error => {
         console.log(error);
         setTitle("Failed to Register");
-        setMessage(error); 
+        setMessage(error);
         setModalShow(true);
       })
-        //alert(error));
-        console.log("In Clear form: ",clearForm);
-      if (clearForm === true ) {
-        console.log("In Clear form: ",clearForm);
-        document.getElementById("entryForm").reset();
-      }
+    //alert(error));
+    console.log("In Clear form: ", clearForm);
+    if (clearForm === true) {
+      console.log("In Clear form: ", clearForm);
+      document.getElementById("entryForm").reset();
+    }
   }
 
   const addInput = (event, divId) => {
@@ -99,50 +102,89 @@ function RegisterToEnter() {
 
       const icon = document.createElement("i");
       if (divId === "adultContainer") {
-        icon.setAttribute("className", "bi bi-person-fill me-2");
+        icon.setAttribute("class", "bi bi-person-fill me-2");
       } else if (divId === "bigKidContainer") {
-        icon.setAttribute("className", "bi bi-person-standing me-2");
+        icon.setAttribute("class", "bi bi-person-standing me-2");
       } else if (divId === "smallKidContainer") {
-        icon.setAttribute("className", "bi bi-person-arms-up me-2");
+        icon.setAttribute("class", "bi bi-person-arms-up me-2");
       } else {
-        icon.setAttribute("className", "bi bi-balloon-fill me-2");
+        icon.setAttribute("class", "bi bi-balloon-fill me-2");
       }
 
       mainDiv.appendChild(icon);
 
-      const span2 = document.createElement("span")
-      span2.setAttribute("className", "input-group-text");
+      const span = document.createElement("span")
+      span.setAttribute("class", "input-group-text");
 
       if (divId === "adultContainer") {
-        span2.textContent = "Adult " + i;
+        span.textContent = "Adult " + i;
         setAdults(i);
         name = "Adult" + i;
       } else if (divId === "bigKidContainer") {
-        span2.textContent = "Big Kid " + i;
+        span.textContent = "Big Kid " + i;
         setBigKids(i);
         name = "Bigkid" + i;
       }
       else if (divId === "smallKidContainer") {
-        span2.textContent = "Small Kid " + i;
+        span.textContent = "Small Kid " + i;
         setSmallKids(i);
         name = "Smallkid" + i;
       } else {
-        span2.textContent = "Baby " + i;
+        span.textContent = "Baby " + i;
         setBabys(i);
         name = "Baby" + i;
       }
 
       const input = document.createElement("input");
-      input.setAttribute("className", "form-control");
+      input.setAttribute("class", "form-control");
       input.setAttribute("placeholder", "Full name");
       input.setAttribute("type", "text");
       input.setAttribute("Name", name);
       input.setAttribute("required", true)
 
-      mainDiv.appendChild(span2);
+      mainDiv.appendChild(span);
       mainDiv.appendChild(input);
 
       inputContainer.appendChild(mainDiv);
+      if (divId === "adultContainer") {
+      const participationDiv = document.createElement("div");
+      participationDiv.setAttribute("class", "d-flex align-items-center gap-3 mt-2");
+
+      const participateText = document.createElement("p");
+      participateText.textContent = "Participate in:";
+      participationDiv.appendChild(participateText);
+
+      const games = [
+        { id: "TableTannis", name: "TableTannis", label: "Table Tennis" },
+        { id: "Ludo", name: "Ludo", label: "Ludo" },
+        { id: "29", name: "29", label: "29" },
+        { id: "Chess", name: "Chess", label: "Chess" },
+      ];
+
+      games.forEach(game => {
+        const formCheck = document.createElement("div");
+        formCheck.setAttribute("class", "form-check");
+
+        const checkbox = document.createElement("input");
+        checkbox.setAttribute("class", "form-check-input");
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("name", game.name);
+        checkbox.setAttribute("value", "Yes");
+        checkbox.setAttribute("id", game.id);
+
+        const label = document.createElement("label");
+        label.setAttribute("class", "form-check-label");
+        label.setAttribute("for", game.id);
+        label.textContent = game.label;
+
+        formCheck.appendChild(checkbox);
+        formCheck.appendChild(label);
+        participationDiv.appendChild(formCheck);
+      });
+
+      // Append participationDiv to container
+      inputContainer.appendChild(participationDiv);
+    }
     }
   }
 
@@ -177,6 +219,33 @@ function RegisterToEnter() {
                 <i className="bi bi-person-fill me-2"></i>
                 <span className="input-group-text">Adult 1</span>
                 <input Name="Adult1" className="form-control" placeholder="Full name" type="text" required />
+              </div>
+              <div className="d-flex align-items-center gap-3">
+                <p>Participate in:</p>
+                <div className="form-check">
+                  <input Name="TableTannis" Value="Yes" className="form-check-input" type="checkbox" id="TableTannis" />
+                  <label className="form-check-label" for="TableTannis">
+                    Table Tennis
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input Name="Ludo" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
+                  <label className="form-check-label" for="flexCheckDefault">
+                    Ludo
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input Name="29" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
+                  <label className="form-check-label" for="flexCheckDefault">
+                    29
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input Name="Chess" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
+                  <label className="form-check-label" for="flexCheckDefault">
+                    Chess
+                  </label>
+                </div>
               </div>
             </div>
           </div>
@@ -263,7 +332,7 @@ function RegisterToEnter() {
               <p className="p" Name="Cost" id="cost"></p>
               <p>kr</p>
             </div>
-            <input type="hidden" Name="Cost" id="totalFee"/>
+            <input type="hidden" Name="Cost" id="totalFee" />
           </div>
           <div className="mt-2 rounded border p-2">
             <div className="form-check">
@@ -282,8 +351,8 @@ function RegisterToEnter() {
       <Notification
         show={modalShow}
         onHide={() => setModalShow(false)}
-        title = {title}
-        message = {message}
+        title={title}
+        message={message}
       />
     </div>
   );

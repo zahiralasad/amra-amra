@@ -24,7 +24,7 @@ function Banner() {
                 </div> */}
             </div>
             <div className="Ad-field">
-                <h5>New event coming soon</h5>
+                <h5>Indoor Games Event Coming Soon</h5>
             </div>
 
         </div>
