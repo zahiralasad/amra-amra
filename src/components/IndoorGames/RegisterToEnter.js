@@ -147,44 +147,44 @@ function RegisterToEnter() {
 
       inputContainer.appendChild(mainDiv);
       if (divId === "adultContainer") {
-      const participationDiv = document.createElement("div");
-      participationDiv.setAttribute("class", "d-flex align-items-center gap-3 mt-2");
+        const participationDiv = document.createElement("div");
+        participationDiv.setAttribute("class", "d-flex align-items-center gap-3 mt-2");
 
-      const participateText = document.createElement("p");
-      participateText.textContent = "Participate in:";
-      participationDiv.appendChild(participateText);
+        const participateText = document.createElement("p");
+        participateText.textContent = "Participate in:";
+        participationDiv.appendChild(participateText);
 
-      const games = [
-        { id: "TableTannis", name: "TableTannis", label: "Table Tennis" },
-        { id: "Ludo", name: "Ludo", label: "Ludo" },
-        { id: "29", name: "29", label: "29" },
-        { id: "Chess", name: "Chess", label: "Chess" },
-      ];
+        const games = [
+          { id: "TableTannis", name: "TableTannis", label: "Table Tennis" },
+          { id: "Ludo", name: "Ludo", label: "Ludo" },
+          { id: "29", name: "29", label: "29" },
+          { id: "Chess", name: "Chess", label: "Chess" },
+        ];
 
-      games.forEach(game => {
-        const formCheck = document.createElement("div");
-        formCheck.setAttribute("class", "form-check");
+        games.forEach(game => {
+          const formCheck = document.createElement("div");
+          formCheck.setAttribute("class", "form-check");
 
-        const checkbox = document.createElement("input");
-        checkbox.setAttribute("class", "form-check-input");
-        checkbox.setAttribute("type", "checkbox");
-        checkbox.setAttribute("name", game.name);
-        checkbox.setAttribute("value", "Yes");
-        checkbox.setAttribute("id", game.id);
+          const checkbox = document.createElement("input");
+          checkbox.setAttribute("class", "form-check-input");
+          checkbox.setAttribute("type", "checkbox");
+          checkbox.setAttribute("name", game.name);
+          checkbox.setAttribute("value", "Yes");
+          checkbox.setAttribute("id", game.id);
 
-        const label = document.createElement("label");
-        label.setAttribute("class", "form-check-label");
-        label.setAttribute("for", game.id);
-        label.textContent = game.label;
+          const label = document.createElement("label");
+          label.setAttribute("class", "form-check-label");
+          label.setAttribute("for", game.id);
+          label.textContent = game.label;
 
-        formCheck.appendChild(checkbox);
-        formCheck.appendChild(label);
-        participationDiv.appendChild(formCheck);
-      });
+          formCheck.appendChild(checkbox);
+          formCheck.appendChild(label);
+          participationDiv.appendChild(formCheck);
+        });
 
-      // Append participationDiv to container
-      inputContainer.appendChild(participationDiv);
-    }
+        // Append participationDiv to container
+        inputContainer.appendChild(participationDiv);
+      }
     }
   }
 
