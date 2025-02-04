@@ -28,8 +28,8 @@ function App() {
   return (
     <BrowserRouter>
       <div className="App">
-        <Header />
-        <div className="wrapper">
+        <div className="container">
+          <Header />
           {/* <Sidebar /> */}
           <div className="main p-1">
             <Routes>

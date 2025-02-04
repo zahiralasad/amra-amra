@@ -30,7 +30,7 @@ function Header() {
   }
 
   return (
-    <div id="header">
+    <div className="row" id="header">
       <div className="row text-white" id="menuicons">
         <div className='col mx-2'>
           <img className="" src={logo} alt="logo" style={{ height: "36px" }} />

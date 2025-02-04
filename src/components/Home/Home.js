@@ -6,7 +6,7 @@ import Banner from '../Banner/Banner';
 function Home() {
     return (
         <div className='container'>
-            <Banner className="row" />
+            <Banner/>
             <div className='row'>
                 <div className="container text-center text-white">
                     Home page

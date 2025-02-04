@@ -196,6 +196,10 @@ function RegisterToEnter() {
           label.setAttribute("for", game.id);
           label.textContent = game.label;
 
+          // const teamReamin = document.createElement("p");
+          // teamReamin.textContent = "team number";
+          // formCheck.appendChild(teamReamin);
+
           formCheck.appendChild(checkbox);
           formCheck.appendChild(label);
           participationDiv.appendChild(formCheck);
@@ -208,171 +212,195 @@ function RegisterToEnter() {
   }
 
   return (
-    <div className="form">
-      <div className="p-4 text-center rounded bg-dark">
-        <h4>Registration Form for the Indoor Games Event</h4>
-        <img src={banner} className="img-fluid" />
-      </div>
-      <div className="mt-1 p-2 rounded bg-dark">
-        <form className="needs-validation" id="entryForm" onSubmit={(e) => Submit(e)}>
-          <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-            <div className="d-flex mb-3 input-group border-bottom pb-1">
-              <i className="bi bi-people-fill me-2"></i>
-              <span className="input-group-text"> Number of adults</span>
-              <select className="custom-select" onChange={(event) => addInput(event, "adultContainer")}>
-                <option value="1" selected>1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <p className="ms-2">(385kr/adult)</p>
-            </div>
-            <div id="adultContainer">
-              <div className="input-group  mb-3">
-                <i className="bi bi-person-fill me-2"></i>
-                <span className="input-group-text">Adult 1</span>
-                <input Name="Adult1" className="form-control" placeholder="Full name" type="text" required />
+    <div className="row">
+      <div className="form">
+        <div className="p-4 text-center rounded bg-dark">
+          <h4>Registration Form for the Indoor Games Event</h4>
+          <img src={banner} className="img-fluid" />
+        </div>
+        <div className="mt-1 p-2 rounded bg-dark">
+          <form className="needs-validation" id="entryForm" onSubmit={(e) => Submit(e)}>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="d-flex mb-3 input-group border-bottom pb-1">
+                <i className="bi bi-people-fill me-2"></i>
+                <span className="input-group-text"> Number of adults</span>
+                <select className="custom-select" onChange={(event) => addInput(event, "adultContainer")}>
+                  <option value="1" selected>1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <p className="ms-2">(385kr/adult)</p>
               </div>
-              <div className="d-flex flex-column gap-3">
-                <p>Participate in:</p>
-                <div className="form-check">
-                  <input Name="TableTannis" Value="Yes" className="form-check-input" type="checkbox" id="TableTannis" />
-                  <label className="form-check-label" for="TableTannis">
-                    Table Tennis
-                  </label>
+              <div id="adultContainer">
+                <div className="input-group mb-3">
+                  <i className="bi bi-person-fill me-2"></i>
+                  <span className="input-group-text">Adult 1</span>
+                  <input Name="Adult1" className="form-control" placeholder="Full name" type="text" required />
                 </div>
-                <div className="form-check">
-                  <input Name="Ludo" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                  <label className="form-check-label" for="flexCheckDefault">
-                    Ludo
-                  </label>
+                <div className="row align-items-center">
+                  <p>Participate in:</p>
+                  <div className="col-2">
+                    <div className="form-check ms-3">
+                      <input Name="TableTannis" Value="Yes" className="form-check-input" type="checkbox" id="TableTannis" />
+                      <label className="form-check-label" for="TableTannis">
+                        Table Tennis Double
+                      </label>
+                    </div>
+                  </div>
+                  <div className="col-2 ms-3">
+                    <select className="form-select" style={{ width: "150px" }}>
+                      <option value="">Select your partner</option>
+                      <option value="easy">Easy</option>
+                      <option value="medium">Medium</option>
+                      <option value="hard">Hard</option>
+                    </select>
+                  </div>
                 </div>
-                <div className="form-check">
-                  <input Name="29" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                  <label className="form-check-label" for="flexCheckDefault">
-                    29
-                  </label>
+                <div className="row align-items-center">
+                  <div className="col-2 ms-3">
+                    <div className="form-check">
+                      <input Name="Ludo" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
+                      <label className="form-check-label" for="flexCheckDefault">
+                        Ludo
+                      </label>
+                    </div>
+                  </div>
                 </div>
-                <div className="form-check">
-                  <input Name="Chess" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                  <label className="form-check-label" for="flexCheckDefault">
-                    Chess
-                  </label>
+                <div className="row align-items-center">
+                  <div className="col-2 ms-3">
+                    <div className="form-check">
+                      <input Name="29" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
+                      <label className="form-check-label" for="flexCheckDefault">
+                        29
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                <div className="row align-items-center">
+                  <div className="col-2 ms-3">
+                    <div className="form-check">
+                      <input Name="Chess" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
+                      <label className="form-check-label" for="flexCheckDefault">
+                        Chess
+                      </label>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-          <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-            <div className="d-flex input-group mb-3 border-bottom pb-1">
-              <i className="bi bi-person-standing me-2"></i>
-              <span className="input-group-text text-wrap"> Number of children born between 2013 to 2018</span>
-              <select className="custom-select" onChange={(event) => addInput(event, "bigKidContainer")}>
-                <option value="0" selected>0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <p className="ms-2">(285kr/child)</p>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="d-flex input-group mb-3 border-bottom pb-1">
+                <i className="bi bi-person-standing me-2"></i>
+                <span className="input-group-text text-wrap"> Number of children born between 2013 to 2018</span>
+                <select className="custom-select" onChange={(event) => addInput(event, "bigKidContainer")}>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <p className="ms-2">(285kr/child)</p>
+              </div>
+              <div id="bigKidContainer"></div>
             </div>
-            <div id="bigKidContainer"></div>
-          </div>
-          <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-            <div className="input-group  mb-3 border-bottom pb-1">
-              <i className="bi bi-person-arms-up me-2"></i>
-              <span className="input-group-text text-wrap"> Number of children born between 2019 to 2020</span>
-              <select className="custom-select" onChange={(event) => addInput(event, "smallKidContainer")}>
-                <option value="0" selected>0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <p className="ms-2">(255kr/child)</p>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="input-group  mb-3 border-bottom pb-1">
+                <i className="bi bi-person-arms-up me-2"></i>
+                <span className="input-group-text text-wrap"> Number of children born between 2019 to 2020</span>
+                <select className="custom-select" onChange={(event) => addInput(event, "smallKidContainer")}>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <p className="ms-2">(255kr/child)</p>
+              </div>
+              <div id="smallKidContainer"></div>
             </div>
-            <div id="smallKidContainer"></div>
-          </div>
-          <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-            <div className="form-group input-group  mb-3 border-bottom pb-1">
-              <i className="bi bi-balloon-fill me-2"></i>
-              <span className="input-group-text text-wrap"> Number of children born between 2021 to 2024</span>
-              <select className="custom-select" onChange={(event) => addInput(event, "babyContainer")}>
-                <option value="0" selected>0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                <option value="6">6</option>
-                <option value="7">7</option>
-                <option value="8">8</option>
-                <option value="9">9</option>
-                <option value="10">10</option>
-              </select>
-              <p className="ms-2">(0kr/child)</p>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="form-group input-group  mb-3 border-bottom pb-1">
+                <i className="bi bi-balloon-fill me-2"></i>
+                <span className="input-group-text text-wrap"> Number of children born between 2021 to 2024</span>
+                <select className="custom-select" onChange={(event) => addInput(event, "babyContainer")}>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <p className="ms-2">(0kr/child)</p>
+              </div>
+              <div id="babyContainer"></div>
             </div>
-            <div id="babyContainer"></div>
-          </div>
-          <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-            <div className="form-group input-group  mb-3">
-              <i className="bi bi-envelope-fill me-2"></i>
-              <span className="input-group-text" style={{ width: "80px" }}>Email</span>
-              <input Name="Email" className="form-control" placeholder="Email address" type="email" required />
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="form-group input-group  mb-3">
+                <i className="bi bi-envelope-fill me-2"></i>
+                <span className="input-group-text" style={{ width: "80px" }}>Email</span>
+                <input Name="Email" className="form-control" placeholder="Email address" type="email" required />
+              </div>
             </div>
-          </div>
-          <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-            <div className="form-group input-group  mb-3">
-              <i className="bi bi-telephone-fill me-2"></i>
-              <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
-              <input Name="Phone" className="form-control" placeholder="Phone number" type="text" required />
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="form-group input-group  mb-3">
+                <i className="bi bi-telephone-fill me-2"></i>
+                <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
+                <input Name="Phone" className="form-control" placeholder="Phone number" type="text" required />
+              </div>
             </div>
-          </div>
-          <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-            <div className="form-group input-group ">
-              <p className="mx-2">Total fee:</p>
-              <p className="p" Name="Cost" id="cost"></p>
-              <p>kr</p>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="form-group input-group ">
+                <p className="mx-2">Total fee:</p>
+                <p className="p" Name="Cost" id="cost"></p>
+                <p>kr</p>
+              </div>
+              <input type="hidden" Name="Cost" id="totalFee" />
             </div>
-            <input type="hidden" Name="Cost" id="totalFee" />
-          </div>
-          <div className="mt-2 rounded border p-2">
-            <div className="form-check">
-              <input className="form-check-input" type="checkbox" Name="Swish" id="swish" required />
-              <label className="form-check-label" htmlFor="swish">
-                I have swished to
-              </label>
-              <span id="swishTo" className="swishto ms-2 h9"></span>
+            <div className="mt-2 rounded border p-2">
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" Name="Swish" id="swish" required />
+                <label className="form-check-label" htmlFor="swish">
+                  I have swished to
+                </label>
+                <span id="swishTo" className="swishto ms-2 h9"></span>
+              </div>
             </div>
-          </div>
-          <div className="form-group mt-3">
-            <button type="submit" id="register" className="btn btn-primary btn-block"> Register</button>
-          </div>
-        </form>
+            <div className="form-group mt-3">
+              <button type="submit" id="register" className="btn btn-primary btn-block"> Register</button>
+            </div>
+          </form>
+        </div>
+        <Notification
+          show={modalShow}
+          onHide={() => setModalShow(false)}
+          title={title}
+          message={message}
+        />
       </div>
-      <Notification
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-        title={title}
-        message={message}
-      />
     </div>
   );
 }
