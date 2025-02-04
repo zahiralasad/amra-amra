@@ -17,10 +17,14 @@ function RegisterToEnter() {
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
+  const [entries, setEntries] = useState([]);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
-  const url = 'https://script.google.com/macros/s/AKfycbyX44rC2CJZtHsnrW1YJb226BcU6uKdUiLHeufsLZP1l1mdyOQXceyeBEuNnJrLuNfc/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbzMbB5oTRwtu_GD6aZHbPHNVKzPokNaZVhVIv38X_mSC_-nSobfYn34DJS2JK_fgmUu/exec';
+
   const apiUrl = "https://amra-amra.se/emailApi/";
 
   useEffect(() => {
@@ -33,7 +37,19 @@ function RegisterToEnter() {
     randomName();
   }, []);
 
-
+  useEffect(() => {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.data);
+        setEntries(data.data); // Update the state with JSON data
+        setLoading(false);
+      })
+      .catch(error => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }, []);
 
   function Submit(e) {
     document.getElementById("register").disabled = true;
@@ -135,6 +151,8 @@ function RegisterToEnter() {
         name = "Baby" + i;
       }
 
+      mainDiv.appendChild(span);
+
       const input = document.createElement("input");
       input.setAttribute("class", "form-control");
       input.setAttribute("placeholder", "Full name");
@@ -142,13 +160,13 @@ function RegisterToEnter() {
       input.setAttribute("Name", name);
       input.setAttribute("required", true)
 
-      mainDiv.appendChild(span);
       mainDiv.appendChild(input);
 
       inputContainer.appendChild(mainDiv);
+
       if (divId === "adultContainer") {
         const participationDiv = document.createElement("div");
-        participationDiv.setAttribute("class", "d-flex align-items-center gap-3 mt-2");
+        participationDiv.setAttribute("class", "d-flex flex-column gap-3 mt-2");
 
         const participateText = document.createElement("p");
         participateText.textContent = "Participate in:";
@@ -162,6 +180,7 @@ function RegisterToEnter() {
         ];
 
         games.forEach(game => {
+
           const formCheck = document.createElement("div");
           formCheck.setAttribute("class", "form-check");
 
@@ -220,7 +239,7 @@ function RegisterToEnter() {
                 <span className="input-group-text">Adult 1</span>
                 <input Name="Adult1" className="form-control" placeholder="Full name" type="text" required />
               </div>
-              <div className="d-flex align-items-center gap-3">
+              <div className="d-flex flex-column gap-3">
                 <p>Participate in:</p>
                 <div className="form-check">
                   <input Name="TableTannis" Value="Yes" className="form-check-input" type="checkbox" id="TableTannis" />
