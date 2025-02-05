@@ -52,11 +52,11 @@ function RegisterToEnter() {
   }, []);
 
   const adultNames = entries
-  .filter((entry) => entry["Adults Names"]) // Ensure 'Adults Names' key is not empty
-  .map((entry) => entry["Adults Names"]); // Extract the name
+    .filter((entry) => entry["Adults Names"]) // Ensure 'Adults Names' key is not empty
+    .map((entry) => entry["Adults Names"]); // Extract the name
 
   // console.log(adultNames);
-    
+
   function Submit(e) {
     document.getElementById("register").disabled = true;
     const formElm = document.querySelector('form');
@@ -114,6 +114,7 @@ function RegisterToEnter() {
   const addInput = (event, divId) => {
     // event.preventDefault();
     const number = event.target.value;
+    let games = [];
     var inputContainer = document.getElementById(divId);
     inputContainer.innerHTML = ''; // Clear previous inputs
 
@@ -170,56 +171,104 @@ function RegisterToEnter() {
 
       inputContainer.appendChild(mainDiv);
 
+      const participationDiv = document.createElement("div");
+      participationDiv.setAttribute("class", "row align-items-center");
+
+      const participateText = document.createElement("p");
+      participateText.textContent = "Participate in:";
+      participationDiv.appendChild(participateText);
+      // games = [
+      //   { id: "TableTannisSingle", name: "TableTannisSingle", label: "Table Tennis Single" },
+      //   { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
+      //   { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
+      //   { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
+      //   { id: "29", name: "29", label: "29" },
+      //   { id: "CallBridge", name: "CallBridge", label: "Call Bridge" },
+      //   { id: "Ludo", name: "Ludo", label: "Ludo" },
+      //   { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
+      //   { id: "Chess", name: "Chess", label: "Chess" },
+      //   { id: "Uno", name: "Uno", label: "Uno" },
+      // ];
       if (divId === "adultContainer") {
-        const participationDiv = document.createElement("div");
-        participationDiv.setAttribute("class", "d-flex flex-column gap-3 mt-2");
-
-        const participateText = document.createElement("p");
-        participateText.textContent = "Participate in:";
-        participationDiv.appendChild(participateText);
-
-        const games = [
+        games = [
           { id: "TableTannisSingle", name: "TableTannisSingle", label: "Table Tennis Single" },
           { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
           { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
           { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
           { id: "29", name: "29", label: "29" },
-          { id: "CallBridge", name: "CallBridge", label: "Call Bridge" },
+          { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
+          { id: "Chess", name: "Chess", label: "Chess" }
+        ];
+      } else if (divId === "bigKidContainer") {
+        games = [
+          { id: "Chess", name: "Chess", label: "Chess" },
           { id: "Ludo", name: "Ludo", label: "Ludo" },
           { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
-          { id: "Chess", name: "Chess", label: "Chess" },
-          { id: "Uno", name: "Uno", label: "Uno" },
+          { id: "Uno", name: "Uno", label: "Uno" }
         ];
+      }
 
-        games.forEach(game => {
+      games.forEach(game => {
+        // col
+        const gameCol = document.createElement("div");
+        gameCol.setAttribute("class", "col-4 ms-3");
+        const formCheck = document.createElement("div");
+        formCheck.setAttribute("class", "form-check");
 
-          const formCheck = document.createElement("div");
-          formCheck.setAttribute("class", "form-check");
+        const checkbox = document.createElement("input");
+        checkbox.setAttribute("class", "form-check-input");
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("name", game.name);
+        checkbox.setAttribute("value", "Yes");
+        checkbox.setAttribute("id", game.id);
 
-          const checkbox = document.createElement("input");
-          checkbox.setAttribute("class", "form-check-input");
-          checkbox.setAttribute("type", "checkbox");
-          checkbox.setAttribute("name", game.name);
-          checkbox.setAttribute("value", "Yes");
-          checkbox.setAttribute("id", game.id);
+        const label = document.createElement("label");
+        label.setAttribute("class", "form-check-label");
+        label.setAttribute("for", game.id);
+        label.textContent = game.label;
 
-          const label = document.createElement("label");
-          label.setAttribute("class", "form-check-label");
-          label.setAttribute("for", game.id);
-          label.textContent = game.label;
+        // const teamReamin = document.createElement("p");
+        // teamReamin.textContent = "team number";
+        // formCheck.appendChild(teamReamin);
 
-          // const teamReamin = document.createElement("p");
-          // teamReamin.textContent = "team number";
-          // formCheck.appendChild(teamReamin);
+        formCheck.appendChild(checkbox);
+        formCheck.appendChild(label);
+        gameCol.appendChild(formCheck);
 
-          formCheck.appendChild(checkbox);
-          formCheck.appendChild(label);
-          participationDiv.appendChild(formCheck);
+        const partnerCol = document.createElement("div");
+        partnerCol.setAttribute("class", "col-4 ms-3");
+
+        const select = document.createElement("select");
+        select.setAttribute("class", "form-select");
+        select.setAttribute("style", "width: 150px");
+
+        const defaultOption = document.createElement("option");
+        defaultOption.setAttribute("value", "");
+        defaultOption.textContent = "Select your partner";
+        select.appendChild(defaultOption);
+
+        adultNames.forEach((name, index) => {
+          const option = document.createElement("option");
+          option.setAttribute("value", name);
+          option.textContent = name;
+          select.appendChild(option);
         });
 
-        // Append participationDiv to container
-        inputContainer.appendChild(participationDiv);
-      }
+        partnerCol.appendChild(select);
+
+        const seatsCol = document.createElement("div");
+        seatsCol.setAttribute("class", "col-2 ms-3");
+        seatsCol.textContent = "20 Seats left";
+
+        // Append all columns to the row
+        participationDiv.appendChild(gameCol);
+        participationDiv.appendChild(partnerCol);
+        participationDiv.appendChild(seatsCol);
+      });
+
+      // Append participationDiv to container
+      inputContainer.appendChild(participationDiv);
+
     }
   }
 
@@ -258,7 +307,7 @@ function RegisterToEnter() {
                 </div>
                 <div className="row align-items-center">
                   <p>Participate in:</p>
-                  <div className="col-2">
+                  <div className="col-4 me-3">
                     <div className="form-check ms-3">
                       <input Name="TableTannis" Value="Yes" className="form-check-input" type="checkbox" id="TableTannis" />
                       <label className="form-check-label" for="TableTannis">
@@ -266,7 +315,7 @@ function RegisterToEnter() {
                       </label>
                     </div>
                   </div>
-                  <div className="col-2 ms-3">
+                  <div className="col-4 ms-3">
                     <select className="form-select" style={{ width: "150px" }}>
                       <option value="">Select your partner</option>
                       {adultNames.map((name, index) => (
@@ -275,11 +324,13 @@ function RegisterToEnter() {
                         </option>
                       ))}
                     </select>
-
+                  </div>
+                  <div className="col-2 ms-3">
+                    20 Seats left
                   </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className="col-2 ms-3">
+                  <div className="col-4 ms-3">
                     <div className="form-check">
                       <input Name="Ludo" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
                       <label className="form-check-label" for="flexCheckDefault">
@@ -287,9 +338,22 @@ function RegisterToEnter() {
                       </label>
                     </div>
                   </div>
+                  <div className="col-4 ms-3">
+                    <select className="form-select" style={{ width: "150px" }}>
+                      <option value="">Select your partner</option>
+                      {adultNames.map((name, index) => (
+                        <option key={index} value={name} >
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-2 ms-3">
+                    20 Seats left
+                  </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className="col-2 ms-3">
+                  <div className="col-4 ms-3">
                     <div className="form-check">
                       <input Name="29" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
                       <label className="form-check-label" for="flexCheckDefault">
@@ -297,15 +361,41 @@ function RegisterToEnter() {
                       </label>
                     </div>
                   </div>
+                  <div className="col-4 ms-3">
+                    <select className="form-select" style={{ width: "150px" }}>
+                      <option value="">Select your partner</option>
+                      {adultNames.map((name, index) => (
+                        <option key={index} value={name} >
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-2 ms-3">
+                    20 Seats left
+                  </div>
                 </div>
                 <div className="row align-items-center">
-                  <div className="col-2 ms-3">
+                  <div className="col-4 ms-3">
                     <div className="form-check">
                       <input Name="Chess" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
                       <label className="form-check-label" for="flexCheckDefault">
                         Chess
                       </label>
                     </div>
+                  </div>
+                  <div className="col-4 ms-3">
+                    <select className="form-select" style={{ width: "150px" }}>
+                      <option value="">Select your partner</option>
+                      {adultNames.map((name, index) => (
+                        <option key={index} value={name} >
+                          {name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                  <div className="col-2 ms-3">
+                    20 Seats left
                   </div>
                 </div>
               </div>
