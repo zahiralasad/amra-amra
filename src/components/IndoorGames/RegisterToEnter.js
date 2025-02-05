@@ -179,10 +179,16 @@ function RegisterToEnter() {
         participationDiv.appendChild(participateText);
 
         const games = [
-          { id: "TableTannis", name: "TableTannis", label: "Table Tennis" },
-          { id: "Ludo", name: "Ludo", label: "Ludo" },
+          { id: "TableTannisSingle", name: "TableTannisSingle", label: "Table Tennis Single" },
+          { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
+          { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
+          { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
           { id: "29", name: "29", label: "29" },
+          { id: "CallBridge", name: "CallBridge", label: "Call Bridge" },
+          { id: "Ludo", name: "Ludo", label: "Ludo" },
+          { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
           { id: "Chess", name: "Chess", label: "Chess" },
+          { id: "Uno", name: "Uno", label: "Uno" },
         ];
 
         games.forEach(game => {
