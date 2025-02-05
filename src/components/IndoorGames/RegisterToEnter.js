@@ -41,7 +41,7 @@ function RegisterToEnter() {
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        console.log(data.data);
+        // console.log(data.data);
         setEntries(data.data); // Update the state with JSON data
         setLoading(false);
       })
@@ -51,6 +51,12 @@ function RegisterToEnter() {
       });
   }, []);
 
+  const adultNames = entries
+  .filter((entry) => entry["Adults Names"]) // Ensure 'Adults Names' key is not empty
+  .map((entry) => entry["Adults Names"]); // Extract the name
+
+  // console.log(adultNames);
+    
   function Submit(e) {
     document.getElementById("register").disabled = true;
     const formElm = document.querySelector('form');
@@ -257,10 +263,13 @@ function RegisterToEnter() {
                   <div className="col-2 ms-3">
                     <select className="form-select" style={{ width: "150px" }}>
                       <option value="">Select your partner</option>
-                      <option value="easy">Easy</option>
-                      <option value="medium">Medium</option>
-                      <option value="hard">Hard</option>
+                      {adultNames.map((name, index) => (
+                        <option key={index} value={name} >
+                          {name}
+                        </option>
+                      ))}
                     </select>
+
                   </div>
                 </div>
                 <div className="row align-items-center">
