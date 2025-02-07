@@ -57,6 +57,14 @@ function RegisterToEnter() {
 
   // console.log(adultNames);
 
+  const adultPartners = entries
+  .filter((entry) => entry["Adult Partner"])
+  .map((entry)=>entry["Adult Partner"]);
+
+  const kidPartners = entries
+  .filter((entry) => entry["Kid Partner"])
+  .map((entry)=>entry["Kid Partner"]);
+
   function Submit(e) {
     document.getElementById("register").disabled = true;
     const formElm = document.querySelector('form');
@@ -247,11 +255,13 @@ function RegisterToEnter() {
         defaultOption.textContent = "Select your partner";
         select.appendChild(defaultOption);
 
-        adultNames.forEach((name, index) => {
+        adultNames.forEach((name) => {
+          if (!adultPartners.includes(name)) {
           const option = document.createElement("option");
           option.setAttribute("value", name);
           option.textContent = name;
           select.appendChild(option);
+          }
         });
 
         partnerCol.appendChild(select);
@@ -318,7 +328,9 @@ function RegisterToEnter() {
                   <div className="col-4 ms-3">
                     <select className="form-select" style={{ width: "150px" }}>
                       <option value="">Select your partner</option>
-                      {adultNames.map((name, index) => (
+                      {adultNames
+                      .filter((name) => !adultPartners.includes(name)) 
+                      .map((name, index) => (
                         <option key={index} value={name} >
                           {name}
                         </option>
@@ -341,7 +353,9 @@ function RegisterToEnter() {
                   <div className="col-4 ms-3">
                     <select className="form-select" style={{ width: "150px" }}>
                       <option value="">Select your partner</option>
-                      {adultNames.map((name, index) => (
+                      {adultNames
+                      .filter((name) => !adultPartners.includes(name)) 
+                      .map((name, index) => (
                         <option key={index} value={name} >
                           {name}
                         </option>
@@ -364,7 +378,9 @@ function RegisterToEnter() {
                   <div className="col-4 ms-3">
                     <select className="form-select" style={{ width: "150px" }}>
                       <option value="">Select your partner</option>
-                      {adultNames.map((name, index) => (
+                      {adultNames
+                      .filter((name) => !adultPartners.includes(name)) 
+                      .map((name, index) => (
                         <option key={index} value={name} >
                           {name}
                         </option>
@@ -387,7 +403,9 @@ function RegisterToEnter() {
                   <div className="col-4 ms-3">
                     <select className="form-select" style={{ width: "150px" }}>
                       <option value="">Select your partner</option>
-                      {adultNames.map((name, index) => (
+                      {adultNames
+                      .filter((name) => !adultPartners.includes(name)) 
+                      .map((name, index) => (
                         <option key={index} value={name} >
                           {name}
                         </option>
