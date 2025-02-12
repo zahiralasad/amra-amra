@@ -20,12 +20,24 @@ function RegisterToEnter() {
   const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [selectedGender, setSelectGender] = useState(null);
 
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
   const url = 'https://script.google.com/macros/s/AKfycbzMbB5oTRwtu_GD6aZHbPHNVKzPokNaZVhVIv38X_mSC_-nSobfYn34DJS2JK_fgmUu/exec';
 
   const apiUrl = "https://amra-amra.se/emailApi/";
+
+  const maxTTSinglesTeams = 20;
+  const maxTTDoublesTeams = 20;
+  const maxCarromDoublesteams = 20;
+  const maxInternationalbridgeTeams = 20;
+  const Max29Teams = 20;
+  const maxCallbridgeTeams = 20;
+  const maxLudoSinglesTeams = 20;
+  const maxLudoDoublesTeams = 20;
+  const maxChessTeams = 20;
+  const maxUnoTeams = 20;
 
   useEffect(() => {
     let cost = adults * 385 + bigkids * 285 + smallkids * 255 + babys * 0;
@@ -35,6 +47,7 @@ function RegisterToEnter() {
 
   useEffect(() => {
     randomName();
+    addInput(1, "adultContainer")
   }, []);
 
   useEffect(() => {
@@ -58,12 +71,57 @@ function RegisterToEnter() {
   // console.log(adultNames);
 
   const adultPartners = entries
-  .filter((entry) => entry["Adult Partner"])
-  .map((entry)=>entry["Adult Partner"]);
+    .filter((entry) => entry["Adult Partner"])
+    .map((entry) => entry["Adult Partner"]);
+
+  // console.log(adultPartners);
 
   const kidPartners = entries
-  .filter((entry) => entry["Kid Partner"])
-  .map((entry)=>entry["Kid Partner"]);
+    .filter((entry) => entry["Kid Partner"])
+    .map((entry) => entry["Kid Partner"]);
+
+
+  const ttDoubles = entries
+    .filter((entry) => entry["Table Tannis Doubles"])
+    .map((entry) => entry["Table Tannis Doubles"]);
+
+  const ttSingles = entries
+    .filter((entry) => entry["Table Tannis Singles"])
+    .map((entry) => entry["Table Tannis Singles"]);
+
+  const carromDoubles = entries
+    .filter((entry) => entry["Carrom Doubles"])
+    .map((entry) => entry["Carrom Doubles"]);
+
+  const internationalBridge = entries
+    .filter((entry) => entry["International Bridge"])
+    .map((entry) => entry["International Bridge"]);
+
+  const card29 = entries
+    .filter((entry) => entry["29"])
+    .map((entry) => entry["29"]);
+
+  const callBridge = entries
+    .filter((entry) => entry["Call Bridge"])
+    .map((entry) => entry["Call Bridge"]);
+
+  // console.log("Call bridge: ", callBridge);
+
+  const ludoSingles = entries
+    .filter((entry) => entry["Ludo Singles"])
+    .map((entry) => entry["Ludo Singles"]);
+
+  const ludoDoubles = entries
+    .filter((entry) => entry["Ludo Doubles"])
+    .map((entry) => entry["Ludo Dobles"]);
+
+  const chess = entries
+    .filter((entry) => entry["Chess"])
+    .map((entry) => entry["Chess"]);
+
+  const uno = entries
+    .filter((entry) => entry["Uno"])
+    .map((entry) => entry["Uno"]);
 
   function Submit(e) {
     document.getElementById("register").disabled = true;
@@ -85,6 +143,10 @@ function RegisterToEnter() {
     //       document.getElementById("register").disabled = false;
     //     }
     //   }).catch(error => setResponse(error));
+  }
+
+  const handleGenderSelection = () => {
+
   }
 
   const randomName = () => {
@@ -119,9 +181,10 @@ function RegisterToEnter() {
     }
   }
 
-  const addInput = (event, divId) => {
+  const addInput = (number, divId) => {
+    console.log("Event: ", number);
     // event.preventDefault();
-    const number = event.target.value;
+    // const number = event.target.value;
     let games = [];
     var inputContainer = document.getElementById(divId);
     inputContainer.innerHTML = ''; // Clear previous inputs
@@ -186,31 +249,33 @@ function RegisterToEnter() {
       participateText.textContent = "Participate in:";
       participationDiv.appendChild(participateText);
       // games = [
-      //   { id: "TableTannisSingle", name: "TableTannisSingle", label: "Table Tennis Single" },
+      //   { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Single" },
       //   { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
       //   { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
       //   { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
       //   { id: "29", name: "29", label: "29" },
       //   { id: "CallBridge", name: "CallBridge", label: "Call Bridge" },
-      //   { id: "Ludo", name: "Ludo", label: "Ludo" },
+      //   { id: "LudoSingles", name: "LudoSingles", label: "Ludo" },
       //   { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
       //   { id: "Chess", name: "Chess", label: "Chess" },
       //   { id: "Uno", name: "Uno", label: "Uno" },
       // ];
       if (divId === "adultContainer") {
         games = [
-          { id: "TableTannisSingle", name: "TableTannisSingle", label: "Table Tennis Single" },
+          { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles" },
           { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
           { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
           { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
           { id: "29", name: "29", label: "29" },
+          { id: "callBridge", name: "CallBridge", label: "Call Bridge" },
+          { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
           { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
           { id: "Chess", name: "Chess", label: "Chess" }
         ];
       } else if (divId === "bigKidContainer") {
         games = [
           { id: "Chess", name: "Chess", label: "Chess" },
-          { id: "Ludo", name: "Ludo", label: "Ludo" },
+          { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
           { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
           { id: "Uno", name: "Uno", label: "Uno" }
         ];
@@ -257,10 +322,10 @@ function RegisterToEnter() {
 
         adultNames.forEach((name) => {
           if (!adultPartners.includes(name)) {
-          const option = document.createElement("option");
-          option.setAttribute("value", name);
-          option.textContent = name;
-          select.appendChild(option);
+            const option = document.createElement("option");
+            option.setAttribute("value", name);
+            option.textContent = name;
+            select.appendChild(option);
           }
         });
 
@@ -268,7 +333,31 @@ function RegisterToEnter() {
 
         const seatsCol = document.createElement("div");
         seatsCol.setAttribute("class", "col-2 ms-3");
-        seatsCol.textContent = "20 Seats left";
+        console.log(game.name);
+        if (game.name == "TableTannisSingles") {
+          seatsCol.textContent = `${maxTTSinglesTeams - ttSingles.length} seats left`;
+        } else if (game.name == "TableTannisDoubles") {
+          seatsCol.textContent = `${maxTTDoublesTeams - ttDoubles.length} seats left`;
+        } else if (game.name == "CarromDoubles") {
+          seatsCol.textContent = `${maxCarromDoublesteams - carromDoubles.length} seats left`;
+        } else if (game.name == "InternationalBridge") {
+          seatsCol.textContent = `${maxInternationalbridgeTeams - internationalBridge.length} seats left`;
+        } else if (game.name == "29") {
+          seatsCol.textContent = `${Max29Teams - card29.length} seats left`;
+        } else if (game.name == "CallBridge") {
+          seatsCol.textContent = `${maxCallbridgeTeams - callBridge.length} seats left`;
+        } else if (game.name == "LudoSingles") {
+          seatsCol.textContent = `${maxLudoSinglesTeams - ludoSingles.length} seats left`;
+        } else if (game.name == "LudoDoubles") {
+          seatsCol.textContent = `${maxLudoDoublesTeams - ludoDoubles.length} seats left`;
+        } else if (game.name == "Chess") {
+          seatsCol.textContent = `${maxChessTeams - chess.length} seats left`;
+        } else if (game.name == "Uno") {
+          seatsCol.textContent = `${maxUnoTeams - uno.length} seats left`;
+        } else {
+          seatsCol.textContent = "20 Seats left";
+        }
+
 
         // Append all columns to the row
         participationDiv.appendChild(gameCol);
@@ -295,7 +384,7 @@ function RegisterToEnter() {
               <div className="d-flex mb-3 input-group border-bottom pb-1">
                 <i className="bi bi-people-fill me-2"></i>
                 <span className="input-group-text"> Number of adults</span>
-                <select className="custom-select" onChange={(event) => addInput(event, "adultContainer")}>
+                <select className="custom-select" onChange={(event) => addInput(event.target.value, "adultContainer")}>
                   <option value="1" selected>1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
@@ -313,107 +402,21 @@ function RegisterToEnter() {
                 <div className="input-group mb-3">
                   <i className="bi bi-person-fill me-2"></i>
                   <span className="input-group-text">Adult 1</span>
-                  <input Name="Adult1" className="form-control" placeholder="Full name" type="text" required />
+                    <input Name="Adult1" className="form-control" placeholder="Full name" type="text" required />
                 </div>
-                <div className="row align-items-center">
-                  <p>Participate in:</p>
-                  <div className="col-4 me-3">
-                    <div className="form-check ms-3">
-                      <input Name="TableTannis" Value="Yes" className="form-check-input" type="checkbox" id="TableTannis" />
-                      <label className="form-check-label" for="TableTannis">
-                        Table Tennis Double
-                      </label>
-                    </div>
+                <div className="mt-2 p-2">
+                  <p>Gender:</p>
+                  <div className="form-check">
+                    <input className="form-check-input" type="checkbox" Value="Male" checked={selectedGender === 'Male'} onChange={handleGenderSelection} id="male" required />
+                    <label className="form-check-label" htmlFor="gender">
+                      Male
+                    </label>
                   </div>
-                  <div className="col-4 ms-3">
-                    <select className="form-select" style={{ width: "150px" }}>
-                      <option value="">Select your partner</option>
-                      {adultNames
-                      .filter((name) => !adultPartners.includes(name)) 
-                      .map((name, index) => (
-                        <option key={index} value={name} >
-                          {name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="col-2 ms-3">
-                    20 Seats left
-                  </div>
-                </div>
-                <div className="row align-items-center">
-                  <div className="col-4 ms-3">
-                    <div className="form-check">
-                      <input Name="Ludo" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                      <label className="form-check-label" for="flexCheckDefault">
-                        Ludo
-                      </label>
-                    </div>
-                  </div>
-                  <div className="col-4 ms-3">
-                    <select className="form-select" style={{ width: "150px" }}>
-                      <option value="">Select your partner</option>
-                      {adultNames
-                      .filter((name) => !adultPartners.includes(name)) 
-                      .map((name, index) => (
-                        <option key={index} value={name} >
-                          {name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="col-2 ms-3">
-                    20 Seats left
-                  </div>
-                </div>
-                <div className="row align-items-center">
-                  <div className="col-4 ms-3">
-                    <div className="form-check">
-                      <input Name="29" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                      <label className="form-check-label" for="flexCheckDefault">
-                        29
-                      </label>
-                    </div>
-                  </div>
-                  <div className="col-4 ms-3">
-                    <select className="form-select" style={{ width: "150px" }}>
-                      <option value="">Select your partner</option>
-                      {adultNames
-                      .filter((name) => !adultPartners.includes(name)) 
-                      .map((name, index) => (
-                        <option key={index} value={name} >
-                          {name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="col-2 ms-3">
-                    20 Seats left
-                  </div>
-                </div>
-                <div className="row align-items-center">
-                  <div className="col-4 ms-3">
-                    <div className="form-check">
-                      <input Name="Chess" Value="Yes" className="form-check-input" type="checkbox" id="flexCheckDefault" />
-                      <label className="form-check-label" for="flexCheckDefault">
-                        Chess
-                      </label>
-                    </div>
-                  </div>
-                  <div className="col-4 ms-3">
-                    <select className="form-select" style={{ width: "150px" }}>
-                      <option value="">Select your partner</option>
-                      {adultNames
-                      .filter((name) => !adultPartners.includes(name)) 
-                      .map((name, index) => (
-                        <option key={index} value={name} >
-                          {name}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div className="col-2 ms-3">
-                    20 Seats left
+                  <div className="form-check">
+                    <input className="form-check-input" type="checkbox" Value="Female" checked={selectedGender === 'Female'} onChange={handleGenderSelection} id="female" required />
+                    <label className="form-check-label" htmlFor="gender">
+                      Female
+                    </label>
                   </div>
                 </div>
               </div>
@@ -422,7 +425,7 @@ function RegisterToEnter() {
               <div className="d-flex input-group mb-3 border-bottom pb-1">
                 <i className="bi bi-person-standing me-2"></i>
                 <span className="input-group-text text-wrap"> Number of children born between 2013 to 2018</span>
-                <select className="custom-select" onChange={(event) => addInput(event, "bigKidContainer")}>
+                <select className="custom-select" onChange={(event) => addInput(event.target.value, "bigKidContainer")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -443,7 +446,7 @@ function RegisterToEnter() {
               <div className="input-group  mb-3 border-bottom pb-1">
                 <i className="bi bi-person-arms-up me-2"></i>
                 <span className="input-group-text text-wrap"> Number of children born between 2019 to 2020</span>
-                <select className="custom-select" onChange={(event) => addInput(event, "smallKidContainer")}>
+                <select className="custom-select" onChange={(event) => addInput(event.target.value, "smallKidContainer")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -464,7 +467,7 @@ function RegisterToEnter() {
               <div className="form-group input-group  mb-3 border-bottom pb-1">
                 <i className="bi bi-balloon-fill me-2"></i>
                 <span className="input-group-text text-wrap"> Number of children born between 2021 to 2024</span>
-                <select className="custom-select" onChange={(event) => addInput(event, "babyContainer")}>
+                <select className="custom-select" onChange={(event) => addInput(event.target.value, "babyContainer")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
