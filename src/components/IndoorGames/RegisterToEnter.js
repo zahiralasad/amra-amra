@@ -8,6 +8,9 @@ import axios from 'axios';
 import "../../css/form.css";
 import Notification from '../Notification';
 
+// let trace = {};
+// let counter = 0;
+let gender = "";
 
 function RegisterToEnter() {
   const [adults, setAdults] = useState(1);
@@ -21,6 +24,7 @@ function RegisterToEnter() {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedGender, setSelectGender] = useState(null);
+  // const [games, setGames] = useState([]);
 
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
@@ -63,6 +67,36 @@ function RegisterToEnter() {
         setLoading(false);
       });
   }, []);
+
+  // const handleGenderSelection = (gender) => {
+  //   if (gender === "Male") {
+  //     setGames([
+  //       { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles" },
+  //       { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
+  //       { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
+  //       { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
+  //       { id: "29", name: "29", label: "29" },
+  //       { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
+  //       { id: "Chess", name: "Chess", label: "Chess" }
+  //     ]);
+  //   } else if(gender === "Female") {
+  //     setGames([
+  //       { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
+  //       { id: "callBridge", name: "CallBridge", label: "Call Bridge" },
+  //       { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
+  //       { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
+  //     ]);
+  //   }
+
+  //   console.log(games);
+  //   // if (divId === "bigKidContainer") {
+  //   //   games = [
+  //   //     { id: "Chess", name: "Chess", label: "Chess" },
+  //   //     { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
+  //   //     { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
+  //   //     { id: "Uno", name: "Uno", label: "Uno" }
+  //   //   ];
+  // }
 
   const adultNames = entries
     .filter((entry) => entry["Adults Names"]) // Ensure 'Adults Names' key is not empty
@@ -192,8 +226,10 @@ function RegisterToEnter() {
       mainDiv.setAttribute("class", "input-group mb-3");
 
       const icon = document.createElement("i");
-      if (divId === "adultContainer") {
+      if (divId === "maleContainer") {
         icon.setAttribute("class", "bi bi-person-fill me-2");
+      } else if (divId === "femaleContainer") {
+        icon.setAttribute("class", "bi bi-person-standing-dress me-2");
       } else if (divId === "bigKidContainer") {
         icon.setAttribute("class", "bi bi-person-standing me-2");
       } else if (divId === "smallKidContainer") {
@@ -207,16 +243,19 @@ function RegisterToEnter() {
       const span = document.createElement("span")
       span.setAttribute("class", "input-group-text");
 
-      if (divId === "adultContainer") {
-        span.textContent = "Adult " + i;
+      if (divId === "maleContainer") {
+        span.textContent = "Male " + i;
+        setAdults(i);
+        name = "Adult" + i;
+      } else if (divId === "femaleContainer") {
+        span.textContent = "Female " + i;
         setAdults(i);
         name = "Adult" + i;
       } else if (divId === "bigKidContainer") {
         span.textContent = "Big Kid " + i;
         setBigKids(i);
         name = "Bigkid" + i;
-      }
-      else if (divId === "smallKidContainer") {
+      } else if (divId === "smallKidContainer") {
         span.textContent = "Small Kid " + i;
         setSmallKids(i);
         name = "Smallkid" + i;
@@ -245,15 +284,21 @@ function RegisterToEnter() {
       genderDiv.appendChild(genderP);
 
       function createRadioButton(value) {
+        // counter++;
         const selectGenderDiv = document.createElement("div");
         selectGenderDiv.setAttribute("class", "form-check");
         const genderInput = document.createElement("input");
         genderInput.setAttribute("class", "form-check-input");
         genderInput.setAttribute("type", "radio");
         genderInput.setAttribute("id", value.toLowerCase());
-        genderInput.setAttribute("name", "gemder");
+        genderInput.setAttribute("name", "gender");
         genderInput.setAttribute("value", value);
-        genderInput.setAttribute("change", () => handleGenderSelection(value));
+        genderInput.addEventListener("click", (event) => {
+          // renderParticipationList(event.target.value);
+          // console.log("click");
+          // trace[counter] = {gender: event.target.value};
+          // gender = event.target.value;
+        });
         const genderLabel = document.createElement("label");
         genderLabel.setAttribute("for", "gender");
         genderLabel.textContent = value;
@@ -271,27 +316,29 @@ function RegisterToEnter() {
 
       const participationDiv = document.createElement("div");
       participationDiv.setAttribute("class", "row align-items-center");
+      participationDiv.setAttribute("id", "games");
 
       const participateText = document.createElement("p");
       participateText.textContent = "Participate in:";
       participationDiv.appendChild(participateText);
-      
-      function handleGenderSelection(gender){
-        if (divId === "adultContainer" && gender === "Male"){
-          games = [
-            { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles" },
-            { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
-            { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
-            { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
-            { id: "29", name: "29", label: "29" },
-            { id: "callBridge", name: "CallBridge", label: "Call Bridge" },
-            { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
-            { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
-            { id: "Chess", name: "Chess", label: "Chess" }
-          ];
-        }
+
+      // const renderParticipationList = () =>{
+      //   console.log(gender);
+      if (divId === "adultContainer") {
+        games = [
+          { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles" },
+          { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
+          { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
+          { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
+          { id: "29", name: "29", label: "29" },
+          { id: "callBridge", name: "CallBridge", label: "Call Bridge" },
+          { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
+          { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
+          { id: "Chess", name: "Chess", label: "Chess" }
+        ];
       }
-      
+
+
       if (divId === "bigKidContainer") {
         games = [
           { id: "Chess", name: "Chess", label: "Chess" },
@@ -387,7 +434,7 @@ function RegisterToEnter() {
 
       // Append participationDiv to container
       inputContainer.appendChild(participationDiv);
-
+      // }
     }
   }
 
@@ -403,9 +450,10 @@ function RegisterToEnter() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex mb-3 input-group border-bottom pb-1">
                 <i className="bi bi-people-fill me-2"></i>
-                <span className="input-group-text"> Number of adults</span>
-                <select className="custom-select" onChange={(event) => addInput(event.target.value, "adultContainer")}>
-                  <option value="1" selected>1</option>
+                <span className="input-group-text"> Number of Males </span>
+                <select className="custom-select" onChange={(event) => addInput(event.target.value, "maleContainer")}>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
                   <option value="4">4</option>
@@ -418,13 +466,14 @@ function RegisterToEnter() {
                 </select>
                 <p className="ms-2">(385kr/adult)</p>
               </div>
-              <div id="adultContainer">
+              
+              <div id="maleContainer">
+                {/* 
                 <div className="input-group mb-3">
                   <i className="bi bi-person-fill me-2"></i>
                   <span className="input-group-text">Adult 1</span>
                   <input Name="Adult1" className="form-control" placeholder="Full name" type="text" required />
                 </div>
-                {/* 
                 <div className="mt-2 p-2">
                   <p>Gender:</p>
                   <div className="form-check">
@@ -442,8 +491,31 @@ function RegisterToEnter() {
                     </label>
                   </div> 
                 </div>
+                <div></div>
                 */}
               </div>
+              
+            </div>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="d-flex input-group mb-3 border-bottom pb-1">
+                <i className="bi bi-person-standing me-2"></i>
+                <span className="input-group-text text-wrap"> Number of Females</span>
+                <select className="custom-select" onChange={(event) => addInput(event.target.value, "femaleContainer")}>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <p className="ms-2">(285kr/child)</p>
+              </div>
+              <div id="femaleContainer"></div>
             </div>
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex input-group mb-3 border-bottom pb-1">
