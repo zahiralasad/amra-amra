@@ -25,6 +25,9 @@ function RegisterToEnter() {
   const [loading, setLoading] = useState(true);
   const [selectedGender, setSelectGender] = useState(null);
   // const [games, setGames] = useState([]);
+  // const [adultNames, setAdultNames] = useState(0);
+  // const [adultPartners, setAdultPartners] = useState(0);
+  // const [kidPartners, setKidPartners] = useState(0);
 
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
@@ -45,14 +48,29 @@ function RegisterToEnter() {
 
   useEffect(() => {
     let cost = adults * 385 + bigkids * 285 + smallkids * 255 + babys * 0;
-    document.getElementById("totalFee").value = cost;
-    document.getElementById("cost").innerHTML = cost;
+    // document.getElementById("totalFee").value = cost;
+    // document.getElementById("cost").innerHTML = cost;
   })
 
   useEffect(() => {
     randomName();
     // addInput(1, "adultContainer")
   }, []);
+
+  // const fetchData = async() => {
+  //   try {
+  //     const response = await axios.get(url);
+  //     setResponse(response.data.values);
+  //   }
+  //   catch(error) {
+  //       setError(error.message);
+  //       setLoading(false);
+  //     };
+  // }
+  // useEffect(() => {
+  //   fetchData();
+  // }, []);
+
 
   useEffect(() => {
     fetch(url)
@@ -98,26 +116,27 @@ function RegisterToEnter() {
   //   //   ];
   // }
 
+
+
   const adultNames = entries
     .filter((entry) => entry["Adults Names"]) // Ensure 'Adults Names' key is not empty
     .map((entry) => entry["Adults Names"]); // Extract the name
 
-  // console.log(adultNames);
+  console.log("Adult Names 1: ", adultNames);
 
   const adultPartners = entries
     .filter((entry) => entry["Adult Partner"])
     .map((entry) => entry["Adult Partner"]);
 
-  // console.log(adultPartners);
-
   const kidPartners = entries
     .filter((entry) => entry["Kid Partner"])
     .map((entry) => entry["Kid Partner"]);
-
-
+  
   const ttDoubles = entries
     .filter((entry) => entry["Table Tannis Doubles"])
     .map((entry) => entry["Table Tannis Doubles"]);
+    
+  console.log("ttDoubles: ", ttDoubles);
 
   const ttSingles = entries
     .filter((entry) => entry["Table Tannis Singles"])
@@ -184,8 +203,8 @@ function RegisterToEnter() {
     const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)"];
     const randomIndex = Math.floor(Math.random() * numbers.length);
     const number = numbers[randomIndex];
-    document.getElementById('swishTo').innerHTML = number;
-    document.getElementById('swish').value = number;
+    // document.getElementById('swishTo').innerHTML = number;
+    // document.getElementById('swish').value = number;
   }
 
   const sendEmail = (fData) => {
@@ -283,36 +302,36 @@ function RegisterToEnter() {
       genderP.textContent = "Gender:";
       genderDiv.appendChild(genderP);
 
-      function createRadioButton(value) {
-        // counter++;
-        const selectGenderDiv = document.createElement("div");
-        selectGenderDiv.setAttribute("class", "form-check");
-        const genderInput = document.createElement("input");
-        genderInput.setAttribute("class", "form-check-input");
-        genderInput.setAttribute("type", "radio");
-        genderInput.setAttribute("id", value.toLowerCase());
-        genderInput.setAttribute("name", "gender");
-        genderInput.setAttribute("value", value);
-        genderInput.addEventListener("click", (event) => {
-          // renderParticipationList(event.target.value);
-          // console.log("click");
-          // trace[counter] = {gender: event.target.value};
-          // gender = event.target.value;
-        });
-        const genderLabel = document.createElement("label");
-        genderLabel.setAttribute("for", "gender");
-        genderLabel.textContent = value;
-        selectGenderDiv.appendChild(genderInput);
-        selectGenderDiv.appendChild(genderLabel);
-        return selectGenderDiv;
-      }
-      const maleRadio = createRadioButton("Male");
-      genderDiv.appendChild(maleRadio);
-      // inputContainer.appendChild(genderDiv);
+      // function createRadioButton(value) {
+      //   // counter++;
+      //   const selectGenderDiv = document.createElement("div");
+      //   selectGenderDiv.setAttribute("class", "form-check");
+      //   const genderInput = document.createElement("input");
+      //   genderInput.setAttribute("class", "form-check-input");
+      //   genderInput.setAttribute("type", "radio");
+      //   genderInput.setAttribute("id", value.toLowerCase());
+      //   genderInput.setAttribute("name", "gender");
+      //   genderInput.setAttribute("value", value);
+      //   genderInput.addEventListener("click", (event) => {
+      //     // renderParticipationList(event.target.value);
+      //     // console.log("click");
+      //     // trace[counter] = {gender: event.target.value};
+      //     // gender = event.target.value;
+      //   });
+      //   const genderLabel = document.createElement("label");
+      //   genderLabel.setAttribute("for", "gender");
+      //   genderLabel.textContent = value;
+      //   selectGenderDiv.appendChild(genderInput);
+      //   selectGenderDiv.appendChild(genderLabel);
+      //   return selectGenderDiv;
+      // }
+      // const maleRadio = createRadioButton("Male");
+      // genderDiv.appendChild(maleRadio);
+      // // inputContainer.appendChild(genderDiv);
 
-      const femaleRadio = createRadioButton("Female");
-      genderDiv.appendChild(femaleRadio);
-      inputContainer.appendChild(genderDiv);
+      // const femaleRadio = createRadioButton("Female");
+      // genderDiv.appendChild(femaleRadio);
+      // inputContainer.appendChild(genderDiv);
 
       const participationDiv = document.createElement("div");
       participationDiv.setAttribute("class", "row align-items-center");
@@ -324,22 +343,23 @@ function RegisterToEnter() {
 
       // const renderParticipationList = () =>{
       //   console.log(gender);
-      if (divId === "adultContainer") {
+      if (divId === "maleContainer") {
         games = [
           { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles" },
           { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
           { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
           { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
           { id: "29", name: "29", label: "29" },
-          { id: "callBridge", name: "CallBridge", label: "Call Bridge" },
-          { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
-          { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
           { id: "Chess", name: "Chess", label: "Chess" }
         ];
-      }
-
-
-      if (divId === "bigKidContainer") {
+      } else if (divId === "femaleContainer") {
+        games = [
+          { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
+          { id: "callBridge", name: "CallBridge", label: "Call Bridge" },
+          { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
+          { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" }
+        ];
+      } else if (divId === "bigKidContainer") {
         games = [
           { id: "Chess", name: "Chess", label: "Chess" },
           { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
@@ -375,28 +395,46 @@ function RegisterToEnter() {
         formCheck.appendChild(label);
         gameCol.appendChild(formCheck);
 
+        participationDiv.appendChild(gameCol);
+
         const partnerCol = document.createElement("div");
         partnerCol.setAttribute("class", "col-4 ms-3");
 
-        const select = document.createElement("select");
-        select.setAttribute("class", "form-select");
-        select.setAttribute("style", "width: 150px");
+        if (game.name != "TableTannisSingles"
+          && game.name != "LudoSingles"
+          && game.name != "Chess"
+          && game.name != "CallBridge") {
 
-        const defaultOption = document.createElement("option");
-        defaultOption.setAttribute("value", "");
-        defaultOption.textContent = "Select your partner";
-        select.appendChild(defaultOption);
 
-        adultNames.forEach((name) => {
-          if (!adultPartners.includes(name)) {
-            const option = document.createElement("option");
-            option.setAttribute("value", name);
-            option.textContent = name;
-            select.appendChild(option);
-          }
-        });
+          const select = document.createElement("select");
+          select.setAttribute("class", "form-select");
+          select.setAttribute("style", "width: 150px");
 
-        partnerCol.appendChild(select);
+          const defaultOption = document.createElement("option");
+          defaultOption.setAttribute("value", "");
+          defaultOption.textContent = "Select your partner";
+          select.appendChild(defaultOption);
+
+          console.log("Adult Names 2: ", adultNames);
+
+          adultNames.forEach((name) => {
+            if (!adultPartners.includes(name)) {
+              const option = document.createElement("option");
+              option.setAttribute("value", name);
+              option.textContent = name;
+              select.appendChild(option);
+            }
+          });
+
+          partnerCol.appendChild(select);
+          participationDiv.appendChild(partnerCol);
+        } else {
+          const emptyDiv = document.createElement("div");
+          emptyDiv.setAttribute("class", "border rounded")
+          emptyDiv.setAttribute("style", "width: 150px; height: 25px")
+          partnerCol.appendChild(emptyDiv);
+          participationDiv.appendChild(partnerCol);
+        }
 
         const seatsCol = document.createElement("div");
         seatsCol.setAttribute("class", "col-2 ms-3");
@@ -424,11 +462,9 @@ function RegisterToEnter() {
         } else {
           seatsCol.textContent = "20 Seats left";
         }
-
-
         // Append all columns to the row
-        participationDiv.appendChild(gameCol);
-        participationDiv.appendChild(partnerCol);
+
+
         participationDiv.appendChild(seatsCol);
       });
 
@@ -436,6 +472,13 @@ function RegisterToEnter() {
       inputContainer.appendChild(participationDiv);
       // }
     }
+  }
+  if (loading) {
+    return <div className="text-center  text-white my-5">Please wait while loading the from .........</div>;
+  }
+
+  if (error) {
+    return <div className="text-center my-5 text-danger">Error: {error}</div>;
   }
 
   return (
@@ -466,7 +509,7 @@ function RegisterToEnter() {
                 </select>
                 <p className="ms-2">(385kr/adult)</p>
               </div>
-              
+
               <div id="maleContainer">
                 {/* 
                 <div className="input-group mb-3">
@@ -494,7 +537,7 @@ function RegisterToEnter() {
                 <div></div>
                 */}
               </div>
-              
+
             </div>
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex input-group mb-3 border-bottom pb-1">
