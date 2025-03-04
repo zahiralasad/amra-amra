@@ -13,7 +13,7 @@ import Notification from '../Notification';
 let gender = "";
 
 function RegisterToEnter() {
-  const [adults, setAdults] = useState(1);
+  const [adults, setAdults] = useState(0);
   const [bigkids, setBigKids] = useState(0);
   const [smallkids, setSmallKids] = useState(0);
   const [babys, setBabys] = useState(0);
@@ -39,6 +39,7 @@ function RegisterToEnter() {
   const [chess, setChess] = useState([]);
   const [uno, setUno] = useState([]);
 
+  const [playerCode, setPlayerCode] = useState("");
   const [male1, setMale1] = useState("");
   const [isMale1Set, setIsMale1Set] = useState(false);
 
@@ -48,17 +49,16 @@ function RegisterToEnter() {
 
   const apiUrl = "https://amra-amra.se/emailApi/";
 
-  const maxTTSinglesTeams = 20;
-  const maxTTDoublesTeams = 20;
-  const maxCarromDoublesteams = 20;
-  const maxInternationalbridgeTeams = 20;
-  const Max29Teams = 20;
-  const maxCallbridgeTeams = 20;
-  const maxLudoSinglesTeams = 20;
-  const maxLudoDoublesTeams = 20;
-  const maxChessTeams = 20;
-  const maxUnoTeams = 20;
-  const test="";
+  const maxTTSinglesTeams = 16;
+  const maxTTDoublesTeams = 16;
+  const maxCarromDoublesteams = 16;
+  const maxInternationalbridgeTeams = 16;
+  const Max29Teams = 16;
+  const maxCallbridgeTeams = 16;
+  const maxLudoSinglesTeams = 16;
+  const maxLudoDoublesTeams = 16;
+  const maxChessTeams = 16;
+  const maxUnoTeams = 16;
 
   useEffect(() => {
     let cost = adults * 385 + bigkids * 285 + smallkids * 255 + babys * 0;
@@ -67,9 +67,15 @@ function RegisterToEnter() {
   })
 
   useEffect(() => {
-    randomName();
-    // addInput(1, "adultContainer")
-  }, []);
+    const randomNumber = Math.floor(100 + Math.random() * 900);
+    console.log("Random 3-digit number:", randomNumber);
+    setPlayerCode(`AA${randomNumber}`);
+  }, [])
+
+  // useEffect(() => {
+  //   randomName();
+  //   // addInput(1, "adultContainer")
+  // }, []);
 
   // const fetchData = async() => {
   //   try {
@@ -100,16 +106,14 @@ function RegisterToEnter() {
       });
   }, []);
 
-  useEffect(()=> {
-    console.log("male1 is set")
-  }, [test]);
+
 
   function getColumnsData(entries) {
     setAdultNames(entries
       .filter((entry) => entry["Adults Names"]) // Ensure 'Adults Names' key is not empty
       .map((entry) => entry["Adults Names"])); // Extract the name
 
-    console.log("Adult Names 1: ", adultNames);
+    // console.log("Adult Names 1: ", adultNames);
 
     setAdultPartners(entries
       .filter((entry) => entry["Adult Partner"])
@@ -123,7 +127,7 @@ function RegisterToEnter() {
       .filter((entry) => entry["Table Tannis Doubles"])
       .map((entry) => entry["Table Tannis Doubles"]));
 
-    console.log("ttDoubles: ", ttDoubles);
+    // console.log("ttDoubles: ", ttDoubles);
 
     setTtSingles(entries
       .filter((entry) => entry["Table Tannis Singles"])
@@ -165,11 +169,36 @@ function RegisterToEnter() {
   }
 
   function Submit(e) {
-    document.getElementById("register").disabled = true;
+    // document.getElementById("register").disabled = true;
     const formElm = document.querySelector('form');
     e.preventDefault();
     const formData = new FormData(formElm);
 
+    // for (let [key, value] of formData.entries()) {
+    //   console.log(`${key}: ${value}`);
+    // }
+    // if (formData.has())
+    for (let [key, value] of formData.entries()) {
+      const nextKey = `${key}Code`;
+      if ((value === "on") && (key != "Swish")) {
+        if ((key === "TableTannisSingles")
+          && (key === "Chess")
+          && (key === "CallBridge")
+          && (key === "LudoSingles")) {
+            // formData.delete(key);
+            formData.append(nextKey, playerCode);
+        }
+        // const nextKey = `${key}Code`;
+        // console.log("test: ", nextKey)
+        console.log("test: ", formData.get(nextKey))
+        if (formData.get(nextKey) === "") {
+          formData.delete(nextKey);
+          formData.append(nextKey, playerCode);
+          // console.log("Key: ", key);
+        }
+      }
+      // console.log(`${key}: ${value}`);
+    }
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
@@ -192,13 +221,13 @@ function RegisterToEnter() {
   //   console.log("Male name: ",male);
   // }
 
-  const randomName = () => {
-    const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)"];
-    const randomIndex = Math.floor(Math.random() * numbers.length);
-    const number = numbers[randomIndex];
-    // document.getElementById('swishTo').innerHTML = number;
-    // document.getElementById('swish').value = number;
-  }
+  // const randomName = () => {
+  //   const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)"];
+  //   const randomIndex = Math.floor(Math.random() * numbers.length);
+  //   const number = numbers[randomIndex];
+  //   // document.getElementById('swishTo').innerHTML = number;
+  //   // document.getElementById('swish').value = number;
+  // }
 
   const sendEmail = (fData) => {
     fData.append('request', 'picnicRegistrationEmail'); // need to change
@@ -278,26 +307,25 @@ function RegisterToEnter() {
       }
 
       mainDiv.appendChild(span);
-      const handleInput = () => {
-        const male = document.getElementById("male1");
-        if (male && !isMale1Set) { // Only update if male1 is not already set
-          console.log("First Male 1 Input Value:", male.value);
-          // setMale1(male.value);
-          
-          setIsMale1Set(true);
-          // setAdultNames(prevAdultNames => [male.value, ...adultNames])
-        }
-      }
+      // const handleInput = () => {
+      //   const male = document.getElementById("male1");
+      //   if (male && !isMale1Set) { // Only update if male1 is not already set
+      //     console.log("First Male 1 Input Value:", male.value);
+      //     // setMale1(male.value);
+      //     setIsMale1Set(true);
+      //     // setAdultNames(prevAdultNames => [male.value, ...adultNames])
+      //   }
+      // }
 
       const input = document.createElement("input");
       input.setAttribute("class", "form-control");
       input.setAttribute("placeholder", "Full name");
       input.setAttribute("type", "text");
       input.setAttribute("Name", name);
-      if (divId === "maleContainer" && i === 1) {
-        input.setAttribute("id", "male1");
-        input.addEventListener("focusout", handleInput);
-      }
+      // if (divId === "maleContainer" && i === 1) {
+      //   input.setAttribute("id", "male1");
+      //   input.addEventListener("focusout", handleInput);
+      // }
       input.setAttribute("required", true)
 
       mainDiv.appendChild(input);
@@ -321,33 +349,33 @@ function RegisterToEnter() {
       //   console.log(gender);
       if (divId === "maleContainer") {
         games = [
-          { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles" },
-          { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles" },
-          { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
-          { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge" },
-          { id: "29", name: "29", label: "29" },
-          { id: "Chess", name: "Chess", label: "Chess" }
+          { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles (25kr)" },
+          { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles (50kr)" },
+          { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles (50kr)" },
+          { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge (50kr)" },
+          { id: "29", name: "29", label: "29 (50kr)" },
+          { id: "Chess", name: "Chess", label: "Chess (25kr)" }
         ];
       } else if (divId === "femaleContainer") {
         games = [
-          { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles" },
-          { id: "callBridge", name: "CallBridge", label: "Call Bridge" },
-          { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
-          { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" }
+          { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles (50kr)" },
+          { id: "CallBridge", name: "CallBridge", label: "Call Bridge (25kr)" },
+          { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles (25kr)" },
+          { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles (50kr)" }
         ];
       } else if (divId === "bigKidContainer") {
         games = [
-          { id: "Chess", name: "Chess", label: "Chess" },
-          { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles" },
-          { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles" },
-          { id: "Uno", name: "Uno", label: "Uno" }
+          { id: "Chess", name: "Chess", label: "Chess (25kr)" },
+          { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles (25kr)" },
+          { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles (25kr)" },
+          { id: "Uno", name: "Uno", label: "Uno (50kr)" }
         ];
       }
 
       games.forEach(game => {
         // col
         const gameCol = document.createElement("div");
-        gameCol.setAttribute("class", "col-4 ms-3");
+        gameCol.setAttribute("class", "col-2 ms-3");
         const formCheck = document.createElement("div");
         formCheck.setAttribute("class", "form-check");
 
@@ -355,7 +383,7 @@ function RegisterToEnter() {
         checkbox.setAttribute("class", "form-check-input");
         checkbox.setAttribute("type", "checkbox");
         checkbox.setAttribute("name", game.name);
-        checkbox.setAttribute("value", "Yes");
+        // checkbox.setAttribute("value", "Yes");
         checkbox.setAttribute("id", game.id);
 
         const label = document.createElement("label");
@@ -373,41 +401,57 @@ function RegisterToEnter() {
 
         participationDiv.appendChild(gameCol);
 
+        const textCol = document.createElement("div");
+        textCol.setAttribute("class", "col-4");
+
         const partnerCol = document.createElement("div");
-        partnerCol.setAttribute("class", "col-4 ms-3");
+        partnerCol.setAttribute("class", "col-2");
+
+        // seatsCol.textContent = "20 Seats left";
+        if (game.name != "TableTannisSingles"
+          && game.name != "LudoSingles"
+          && game.name != "Chess"
+          && game.name != "CallBridge") {
+          textCol.textContent = "Enter code from your partner or leave it empty";
+        }
+        else {
+          textCol.textContent = "";
+        }
+        participationDiv.appendChild(textCol);
 
         if (game.name != "TableTannisSingles"
           && game.name != "LudoSingles"
           && game.name != "Chess"
           && game.name != "CallBridge") {
-
-          const select = document.createElement("select");
-          select.setAttribute("class", "form-select");
-          select.setAttribute("style", "width: 150px");
-
-          const defaultOption = document.createElement("option");
-          defaultOption.setAttribute("value", "");
-          defaultOption.textContent = "Select your partner";
-          select.appendChild(defaultOption);
-
-          console.log("Adult Names 2: ", adultNames);
-
-          adultNames.forEach((name) => {
-            if (!adultPartners.includes(name)) {
-              const option = document.createElement("option");
-              option.setAttribute("value", name);
-              option.textContent = name;
-              select.appendChild(option);
-            }
-          });
-
-          partnerCol.appendChild(select);
+          const codeInput = document.createElement("input");
+          codeInput.setAttribute("class", "form-control");
+          codeInput.setAttribute("placeholder", "code");
+          codeInput.setAttribute("style", "width: 100px; height: 25px; border-radius: 8px;")
+          codeInput.setAttribute("type", "text");
+          codeInput.setAttribute("Name", `${game.name}Code`);
+          // // if (divId === "maleContainer" && i === 1) {
+          codeInput.setAttribute("id", "code");
+          // //   input.addEventListener("focusout", handleInput);
+          // // }
+          // codeInput.setAttribute("required", true)
+          partnerCol.appendChild(codeInput);
           participationDiv.appendChild(partnerCol);
-        } else {
-          const emptyDiv = document.createElement("div");
-          emptyDiv.setAttribute("class", "border rounded")
-          emptyDiv.setAttribute("style", "width: 150px; height: 25px")
-          partnerCol.appendChild(emptyDiv);
+        }
+        else {
+          const codeInput = document.createElement("input");
+          codeInput.setAttribute("class", "form-control");
+          codeInput.setAttribute("placeholder", "code");
+          codeInput.setAttribute("style", "width: 100px; height: 25px; border-radius: 8px;")
+          codeInput.setAttribute("type", "text");
+          codeInput.setAttribute("Name", `${game.name}Code`);
+          codeInput.setAttribute("value", playerCode);
+          codeInput.setAttribute("disabled", true);
+
+          // const emptyDiv = document.createElement("div");
+          // emptyDiv.setAttribute("class", "border rounded")
+          // emptyDiv.setAttribute("style", "width: 100px; height: 25px")
+          // partnerCol.appendChild(emptyDiv);
+          partnerCol.appendChild(codeInput);
           participationDiv.appendChild(partnerCol);
         }
 
@@ -435,7 +479,7 @@ function RegisterToEnter() {
         } else if (game.name == "Uno") {
           seatsCol.textContent = `${maxUnoTeams - uno.length} seats left`;
         } else {
-          seatsCol.textContent = "20 Seats left";
+          seatsCol.textContent = "16 Seats left";
         }
         // Append all columns to the row
 
@@ -478,35 +522,10 @@ function RegisterToEnter() {
                     <option value="9">9</option>
                     <option value="10">10</option>
                   </select>
-                  <p className="ms-2">(385kr/adult)</p>
+                  <p className="ms-2">(120kr/adult)</p>
                 </div>
 
                 <div id="maleContainer">
-                  {/* 
-                <div className="input-group mb-3">
-                  <i className="bi bi-person-fill me-2"></i>
-                  <span className="input-group-text">Adult 1</span>
-                  <input Name="Adult1" className="form-control" placeholder="Full name" type="text" required />
-                </div>
-                <div className="mt-2 p-2">
-                  <p>Gender:</p>
-                  <div className="form-check">
-                    <input className="form-check-input" type="radio" id="male" Name="gender" Value="Male" onChange={handleGenderSelection} />
-                    <label for="scales">Male</label>
-                  </div>
-                  <div className="form-check">
-                    <input className="form-check-input" type="radio" id="female" Name="gender" Value="Famale" onChange={handleGenderSelection} />
-                    <label for="gender">Female</label>
-                  </div>
-                  <div className="form-check">
-                    <input className="form-check-input" type="checkbox" Value="Female" checked={selectedGender === 'Female'} onChange={handleGenderSelection} id="female" required />
-                    <label className="form-check-label" htmlFor="gender">
-                      Female
-                    </label>
-                  </div> 
-                </div>
-                <div></div>
-                */}
                 </div>
 
               </div>
@@ -527,14 +546,14 @@ function RegisterToEnter() {
                     <option value="9">9</option>
                     <option value="10">10</option>
                   </select>
-                  <p className="ms-2">(285kr/child)</p>
+                  <p className="ms-2">(120kr/adult)</p>
                 </div>
                 <div id="femaleContainer"></div>
               </div>
               <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                 <div className="d-flex input-group mb-3 border-bottom pb-1">
                   <i className="bi bi-person-standing me-2"></i>
-                  <span className="input-group-text text-wrap"> Number of children born between 2013 to 2018</span>
+                  <span className="input-group-text text-wrap"> Number of children between 6 to 13 years old</span>
                   <select className="custom-select" onChange={(event) => addInput(event.target.value, "bigKidContainer")}>
                     <option value="0" selected>0</option>
                     <option value="1">1</option>
@@ -548,14 +567,14 @@ function RegisterToEnter() {
                     <option value="9">9</option>
                     <option value="10">10</option>
                   </select>
-                  <p className="ms-2">(285kr/child)</p>
+                  <p className="ms-2">(80kr/child)</p>
                 </div>
                 <div id="bigKidContainer"></div>
               </div>
               <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                 <div className="input-group  mb-3 border-bottom pb-1">
                   <i className="bi bi-person-arms-up me-2"></i>
-                  <span className="input-group-text text-wrap"> Number of children born between 2019 to 2020</span>
+                  <span className="input-group-text text-wrap"> Number of children between 0 to 5 years old</span>
                   <select className="custom-select" onChange={(event) => addInput(event.target.value, "smallKidContainer")}>
                     <option value="0" selected>0</option>
                     <option value="1">1</option>
@@ -569,7 +588,7 @@ function RegisterToEnter() {
                     <option value="9">9</option>
                     <option value="10">10</option>
                   </select>
-                  <p className="ms-2">(255kr/child)</p>
+                  <p className="ms-2">(0kr/child)</p>
                 </div>
                 <div id="smallKidContainer"></div>
               </div>
@@ -599,9 +618,9 @@ function RegisterToEnter() {
                 <div className="form-check">
                   <input className="form-check-input" type="checkbox" Name="Swish" id="swish" required />
                   <label className="form-check-label" htmlFor="swish">
-                    I have swished to
+                    I have swished to 1230432419
                   </label>
-                  <span id="swishTo" className="swishto ms-2 h9"></span>
+                  {/* <span id="swishTo" className="swishto ms-2 h9"></span> */}
                 </div>
               </div>
               <div className="form-group mt-3">
