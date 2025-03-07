@@ -7,8 +7,6 @@ import axios from 'axios';
 
 import "../../css/form.css";
 import Notification from '../Notification';
-import { getElementError } from "@testing-library/react";
-import { on } from "nodemailer/lib/xoauth2";
 
 // let trace = {};
 // let counter = 0;
@@ -714,32 +712,8 @@ function RegisterToEnter() {
 
                 <div id="maleContainer">
                   {malePlayers.map((player, playerIndex) => {
-                    // console.log(player);
                     const selectedGames = player.selectedGames || [];
-                    let inputValue;
-                    let checkedValue;
-
-                    const handleCheckedAndInput = (inputChecked, codeIntered) => {
-                      if ((inputChecked) && (codeIntered))
-                        console.log("checked and entered")
-                      
-                    }
-                    const handleCodeInput = (event, gameName) => {
-                      if(event.target.value) {
-                        const checkedElement =document.getElementById(`checkedFor${gameName}${player.id}`)
-                        if(checkedElement.value == on)
-                          checkedValue = true
-                        else
-                          checkedValue = false
-                        //  document.getElementById({`labelFor${gameName}${player.id}`})
-                        handleCheckedAndInput(checkedValue, event.target.value);
-                      }                      
-                    }
-
-
-                    const handleGameSelection = (event, gameName) => {
-                      let tempCost = 0;
-                      console.log(gameName);
+                    const handleGameSelection = (gameName) => {
                       setMalePlayers((prevPlayers) =>
                         prevPlayers.map((p, index) =>
                           index === playerIndex
@@ -752,36 +726,13 @@ function RegisterToEnter() {
                             : p
                         )
                       );
-                      // handleCheckedAndInput()
-                      if (event.target.checked) {
-                        if ((gameName === "TableTannisSingles")
-                          || (gameName === "Chess")
-                          || (gameName === "CallBridge")
-                          || (gameName === "LudoSingles")
-                          || (gameName === "Uno")) {
-                          setGameCost((prevGameCost) => prevGameCost + 25)
-                        } else {
-                          const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
-                          console.log(inputElement.value);
-                          if (inputElement.value != "")
-                            inputValue = true;
-                          else
-                            inputValue = false;
-
-                          // console.log(event.target.value);
-                          handleCheckedAndInput(event.target.value, inputValue);
-                          // if (event.target.value)
-                          //   console.log("50");
-                        }
-                      } else
-                        setGameCost((prevGameCost) => prevGameCost - 25)
                     };
-                    // const defineGameCost = (gameName, code) => {
-                    //   if ((gameName.includes("Doubles")) || (gameName.includes("29")) || (gameName.includes("InternationalBridge"))) {
-                    //     return code.trim() ? "0kr" : "50kr";
-                    //   }
-                    //   return "25kr";
-                    // };
+                    const defineGameCost = (gameName, code) => {
+                      if (gameName.includes("Doubles")) {
+                        return code.trim() ? "0kr" : "50kr";
+                      }
+                      return "25kr";
+                    };
 
                     return (
                       <div key={playerIndex}>
@@ -801,7 +752,6 @@ function RegisterToEnter() {
                           let availableSeats = checkAvailableSeats(game.name);
                           let infoText = "";
                           let code = "";
-                          let singleGame = false;
 
                           if (game.name != "TableTannisSingles"
                             && game.name != "LudoSingles"
@@ -812,21 +762,9 @@ function RegisterToEnter() {
                             code = "";
                           }
                           else {
-
                             infoText = "";
                             code = player.code;
-                            singleGame = true;
                           }
-                          const defineGameCost = (gameName, code) => {
-                            if (
-                              gameName.includes("Doubles") ||
-                              gameName.includes("29") ||
-                              gameName.includes("InternationalBridge")
-                            ) {
-                              return code && code.trim() ? "0kr" : "50kr";
-                            }
-                            return "25kr";
-                          };
                           return (
                             <div key={game.name} className="row">
                               <div className="col-3 ms-3">
@@ -834,15 +772,14 @@ function RegisterToEnter() {
                                   <input
                                     className="form-check-input"
                                     type="checkbox"
-                                    id={`checkedFor${game.name}${player.id}`}
+                                    id={game.id}
                                     disabled={(availableSeats == 0) || (selectedGames.length >= 3 && !selectedGames.includes(game.name))}
                                     checked={selectedGames.includes(game.name)}
-                                    onChange={(event) => handleGameSelection(event, game.name)}
+                                    onChange={() => handleGameSelection(game.name)}
                                   >
                                   </input>
                                   <label
                                     className="form-check-label"
-                                    id={`labelFor${game.name}${player.id}`}
                                     htmlFor={game.id}
                                     style={{ fontSize: "12px" }}
                                   >
@@ -854,17 +791,7 @@ function RegisterToEnter() {
                                 {infoText}
                               </div>
                               <div className="col-2 ">
-                                <input
-                                  className="form-control"
-                                  placeholder={code}
-                                  id={`codeFor${game.name}${player.id}`}
-                                  style={{ width: "60px", height: "25px", borderRadius: "8px" }}
-                                  onBlur={(event) => handleCodeInput(event, game.name)}
-                                  disabled={
-                                    availableSeats === 0 ||
-                                    (selectedGames.length >= 3 && !selectedGames.includes(game.name) || (singleGame))
-                                  }>
-                                </input>
+                                <input className="form-control" placeholder="code" style={{ width: "60px", height: "25px", borderRadius: "8px" }} value={code} disabled={availableSeats == 0}></input>
                               </div>
                               <div className="col-2 ms-3" style={{ fontSize: "12px" }}>
                                 {availableSeats} seats left
@@ -902,7 +829,6 @@ function RegisterToEnter() {
                   {femalePlayers.map((player, playerIndex) => {
                     const selectedGames = player.selectedGames || [];
                     const handleGameSelection = (gameName) => {
-                      console.log(gameName);
                       setFemalePlayers((prevPlayers) =>
                         prevPlayers.map((p, index) =>
                           index === playerIndex
@@ -917,8 +843,7 @@ function RegisterToEnter() {
                       );
                     };
                     const defineGameCost = (gameName, code) => {
-                      // console.log(gameName);
-                      if ((gameName.includes("Doubles")) || (gameName.includes("29")) || (gameName.includes("InternationalBridge"))) {
+                      if (gameName.includes("Doubles")) {
                         return code.trim() ? "0kr" : "50kr";
                       }
                       return "25kr";
@@ -942,7 +867,6 @@ function RegisterToEnter() {
                           let availableSeats = checkAvailableSeats(game.name);
                           let infoText = "";
                           let code = "";
-                          let singleGame = false;
 
                           if (game.name != "TableTannisSingles"
                             && game.name != "LudoSingles"
@@ -955,7 +879,6 @@ function RegisterToEnter() {
                           else {
                             infoText = "";
                             code = player.code;
-                            singleGame = true;
                           }
                           return (
                             <div key={game.name} className="row">
@@ -983,15 +906,7 @@ function RegisterToEnter() {
                                 {infoText}
                               </div>
                               <div className="col-2 ">
-                                <input
-                                  className="form-control"
-                                  placeholder={code}
-                                  style={{ width: "60px", height: "25px", borderRadius: "8px" }}
-                                  disabled={
-                                    availableSeats === 0 ||
-                                    (selectedGames.length >= 3 && !selectedGames.includes(game.name) || (singleGame))
-                                  }>
-                                </input>
+                                <input className="form-control" placeholder="code" style={{ width: "60px", height: "25px", borderRadius: "8px" }} value={code} disabled={code != ""}></input>
                               </div>
                               <div className="col-2 ms-3" style={{ fontSize: "12px" }}>
                                 {availableSeats} seats left
@@ -1042,7 +957,7 @@ function RegisterToEnter() {
                       );
                     };
                     const defineGameCost = (gameName, code) => {
-                      if ((gameName.includes("Doubles")) || (gameName.includes("29")) || (gameName.includes("InternationalBridge"))) {
+                      if (gameName.includes("Doubles")) {
                         return code.trim() ? "0kr" : "50kr";
                       }
                       return "25kr";
@@ -1066,7 +981,6 @@ function RegisterToEnter() {
                           let availableSeats = checkAvailableSeats(game.name);
                           let infoText = "";
                           let code = "";
-                          let singleGame = false;
 
                           if (game.name != "TableTannisSingles"
                             && game.name != "LudoSingles"
@@ -1079,7 +993,6 @@ function RegisterToEnter() {
                           else {
                             infoText = "";
                             code = player.code;
-                            singleGame = true;
                           }
                           return (
                             <div key={game.name} className="row">
@@ -1107,15 +1020,7 @@ function RegisterToEnter() {
                                 {infoText}
                               </div>
                               <div className="col-2 ">
-                                <input
-                                  className="form-control"
-                                  placeholder={code}
-                                  style={{ width: "60px", height: "25px", borderRadius: "8px" }}
-                                  disabled={
-                                    availableSeats === 0 ||
-                                    (selectedGames.length >= 3 && !selectedGames.includes(game.name) || (singleGame))
-                                  }>
-                                </input>
+                                <input className="form-control" placeholder="code" style={{ width: "60px", height: "25px", borderRadius: "8px" }} value={code} disabled={code != ""}></input>
                               </div>
                               <div className="col-2 ms-3" style={{ fontSize: "12px" }}>
                                 {availableSeats} seats left
