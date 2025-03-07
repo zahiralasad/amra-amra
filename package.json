@@ -21,6 +21,7 @@
     "react-pro-sidebar": "^1.1.0",
     "react-router-dom": "^6.22.3",
     "react-scripts": "^5.0.1",
+    "url": "^0.11.4",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -48,6 +49,7 @@
     ]
   },
   "devDependencies": {
-    "@types/jquery": "^3.5.29"
+    "@types/jquery": "^3.5.29",
+    "stream-http": "^3.2.0"
   }
 }
