@@ -46,6 +46,7 @@ function RegisterToEnter() {
   const [ludoDoubles, setLudoDoubles] = useState([]);
   const [chess, setChess] = useState([]);
   const [uno, setUno] = useState([]);
+  const [codes, setCodes] = useState([]);
 
   // const [perGameCost, setPerGameCost] = useState("");
   // const [players, setPlayers] = useState([]);
@@ -101,6 +102,7 @@ function RegisterToEnter() {
   { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles " },
   { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles " },
   { id: "Uno", name: "Uno", label: "Uno " }]);
+  const [initialCode, setInitialCode] = useState("");
 
   const [maleGameCost, setMaleGameCost] = useState(0);
   const [femaleGameCost, setFemaleGameCost] = useState(0);
@@ -174,8 +176,6 @@ function RegisterToEnter() {
       .filter((entry) => entry["Adults Names"]) // Ensure 'Adults Names' key is not empty
       .map((entry) => entry["Adults Names"])); // Extract the name
 
-    // console.log("Adult Names 1: ", adultNames);
-
     setAdultPartners(entries
       .filter((entry) => entry["Adult Partner"])
       .map((entry) => entry["Adult Partner"]));
@@ -227,6 +227,10 @@ function RegisterToEnter() {
     setUno(entries
       .filter((entry) => entry["Uno"])
       .map((entry) => entry["Uno"]));
+
+    setCodes(entries
+      .filter((entry) => entry["Codes"])
+      .map((entry) => entry["Codes"]));
   }
 
   function Submit(e) {
@@ -280,31 +284,6 @@ function RegisterToEnter() {
     //   }).catch(error => setResponse(error));
   }
 
-  function handleInput(event) {
-    const span = document.getElementById("gamecost");
-    console.log(span);
-    // setAdultNames((prevAdultNames) => [male, ...prevAdultNames]);
-    if (event.target.value === "") {
-      span.textContent = "(50kr)"
-    } else {
-      span.textContent = "(0kr)"
-    }
-    console.log("Updated span text:", span.textContent);
-  }
-
-  const handleChecked = (event, game) => {
-    if (event.target.checked) {
-      if ((game.name === "TableTannisSingles")
-        || (game.name === "Chess")
-        || (game.name === "CallBridge")
-        || (game.name === "LudoSingles")
-        || (game.name === "Uno")) {
-        setGameCost((prevGameCost) => prevGameCost + 25)
-      }
-
-    } else
-      setGameCost((prevGameCost) => prevGameCost - 25)
-  }
 
   const sendEmail = (fData) => {
     fData.append('request', 'picnicRegistrationEmail'); // need to change
@@ -352,7 +331,7 @@ function RegisterToEnter() {
     if (catgo === "male") {
       setNumberOfMales(count);
       if (count == 0)
-        console.log("not here")
+        // console.log("not here")
         setMaleGameCost(0);
       setMalePlayers(updatedPlayers);
     } else if (catgo === "female") {
@@ -371,7 +350,7 @@ function RegisterToEnter() {
       // console.log(updatedPlayers);
     }
   }
-  
+
   return (
     <div className="row">
       {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
@@ -408,27 +387,62 @@ function RegisterToEnter() {
                 <div id="maleContainer">
                   {malePlayers.map((player, playerIndex) => {
                     // console.log(player);
-                    const selectedGames = player.selectedGames || [];
-                    let inputValue;
-                    let checkedValue;
+                    const selectedGames = player.selectedGames || [];                          
 
                     const handleCodeInput = (event, gameName) => {
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
-                      if (event.target.value) {
-                        // console.log("Code : ", event.target.value)
-                        if (checkedElement.value == "on") {
-                          setMaleGameCost((prevGameCost) => prevGameCost - 50);
-                          labelText.textContent = `${gameName} (0kr)`;
-                        }
-                      } else {
-                        if (checkedElement.value == "on") {
-                          setMaleGameCost((prevGameCost) => prevGameCost + 50);
-                          labelText.textContent = `${gameName} (50kr)`;
+                      let receivedCode = event.target.value;                                              
+
+                      if (receivedCode !== initialCode) {                                             
+                        // need to check if any code exist in the row 
+                       
+                        if ((receivedCode) && (receivedCode.length === 5)) {
+                          // const filteredRows = getColumnsData.filter((row) => {
+                          //   const codeInRow = row["Code"];
+                          // });
+                          // if (codeInRow === receivedCode){
+                          //   alert()
+                          // }
+                          const codeExist = () => { 
+                            if(gameName === "TableTannisSingles"){
+                              return ttSingles.includes(receivedCode) // return true or false
+                            }
+                            if(gameName === "TableTannisDoubles"){
+                              return ttDoubles.includes(receivedCode)
+                            }
+                            if(gameName === "CarromDoubles"){
+                              return carromDoubles.includes(receivedCode)
+                            }
+                            if(gameName === "29"){
+                              return card29.includes(receivedCode)
+                            }
+                            if(gameName === "LudoDoubles"){
+                              return ludoDoubles.includes(receivedCode)
+                            }                              
+                          }
+                          if (codeExist()){
+                            alert("Your partner's has paired up with others in this game");
+                            document.getElementById(`codeFor${gameName}${player.id}`).value = "";
+                          } else if (checkedElement.value == "on") {
+                            setMaleGameCost((prevGameCost) => prevGameCost - 50);
+                            labelText.textContent = `${gameName} (0kr)`;
+                          }
+                        } else {
+                          if ((receivedCode.length >=1) && (receivedCode.length >=1)){
+                            alert("Your partner's code is wrong");
+                            document.getElementById(`codeFor${gameName}${player.id}`).value = "";
+                          }
+                          if (checkedElement.value == "on") {
+                            setMaleGameCost((prevGameCost) => prevGameCost + 50);
+                            labelText.textContent = `${gameName} (50kr)`;
+                          }
                         }
                       }
                     }
-
+                    const checkCode = () => {
+                      console.log("test");
+                    }
                     const handleGameSelection = (event, gameName) => {
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
@@ -466,6 +480,7 @@ function RegisterToEnter() {
                           || (gameName === "Uno")) {
                           setMaleGameCost((prevGameCost) => prevGameCost - 25)
                         } else {
+                          checkCode();
                           if (inputElement.value === "") {
                             setMaleGameCost((prevGameCost) => prevGameCost - 50)
                           }
@@ -506,6 +521,9 @@ function RegisterToEnter() {
                             infoText = "";
                             code = player.code;
                             singleGame = true;
+                          }
+                          const handleFocus = (event) => {
+                            setInitialCode(event.target.value);
                           }
                           const defineGameCost = (gameName, code) => {
                             if (
@@ -549,6 +567,7 @@ function RegisterToEnter() {
                                   placeholder={code}
                                   id={`codeFor${game.name}${player.id}`}
                                   style={{ width: "60px", height: "25px", borderRadius: "8px" }}
+                                  onFocus={(event) => handleFocus(event)}
                                   onBlur={(event) => handleCodeInput(event, game.name)}
                                   disabled={
                                     availableSeats === 0 ||
@@ -589,25 +608,25 @@ function RegisterToEnter() {
                   <p className="ms-2">(120kr/adult)</p>
                 </div>
                 <div id="femaleContainer">
-                {femalePlayers.map((player, playerIndex) => {
+                  {femalePlayers.map((player, playerIndex) => {
                     // console.log(player);
-                    const selectedGames = player.selectedGames || [];
-                    let inputValue;
-                    let checkedValue;
+                    const selectedGames = player.selectedGames || [];                    
 
                     const handleCodeInput = (event, gameName) => {
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
-                      if (event.target.value) {
-                        // console.log("Code : ", event.target.value)
-                        if (checkedElement.value == "on") {
-                          setFemaleGameCost((prevGameCost) => prevGameCost - 50);
-                          labelText.textContent = `${gameName} (0kr)`;
-                        }
-                      } else {
-                        if (checkedElement.value == "on") {
-                          setFemaleGameCost((prevGameCost) => prevGameCost + 50);
-                          labelText.textContent = `${gameName} (50kr)`;
+                      if (event.target.value !== initialCode) {
+                        if (event.target.value) {
+                          // console.log("Code : ", event.target.value)
+                          if (checkedElement.value == "on") {
+                            setFemaleGameCost((prevGameCost) => prevGameCost - 50);
+                            labelText.textContent = `${gameName} (0kr)`;
+                          }
+                        } else {
+                          if (checkedElement.value == "on") {
+                            setFemaleGameCost((prevGameCost) => prevGameCost + 50);
+                            labelText.textContent = `${gameName} (50kr)`;
+                          }
                         }
                       }
                     }
@@ -690,6 +709,9 @@ function RegisterToEnter() {
                             code = player.code;
                             singleGame = true;
                           }
+                          const handleFocus = (event) => {
+                            setInitialCode(event.target.value);
+                          }
                           const defineGameCost = (gameName, code) => {
                             if (
                               gameName.includes("Doubles") ||
@@ -732,6 +754,7 @@ function RegisterToEnter() {
                                   placeholder={code}
                                   id={`codeFor${game.name}${player.id}`}
                                   style={{ width: "60px", height: "25px", borderRadius: "8px" }}
+                                  onFocus={(event) => handleFocus(event)}
                                   onBlur={(event) => handleCodeInput(event, game.name)}
                                   disabled={
                                     availableSeats === 0 ||
@@ -771,25 +794,25 @@ function RegisterToEnter() {
                   <p className="ms-2">(80kr/child)</p>
                 </div>
                 <div id="bigKidContainer">
-                {kidsPlayers.map((player, playerIndex) => {
+                  {kidsPlayers.map((player, playerIndex) => {
                     // console.log(player);
                     const selectedGames = player.selectedGames || [];
-                    let inputValue;
-                    let checkedValue;
 
                     const handleCodeInput = (event, gameName) => {
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
-                      if (event.target.value) {
-                        // console.log("Code : ", event.target.value)
-                        if (checkedElement.value == "on") {
-                          setBigKidsGameCost((prevGameCost) => prevGameCost - 50);
-                          labelText.textContent = `${gameName} (0kr)`;
-                        }
-                      } else {
-                        if (checkedElement.value == "on") {
-                          setBigKidsGameCost((prevGameCost) => prevGameCost + 50);
-                          labelText.textContent = `${gameName} (50kr)`;
+                      if (event.target.value !== initialCode) {
+                        if (event.target.value) {
+                          // console.log("Code : ", event.target.value)
+                          if (checkedElement.value == "on") {
+                            setBigKidsGameCost((prevGameCost) => prevGameCost - 50);
+                            labelText.textContent = `${gameName} (0kr)`;
+                          }
+                        } else {
+                          if (checkedElement.value == "on") {
+                            setBigKidsGameCost((prevGameCost) => prevGameCost + 50);
+                            labelText.textContent = `${gameName} (50kr)`;
+                          }
                         }
                       }
                     }
@@ -872,6 +895,9 @@ function RegisterToEnter() {
                             code = player.code;
                             singleGame = true;
                           }
+                          const handleFocus = (event) => {
+                            setInitialCode(event.target.value);
+                          }
                           const defineGameCost = (gameName, code) => {
                             if (
                               gameName.includes("Doubles") ||
@@ -914,6 +940,7 @@ function RegisterToEnter() {
                                   placeholder={code}
                                   id={`codeFor${game.name}${player.id}`}
                                   style={{ width: "60px", height: "25px", borderRadius: "8px" }}
+                                  onFocus={(event) => handleFocus(event)}
                                   onBlur={(event) => handleCodeInput(event, game.name)}
                                   disabled={
                                     availableSeats === 0 ||
