@@ -239,6 +239,8 @@ function RegisterToEnter() {
     e.preventDefault();
     const formData = new FormData(formElm);
 
+    formData.append("male", JSON.stringify(malePlayers));
+
     // for (let [key, value] of formData.entries()) {
     //   console.log(`${key}: ${value}`);
     // }
@@ -323,8 +325,7 @@ function RegisterToEnter() {
         : Array.from({ length: count }, (_, index) => ({
           id: `${catgo}${index + 1}`,
           name: "",
-          games: [],
-          code: generateCode(),
+          ownCode: generateCode(),
         }));
 
     // console.log(updatedPlayers);
@@ -443,10 +444,17 @@ function RegisterToEnter() {
                     const checkCode = () => {
                       console.log("test");
                     }
+
+                    const updatPlayerData = (prevPlayers) =>{
+                      console.log("test2");
+
+                      console.log(prevPlayers);
+                    }
                     const handleGameSelection = (event, gameName) => {
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
-                      console.log(gameName);
+                      console.log("Game name:", gameName);
+                      console.log("Entered Code", inputElement.value);
                       setMalePlayers((prevPlayers) =>
                         prevPlayers.map((p, index) =>
                           index === playerIndex
@@ -459,6 +467,22 @@ function RegisterToEnter() {
                             : p
                         )
                       );
+                      // setMalePlayers((prevPlayers) =>
+                      //   prevPlayers.map((p, index) =>
+                      //     index === playerIndex
+                      //       ? {
+                      //           ...p,
+                      //           selectedGames: selectedGames.some((game) => Object.keys(game)[0] === gameName)
+                      //             ? selectedGames.filter((game) => Object.keys(game)[0] !== gameName) // Remove the game if it exists
+                      //             : [
+                      //                 ...selectedGames,
+                      //                 { [gameName]: inputElement.value || ""}, // Add the game with the entered code or an empty string
+                      //               ],
+                      //         }
+                      //       : p
+                      //   )
+                      // );
+
                       if (event.target.checked) {
 
                         if ((gameName === "TableTannisSingles")
@@ -480,7 +504,6 @@ function RegisterToEnter() {
                           || (gameName === "Uno")) {
                           setMaleGameCost((prevGameCost) => prevGameCost - 25)
                         } else {
-                          checkCode();
                           if (inputElement.value === "") {
                             setMaleGameCost((prevGameCost) => prevGameCost - 50)
                           }
