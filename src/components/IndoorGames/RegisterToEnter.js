@@ -368,7 +368,6 @@ function RegisterToEnter() {
                 <div className="d-flex mb-3 input-group border-bottom pb-1">
                   <i className="bi bi-people-fill me-2"></i>
                   <span className="input-group-text"> Number of Males </span>
-                  {/* <select className="custom-select" onChange={(event) => addInput(event.target.value, "maleContainer")}> */}
                   <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "male")}>
                     <option value="0" selected>0</option>
                     <option value="1">1</option>
@@ -388,100 +387,113 @@ function RegisterToEnter() {
                 <div id="maleContainer">
                   {malePlayers.map((player, playerIndex) => {
                     // console.log(player);
-                    const selectedGames = player.selectedGames || [];                          
+                    const selectedGames = player.selectedGames || [];
 
                     const handleCodeInput = (event, gameName) => {
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
-                      let receivedCode = event.target.value;                                              
+                      let receivedCode = event.target.value;
 
-                      if (receivedCode !== initialCode) {                                             
-                        // need to check if any code exist in the row 
-                       
+                      if (receivedCode !== initialCode) {
                         if ((receivedCode) && (receivedCode.length === 5)) {
-                          // const filteredRows = getColumnsData.filter((row) => {
-                          //   const codeInRow = row["Code"];
-                          // });
-                          // if (codeInRow === receivedCode){
-                          //   alert()
-                          // }
-                          const codeExist = () => { 
-                            if(gameName === "TableTannisSingles"){
+                          const codeExist = () => {
+                            if (gameName === "TableTannisSingles") {
                               return ttSingles.includes(receivedCode) // return true or false
                             }
-                            if(gameName === "TableTannisDoubles"){
+                            if (gameName === "TableTannisDoubles") {
                               return ttDoubles.includes(receivedCode)
                             }
-                            if(gameName === "CarromDoubles"){
+                            if (gameName === "CarromDoubles") {
                               return carromDoubles.includes(receivedCode)
                             }
-                            if(gameName === "29"){
+                            if (gameName === "29") {
                               return card29.includes(receivedCode)
                             }
-                            if(gameName === "LudoDoubles"){
+                            if (gameName === "LudoDoubles") {
                               return ludoDoubles.includes(receivedCode)
-                            }                              
+                            }
                           }
-                          if (codeExist()){
+                          if (codeExist()) {
                             alert("Your partner's has paired up with others in this game");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
                           } else if (checkedElement.value == "on") {
                             setMaleGameCost((prevGameCost) => prevGameCost - 50);
                             labelText.textContent = `${gameName} (0kr)`;
+                            setMalePlayers((prevPlayers) =>
+                              prevPlayers.map((p, index) =>
+                                index === playerIndex
+                                  ? {
+                                      ...p,
+                                      selectedGames: p.selectedGames.map((game) =>
+                                        game.game === gameName
+                                          ? { ...game, code: document.getElementById(`codeFor${gameName}${player.id}`).value } // Update code for InternationalBridge
+                                          : game // Keep the other games as is
+                                      ),
+                                    }
+                                  : p
+                              )
+                            );
                           }
                         } else {
-                          if ((receivedCode.length >=1) && (receivedCode.length >=1)){
+                          if (receivedCode.length >= 1)  {
                             alert("Your partner's code is wrong");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
                           }
                           if (checkedElement.value == "on") {
                             setMaleGameCost((prevGameCost) => prevGameCost + 50);
                             labelText.textContent = `${gameName} (50kr)`;
+                            setMalePlayers((prevPlayers) =>
+                              prevPlayers.map((p, index) =>
+                                index === playerIndex
+                                  ? {
+                                      ...p,
+                                      selectedGames: p.selectedGames.map((game) =>
+                                        game.game === gameName
+                                          ? { ...game, code: "" } // Update code for InternationalBridge
+                                          : game // Keep the other games as is
+                                      ),
+                                    }
+                                  : p
+                              )
+                            );
                           }
                         }
                       }
                     }
-                    const checkCode = () => {
-                      console.log("test");
-                    }
 
-                    const updatPlayerData = (prevPlayers) =>{
-                      console.log("test2");
-
-                      console.log(prevPlayers);
-                    }
                     const handleGameSelection = (event, gameName) => {
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
                       console.log("Game name:", gameName);
+                      console.log("Selected Games: ", selectedGames);
                       console.log("Entered Code", inputElement.value);
+
+                      const gamesWithCode = [
+                        "TableTannisSingles", 
+                        "LudoSingles", 
+                        "Chess", 
+                        "CallBridge", 
+                        "Uno"
+                      ];
+
                       setMalePlayers((prevPlayers) =>
                         prevPlayers.map((p, index) =>
                           index === playerIndex
                             ? {
                               ...p,
-                              selectedGames: selectedGames.includes(gameName)
-                                ? selectedGames.filter((game) => game !== gameName)
-                                : [...selectedGames, gameName],
+                              name: document.getElementById(player.id).value,
+
+                              selectedGames: event.target.checked
+                                ? [
+                                  ...selectedGames,
+                                  { game: gameName, code: gamesWithCode.includes(gameName) ? p.ownCode : inputElement.value },
+                                ]
+                                : selectedGames.filter((game) => game.game !== gameName), // Remove game object if unchecked
+
                             }
                             : p
                         )
                       );
-                      // setMalePlayers((prevPlayers) =>
-                      //   prevPlayers.map((p, index) =>
-                      //     index === playerIndex
-                      //       ? {
-                      //           ...p,
-                      //           selectedGames: selectedGames.some((game) => Object.keys(game)[0] === gameName)
-                      //             ? selectedGames.filter((game) => Object.keys(game)[0] !== gameName) // Remove the game if it exists
-                      //             : [
-                      //                 ...selectedGames,
-                      //                 { [gameName]: inputElement.value || ""}, // Add the game with the entered code or an empty string
-                      //               ],
-                      //         }
-                      //       : p
-                      //   )
-                      // );
 
                       if (event.target.checked) {
 
@@ -542,7 +554,7 @@ function RegisterToEnter() {
                           else {
 
                             infoText = "";
-                            code = player.code;
+                            code = player.ownCode;
                             singleGame = true;
                           }
                           const handleFocus = (event) => {
@@ -566,11 +578,10 @@ function RegisterToEnter() {
                                     className="form-check-input"
                                     type="checkbox"
                                     id={`checkedFor${game.name}${player.id}`}
-                                    disabled={(availableSeats == 0) || (selectedGames.length >= 3 && !selectedGames.includes(game.name))}
-                                    checked={selectedGames.includes(game.name)}
+                                    disabled={(availableSeats === 0) || (selectedGames.length >= 3 && !selectedGames.find(selectedGame => selectedGame.game === game.name))}
+                                    checked={selectedGames.some(selectedGame => selectedGame.game === game.name)}
                                     onChange={(event) => handleGameSelection(event, game.name)}
-                                  >
-                                  </input>
+                                  />
                                   <label
                                     className="form-check-label"
                                     id={`labelFor${game.name}${player.id}`}
@@ -594,7 +605,7 @@ function RegisterToEnter() {
                                   onBlur={(event) => handleCodeInput(event, game.name)}
                                   disabled={
                                     availableSeats === 0 ||
-                                    (selectedGames.length >= 3 && !selectedGames.includes(game.name) || (singleGame))
+                                    (selectedGames.length >= 3 && !selectedGames.find(selectedGame => selectedGame.game === game.name) || (singleGame))
                                   }>
                                 </input>
                               </div>
@@ -633,7 +644,7 @@ function RegisterToEnter() {
                 <div id="femaleContainer">
                   {femalePlayers.map((player, playerIndex) => {
                     // console.log(player);
-                    const selectedGames = player.selectedGames || [];                    
+                    const selectedGames = player.selectedGames || [];
 
                     const handleCodeInput = (event, gameName) => {
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
