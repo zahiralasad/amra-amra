@@ -57,7 +57,8 @@ function RegisterToEnter() {
 
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
-  const url = 'https://script.google.com/macros/s/AKfycbzMbB5oTRwtu_GD6aZHbPHNVKzPokNaZVhVIv38X_mSC_-nSobfYn34DJS2JK_fgmUu/exec';
+  // const url = 'https://script.google.com/macros/s/AKfycbzMbB5oTRwtu_GD6aZHbPHNVKzPokNaZVhVIv38X_mSC_-nSobfYn34DJS2JK_fgmUu/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbwwUoqG4sbWKvjZ2rjZ1F8zSaVCxqZ5aSl9f8TfU_eyV-vyMu2fkqrtXRFkyt1R3Ezy/exec';
 
   const apiUrl = "https://amra-amra.se/emailApi/";
 
@@ -87,6 +88,9 @@ function RegisterToEnter() {
   const [femalePlayers, setFemalePlayers] = useState([]);
   const [kidsPlayers, setKidsPlayers] = useState([]);
   const [smallKids, setSmallKids] = useState([]);
+
+
+
   const [categories] = useState(["male", "female", "bigKids", "smallKids"]);
   const [maleGames] = useState([{ id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles " },
   { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles " },
@@ -103,6 +107,9 @@ function RegisterToEnter() {
   { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles " },
   { id: "Uno", name: "Uno", label: "Uno " }]);
   const [initialCode, setInitialCode] = useState("");
+  const [playerData, setPlayerData] = useState([]);
+  const [entryNo, setEntryNo] = useState([]);
+  const [numberOfPlayers, setNumberOfPlayers] = useState(0);
 
   const [maleGameCost, setMaleGameCost] = useState(0);
   const [femaleGameCost, setFemaleGameCost] = useState(0);
@@ -173,7 +180,7 @@ function RegisterToEnter() {
 
   function getColumnsData(entries) {
     setAdultNames(entries
-      .filter((entry) => entry["Adults Names"]) // Ensure 'Adults Names' key is not empty
+      .filter((entry) => entry["Names"]) // Ensure 'Adults Names' key is not empty
       .map((entry) => entry["Adults Names"])); // Extract the name
 
     setAdultPartners(entries
@@ -231,59 +238,49 @@ function RegisterToEnter() {
     setCodes(entries
       .filter((entry) => entry["Codes"])
       .map((entry) => entry["Codes"]));
+
+    setEntryNo(entries
+      .filter((entry) => entry["Entry no."])
+      .map((entry) => entry["Entry no."]));
   }
 
+  
   function Submit(e) {
-    // document.getElementById("register").disabled = true;
+    document.getElementById("register").disabled = true;
     const formElm = document.querySelector('form');
     e.preventDefault();
     const formData = new FormData(formElm);
 
-    formData.append("male", JSON.stringify(malePlayers));
+    formData.append("entry", JSON.stringify(playerData));
 
-    // for (let [key, value] of formData.entries()) {
-    //   console.log(`${key}: ${value}`);
-    // }
-    // if (formData.has())
+    console.log("Entries data: ", entryNo);
+// console.log("Filtered Entry Numbers: ", entryNo
+//   .filter((entry) => entry["Entry no."])
+//   .map((entry) => entry["Entry no."]));
+    
+    let testData = [
+      {"email": formData.get('Email')}, 
+      {"phone": formData.get('Phone')},
+      {"cost": formData.get('Cost')},
+      {"swish": formData.get('Swish')},
+      {'entry': playerData}
+    ]
+    console.log(JSON.stringify(testData));
 
-    // for (let [key, value] of formData.entries()) {
-    //   const nextKey = `${key}Code`;
-    //   if ((value === "on") && (key != "Swish")) {
-    //     if ((key === "TableTannisSingles")
-    //       && (key === "Chess")
-    //       && (key === "CallBridge")
-    //       && (key === "LudoSingles")) {
-    //       // formData.delete(key);
-    //       formData.append(nextKey, playerCode);
-    //     }
-    //     // const nextKey = `${key}Code`;
-    //     // console.log("test: ", nextKey)
-    //     console.log("test: ", formData.get(nextKey))
-    //     if (formData.get(nextKey) === "") {
-    //       formData.delete(nextKey);
-    //       formData.append(nextKey, playerCode);
-    //       // console.log("Key: ", key);
-    //     }
-    //   }
-
-    //   // console.log(`${key}: ${value}`);
-    // }
-
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
-    // console.log("Form Data: ", formData.entries);
-    // axios.post(url, formData)
-    //   .then(response => {
-    //     if (response.data === "successful") {
-    //       sendEmail(formData);
-    //     } else {
-    //       setTitle("Warning");
-    //       setMessage(response.data);
-    //       setModalShow(true);
-    //       document.getElementById("register").disabled = false;
-    //     }
-    //   }).catch(error => setResponse(error));
+    axios.post(url, JSON.stringify(testData))
+      .then(response => {
+        if (response.data === "successful") {
+          console.log(response.data);
+          // sendEmail(formData);
+        } else {
+          // console.log(response.data)
+          // console.log(JSON.stringify(response.data))
+          setTitle("Warning");
+          setMessage(response.data);
+          setModalShow(true);
+          document.getElementById("register").disabled = false;
+        }
+      }).catch(error => setResponse(error));
   }
 
 
@@ -314,12 +311,14 @@ function RegisterToEnter() {
   const handleNumberForPlayer = (number, catgo) => {
     // console.log("Number: ",number);
     const count = parseInt(number, 10) || 0;
+    setPlayerData(count);
     // console.log("count: ",count);
 
     const updatedPlayers =
       catgo === "smallKids"
         ? Array.from({ length: count }, (_, index) => ({
           id: `${catgo}${index + 1}`,
+          age: "<5",
           name: "",
         }))
         : Array.from({ length: count }, (_, index) => ({
@@ -328,6 +327,9 @@ function RegisterToEnter() {
           ownCode: generateCode(),
         }));
 
+        setMaleGameCost(0);
+        setPlayerData(updatedPlayers);
+    
     // console.log(updatedPlayers);
     if (catgo === "male") {
       setNumberOfMales(count);
@@ -385,7 +387,7 @@ function RegisterToEnter() {
                 </div>
 
                 <div id="maleContainer">
-                  {malePlayers.map((player, playerIndex) => {
+                  {playerData.map((player, playerIndex) => {
                     // console.log(player);
                     const selectedGames = player.selectedGames || [];
 
@@ -419,7 +421,7 @@ function RegisterToEnter() {
                           } else if (checkedElement.value == "on") {
                             setMaleGameCost((prevGameCost) => prevGameCost - 50);
                             labelText.textContent = `${gameName} (0kr)`;
-                            setMalePlayers((prevPlayers) =>
+                            setPlayerData((prevPlayers) =>
                               prevPlayers.map((p, index) =>
                                 index === playerIndex
                                   ? {
@@ -442,7 +444,7 @@ function RegisterToEnter() {
                           if (checkedElement.value == "on") {
                             setMaleGameCost((prevGameCost) => prevGameCost + 50);
                             labelText.textContent = `${gameName} (50kr)`;
-                            setMalePlayers((prevPlayers) =>
+                            setPlayerData((prevPlayers) =>
                               prevPlayers.map((p, index) =>
                                 index === playerIndex
                                   ? {
@@ -466,7 +468,7 @@ function RegisterToEnter() {
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
                       console.log("Game name:", gameName);
                       console.log("Selected Games: ", selectedGames);
-                      console.log("Entered Code", inputElement.value);
+                      console.log("Entered Code", inputElement.value);         
 
                       const gamesWithCode = [
                         "TableTannisSingles", 
@@ -476,13 +478,13 @@ function RegisterToEnter() {
                         "Uno"
                       ];
 
-                      setMalePlayers((prevPlayers) =>
+                      setPlayerData((prevPlayers) =>
                         prevPlayers.map((p, index) =>
                           index === playerIndex
                             ? {
                               ...p,
                               name: document.getElementById(player.id).value,
-
+                              age: "13+",
                               selectedGames: event.target.checked
                                 ? [
                                   ...selectedGames,
