@@ -250,8 +250,9 @@ function RegisterToEnter() {
     const formElm = document.querySelector('form');
     const playerData = malePlayers.concat(femalePlayers, kidsPlayers, smallKids);
     const formData = new FormData(formElm);
+    let info = "";
     e.preventDefault();
-    console.log("PlayerData: ", playerData)
+    // console.log("PlayerData: ", playerData)
     formData.append("entry", JSON.stringify(playerData));
 
     formData.forEach((value, key) => {
@@ -261,17 +262,19 @@ function RegisterToEnter() {
             const element = document.getElementById(key);
             if (element) {
               entry.name = element.value; // Set the name from the input field
-              console.log(`Updated entry for ${key}:`, entry.name);
-            } else {
-              console.error(`Element with id "${key}" not found.`);
+              info +=`${element.value} - ${entry.ownCode}, `;
             }
           }
         });
       }
     })
 
+    formData.append("Codes", info);
 
-    console.log("Player Data:", playerData);
+    // formData.forEach((value, key) => {
+    //   console.log(`${key}: ${value}`);
+    // });
+    // console.log("Player Data:", playerData);
 
     // console.log("Entries data: ", entryNo);
     // console.log("Filtered Entry Numbers: ", entryNo
@@ -291,7 +294,7 @@ function RegisterToEnter() {
       .then(response => {
         if (response.data === "successful") {
           console.log(response.data);
-          // sendEmail(formData);
+          sendEmail(formData);
         } else {
           // console.log(response.data)
           // console.log(JSON.stringify(response.data))
@@ -305,7 +308,11 @@ function RegisterToEnter() {
 
 
   const sendEmail = (fData) => {
-    fData.append('request', 'picnicRegistrationEmail'); // need to change
+    fData.append('request', 'indoorgame'); // need to change
+    fData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+
     axios.post(apiUrl, fData)
       .then(response => {
         console.log(response.data);
@@ -343,21 +350,21 @@ function RegisterToEnter() {
           ownCode: "",
           selectedGames: [],
         }))
-        :catgo ==="bigKids"
-        ? Array.from({ length: count }, (_, index) => ({
-          id: `${catgo}${index + 1}`,
-          age: "6+",
-          name: "",
-          ownCode: generateCode(),
-          selectedGames: [],
-        }))
-        : Array.from({ length: count }, (_, index) => ({
-          id: `${catgo}${index + 1}`,
-          age: "13+",
-          name: "",
-          ownCode: generateCode(),
-          selectedGames: [],
-        }));
+        : catgo === "bigKids"
+          ? Array.from({ length: count }, (_, index) => ({
+            id: `${catgo}${index + 1}`,
+            age: "6+",
+            name: "",
+            ownCode: generateCode(),
+            selectedGames: [],
+          }))
+          : Array.from({ length: count }, (_, index) => ({
+            id: `${catgo}${index + 1}`,
+            age: "13+",
+            name: "",
+            ownCode: generateCode(),
+            selectedGames: [],
+          }));
 
     setMaleGameCost(0);
     // setPlayerData(updatedPlayers);
