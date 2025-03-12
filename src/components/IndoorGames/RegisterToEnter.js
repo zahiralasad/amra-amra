@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useNavigate } from 'react-router-dom';
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import banner from "../../images/form-banner-1.jpg";
@@ -114,8 +115,14 @@ function RegisterToEnter() {
   const [maleGameCost, setMaleGameCost] = useState(0);
   const [femaleGameCost, setFemaleGameCost] = useState(0);
   const [kidsGameCost, setKidsGameCost] = useState(0);
+  const [refresh, setRefresh] = useState(false);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     // console.log("Male Game Cost: ",maleGameCost);
+    // console.log("Female Game Cost: ",femaleGameCost);
+    // console.log("Kids Game Cost: ",kidsGameCost);
     // let cost = males * 120 + females * 120 + bigkids * 80 + gameCost;
     let cost = numberOfMales * 120 + numberOfFemales * 120 + numberOfBigKids * 80 + maleGameCost + femaleGameCost + kidsGameCost;
     // let cost = 100;
@@ -246,7 +253,7 @@ function RegisterToEnter() {
 
 
   function Submit(e) {
-    // document.getElementById("register").disabled = true;
+    document.getElementById("register").disabled = true;
     const formElm = document.querySelector('form');
     const playerData = malePlayers.concat(femalePlayers, kidsPlayers, smallKids);
     const formData = new FormData(formElm);
@@ -262,7 +269,7 @@ function RegisterToEnter() {
             const element = document.getElementById(key);
             if (element) {
               entry.name = element.value; // Set the name from the input field
-              info +=`${element.value} - ${entry.ownCode}, `;
+              info += `${element.value} - ${entry.ownCode}, `;
             }
           }
         });
@@ -275,11 +282,6 @@ function RegisterToEnter() {
     //   console.log(`${key}: ${value}`);
     // });
     // console.log("Player Data:", playerData);
-
-    // console.log("Entries data: ", entryNo);
-    // console.log("Filtered Entry Numbers: ", entryNo
-    //   .filter((entry) => entry["Entry no."])
-    //   .map((entry) => entry["Entry no."]));
 
     let testData = [
       { "email": formData.get('Email') },
@@ -434,12 +436,14 @@ function RegisterToEnter() {
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
                       let receivedCode = event.target.value;
-
+                      console.log("Check id: ", checkedElement.checked);
                       if (receivedCode !== initialCode) {
+                        console.log("received code has changed");
                         if ((receivedCode) && (receivedCode.length === 5)) {
+                          console.log("received code length is 5");
                           const codeExist = () => {
-                            if (gameName === "TableTannisSingles") {
-                              return ttSingles.includes(receivedCode) // return true or false
+                            if (gameName === "InternationalBridge") {
+                              return internationalBridge.includes(receivedCode) // return true or false
                             }
                             if (gameName === "TableTannisDoubles") {
                               return ttDoubles.includes(receivedCode)
@@ -457,7 +461,9 @@ function RegisterToEnter() {
                           if (codeExist()) {
                             alert("Your partner's has paired up with others in this game");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
-                          } else if (checkedElement.value == "on") {
+
+                          } else if (checkedElement.checked) {
+                            console.log("checked");
                             setMaleGameCost((prevGameCost) => prevGameCost - 50);
                             labelText.textContent = `${gameName} (0kr)`;
                             setMalePlayers((prevPlayers) =>
@@ -479,8 +485,7 @@ function RegisterToEnter() {
                           if (receivedCode.length >= 1) {
                             alert("Your partner's code is wrong");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
-                          }
-                          if (checkedElement.value == "on") {
+                          } else if (checkedElement.checked) {
                             setMaleGameCost((prevGameCost) => prevGameCost + 50);
                             labelText.textContent = `${gameName} (50kr)`;
                             setMalePlayers((prevPlayers) =>
@@ -525,7 +530,8 @@ function RegisterToEnter() {
                               selectedGames: event.target.checked
                                 ? [
                                   ...selectedGames,
-                                  { game: gameName, code: gamesWithCode.includes(gameName) ? p.ownCode : inputElement.value },
+                                  //{ game: gameName, code: gamesWithCode.includes(gameName) ? p.ownCode : inputElement.value },
+                                  { game: gameName, code: p.ownCode },
                                 ]
                                 : selectedGames.filter((game) => game.game !== gameName), // Remove game object if unchecked
 
@@ -712,7 +718,7 @@ function RegisterToEnter() {
                           if (codeExist()) {
                             alert("Your partner's has paired up with others in this game");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
-                          } else if (checkedElement.value == "on") {
+                          } else if (checkedElement.checked) {
                             setFemaleGameCost((prevGameCost) => prevGameCost - 50);
                             labelText.textContent = `${gameName} (0kr)`;
                             setFemalePlayers((prevPlayers) =>
@@ -735,7 +741,7 @@ function RegisterToEnter() {
                             alert("Your partner's code is wrong");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
                           }
-                          if (checkedElement.value == "on") {
+                          if (checkedElement.checked) {
                             setFemaleGameCost((prevGameCost) => prevGameCost + 50);
                             labelText.textContent = `${gameName} (50kr)`;
                             setFemalePlayers((prevPlayers) =>
@@ -966,7 +972,7 @@ function RegisterToEnter() {
                           if (codeExist()) {
                             alert("Your partner's has paired up with others in this game");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
-                          } else if (checkedElement.value == "on") {
+                          } else if (checkedElement.checked) {
                             setKidsGameCost((prevGameCost) => prevGameCost - 50);
                             labelText.textContent = `${gameName} (0kr)`;
                             setKidsPlayers((prevPlayers) =>
@@ -989,7 +995,7 @@ function RegisterToEnter() {
                             alert("Your partner's code is wrong");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
                           }
-                          if (checkedElement.value == "on") {
+                          if (checkedElement.checked) {
                             setKidsGameCost((prevGameCost) => prevGameCost + 50);
                             labelText.textContent = `${gameName} (50kr)`;
                             setKidsPlayers((prevPlayers) =>
