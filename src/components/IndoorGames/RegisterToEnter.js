@@ -120,9 +120,9 @@ function RegisterToEnter() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // console.log("Male Game Cost: ",maleGameCost);
-    // console.log("Female Game Cost: ",femaleGameCost);
-    // console.log("Kids Game Cost: ",kidsGameCost);
+    console.log("Male Game Cost: ",maleGameCost);
+    console.log("Female Game Cost: ",femaleGameCost);
+    console.log("Kids Game Cost: ",kidsGameCost);
     // let cost = males * 120 + females * 120 + bigkids * 80 + gameCost;
     let cost = numberOfMales * 120 + numberOfFemales * 120 + numberOfBigKids * 80 + maleGameCost + femaleGameCost + kidsGameCost;
     // let cost = 100;
@@ -368,10 +368,10 @@ function RegisterToEnter() {
             selectedGames: [],
           }));
 
-    setMaleGameCost(0);
+    // setMaleGameCost(0);
     // setPlayerData(updatedPlayers);
-
     // console.log(updatedPlayers);
+
     if (catgo === "male") {
       setNumberOfMales(count);
       if (count == 0)
