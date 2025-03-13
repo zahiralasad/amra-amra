@@ -73,9 +73,7 @@ function RegisterToEnter() {
   const maxLudoDoublesTeams = 16;
   const maxChessTeams = 16;
   const maxUnoTeams = 16;
-
-  const [doubesCost, setDoublescost] = useState("");
-  const [gameCost, setGameCost] = useState(0);
+  
   const totalFeeRef = useRef(null); // Reference for the hidden input
   const costRef = useRef(null);
 
@@ -115,14 +113,14 @@ function RegisterToEnter() {
   const [maleGameCost, setMaleGameCost] = useState(0);
   const [femaleGameCost, setFemaleGameCost] = useState(0);
   const [kidsGameCost, setKidsGameCost] = useState(0);
-  const [refresh, setRefresh] = useState(false);
+  
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    console.log("Male Game Cost: ",maleGameCost);
-    console.log("Female Game Cost: ",femaleGameCost);
-    console.log("Kids Game Cost: ",kidsGameCost);
+    // console.log("Male Game Cost: ",maleGameCost);
+    // console.log("Female Game Cost: ",femaleGameCost);
+    // console.log("Kids Game Cost: ",kidsGameCost);
     // let cost = males * 120 + females * 120 + bigkids * 80 + gameCost;
     let cost = numberOfMales * 120 + numberOfFemales * 120 + numberOfBigKids * 80 + maleGameCost + femaleGameCost + kidsGameCost;
     // let cost = 100;
@@ -347,7 +345,7 @@ function RegisterToEnter() {
       catgo === "smallKids"
         ? Array.from({ length: count }, (_, index) => ({
           id: `${catgo}${index + 1}`,
-          age: "<5",
+          age: "<=5",
           name: "",
           ownCode: "",
           selectedGames: [],
@@ -429,7 +427,7 @@ function RegisterToEnter() {
 
                 <div id="maleContainer">
                   {malePlayers.map((player, playerIndex) => {
-                    // console.log(player);
+                    //if (player.id === "male1"){}
                     const selectedGames = player.selectedGames || [];
 
                     const handleCodeInput = (event, gameName) => {
@@ -694,22 +692,14 @@ function RegisterToEnter() {
                     const handleCodeInput = (event, gameName) => {
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
+                      
                       let receivedCode = event.target.value;
 
                       if (receivedCode !== initialCode) {
                         if ((receivedCode) && (receivedCode.length === 5)) {
                           const codeExist = () => {
-                            if (gameName === "TableTannisSingles") {
-                              return ttSingles.includes(receivedCode) // return true or false
-                            }
-                            if (gameName === "TableTannisDoubles") {
-                              return ttDoubles.includes(receivedCode)
-                            }
                             if (gameName === "CarromDoubles") {
                               return carromDoubles.includes(receivedCode)
-                            }
-                            if (gameName === "29") {
-                              return card29.includes(receivedCode)
                             }
                             if (gameName === "LudoDoubles") {
                               return ludoDoubles.includes(receivedCode)
@@ -786,7 +776,7 @@ function RegisterToEnter() {
                               selectedGames: event.target.checked
                                 ? [
                                   ...selectedGames,
-                                  { game: gameName, code: gamesWithCode.includes(gameName) ? p.ownCode : inputElement.value },
+                                  { game: gameName, code: p.ownCode },
                                 ]
                                 : selectedGames.filter((game) => game.game !== gameName), // Remove game object if unchecked
 
@@ -1040,7 +1030,7 @@ function RegisterToEnter() {
                               selectedGames: event.target.checked
                                 ? [
                                   ...selectedGames,
-                                  { game: gameName, code: gamesWithCode.includes(gameName) ? p.ownCode : inputElement.value },
+                                  { game: gameName, code: p.ownCode }, 
                                 ]
                                 : selectedGames.filter((game) => game.game !== gameName), // Remove game object if unchecked
 
