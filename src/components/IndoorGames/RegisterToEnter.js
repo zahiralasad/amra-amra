@@ -180,7 +180,8 @@ function RegisterToEnter() {
 
     setTtDoubles(entries
       .filter((entry) => entry["Table Tannis Doubles"])
-      .map((entry) => entry["Table Tannis Doubles"]));
+      .map((entry) => entry["Table Tannis Doubles"])
+      .filter((value, index, self) => self.indexOf(value) === index));
 
     // console.log("ttDoubles: ", ttDoubles);
 
@@ -190,15 +191,18 @@ function RegisterToEnter() {
 
     setCarromDoubles(entries
       .filter((entry) => entry["Carrom Doubles"])
-      .map((entry) => entry["Carrom Doubles"]));
+      .map((entry) => entry["Carrom Doubles"])
+      .filter((value, index, self) => self.indexOf(value) === index));
 
     setInternationalBridge(entries
       .filter((entry) => entry["International Bridge"])
-      .map((entry) => entry["International Bridge"]));
+      .map((entry) => entry["International Bridge"])
+      .filter((value, index, self) => self.indexOf(value) === index));
 
     setCard29(entries
       .filter((entry) => entry["29"])
-      .map((entry) => entry["29"]));
+      .map((entry) => entry["29"])
+      .filter((value, index, self) => self.indexOf(value) === index));
 
     setCallBridge(entries
       .filter((entry) => entry["Call Bridge"])
@@ -212,7 +216,8 @@ function RegisterToEnter() {
 
     setLudoDoubles(entries
       .filter((entry) => entry["Ludo Doubles"])
-      .map((entry) => entry["Ludo Dobles"]));
+      .map((entry) => entry["Ludo Dobles"])
+      .filter((value, index, self) => self.indexOf(value) === index));
 
     setChess(entries
       .filter((entry) => entry["Chess"])
@@ -231,7 +236,10 @@ function RegisterToEnter() {
       .map((entry) => entry["Entry no."]));
   }
 
-
+  // function Submit(e) {
+  //   e.preventDefault();
+  //   console.log("carrom double: ", carromDoubles.lenght);
+  // }
   function Submit(e) {
     document.getElementById("register").disabled = true;
     const formElm = document.querySelector('form');
@@ -262,11 +270,11 @@ function RegisterToEnter() {
         return `${person.name}`;
       else if (person.id.includes("bigKids"))
         return `${person.name}'s and Games: [${games}]`.trim();
-      else 
-      return `${person.name}'s ${person.ownCode} and Games: [${games}], `;
-      
+      else
+        return `${person.name}'s Code: ${person.ownCode} and Games: [${games}], `;
+
     });
-    console.log("info: ",info.join("\n"));
+    console.log("info: ", info.join("\n"));
 
     formData.append("Codes", info);
 
@@ -284,20 +292,20 @@ function RegisterToEnter() {
     ]
     console.log(JSON.stringify(testData));
 
-      axios.post(url, JSON.stringify(testData))
-        .then(response => {
-          if (response.data === "successful") {
-            console.log(response.data);
-            sendEmail(formData);
-          } else {
-            // console.log(response.data)
-            // console.log(JSON.stringify(response.data))
-            setTitle("Warning");
-            setMessage(response.data);
-            setModalShow(true);
-            document.getElementById("register").disabled = false;
-          }
-        }).catch(error => setResponse(error));
+    axios.post(url, JSON.stringify(testData))
+      .then(response => {
+        if (response.data === "successful") {
+          console.log(response.data);
+          sendEmail(formData);
+        } else {
+          // console.log(response.data)
+          // console.log(JSON.stringify(response.data))
+          setTitle("Warning");
+          setMessage(response.data);
+          setModalShow(true);
+          document.getElementById("register").disabled = false;
+        }
+      }).catch(error => setResponse(error));
   }
 
 
@@ -313,7 +321,7 @@ function RegisterToEnter() {
         document.getElementById("entryForm").reset();
         document.getElementById("register").disabled = false;
         categories.forEach(category => {
-          handleNumberForPlayer(0,category);
+          handleNumberForPlayer(0, category);
         })
         setTitle("Registration Completed");
         setMessage(response.data);
