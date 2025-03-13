@@ -8,32 +8,19 @@ import axios from 'axios';
 
 import "../../css/form.css";
 import Notification from '../Notification';
-// import { getElementError } from "@testing-library/react";
-// import { on } from "nodemailer/lib/xoauth2";
 
-// let trace = {};
-// let counter = 0;
-let gender = "";
-// function RegisterToEnter() {
-//   retrun (
-//     <div>test</div>
-//   )
-// }
 
 function RegisterToEnter() {
   const [males, setMales] = useState(0);
   const [females, setFemales] = useState(0);
   const [bigkids, setBigKids] = useState(0);
-  // const [smallkids, setSmallKids] = useState(0);
   const [babys, setBabys] = useState(0);
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  // const [entries, setEntries] = useState([]);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [selectedGender, setSelectGender] = useState(null);
-  // const [games, setGames] = useState([]);
   const [adultNames, setAdultNames] = useState([]);
   const [adultPartners, setAdultPartners] = useState([]);
   const [kidPartners, setKidPartners] = useState([]);
@@ -49,16 +36,11 @@ function RegisterToEnter() {
   const [uno, setUno] = useState([]);
   const [codes, setCodes] = useState([]);
 
-  // const [perGameCost, setPerGameCost] = useState("");
-  // const [players, setPlayers] = useState([]);
-  // const [games, setGames] = useState([]);
-
   const [male1, setMale1] = useState("");
   const [isMale1Set, setIsMale1Set] = useState(false);
-
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
-  // const url = 'https://script.google.com/macros/s/AKfycbzMbB5oTRwtu_GD6aZHbPHNVKzPokNaZVhVIv38X_mSC_-nSobfYn34DJS2JK_fgmUu/exec';
+
   const url = 'https://script.google.com/macros/s/AKfycbwwUoqG4sbWKvjZ2rjZ1F8zSaVCxqZ5aSl9f8TfU_eyV-vyMu2fkqrtXRFkyt1R3Ezy/exec';
 
   const apiUrl = "https://amra-amra.se/emailApi/";
@@ -73,7 +55,7 @@ function RegisterToEnter() {
   const maxLudoDoublesTeams = 16;
   const maxChessTeams = 16;
   const maxUnoTeams = 16;
-  
+
   const totalFeeRef = useRef(null); // Reference for the hidden input
   const costRef = useRef(null);
 
@@ -113,7 +95,7 @@ function RegisterToEnter() {
   const [maleGameCost, setMaleGameCost] = useState(0);
   const [femaleGameCost, setFemaleGameCost] = useState(0);
   const [kidsGameCost, setKidsGameCost] = useState(0);
-  
+
 
   const navigate = useNavigate();
 
@@ -255,11 +237,11 @@ function RegisterToEnter() {
     const formElm = document.querySelector('form');
     const playerData = malePlayers.concat(femalePlayers, kidsPlayers, smallKids);
     const formData = new FormData(formElm);
-    let info = "";
     e.preventDefault();
-    // console.log("PlayerData: ", playerData)
+    console.log("PlayerData: ", playerData)
     formData.append("entry", JSON.stringify(playerData));
 
+    // update add name to the playrData list
     formData.forEach((value, key) => {
       if (!["Email", "Phone", "Cost", "Swish", "entry"].includes(key)) {
         playerData.forEach(entry => {
@@ -267,12 +249,24 @@ function RegisterToEnter() {
             const element = document.getElementById(key);
             if (element) {
               entry.name = element.value; // Set the name from the input field
-              info += `${element.value} - ${entry.ownCode}, `;
             }
           }
         });
       }
     })
+
+    // prepare an important info to send in email
+    const info = playerData.map(person => {
+      const games = person.selectedGames.map(game => game.game).join(", ");
+      if (person.id.includes("smallKids"))
+        return `${person.name}`;
+      else if (person.id.includes("bigKids"))
+        return `${person.name}'s and Games: [${games}]`.trim();
+      else 
+      return `${person.name}'s ${person.ownCode} and Games: [${games}], `;
+      
+    });
+    console.log("info: ",info.join("\n"));
 
     formData.append("Codes", info);
 
@@ -290,20 +284,20 @@ function RegisterToEnter() {
     ]
     console.log(JSON.stringify(testData));
 
-    axios.post(url, JSON.stringify(testData))
-      .then(response => {
-        if (response.data === "successful") {
-          console.log(response.data);
-          sendEmail(formData);
-        } else {
-          // console.log(response.data)
-          // console.log(JSON.stringify(response.data))
-          setTitle("Warning");
-          setMessage(response.data);
-          setModalShow(true);
-          document.getElementById("register").disabled = false;
-        }
-      }).catch(error => setResponse(error));
+      axios.post(url, JSON.stringify(testData))
+        .then(response => {
+          if (response.data === "successful") {
+            console.log(response.data);
+            sendEmail(formData);
+          } else {
+            // console.log(response.data)
+            // console.log(JSON.stringify(response.data))
+            setTitle("Warning");
+            setMessage(response.data);
+            setModalShow(true);
+            document.getElementById("register").disabled = false;
+          }
+        }).catch(error => setResponse(error));
   }
 
 
@@ -316,7 +310,11 @@ function RegisterToEnter() {
     axios.post(apiUrl, fData)
       .then(response => {
         console.log(response.data);
-        setClearForm(true);
+        document.getElementById("entryForm").reset();
+        document.getElementById("register").disabled = false;
+        categories.forEach(category => {
+          handleNumberForPlayer(0,category);
+        })
         setTitle("Registration Completed");
         setMessage(response.data);
         setModalShow(true);
@@ -327,12 +325,6 @@ function RegisterToEnter() {
         setMessage(error);
         setModalShow(true);
       })
-    //alert(error));
-    console.log("In Clear form: ", clearForm);
-    if (clearForm === true) {
-      console.log("In Clear form: ", clearForm);
-      document.getElementById("entryForm").reset();
-    }
   }
 
   const handleNumberForPlayer = (number, catgo) => {
@@ -508,9 +500,9 @@ function RegisterToEnter() {
                     const handleGameSelection = (event, gameName) => {
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
-                      console.log("Game name:", gameName);
-                      console.log("Selected Games: ", selectedGames);
-                      console.log("Entered Code", inputElement.value);
+                      // console.log("Game name:", gameName);
+                      // console.log("Selected Games: ", selectedGames);
+                      // console.log("Entered Code", inputElement.value);
 
                       const gamesWithCode = [
                         "TableTannisSingles",
@@ -692,7 +684,7 @@ function RegisterToEnter() {
                     const handleCodeInput = (event, gameName) => {
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
-                      
+
                       let receivedCode = event.target.value;
 
                       if (receivedCode !== initialCode) {
@@ -756,9 +748,9 @@ function RegisterToEnter() {
                     const handleGameSelection = (event, gameName) => {
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
-                      console.log("Game name:", gameName);
-                      console.log("Selected Games: ", selectedGames);
-                      console.log("Entered Code", inputElement.value);
+                      // console.log("Game name:", gameName);
+                      // console.log("Selected Games: ", selectedGames);
+                      // console.log("Entered Code", inputElement.value);
 
                       const gamesWithCode = [
                         "TableTannisSingles",
@@ -1010,9 +1002,9 @@ function RegisterToEnter() {
                     const handleGameSelection = (event, gameName) => {
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
-                      console.log("Game name:", gameName);
-                      console.log("Selected Games: ", selectedGames);
-                      console.log("Entered Code", inputElement.value);
+                      // console.log("Game name:", gameName);
+                      // console.log("Selected Games: ", selectedGames);
+                      // console.log("Entered Code", inputElement.value);
 
                       const gamesWithCode = [
                         "TableTannisSingles",
@@ -1030,7 +1022,7 @@ function RegisterToEnter() {
                               selectedGames: event.target.checked
                                 ? [
                                   ...selectedGames,
-                                  { game: gameName, code: p.ownCode }, 
+                                  { game: gameName, code: p.ownCode },
                                 ]
                                 : selectedGames.filter((game) => game.game !== gameName), // Remove game object if unchecked
 
