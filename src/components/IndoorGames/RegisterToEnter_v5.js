@@ -95,6 +95,8 @@ function RegisterToEnter() {
   const [maleGameCost, setMaleGameCost] = useState(0);
   const [femaleGameCost, setFemaleGameCost] = useState(0);
   const [kidsGameCost, setKidsGameCost] = useState(0);
+  const [primaryMaleCode, setPrimaryMaleCode] = useState("");
+  const [primaryFemaleCode, setPrimaryFemaleCode] = useState("");
 
 
   const navigate = useNavigate();
@@ -366,15 +368,15 @@ function RegisterToEnter() {
             selectedGames: [],
           }));
 
-    // setMaleGameCost(0);
-    // setPlayerData(updatedPlayers);
-    // console.log(updatedPlayers);
+
 
     if (catgo === "male") {
       setNumberOfMales(count);
       if (count == 0)
         // console.log("not here")
         setMaleGameCost(0);
+      else
+        setPrimaryMaleCode(updatedPlayers.find(player => player.id === "male1").ownCode);
       setMalePlayers(updatedPlayers);
     } else if (catgo === "female") {
       setNumberOfFemales(count);
@@ -438,30 +440,9 @@ function RegisterToEnter() {
                       if (receivedCode !== initialCode) {
                         console.log("received code has changed");
                         if ((receivedCode) && (receivedCode.length === 5)) {
-                          console.log("received code length is 5");
-                          const codeExist = () => {
-                            if (gameName === "InternationalBridge") {
-                              return internationalBridge.includes(receivedCode) // return true or false
-                            }
-                            if (gameName === "TableTannisDoubles") {
-                              return ttDoubles.includes(receivedCode)
-                            }
-                            if (gameName === "CarromDoubles") {
-                              return carromDoubles.includes(receivedCode)
-                            }
-                            if (gameName === "29") {
-                              return card29.includes(receivedCode)
-                            }
-                            if (gameName === "LudoDoubles") {
-                              return ludoDoubles.includes(receivedCode)
-                            }
-                          }
-                          if (codeExist()) {
-                            alert("Your partner's has paired up with others in this game");
-                            document.getElementById(`codeFor${gameName}${player.id}`).value = "";
-
-                          } else if (checkedElement.checked) {
-                            console.log("checked");
+                          // console.log("received code length is 5");
+                          if (checkedElement.checked) {
+                            // console.log("checked");
                             setMaleGameCost((prevGameCost) => prevGameCost - 50);
                             labelText.textContent = `${gameName} (0kr)`;
                             setMalePlayers((prevPlayers) =>
@@ -479,7 +460,7 @@ function RegisterToEnter() {
                               )
                             );
                           }
-                          else{
+                          else {
                             labelText.textContent = `${gameName} (0kr)`;
                           }
                         } else {
@@ -704,39 +685,55 @@ function RegisterToEnter() {
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
 
                       let receivedCode = event.target.value;
+                      if (receivedCode !== initialCode) { // if the code in the input is not changed
+                        if ((receivedCode) && (receivedCode.length === 5)) { // if the input code has lenght 5
+                          console.log("primary code1:", primaryMaleCode)
+                          console.log("received code1:", receivedCode)
+                          if (checkedElement.checked) { // if we have entered code and checked. 
+                            console.log("Game Name: ", gameName)
+                            if (receivedCode === primaryMaleCode) {
+                              console.log("Checked with my husbands code");
+                              setFemaleGameCost((prevGameCost) => prevGameCost + 50);
+                              labelText.textContent = `${gameName} (50kr)`;
+                              setFemalePlayers((prevPlayers) =>
+                                prevPlayers.map((p, index) =>
+                                  index === playerIndex
+                                    ? {
+                                      ...p,
+                                      selectedGames: p.selectedGames.map((game) =>
+                                        game.game === gameName
+                                          ? { ...game, code: "" } // Update code for InternationalBridge
+                                          : game // Keep the other games as is
+                                      ),
+                                    }
+                                    : p
+                                )
+                              );
+                            } else {
+                              setFemaleGameCost((prevGameCost) => prevGameCost - 50);
+                              labelText.textContent = `${gameName} (0kr)`;
+                              setFemalePlayers((prevPlayers) =>
+                                prevPlayers.map((p, index) =>
+                                  index === playerIndex
+                                    ? {
+                                      ...p,
+                                      selectedGames: p.selectedGames.map((game) =>
+                                        game.game === gameName
+                                          ? { ...game, code: document.getElementById(`codeFor${gameName}${player.id}`).value } // Update code for InternationalBridge
+                                          : game // Keep the other games as is
+                                      ),
+                                    }
+                                    : p
+                                )
+                              );
+                            }
 
-                      if (receivedCode !== initialCode) {
-                        if ((receivedCode) && (receivedCode.length === 5)) {
-                          const codeExist = () => {
-                            if (gameName === "CarromDoubles") {
-                              return carromDoubles.includes(receivedCode)
-                            }
-                            if (gameName === "LudoDoubles") {
-                              return ludoDoubles.includes(receivedCode)
-                            }
+
+                          } else if (receivedCode === primaryMaleCode) {
+                            console.log("my husbands code");
+                            labelText.textContent = `${gameName} (50kr)`;
                           }
-                          if (codeExist()) {
-                            alert("Your partner's has paired up with others in this game");
-                            document.getElementById(`codeFor${gameName}${player.id}`).value = "";
-                          } else if (checkedElement.checked) {
-                            setFemaleGameCost((prevGameCost) => prevGameCost - 50);
-                            labelText.textContent = `${gameName} (0kr)`;
-                            setFemalePlayers((prevPlayers) =>
-                              prevPlayers.map((p, index) =>
-                                index === playerIndex
-                                  ? {
-                                    ...p,
-                                    selectedGames: p.selectedGames.map((game) =>
-                                      game.game === gameName
-                                        ? { ...game, code: document.getElementById(`codeFor${gameName}${player.id}`).value } // Update code for InternationalBridge
-                                        : game // Keep the other games as is
-                                    ),
-                                  }
-                                  : p
-                              )
-                            );
-                          }
-                          else {
+                          else { // if we havnt selected a game, but entered code then just the label change do not calculate
                             labelText.textContent = `${gameName} (0kr)`;
                           }
                         } else {
