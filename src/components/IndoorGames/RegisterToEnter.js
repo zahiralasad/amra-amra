@@ -479,6 +479,9 @@ function RegisterToEnter() {
                               )
                             );
                           }
+                          else{
+                            labelText.textContent = `${gameName} (0kr)`;
+                          }
                         } else {
                           if (receivedCode.length >= 1) {
                             alert("Your partner's code is wrong");
@@ -501,6 +504,9 @@ function RegisterToEnter() {
                               )
                             );
                           }
+                          else {
+                            labelText.textContent = `${gameName} (50kr)`;
+                          }
                         }
                       }
                     }
@@ -508,6 +514,7 @@ function RegisterToEnter() {
                     const handleGameSelection = (event, gameName) => {
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
+                      const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
                       // console.log("Game name:", gameName);
                       // console.log("Selected Games: ", selectedGames);
                       // console.log("Entered Code", inputElement.value);
@@ -550,6 +557,8 @@ function RegisterToEnter() {
                           if (inputElement.value === "") {
                             setMaleGameCost((prevGameCost) => prevGameCost + 50)
                           }
+                          // else
+                          // labelText.textContent = `${gameName} (0kr)`;
                         }
                       } else
                         if ((gameName === "TableTannisSingles")
@@ -726,6 +735,9 @@ function RegisterToEnter() {
                               )
                             );
                           }
+                          else {
+                            labelText.textContent = `${gameName} (0kr)`;
+                          }
                         } else {
                           if (receivedCode.length >= 1) {
                             alert("Your partner's code is wrong");
@@ -748,6 +760,9 @@ function RegisterToEnter() {
                                   : p
                               )
                             );
+                          }
+                          else {
+                            labelText.textContent = `${gameName} (50kr)`;
                           }
                         }
                       }
