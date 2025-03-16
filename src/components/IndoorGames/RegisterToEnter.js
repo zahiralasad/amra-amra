@@ -439,28 +439,7 @@ function RegisterToEnter() {
                         console.log("received code has changed");
                         if ((receivedCode) && (receivedCode.length === 5)) {
                           console.log("received code length is 5");
-                          const codeExist = () => {
-                            if (gameName === "InternationalBridge") {
-                              return internationalBridge.includes(receivedCode) // return true or false
-                            }
-                            if (gameName === "TableTannisDoubles") {
-                              return ttDoubles.includes(receivedCode)
-                            }
-                            if (gameName === "CarromDoubles") {
-                              return carromDoubles.includes(receivedCode)
-                            }
-                            if (gameName === "29") {
-                              return card29.includes(receivedCode)
-                            }
-                            if (gameName === "LudoDoubles") {
-                              return ludoDoubles.includes(receivedCode)
-                            }
-                          }
-                          if (codeExist()) {
-                            alert("Your partner's has paired up with others in this game");
-                            document.getElementById(`codeFor${gameName}${player.id}`).value = "";
-
-                          } else if (checkedElement.checked) {
+                          if (checkedElement.checked) {
                             console.log("checked");
                             setMaleGameCost((prevGameCost) => prevGameCost - 50);
                             labelText.textContent = `${gameName} (0kr)`;
@@ -707,18 +686,7 @@ function RegisterToEnter() {
 
                       if (receivedCode !== initialCode) {
                         if ((receivedCode) && (receivedCode.length === 5)) {
-                          const codeExist = () => {
-                            if (gameName === "CarromDoubles") {
-                              return carromDoubles.includes(receivedCode)
-                            }
-                            if (gameName === "LudoDoubles") {
-                              return ludoDoubles.includes(receivedCode)
-                            }
-                          }
-                          if (codeExist()) {
-                            alert("Your partner's has paired up with others in this game");
-                            document.getElementById(`codeFor${gameName}${player.id}`).value = "";
-                          } else if (checkedElement.checked) {
+                          if (checkedElement.checked) {
                             setFemaleGameCost((prevGameCost) => prevGameCost - 50);
                             labelText.textContent = `${gameName} (0kr)`;
                             setFemalePlayers((prevPlayers) =>
@@ -958,27 +926,7 @@ function RegisterToEnter() {
 
                       if (receivedCode !== initialCode) {
                         if ((receivedCode) && (receivedCode.length === 5)) {
-                          const codeExist = () => {
-                            if (gameName === "TableTannisSingles") {
-                              return ttSingles.includes(receivedCode) // return true or false
-                            }
-                            if (gameName === "TableTannisDoubles") {
-                              return ttDoubles.includes(receivedCode)
-                            }
-                            if (gameName === "CarromDoubles") {
-                              return carromDoubles.includes(receivedCode)
-                            }
-                            if (gameName === "29") {
-                              return card29.includes(receivedCode)
-                            }
-                            if (gameName === "LudoDoubles") {
-                              return ludoDoubles.includes(receivedCode)
-                            }
-                          }
-                          if (codeExist()) {
-                            alert("Your partner's has paired up with others in this game");
-                            document.getElementById(`codeFor${gameName}${player.id}`).value = "";
-                          } else if (checkedElement.checked) {
+                          if (checkedElement.checked) {
                             setKidsGameCost((prevGameCost) => prevGameCost - 50);
                             labelText.textContent = `${gameName} (0kr)`;
                             setKidsPlayers((prevPlayers) =>
