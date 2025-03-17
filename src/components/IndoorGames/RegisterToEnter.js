@@ -115,9 +115,13 @@ function RegisterToEnter() {
   })
 
   function generateCode() {
-    const randomNumber = Math.floor(100 + Math.random() * 900);
-    console.log("Random 3-digit number:", randomNumber);
-    return `AA${randomNumber}`;
+    let newCode;
+    do {
+      const randomNumber = Math.floor(100 + Math.random() * 900);
+      newCode = `AA${randomNumber}`
+      console.log("Random 3-digit number:", randomNumber);
+    } while (codes.includes(newCode));
+    return newCode;
   }
 
 
@@ -458,7 +462,7 @@ function RegisterToEnter() {
                               )
                             );
                           }
-                          else{
+                          else {
                             labelText.textContent = `${gameName} (0kr)`;
                           }
                         } else {
