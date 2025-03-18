@@ -41,7 +41,9 @@ function RegisterToEnter() {
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
 
-  const url = 'https://script.google.com/macros/s/AKfycbwwUoqG4sbWKvjZ2rjZ1F8zSaVCxqZ5aSl9f8TfU_eyV-vyMu2fkqrtXRFkyt1R3Ezy/exec';
+  // const url = 'https://script.google.com/macros/s/AKfycbwwUoqG4sbWKvjZ2rjZ1F8zSaVCxqZ5aSl9f8TfU_eyV-vyMu2fkqrtXRFkyt1R3Ezy/exec';
+  const url = ' https://script.google.com/macros/s/AKfycbyXlWR2-wgu0GcZD_8y7FByA0X0lf7hIcW0NN_23G7eJFHGMqDvs44_E21m2xy6Qq_i/exec';
+ 
 
   const apiUrl = "https://amra-amra.se/emailApi/";
 
@@ -716,7 +718,7 @@ function RegisterToEnter() {
                             alert("Your partner's code is wrong");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
                           }
-                          if (checkedElement.checked) {
+                          if (checkedElement.checked) { 
                             setFemaleGameCost((prevGameCost) => prevGameCost + 50);
                             labelText.textContent = `${gameName} (50kr)`;
                             setFemalePlayers((prevPlayers) =>
