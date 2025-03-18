@@ -1,10 +1,8 @@
 import { useState, useEffect, useRef } from "react";
-import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import banner from "../../images/form-banner-1.jpg";
-
-import axios from 'axios';
 
 import "../../css/form.css";
 import Notification from '../Notification';
@@ -20,30 +18,28 @@ function RegisterToEnter() {
   const [message, setMessage] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [selectedGender, setSelectGender] = useState(null);
-  const [adultNames, setAdultNames] = useState([]);
-  const [adultPartners, setAdultPartners] = useState([]);
-  const [kidPartners, setKidPartners] = useState([]);
-  const [ttDoubles, setTtDoubles] = useState([]);
+
   const [ttSingles, setTtSingles] = useState([]);
+  const [ttKidsSingles, setTtKidsSingles] = useState([]);
+  const [ttDoubles, setTtDoubles] = useState([]);
   const [carromDoubles, setCarromDoubles] = useState([]);
+  const [carromWomenDoubles, setCarromWomenDoubles] = useState([]);
   const [internationalBridge, setInternationalBridge] = useState([]);
   const [card29, setCard29] = useState([]);
   const [callBridge, setCallBridge] = useState([]);
   const [ludoSingles, setLudoSingles] = useState([]);
+  const [ludoKidsSingles, setLudoKidsSingles] = useState([]);
   const [ludoDoubles, setLudoDoubles] = useState([]);
   const [chess, setChess] = useState([]);
+  const [chessKids, setChessKids] = useState([]);
   const [uno, setUno] = useState([]);
   const [codes, setCodes] = useState([]);
 
-  const [male1, setMale1] = useState("");
-  const [isMale1Set, setIsMale1Set] = useState(false);
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
 
-  // const url = 'https://script.google.com/macros/s/AKfycbwwUoqG4sbWKvjZ2rjZ1F8zSaVCxqZ5aSl9f8TfU_eyV-vyMu2fkqrtXRFkyt1R3Ezy/exec';
-  const url = ' https://script.google.com/macros/s/AKfycbyXlWR2-wgu0GcZD_8y7FByA0X0lf7hIcW0NN_23G7eJFHGMqDvs44_E21m2xy6Qq_i/exec';
- 
+  // const url = 'https://script.google.com/macros/s/AKfycbyXlWR2-wgu0GcZD_8y7FByA0X0lf7hIcW0NN_23G7eJFHGMqDvs44_E21m2xy6Qq_i/exec';
+  const url = 'https://script.google.com/macros/s/AKfycby5oTs-F0XfLQ5eKzJJ183u4ziTtRxzeYwLwT81-njo1tyla405pvm_qSULsYLvBma8/exec';
 
   const apiUrl = "https://amra-amra.se/emailApi/";
 
@@ -81,13 +77,13 @@ function RegisterToEnter() {
   { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge " },
   { id: "29", name: "29", label: "29 " },
   { id: "Chess", name: "Chess", label: "Chess " }]);
-  const [femaleGames] = useState([{ id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles " },
+  const [femaleGames] = useState([{ id: "CarromWomenDoubles", name: "CarromWomenDoubles", label: "Carrom Doubles " },
   { id: "CallBridge", name: "CallBridge", label: "Call Bridge " },
   { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles " },
   { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles " }]);
-  const [kidsGames] = useState([{ id: "Chess", name: "Chess", label: "Chess " },
-  { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles " },
-  { id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles " },
+  const [kidsGames] = useState([{ id: "ChessKids", name: "ChessKids", label: "Chess " },
+  { id: "LudoKidsSingles", name: "LudoKidsSingles", label: "Ludo Singles " },
+  { id: "TableTannisKidsSingles", name: "TableTannisKidsSingles", label: "Table Tennis Singles " },
   { id: "Uno", name: "Uno", label: "Uno " }]);
   const [initialCode, setInitialCode] = useState("");
 
@@ -99,7 +95,7 @@ function RegisterToEnter() {
   const [kidsGameCost, setKidsGameCost] = useState(0);
 
 
-  const navigate = useNavigate();
+  
 
   useEffect(() => {
     // console.log("Male Game Cost: ",maleGameCost);
@@ -120,8 +116,8 @@ function RegisterToEnter() {
     let newCode;
     do {
       const randomNumber = Math.floor(100 + Math.random() * 900);
-      newCode = `AA${randomNumber}`
-      console.log("Random 3-digit number:", randomNumber);
+      newCode = `AA${randomNumber}`;
+      // console.log("Random 3-digit number:", randomNumber);
     } while (codes.includes(newCode));
     return newCode;
   }
@@ -172,32 +168,27 @@ function RegisterToEnter() {
 
 
   function getColumnsData(entries) {
-    setAdultNames(entries
-      .filter((entry) => entry["Names"]) // Ensure 'Adults Names' key is not empty
-      .map((entry) => entry["Adults Names"])); // Extract the name
+    setTtSingles(entries
+      .filter((entry) => entry["Table Tannis Singles"])
+      .map((entry) => entry["Table Tannis Singles"]));
 
-    setAdultPartners(entries
-      .filter((entry) => entry["Adult Partner"])
-      .map((entry) => entry["Adult Partner"]));
-
-    setKidPartners(entries
-      .filter((entry) => entry["Kid Partner"])
-      .map((entry) => entry["Kid Partner"]));
+    setTtKidsSingles(entries
+      .filter((entry) => entry["Table Tannis Kids Singles"])
+      .map((entry) => entry["Table Tannis Kids Singles"]));
 
     setTtDoubles(entries
       .filter((entry) => entry["Table Tannis Doubles"])
       .map((entry) => entry["Table Tannis Doubles"])
       .filter((value, index, self) => self.indexOf(value) === index));
 
-    // console.log("ttDoubles: ", ttDoubles);
-
-    setTtSingles(entries
-      .filter((entry) => entry["Table Tannis Singles"])
-      .map((entry) => entry["Table Tannis Singles"]));
-
     setCarromDoubles(entries
       .filter((entry) => entry["Carrom Doubles"])
       .map((entry) => entry["Carrom Doubles"])
+      .filter((value, index, self) => self.indexOf(value) === index));
+
+    setCarromWomenDoubles(entries
+      .filter((entry) => entry["Carrom Women Doubles"])
+      .map((entry) => entry["Carrom Women Doubles"])
       .filter((value, index, self) => self.indexOf(value) === index));
 
     setInternationalBridge(entries
@@ -214,11 +205,13 @@ function RegisterToEnter() {
       .filter((entry) => entry["Call Bridge"])
       .map((entry) => entry["Call Bridge"]));
 
-    // console.log("Call bridge: ", callBridge);
-
     setLudoSingles(entries
       .filter((entry) => entry["Ludo Singles"])
       .map((entry) => entry["Ludo Singles"]));
+
+    setLudoKidsSingles(entries
+      .filter((entry) => entry["Ludo Kids Singles"])
+      .map((entry) => entry["Ludo Kids Singles"]));
 
     setLudoDoubles(entries
       .filter((entry) => entry["Ludo Doubles"])
@@ -228,6 +221,10 @@ function RegisterToEnter() {
     setChess(entries
       .filter((entry) => entry["Chess"])
       .map((entry) => entry["Chess"]));
+
+    setChessKids(entries
+      .filter((entry) => entry["Chess Kids"])
+      .map((entry) => entry["Chess Kids"]));
 
     setUno(entries
       .filter((entry) => entry["Uno"])
@@ -437,6 +434,7 @@ function RegisterToEnter() {
                     const selectedGames = player.selectedGames || [];
 
                     const handleCodeInput = (event, gameName) => {
+                      console.log(gameName);
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
                       let receivedCode = event.target.value;
@@ -498,6 +496,7 @@ function RegisterToEnter() {
                     }
 
                     const handleGameSelection = (event, gameName) => {
+                      console.log(gameName);
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
@@ -508,7 +507,9 @@ function RegisterToEnter() {
                       const gamesWithCode = [
                         "TableTannisSingles",
                         "LudoSingles",
+                        "LudoKidsSingles",                        
                         "Chess",
+                        "ChessKids",
                         "CallBridge",
                         "Uno"
                       ];
@@ -534,9 +535,12 @@ function RegisterToEnter() {
                       if (event.target.checked) {
 
                         if ((gameName === "TableTannisSingles")
+                          || (gameName === "TableTannisKidsSingles")
                           || (gameName === "Chess")
+                          || (gameName === "ChessKids")
                           || (gameName === "CallBridge")
                           || (gameName === "LudoSingles")
+                          || (gameName === "LudoKidsSingles")
                           || (gameName === "Uno")) {
                           setMaleGameCost((prevGameCost) => prevGameCost + 25)
                         } else {
@@ -548,9 +552,12 @@ function RegisterToEnter() {
                         }
                       } else
                         if ((gameName === "TableTannisSingles")
+                          || (gameName === "TableTannisKidsSingles")
                           || (gameName === "Chess")
+                          || (gameName === "ChessKids")
                           || (gameName === "CallBridge")
                           || (gameName === "LudoSingles")
+                          || (gameName === "LudoKidsSingles")
                           || (gameName === "Uno")) {
                           setMaleGameCost((prevGameCost) => prevGameCost - 25)
                         } else {
@@ -582,8 +589,11 @@ function RegisterToEnter() {
                           let singleGame = false;
 
                           if (game.name != "TableTannisSingles"
+                            && game.name != "TableTannisKidsSingles"
                             && game.name != "LudoSingles"
+                            && game.name != "LudoKidsSingles"
                             && game.name != "Chess"
+                            && game.name != "ChessKids"
                             && game.name != "CallBridge"
                             && game.name != "Uno") {
                             infoText = "Enter code from your partner or leave it empty";
@@ -685,6 +695,7 @@ function RegisterToEnter() {
                     const selectedGames = player.selectedGames || [];
 
                     const handleCodeInput = (event, gameName) => {
+                      console.log(gameName);
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
 
@@ -718,7 +729,7 @@ function RegisterToEnter() {
                             alert("Your partner's code is wrong");
                             document.getElementById(`codeFor${gameName}${player.id}`).value = "";
                           }
-                          if (checkedElement.checked) { 
+                          if (checkedElement.checked) {
                             setFemaleGameCost((prevGameCost) => prevGameCost + 50);
                             labelText.textContent = `${gameName} (50kr)`;
                             setFemalePlayers((prevPlayers) =>
@@ -744,6 +755,7 @@ function RegisterToEnter() {
                     }
 
                     const handleGameSelection = (event, gameName) => {
+                      console.log(gameName);
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
                       // console.log("Game name:", gameName);
@@ -753,7 +765,9 @@ function RegisterToEnter() {
                       const gamesWithCode = [
                         "TableTannisSingles",
                         "LudoSingles",
+                        "LudoKidsSingles",                        
                         "Chess",
+                        "ChessKids",
                         "CallBridge",
                         "Uno"
                       ];
@@ -778,9 +792,12 @@ function RegisterToEnter() {
                       if (event.target.checked) {
 
                         if ((gameName === "TableTannisSingles")
+                          || (gameName === "TableTannisKidsSingles")
                           || (gameName === "Chess")
+                          || (gameName === "ChessKids")
                           || (gameName === "CallBridge")
                           || (gameName === "LudoSingles")
+                          || (gameName === "LudoKidsSingles")
                           || (gameName === "Uno")) {
                           setFemaleGameCost((prevGameCost) => prevGameCost + 25)
                         } else {
@@ -790,9 +807,12 @@ function RegisterToEnter() {
                         }
                       } else
                         if ((gameName === "TableTannisSingles")
+                          || (gameName === "TableTannisKidsSingles")
                           || (gameName === "Chess")
+                          || (gameName === "ChessKids")
                           || (gameName === "CallBridge")
                           || (gameName === "LudoSingles")
+                          || (gameName === "LudoKidsSingles")
                           || (gameName === "Uno")) {
                           setFemaleGameCost((prevGameCost) => prevGameCost - 25)
                         } else {
@@ -800,7 +820,6 @@ function RegisterToEnter() {
                             setFemaleGameCost((prevGameCost) => prevGameCost - 50)
                           }
                         }
-
                     };
 
                     return (
@@ -824,8 +843,11 @@ function RegisterToEnter() {
                           let singleGame = false;
 
                           if (game.name != "TableTannisSingles"
+                            && game.name != "TableTannisKidsSingles"
                             && game.name != "LudoSingles"
+                            && game.name != "LudoKidsSingles"
                             && game.name != "Chess"
+                            && game.name != "ChessKids"
                             && game.name != "CallBridge"
                             && game.name != "Uno") {
                             infoText = "Enter code from your partner or leave it empty";
@@ -926,6 +948,7 @@ function RegisterToEnter() {
                     const selectedGames = player.selectedGames || [];
 
                     const handleCodeInput = (event, gameName) => {
+                      console.log(gameName);
                       const checkedElement = document.getElementById(`checkedFor${gameName}${player.id}`);
                       const labelText = document.getElementById(`labelFor${gameName}${player.id}`);
                       let receivedCode = event.target.value;
@@ -978,6 +1001,7 @@ function RegisterToEnter() {
                     }
 
                     const handleGameSelection = (event, gameName) => {
+                      console.log(gameName);
                       let tempCost = 0;
                       const inputElement = document.getElementById(`codeFor${gameName}${player.id}`);
                       // console.log("Game name:", gameName);
@@ -987,7 +1011,9 @@ function RegisterToEnter() {
                       const gamesWithCode = [
                         "TableTannisSingles",
                         "LudoSingles",
+                        "LudoKidsSingles",                        
                         "Chess",
+                        "ChessKids",
                         "CallBridge",
                         "Uno"
                       ];
@@ -1012,9 +1038,12 @@ function RegisterToEnter() {
                       if (event.target.checked) {
 
                         if ((gameName === "TableTannisSingles")
+                          || (gameName === "TableTannisKidsSingles")
                           || (gameName === "Chess")
+                          || (gameName === "ChessKids")
                           || (gameName === "CallBridge")
                           || (gameName === "LudoSingles")
+                          || (gameName === "LudoKidsSingles")
                           || (gameName === "Uno")) {
                           setKidsGameCost((prevGameCost) => prevGameCost + 25)
                         } else {
@@ -1024,9 +1053,12 @@ function RegisterToEnter() {
                         }
                       } else
                         if ((gameName === "TableTannisSingles")
+                          || (gameName === "TableTannisKidsSingles")
                           || (gameName === "Chess")
+                          || (gameName === "ChessKids")
                           || (gameName === "CallBridge")
                           || (gameName === "LudoSingles")
+                          || (gameName === "LudoKidsSingles")
                           || (gameName === "Uno")) {
                           setKidsGameCost((prevGameCost) => prevGameCost - 25)
                         } else {
@@ -1058,8 +1090,11 @@ function RegisterToEnter() {
                           let singleGame = false;
 
                           if (game.name != "TableTannisSingles"
+                            && game.name != "TableTannisKidsSingles"
                             && game.name != "LudoSingles"
+                            && game.name != "LudoKidsSingles"
                             && game.name != "Chess"
+                            && game.name != "ChessKids"
                             && game.name != "CallBridge"
                             && game.name != "Uno") {
                             infoText = "Enter code from your partner or leave it empty";
