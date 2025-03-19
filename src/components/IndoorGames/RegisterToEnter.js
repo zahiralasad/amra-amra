@@ -44,14 +44,18 @@ function RegisterToEnter() {
   const apiUrl = "https://amra-amra.se/emailApi/";
 
   const maxTTSinglesTeams = 16;
+  const maxTTKidsSinglesTeams = 16;
   const maxTTDoublesTeams = 16;
   const maxCarromDoublesteams = 16;
+  const maxCarromWomenDoublesteams = 16;
   const maxInternationalbridgeTeams = 16;
   const Max29Teams = 16;
   const maxCallbridgeTeams = 16;
   const maxLudoSinglesTeams = 16;
+  const maxLudoKidsSinglesTeams = 16;
   const maxLudoDoublesTeams = 16;
   const maxChessTeams = 16;
+  const maxChessKidsTeams = 16;
   const maxUnoTeams = 16;
 
   const totalFeeRef = useRef(null); // Reference for the hidden input
@@ -142,10 +146,14 @@ function RegisterToEnter() {
     let seatAvailable;
     if (game === "TableTannisSingles") {
       seatAvailable = maxTTSinglesTeams - ttSingles.length;
+    } else if (game === "TableTannisKidsSingles") {
+      seatAvailable = maxTTKidsSinglesTeams - ttKidsSingles.length;
     } else if (game === "TableTannisDoubles") {
       seatAvailable = maxTTDoublesTeams - ttDoubles.length;
     } else if (game === "CarromDoubles") {
       seatAvailable = maxCarromDoublesteams - carromDoubles.length;
+    } else if (game === "CarromWomenDoubles") {
+      seatAvailable = maxCarromWomenDoublesteams - carromWomenDoubles.length;
     } else if (game === "InternationalBridge") {
       seatAvailable = maxInternationalbridgeTeams - internationalBridge.length;
     } else if (game === "29") {
@@ -154,10 +162,14 @@ function RegisterToEnter() {
       seatAvailable = maxCallbridgeTeams - callBridge.length;
     } else if (game === "LudoSingles") {
       seatAvailable = maxLudoSinglesTeams - ludoSingles.length;
+    } else if (game === "LudoKidsSingles") {
+      seatAvailable = maxLudoKidsSinglesTeams - ludoKidsSingles.length;
     } else if (game === "LudoDoubles") {
       seatAvailable = maxLudoDoublesTeams - ludoDoubles.length;
     } else if (game === "Chess") {
       seatAvailable = maxChessTeams - chess.length;
+    } else if (game === "ChessKids") {
+      seatAvailable = maxChessKidsTeams - chessKids.length;
     } else if (game === "Uno") {
       seatAvailable = maxUnoTeams - uno.length;
     } else {
