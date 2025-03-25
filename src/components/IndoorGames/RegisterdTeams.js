@@ -33,7 +33,7 @@ function RegisterdTeams() {
     const [heading, setHeading] = useState("");
     const [items, setItems] = useState([]);
     const [selectedGame, setSelectedGame] = useState("");
-    
+
 
     const url = 'https://script.google.com/macros/s/AKfycby5oTs-F0XfLQ5eKzJJ183u4ziTtRxzeYwLwT81-njo1tyla405pvm_qSULsYLvBma8/exec';
 
@@ -81,30 +81,100 @@ function RegisterdTeams() {
             .filter((entry) => entry["Table Tannis Kids Singles"])
             .map((entry) => entry["Names"]));
 
-        setTtDoubles(entries
-            .filter((entry) => entry["Table Tannis Doubles"])
-            .map((entry) => entry["Names"])
-            .filter((value, index, self) => self.indexOf(value) === index));
+        setTtDoubles(
+            Object.values(
+                entries.filter((entry) => entry["Table Tannis Doubles"])
+                    .reduce((acc, entry) => {
+                        const code = entry["Table Tannis Doubles"];
+                        const name = entry["Names"];
 
-        setCarromDoubles(entries
-            .filter((entry) => entry["Carrom Doubles"])
-            .map((entry) => entry["Names"])
-            .filter((value, index, self) => self.indexOf(value) === index));
+                        if (!acc[code]) {
+                            acc[code] = []; // Initialize an array for this code if it doesn't exist
+                        }
+                        acc[code].push(name);
+                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
+                        // console.log(acc);
+                        return acc
+                        // return Object.values(acc).filter(value => Array.isArray(value))
+                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+        );
+        
+        // setCarromDoubles(entries
+        //     .filter((entry) => entry["Carrom Doubles"])
+        //     .map((entry) => entry["Names"])
+        //     .filter((value, index, self) => self.indexOf(value) === index));
 
-        setCarromWomenDoubles(entries
-            .filter((entry) => entry["Carrom Women Doubles"])
-            .map((entry) => entry["Names"])
-            .filter((value, index, self) => self.indexOf(value) === index));
+        setCarromDoubles(
+            Object.values(
+                entries.filter((entry) => entry["Carrom Doubles"])
+                    .reduce((acc, entry) => {
+                        const code = entry["Carrom Doubles"];
+                        const name = entry["Names"];
 
-        setInternationalBridge(entries
-            .filter((entry) => entry["International Bridge"])
-            .map((entry) => entry["International Bridge"])
-            .filter((value, index, self) => self.indexOf(value) === index));
+                        if (!acc[code]) {
+                            acc[code] = []; // Initialize an array for this code if it doesn't exist
+                        }
+                        acc[code].push(name);
+                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
+                        // console.log(acc);
+                        return acc
+                        // return Object.values(acc).filter(value => Array.isArray(value))
+                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+        );
 
-        setCard29(entries
-            .filter((entry) => entry["29"])
-            .map((entry) => entry["Names"])
-            .filter((value, index, self) => self.indexOf(value) === index));
+        setCarromWomenDoubles(
+            Object.values(
+                entries.filter((entry) => entry["Carrom Women Doubles"])
+                    .reduce((acc, entry) => {
+                        const code = entry["Carrom Women Doubles"];
+                        const name = entry["Names"];
+
+                        if (!acc[code]) {
+                            acc[code] = []; // Initialize an array for this code if it doesn't exist
+                        }
+                        acc[code].push(name);
+                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
+                        // console.log(acc);
+                        return acc
+                        // return Object.values(acc).filter(value => Array.isArray(value))
+                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+        );
+
+        setInternationalBridge(
+            Object.values(
+                entries.filter((entry) => entry["International Bridge"])
+                    .reduce((acc, entry) => {
+                        const code = entry["International Bridge"];
+                        const name = entry["Names"];
+
+                        if (!acc[code]) {
+                            acc[code] = []; // Initialize an array for this code if it doesn't exist
+                        }
+                        acc[code].push(name);
+                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
+                        // console.log(acc);
+                        return acc
+                        // return Object.values(acc).filter(value => Array.isArray(value))
+                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+        );
+
+        setCard29(
+            Object.values(
+                entries.filter((entry) => entry["29"])
+                    .reduce((acc, entry) => {
+                        const code = entry["29"];
+                        const name = entry["Names"];
+
+                        if (!acc[code]) {
+                            acc[code] = []; // Initialize an array for this code if it doesn't exist
+                        }
+                        acc[code].push(name);
+                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
+                        // console.log(acc);
+                        return acc
+                        // return Object.values(acc).filter(value => Array.isArray(value))
+                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+        );
 
         setCallBridge(entries
             .filter((entry) => entry["Call Bridge"])
@@ -118,10 +188,23 @@ function RegisterdTeams() {
             .filter((entry) => entry["Ludo Kids Singles"])
             .map((entry) => entry["Names"]));
 
-        setLudoDoubles(entries
-            .filter((entry) => entry["Ludo Doubles"])
-            .map((entry) => entry["Names"])
-            .filter((value, index, self) => self.indexOf(value) === index));
+        setLudoDoubles(
+            Object.values(
+                entries.filter((entry) => entry["Ludo Doubles"])
+                    .reduce((acc, entry) => {
+                        const code = entry["Ludo Doubles"];
+                        const name = entry["Names"];
+
+                        if (!acc[code]) {
+                            acc[code] = []; // Initialize an array for this code if it doesn't exist
+                        }
+                        acc[code].push(name);
+                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
+                        // console.log(acc);
+                        return acc
+                        // return Object.values(acc).filter(value => Array.isArray(value))
+                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+        );
 
         setChess(entries
             .filter((entry) => entry["Chess"])
@@ -145,8 +228,8 @@ function RegisterdTeams() {
     }
 
     const handleSelection = (event) => {
-        console.log(ttKidsSingles);
-        console.log(event.target.value);
+        // console.log(ttKidsSingles);
+        // console.log(event.target.value);
         if (event.target.value === "") {
             setShowMenu(false);
             // console.log(event.target.value);
@@ -158,7 +241,7 @@ function RegisterdTeams() {
         } else if (event.target.value === "women") {
             setShowMenu(true);
             // console.log(event.target.value);
-            setHeading("Women's Games");            
+            setHeading("Women's Games");
             setItems(femaleGames);
         } else if (event.target.value === "kid") {
             setShowMenu(true);
@@ -212,10 +295,10 @@ function RegisterdTeams() {
                         <h5 className='p-2 text-center rounded border'>Registered Teams</h5>
                         <div className="d-flex mb-3 input-group">
                             <span className="input-group-text"> Show Games of  </span>
-                            <select className="custom-select" onChange={(event) => { 
-                                handleSelection(event); 
+                            <select className="custom-select" onChange={(event) => {
+                                handleSelection(event);
                                 setSelectedGame("game");
-                                }}>
+                            }}>
                                 <option value="" selected>Select cetagory:</option>
                                 <option value="men">Men's</option>
                                 <option value="women">Women's</option>
@@ -224,7 +307,7 @@ function RegisterdTeams() {
                         </div>
                         {showMenu ?
                             <SelectionMenu
-                                heading={heading}                                
+                                heading={heading}
                                 items={items}
                                 selectedValue={selectedGame}
                                 onSelectionChange={setSelectedGame}

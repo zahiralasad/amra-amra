@@ -28,7 +28,22 @@ function TeamsGroup(props) {
                         {props.data.map((player, key) => (
                             <tr key={key}>
                                 <td>{key + 1}</td>
-                                <td>{player}</td>
+
+                                {(props.game.includes("Doubles")
+                                    || props.game.includes("29")
+                                    || props.game.includes("InternationalBridge")
+                                ) ?
+                                    (
+                                        <>
+                                            <td>{player[0]}</td>
+                                            <td>{player[1] || ""}</td>
+                                        </>
+
+                                    ) : (
+                                        <>
+                                            <td>{player}</td>
+                                        </>
+                                    )}
                             </tr>
                         ))}
                     </tbody>
