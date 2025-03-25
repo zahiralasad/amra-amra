@@ -19,6 +19,7 @@ import RegisterMember from "./components/RegisterMember";
 import StickyLoginButton from "./components/Admin/StickyLoginButton";
 import Checklist from "./components/Picnics/Checklist";
 import RegisterToEnter from "./components/IndoorGames/RegisterToEnter";
+import IndoorGamesTeams from "./components/IndoorGames/RegisterdTeams";
 import Test from "./components/Test/Test";
 
 import "./App.css"
@@ -56,6 +57,7 @@ function App() {
 
               {/************ Indor Games *************/}
               <Route path="entryform" element={<RegisterToEnter/>} />
+              <Route path="indoorteams" element = {<IndoorGamesTeams/>}/>
 
               {/************ Test *************/}
               <Route path="test" element={<Test/>} />

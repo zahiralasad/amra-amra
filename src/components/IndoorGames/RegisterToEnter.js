@@ -75,19 +75,19 @@ function RegisterToEnter() {
 
 
   const [categories] = useState(["male", "female", "bigKids", "smallKids"]);
-  const [maleGames] = useState([{ id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Singles " },
-  { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Doubles " },
-  { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Doubles " },
+  const [maleGames] = useState([{ id: "TableTannisSingles", name: "TableTannisSingles", label: "Table Tennis Men's Singles " },
+  { id: "TableTannisDoubles", name: "TableTannisDoubles", label: "Table Tennis Men's Doubles " },
+  { id: "CarromDoubles", name: "CarromDoubles", label: "Carrom Men's Doubles " },
   { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge " },
   { id: "29", name: "29", label: "29 " },
   { id: "Chess", name: "Chess", label: "Chess " }]);
-  const [femaleGames] = useState([{ id: "CarromWomenDoubles", name: "CarromWomenDoubles", label: "Carrom Doubles " },
+  const [femaleGames] = useState([{ id: "CarromWomenDoubles", name: "CarromWomenDoubles", label: "Carrom Women's Doubles " },
   { id: "CallBridge", name: "CallBridge", label: "Call Bridge " },
-  { id: "LudoSingles", name: "LudoSingles", label: "Ludo Singles " },
+  { id: "LudoSingles", name: "LudoSingles", label: "Ludo Women's Singles " },
   { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles " }]);
-  const [kidsGames] = useState([{ id: "ChessKids", name: "ChessKids", label: "Chess " },
-  { id: "LudoKidsSingles", name: "LudoKidsSingles", label: "Ludo Singles " },
-  { id: "TableTannisKidsSingles", name: "TableTannisKidsSingles", label: "Table Tennis Singles " },
+  const [kidsGames] = useState([{ id: "ChessKids", name: "ChessKids", label: "Chess Kids" },
+  { id: "LudoKidsSingles", name: "LudoKidsSingles", label: "Ludo Kid's Singles " },
+  { id: "TableTannisKidsSingles", name: "TableTannisKidsSingles", label: "Table Tennis Kid's Singles " },
   { id: "Uno", name: "Uno", label: "Uno " }]);
   const [initialCode, setInitialCode] = useState("");
 
