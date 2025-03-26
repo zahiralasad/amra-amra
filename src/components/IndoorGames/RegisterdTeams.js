@@ -80,10 +80,10 @@ function RegisterdTeams() {
             map[second].push(first);
         });
         const teams = Object.values(map);
-        teams.map(array =>{
-            if (!array[1])
-                array[1] = "";
-        })
+        // teams.map(array =>{
+        //     if (!array[1])
+        //         array[1] = "";
+        // })
         // console.log(teams)
         return teams;
     
