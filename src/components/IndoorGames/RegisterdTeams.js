@@ -67,113 +67,65 @@ function RegisterdTeams() {
             });
     }, []);
 
-    function getColumnsData(entries) {
-        // console.log(entries)
-        // entries
-        //     .filter((entry) => entry["Table Tannis Singles"])
-        //     .map((entry) => console.log(entry["Adult Names"]));
+    function processPair(entries, game){
+        const map = {};
+        const playerCode = entries
+        .filter((entry) => entry[game])
+        .map((entry) => [entry["Names"], entry[game]]);
+        
+        playerCode.forEach(([first, second]) => {
+            if(!map[second]) {
+                map[second] = [];
+            }
+            map[second].push(first);
+        });
+        const teams = Object.values(map);
+        teams.map(array =>{
+            if (!array[1])
+                array[1] = "";
+        })
+        // console.log(teams)
+        return teams;
+    
+    }
 
+    function getColumnsData(entries) {
+       
+        // const grouped = test.reduce((acc, [name, code]) => {
+        //     if (!acc[code]) acc[code] = [];
+        //     acc[code].push(name);
+        //     return acc;
+        // }, {});
+        // grouped.array.forEach(element => {
+        //     console.log(key[])
+        // });
+        // console.log("team: ", grouped)
         setTtSingles(entries
-            .filter((entry) => entry["Table Tannis Singles"])
+            .filter((entry) => entry["Table Tennis Singles"])
             .map((entry) => entry["Names"]));
 
         setTtKidsSingles(entries
-            .filter((entry) => entry["Table Tannis Kids Singles"])
+            .filter((entry) => entry["Table Tennis Kids Singles"])
             .map((entry) => entry["Names"]));
 
-        setTtDoubles(
-            Object.values(
-                entries.filter((entry) => entry["Table Tannis Doubles"])
-                    .reduce((acc, entry) => {
-                        const code = entry["Table Tannis Doubles"];
-                        const name = entry["Names"];
-
-                        if (!acc[code]) {
-                            acc[code] = []; // Initialize an array for this code if it doesn't exist
-                        }
-                        acc[code].push(name);
-                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
-                        // console.log(acc);
-                        return acc
-                        // return Object.values(acc).filter(value => Array.isArray(value))
-                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+        setTtDoubles(           
+            processPair(entries, "Table Tennis Doubles")
         );
-        
-        // setCarromDoubles(entries
-        //     .filter((entry) => entry["Carrom Doubles"])
-        //     .map((entry) => entry["Names"])
-        //     .filter((value, index, self) => self.indexOf(value) === index));
 
         setCarromDoubles(
-            Object.values(
-                entries.filter((entry) => entry["Carrom Doubles"])
-                    .reduce((acc, entry) => {
-                        const code = entry["Carrom Doubles"];
-                        const name = entry["Names"];
-
-                        if (!acc[code]) {
-                            acc[code] = []; // Initialize an array for this code if it doesn't exist
-                        }
-                        acc[code].push(name);
-                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
-                        // console.log(acc);
-                        return acc
-                        // return Object.values(acc).filter(value => Array.isArray(value))
-                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+            processPair(entries, "Carrom Doubles")
         );
 
         setCarromWomenDoubles(
-            Object.values(
-                entries.filter((entry) => entry["Carrom Women Doubles"])
-                    .reduce((acc, entry) => {
-                        const code = entry["Carrom Women Doubles"];
-                        const name = entry["Names"];
-
-                        if (!acc[code]) {
-                            acc[code] = []; // Initialize an array for this code if it doesn't exist
-                        }
-                        acc[code].push(name);
-                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
-                        // console.log(acc);
-                        return acc
-                        // return Object.values(acc).filter(value => Array.isArray(value))
-                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+            processPair(entries, "Carrom Women Doubles")
         );
 
         setInternationalBridge(
-            Object.values(
-                entries.filter((entry) => entry["International Bridge"])
-                    .reduce((acc, entry) => {
-                        const code = entry["International Bridge"];
-                        const name = entry["Names"];
-
-                        if (!acc[code]) {
-                            acc[code] = []; // Initialize an array for this code if it doesn't exist
-                        }
-                        acc[code].push(name);
-                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
-                        // console.log(acc);
-                        return acc
-                        // return Object.values(acc).filter(value => Array.isArray(value))
-                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+            processPair(entries, "International Bridge")
         );
 
         setCard29(
-            Object.values(
-                entries.filter((entry) => entry["29"])
-                    .reduce((acc, entry) => {
-                        const code = entry["29"];
-                        const name = entry["Names"];
-
-                        if (!acc[code]) {
-                            acc[code] = []; // Initialize an array for this code if it doesn't exist
-                        }
-                        acc[code].push(name);
-                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
-                        // console.log(acc);
-                        return acc
-                        // return Object.values(acc).filter(value => Array.isArray(value))
-                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+            processPair(entries, "29")
         );
 
         setCallBridge(entries
@@ -189,21 +141,7 @@ function RegisterdTeams() {
             .map((entry) => entry["Names"]));
 
         setLudoDoubles(
-            Object.values(
-                entries.filter((entry) => entry["Ludo Doubles"])
-                    .reduce((acc, entry) => {
-                        const code = entry["Ludo Doubles"];
-                        const name = entry["Names"];
-
-                        if (!acc[code]) {
-                            acc[code] = []; // Initialize an array for this code if it doesn't exist
-                        }
-                        acc[code].push(name);
-                        // console.log(Object.values(acc).filter(value => Array.isArray(value)))
-                        // console.log(acc);
-                        return acc
-                        // return Object.values(acc).filter(value => Array.isArray(value))
-                    })).filter((value) => Array.isArray(value)) // Keep only the arrays
+            processPair(entries, "Ludo Doubles")
         );
 
         setChess(entries
@@ -252,34 +190,62 @@ function RegisterdTeams() {
     }
 
     function gameEntries(game) {
-        if (game === "TableTannisSingles")
+        if (game === "TableTannisSingles") {
+            // console.log(ttSingles);
             return ttSingles;
-        else if (game === "TableTannisDoubles")
+        }
+        else if (game === "TableTannisDoubles") {
+            // console.log(ttDoubles);
             return ttDoubles;
-        else if (game === "CarromDoubles")
+        }
+        else if (game === "CarromDoubles") {
+            // console.log(carromDoubles);
             return carromDoubles;
-        else if (game === "InternationalBridge")
+        }
+        else if (game === "InternationalBridge") {
+            // console.log(internationalBridge);
             return internationalBridge;
-        else if (game === "29")
+        }
+        else if (game === "29") {
+            // console.log(card29);
             return card29;
-        else if (game === "Chess")
+        }
+        else if (game === "Chess") {
+            console.log(chess);
             return chess;
-        else if (game === "CarromWomenDoubles")
+        }
+        else if (game === "CarromWomenDoubles"){
+            // console.log(carromWomenDoubles);
             return carromWomenDoubles;
-        else if (game === "CallBridge")
-            return callBridge;
-        else if (game === "LudoSingles")
-            return ludoSingles;
-        else if (game === "LudoDoubles")
-            return ludoDoubles;
-        else if (game === "ChessKids")
-            return chessKids;
-        else if (game === "LudoKidsSingles")
-            return ludoKidsSingles;
-        else if (game === "TableTannisKidsSingles")
-            return ttKidsSingles;
-        else if (game === "Uno")
-            return uno;
+        }
+        else if (game === "CallBridge"){
+            // console.log(callBridge);
+            return  callBridge;
+        }
+        else if (game === "LudoSingles"){
+            // console.log(ludoSingles);
+            return  ludoSingles;
+        }
+        else if (game === "LudoDoubles"){
+            // console.log(ludoDoubles);
+            return  ludoDoubles;
+        }
+        else if (game === "ChessKids"){
+            // console.log(chessKids);
+            return  chessKids;
+        }
+        else if (game === "LudoKidsSingles"){
+            // console.log(ludoKidsSingles);
+            return  ludoKidsSingles;
+        }
+        else if (game === "TableTannisKidsSingles"){
+            // console.log(ttKidsSingles);
+            return  ttKidsSingles;
+        }
+        else if (game === "Uno"){
+            // console.log(uno);
+            return  uno;
+        }
     }
 
     return (

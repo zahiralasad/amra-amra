@@ -4,7 +4,7 @@ import React from 'react';
 function SelectionMenu(props) {
 
     const handleGameSelection = (event) => {
-        console.log(event.target.value);
+        // console.log(event.target.value);
         props.onSelectionChange(event.target.value)
     }
 
