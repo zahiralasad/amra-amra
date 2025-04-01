@@ -99,7 +99,7 @@ function RegisterToEnter() {
   const [kidsGameCost, setKidsGameCost] = useState(0);
 
 
-  
+
 
   useEffect(() => {
     // console.log("Male Game Cost: ",maleGameCost);
@@ -141,6 +141,14 @@ function RegisterToEnter() {
         setLoading(false);
       });
   }, []);
+
+  const isDateExpired = () => {
+    const dateString = "2025-03-30";
+    const givenDate = new Date(dateString);
+    const today = new Date();
+    return givenDate < today;
+  };
+
 
   function checkAvailableSeats(game) {
     let seatAvailable;
@@ -351,6 +359,7 @@ function RegisterToEnter() {
   }
 
   const handleNumberForPlayer = (number, catgo) => {
+    console.log("Date Exired:", isDateExpired);
     // console.log("Number: ",number);
     const count = parseInt(number, 10) || 0;
     // setPlayerData(count);
@@ -519,7 +528,7 @@ function RegisterToEnter() {
                       const gamesWithCode = [
                         "TableTannisSingles",
                         "LudoSingles",
-                        "LudoKidsSingles",                        
+                        "LudoKidsSingles",
                         "Chess",
                         "ChessKids",
                         "CallBridge",
@@ -594,7 +603,7 @@ function RegisterToEnter() {
                         </div>
                         <p>Participate in:</p>
                         {maleGames.map((game) => {
-                          console.log()
+                          // console.log()
                           let availableSeats = checkAvailableSeats(game.name);
                           let infoText = "";
                           let code = "";
@@ -777,7 +786,7 @@ function RegisterToEnter() {
                       const gamesWithCode = [
                         "TableTannisSingles",
                         "LudoSingles",
-                        "LudoKidsSingles",                        
+                        "LudoKidsSingles",
                         "Chess",
                         "ChessKids",
                         "CallBridge",
@@ -1023,7 +1032,7 @@ function RegisterToEnter() {
                       const gamesWithCode = [
                         "TableTannisSingles",
                         "LudoSingles",
-                        "LudoKidsSingles",                        
+                        "LudoKidsSingles",
                         "Chess",
                         "ChessKids",
                         "CallBridge",

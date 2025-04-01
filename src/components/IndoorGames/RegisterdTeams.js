@@ -109,24 +109,19 @@ function RegisterdTeams() {
             .map((entry) => entry["Names"]));
 
         setTtDoubles(           
-            processPair(entries, "Table Tennis Doubles")
-        );
+            processPair(entries, "Table Tennis Doubles"));
 
         setCarromDoubles(
-            processPair(entries, "Carrom Doubles")
-        );
+            processPair(entries, "Carrom Doubles"));
 
         setCarromWomenDoubles(
-            processPair(entries, "Carrom Women Doubles")
-        );
+            processPair(entries, "Carrom Women Doubles"));
 
         setInternationalBridge(
-            processPair(entries, "International Bridge")
-        );
+            processPair(entries, "International Bridge"));
 
         setCard29(
-            processPair(entries, "29")
-        );
+            processPair(entries, "29"));
 
         setCallBridge(entries
             .filter((entry) => entry["Call Bridge"])
@@ -141,8 +136,7 @@ function RegisterdTeams() {
             .map((entry) => entry["Names"]));
 
         setLudoDoubles(
-            processPair(entries, "Ludo Doubles")
-        );
+            processPair(entries, "Ludo Doubles"));
 
         setChess(entries
             .filter((entry) => entry["Chess"])

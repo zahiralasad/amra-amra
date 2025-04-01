@@ -56,7 +56,7 @@ function App() {
               <Route path="registertopicnic" element={<RegisterToPicnic/>} />
 
               {/************ Indor Games *************/}
-              <Route path="entryform" element={<RegisterToEnter/>} />
+              <Route path="entryform1213" element={<RegisterToEnter/>} />
               <Route path="indoorteams" element = {<IndoorGamesTeams/>}/>
 
               {/************ Test *************/}
