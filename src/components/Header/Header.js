@@ -36,7 +36,7 @@ function Header() {
           <img className="" src={logo} alt="logo" style={{ height: "36px" }} />
           <span className="mx-2 text-white">আমরা-আমরা</span>
         </div>
-        <div className='col text-end'>
+        <div className='col-2 text-end'>
           <i id="crossicon" className="bi bi-x" onClick={toggleMenu}></i>
           <i id="burgericon" className="bi bi-list fs-3" onClick={toggleMenu}></i>
         </div>

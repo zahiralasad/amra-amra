@@ -30,11 +30,6 @@ const StickyLoginButton = () => {
       <button style={buttonStyle} onClick={handleClick}>
         Admin Login
       </button>
-      {/* <Admin 
-        show={modalShow}
-        onHide={() => setModalShow(false)}
-      /> */}
-      <div>Help</div>
     </>
   );
 };

@@ -38,8 +38,8 @@ function RegisterToEnter() {
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
 
-  // const url = 'https://script.google.com/macros/s/AKfycbyXlWR2-wgu0GcZD_8y7FByA0X0lf7hIcW0NN_23G7eJFHGMqDvs44_E21m2xy6Qq_i/exec';
-  const url = 'https://script.google.com/macros/s/AKfycby5oTs-F0XfLQ5eKzJJ183u4ziTtRxzeYwLwT81-njo1tyla405pvm_qSULsYLvBma8/exec';
+  // const url = 'https://script.google.com/macros/s/AKfycby5oTs-F0XfLQ5eKzJJ183u4ziTtRxzeYwLwT81-njo1tyla405pvm_qSULsYLvBma8/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbz5GizKqJ7Xta0ntVG69hOyLUwW8WWXA7MrV4D75i-earJgEjEcUK2j3vluSxa0myXG/exec'
 
   const apiUrl = "https://amra-amra.se/emailApi/";
 

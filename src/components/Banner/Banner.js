@@ -4,30 +4,23 @@ import logo from './logo_122x100.jpg';
 
 function Banner() {
     return (
-        <div className="row">
-            <div className="Banner">
-                <div className="Banner-left-column">
-                    <img className="Banner-top-row" src={logo} />
-                    <div className="Banner-bottom-row">
-                        <h5>আমরা-আমরা</h5>
-                        <h7> সুইডেনে বসবাসরত বাংলাদেশীদের নিয়ে গঠিত একটি অলাভজনক সংগঠন যার লক্ষ্য দেশীয় সংস্কৃতি চর্চা করা</h7>
-                    </div>
+        <div className="row Banner" style={{ marginLeft: "0px", padding: "0px" }}>
+            <div className="col">
+                <img className="Banner-top-row" src={logo} />
+                <div className="Banner-bottom-row">
+                    <div style={{fontWeight: "bold", fontSize: "clamp(13px, 2vw, 15px)"}}>আমরা-আমরা</div>
+                    <div style={{fontSize: "clamp(10px, 2vw, 13px)"}}>সুইডেনে বসবাসরত বাংলাদেশীদের নিয়ে গঠিত একটি অলাভজনক সংগঠন যার লক্ষ্য দেশীয় সংস্কৃতি চর্চা করা</div>
                 </div>
-                <div className="Banner-right-column">
-                    {/* <div className="banner-item"></div> */}
-                </div>
-                {/* <div style={{left: "230px"}}>
-                    <div className="Banner-item" style={{ left: "27%", top: "180px" }}></div>
-                    <div className="Banner-item" style={{ left: "45%", top: "150px" }}></div>
-                    <div className="Banner-item" style={{ left: "63%", top: "120px" }}></div>
-                    <div className="Banner-item" style={{ left: "81%", top: "90px" }}></div>
-                </div> */}
+            </div>
+            <div className="col-9 ">
+                {/* <div className="banner-item"></div> */}
+                SlidePhotos
             </div>
             <div className="Ad-field">
-                <h5>Indoor Games On 5th April 2025</h5>
+                <h5>"Amra-Amra Picnic 2025" On 26th June</h5>
             </div>
-
         </div>
+
     )
 }
 

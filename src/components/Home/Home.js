@@ -5,10 +5,10 @@ import Banner from '../Banner/Banner';
 
 function Home() {
     return (
-        <div className='container'>
+        <div className='row'>
             <Banner/>
             <div className='row'>
-                <div className="container text-center text-white">
+                <div className="text-center text-white">
                     Home page
                 </div>
             </div>

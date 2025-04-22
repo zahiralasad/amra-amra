@@ -2,6 +2,7 @@ import React from 'react';
 
 function Contacts() {
     return (
+        <div className='row'>
         <div className="text-center text-white">
             <h5>Contacts</h5>
             <ul className='list-unstyled'>
@@ -12,6 +13,7 @@ function Contacts() {
                 <li>Md Shawon Hasan Reza - 0739109544</li>
                 <li>Zahir Al-Asad (Tushar) - 0760141646</li>   
             </ul>
+        </div>
         </div>
     )
 }

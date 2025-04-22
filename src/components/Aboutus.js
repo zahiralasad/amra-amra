@@ -2,6 +2,7 @@ import React from 'react';
 
 function Aboutus() {
     return (
+        <div className='row'>
         <div className="text-center text-white">
             <dl>
                 <dt>‘আমরা-আমরা’ কী?</dt>    
@@ -18,6 +19,7 @@ function Aboutus() {
                 <dd>দেশীয় সংস্কৃতি এর সাথে পরবর্তী প্রজন্মকে পরিচয় করিয়ে দেয়া। </dd>
             </dl>
   
+        </div>
         </div>
     )
 }

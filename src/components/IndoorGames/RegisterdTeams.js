@@ -26,10 +26,10 @@ function RegisterdTeams() {
     const [chess, setChess] = useState([]);
     const [chessKids, setChessKids] = useState([]);
     const [uno, setUno] = useState([]);
-    const [codes, setCodes] = useState([]);
+    const [players, setPlayers] = useState([]);
 
-    const [entryNo, setEntryNo] = useState([]);
     const [showMenu, setShowMenu] = useState(false);
+    const [showGames, setShowGames] = useState(false);
     const [heading, setHeading] = useState("");
     const [items, setItems] = useState([]);
     const [selectedGame, setSelectedGame] = useState("");
@@ -67,39 +67,24 @@ function RegisterdTeams() {
             });
     }, []);
 
-    function processPair(entries, game){
+    function processPair(entries, game) {
         const map = {};
         const playerCode = entries
-        .filter((entry) => entry[game])
-        .map((entry) => [entry["Names"], entry[game]]);
-        
+            .filter((entry) => entry[game])
+            .map((entry) => [entry["Names"], entry[game]]);
+
         playerCode.forEach(([first, second]) => {
-            if(!map[second]) {
+            if (!map[second]) {
                 map[second] = [];
             }
             map[second].push(first);
         });
         const teams = Object.values(map);
-        // teams.map(array =>{
-        //     if (!array[1])
-        //         array[1] = "";
-        // })
-        // console.log(teams)
         return teams;
-    
+
     }
 
     function getColumnsData(entries) {
-       
-        // const grouped = test.reduce((acc, [name, code]) => {
-        //     if (!acc[code]) acc[code] = [];
-        //     acc[code].push(name);
-        //     return acc;
-        // }, {});
-        // grouped.array.forEach(element => {
-        //     console.log(key[])
-        // });
-        // console.log("team: ", grouped)
         setTtSingles(entries
             .filter((entry) => entry["Table Tennis Singles"])
             .map((entry) => entry["Names"]));
@@ -108,7 +93,7 @@ function RegisterdTeams() {
             .filter((entry) => entry["Table Tennis Kids Singles"])
             .map((entry) => entry["Names"]));
 
-        setTtDoubles(           
+        setTtDoubles(
             processPair(entries, "Table Tennis Doubles"));
 
         setCarromDoubles(
@@ -150,17 +135,15 @@ function RegisterdTeams() {
             .filter((entry) => entry["Uno"])
             .map((entry) => entry["Names"]));
 
-        setCodes(entries
-            .filter((entry) => entry["Codes"])
-            .map((entry) => entry["Codes"]));
-
-        setEntryNo(entries
-            .filter((entry) => entry["Entry no."])
-            .map((entry) => entry["Entry no."]));
+        setPlayers(entries
+            .filter((entry) => entry["Names"] && entry["Age Category"] !== "<=5")
+            .map((entry) => entry["Names"])
+            .sort((a, b) => a.localeCompare(b))
+        );
     }
 
     const handleSelection = (event) => {
-        // console.log(ttKidsSingles);
+        console.log(players);
         // console.log(event.target.value);
         if (event.target.value === "") {
             setShowMenu(false);
@@ -208,37 +191,37 @@ function RegisterdTeams() {
             console.log(chess);
             return chess;
         }
-        else if (game === "CarromWomenDoubles"){
+        else if (game === "CarromWomenDoubles") {
             // console.log(carromWomenDoubles);
             return carromWomenDoubles;
         }
-        else if (game === "CallBridge"){
+        else if (game === "CallBridge") {
             // console.log(callBridge);
-            return  callBridge;
+            return callBridge;
         }
-        else if (game === "LudoSingles"){
+        else if (game === "LudoSingles") {
             // console.log(ludoSingles);
-            return  ludoSingles;
+            return ludoSingles;
         }
-        else if (game === "LudoDoubles"){
+        else if (game === "LudoDoubles") {
             // console.log(ludoDoubles);
-            return  ludoDoubles;
+            return ludoDoubles;
         }
-        else if (game === "ChessKids"){
+        else if (game === "ChessKids") {
             // console.log(chessKids);
-            return  chessKids;
+            return chessKids;
         }
-        else if (game === "LudoKidsSingles"){
+        else if (game === "LudoKidsSingles") {
             // console.log(ludoKidsSingles);
-            return  ludoKidsSingles;
+            return ludoKidsSingles;
         }
-        else if (game === "TableTannisKidsSingles"){
+        else if (game === "TableTannisKidsSingles") {
             // console.log(ttKidsSingles);
-            return  ttKidsSingles;
+            return ttKidsSingles;
         }
-        else if (game === "Uno"){
+        else if (game === "Uno") {
             // console.log(uno);
-            return  uno;
+            return uno;
         }
     }
 
@@ -253,27 +236,52 @@ function RegisterdTeams() {
                     </div>
                     <div className="mt-1 p-2 rounded bg-dark">
                         <h5 className='p-2 text-center rounded border'>Registered Teams</h5>
-                        <div className="d-flex mb-3 input-group">
-                            <span className="input-group-text"> Show Games of  </span>
-                            <select className="custom-select" onChange={(event) => {
-                                handleSelection(event);
-                                setSelectedGame("game");
-                            }}>
-                                <option value="" selected>Select cetagory:</option>
-                                <option value="men">Men's</option>
-                                <option value="women">Women's</option>
-                                <option value="kid">Kid's</option>
-                            </select>
+                        <div className="row d-flex">
+                            <div className="col mb-3 input-group">
+                                <span className="input-group-text"> Show Games of  </span>
+                                <select className="custom-select" onChange={(event) => {
+                                    handleSelection(event);
+                                    setSelectedGame("game");
+                                }}>
+                                    <option value="" selected>Select a cetagory</option>
+                                    <option value="men">Men's</option>
+                                    <option value="women">Women's</option>
+                                    <option value="kid">Kid's</option>
+                                </select>
+                            </div>
+                            
+                                <SelectionMenu   
+                                    heading="Show games of"
+                                    items={players}
+                                    defaultValue="name"
+                                // selectedValue={selectedGame}
+                                // onSelectionChange={setSelectedGame}
+                                />
+
                         </div>
-                        {showMenu ?
+                        {/* {showGames ?
+                            <div> show games </div>
+                            : setShowGames(false)
+                        } */}
+                        {showGames ?
                             <SelectionMenu
                                 heading={heading}
                                 items={items}
+                                defaultValue="name"
                                 selectedValue={selectedGame}
                                 onSelectionChange={setSelectedGame}
                             />
                             : ""}
-                        {selectedGame != "game" && showMenu && (
+                        {showMenu && !showGames ?
+                            <SelectionMenu
+                                heading={heading}
+                                items={items}
+                                defaultValue="game"
+                                selectedValue={selectedGame}
+                                onSelectionChange={setSelectedGame}
+                            />
+                            : ""}
+                        {selectedGame != "game" && showMenu && !showGames && (
                             <TeamsGroup
                                 game={selectedGame}
                                 team={{
