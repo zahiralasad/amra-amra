@@ -1,18 +1,21 @@
+.row {
+    
+    display: flex;
+    
+    padding: 0
+
+}
+
 .Banner {
     display: flex;
     width: 100vw;
     background-color: rgb(236, 200, 38);
     border: 1px solid white; /* Add a white border */
     padding: 0;
+    margin-left: 0;
     align-items: center;
     justify-content: center;
 }
-.Banner-left-column {
-    width: 20%; /* Left column takes 20% of the container width */
-    display: flex;
-    flex-direction: column; /* Stack rows vertically */
-}
-
 .Banner-top-row {
     width: 100%;
     background-color: black; /* Example background */
@@ -22,6 +25,7 @@
 .Banner-bottom-row {
     width: 100%;
     text-align: center;
+    padding-top: 10px;
 }
 .Banner-right-column {
     width: 100%;
@@ -82,17 +86,23 @@
     }
 }
 
+@media only screen and (min-width: 432px)  {
+    .smallscreen{
+        display: none !important;
+    }
+}
+/* 
 @media only screen and (min-width: 431px) and (max-width: 767px) {
-    .Banner1 {
+    .Banner {
         height: 300px;
     }
-
-}
-@media only screen and (max-width: 430px) {
-    .Banner-left-column1 {
-        display: none! important;
+    .bigscreen {
+        display: none;
     }
-    .Banner-bottom-row1 {
-        padding-bottom: 1px;
+} */
+@media only screen and (max-width: 431px) {
+
+    .bigscreen {
+        display: none !important;
     }
 }
