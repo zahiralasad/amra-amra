@@ -35,7 +35,7 @@ function Banner() {
 
             <div className="row">
                 <div className="Ad-field">
-                    <h5>"Amra-Amra Picnic 2025" On 26th June</h5>
+                    <h5>"Amra-Amra Picnic 2025" On 26th July</h5>
                 </div>
             </div>
         </div>
