@@ -23,7 +23,7 @@ function SlideShow() {
                 </div>
             </Carousel.Item>
             <Carousel.Item>
-                <div className="mt-2 p-4 p-md-5 mb-4 rounded text-bg-dark">
+                <div className="mt-2 p-4 p-md-5 mb-2 rounded text-bg-dark">
                     <img
                         className="mb-5 d-block w-100"
                         src={Slide4}
