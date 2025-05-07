@@ -21,15 +21,9 @@ function Home() {
                                 স্থান - <br/>
                                 বাস ছাড়ার সময় - ৮টা ৩০।
                             </p>
-                            <a
-                                name=""
-                                id=""
-                                class="btn btn-primary"
-                                href="#"
-                                role="button"
-                            >
-                                <Link className="btn" type="button" to='/registertopicnic'  style={{ fontSize: "clamp(12px, 2vw, 15px)" }}>Register</Link>
-                            </a>
+                            
+                                <Link className="btn" type="button" to='/registertopicnic'  style={{ fontSize: "clamp(12px, 2vw, 15px)", backgroundColor: "red", color: "white"}}>Register</Link>
+                            
 
                         </div>
                         <div className='col info-frame p-2'>
