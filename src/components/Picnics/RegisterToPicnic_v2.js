@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import banner from "../../images/form-banner.jpg";
@@ -22,43 +22,30 @@ function RegisterToPicnic() {
 
   const [modalShow, setModalShow] = useState(false);
   const [clearForm, setClearForm] = useState(false);
-  const url = 'https://script.google.com/macros/s/AKfycbxDY3yAoz4dHJtWv9JfL9Xkb7yLhvl28urLLd_X7UsD3Tc_A1pCBlVKz_eMuRHuAosF/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbw0Y6DBSROylbb32gx8fLXDTwVUNnJt7sujHMqNWv1ufd4Sak0upYp73Qk2ctaXGkwn/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
-  
-  const totalFeeRef = useRef(null); // Reference for the hidden input
-  const costRef = useRef(null);
 
   useEffect(() => {
     let cost = numberOfAdults * 450 + numberOfBigkids * 350 + numberOfSmallkids * 0;
-    // document.getElementById("totalFee").value = cost;
-    // document.getElementById("cost").innerHTML = cost;
-    if (totalFeeRef.current && costRef.current) {
-      totalFeeRef.current.value = cost;
-      costRef.current.innerHTML = cost;
-    }
+    document.getElementById("totalFee").value = cost;
+    document.getElementById("cost").innerHTML = cost;
   })
 
-  const isDateExpired = () => {
-    const dateString = "2025-05-30";
-    const givenDate = new Date(dateString);
-    const today = new Date();
-    return givenDate < today;
-  };
+
 
   function Submit(e) {
-    // document.getElementById("register").disabled = true;
+    document.getElementById("register").disabled = true;
     const formElm = document.querySelector('form');
     e.preventDefault();
     const formData = new FormData(formElm);
 
     axios.post(url, formData)
       .then(response => {
-        console.log(response.data)
         if (response.data === "successful") {
           sendEmail(formData);
         } else {
           setTitle("Warning");
-          setMessage(JSON.stringify(response.data));
+          setMessage(response.data);
           setModalShow(true);
           document.getElementById("register").disabled = false;
         }
@@ -96,11 +83,11 @@ function RegisterToPicnic() {
   }
 
   const handleNumberForPlayer = (number, catgo) => {
-    console.log("Date Exired:", isDateExpired());
+    // console.log("Date Exired:", isDateExpired);
     // console.log("Number: ",number);
     const count = parseInt(number, 10) || 0;
     // setPlayerData(count);
-    // console.log("count: ", count);
+    console.log("count: ", count);
 
     const updatedPlayers =
       catgo === "SmallKid"
@@ -140,8 +127,6 @@ function RegisterToPicnic() {
         <img src={banner} className="img-fluid" />
       </div>
       <div className="mt-1 p-2 rounded bg-dark">
-        {isDateExpired() && <div className="text-center  text-white my-5">Registrion date to the picnic has passed. Please contact us for further information</div>}
-        {!isDateExpired() && (
         <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="d-flex mb-3 input-group border-bottom pb-1">
@@ -164,7 +149,7 @@ function RegisterToPicnic() {
             </div>
             <div id="adultContainer">
               {adults.map((adult, adultIndex) => {
-                // console.log(adult);
+                console.log(adult);
                 // console.log(adultIndex);
                 return (
                   <div key={adultIndex}>
@@ -205,7 +190,8 @@ function RegisterToPicnic() {
             </div>
             <div id="bigKidContainer">
               {bigKids.map((bigKid, bigKidIndex) => {
-                // console.log(bigKid.id);
+                console.log(bigKid);
+                // console.log(adultIndex);
                 return (
                   <div key={bigKidIndex}>
                     <div className="input-group mb-3">
@@ -243,8 +229,9 @@ function RegisterToPicnic() {
               <p className="ms-2">(0kr/child)</p>
             </div>
             <div id="smallKidContainer">
-              {smallKids.map((smallKid, smallKidIndex) => {
-                // console.log(smallKid);
+              {smallKids.map((smallKid,smallKidIndex) => {
+                console.log(smallKid);
+                // console.log(adultIndex);
                 return (
                   <div key={smallKidIndex}>
                     <div className="input-group mb-3">
@@ -304,10 +291,10 @@ function RegisterToPicnic() {
           <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
             <div className="form-group input-group ">
               <p className="mx-2">Total fee:</p>
-              <p className="p" Name="Cost" id="cost" ref={costRef}></p>
+              <p className="p" Name="Cost" id="cost"></p>
               <p>kr</p>
             </div>
-            <input type="hidden" Name="Cost" id="totalFee" ref={totalFeeRef}/>
+            <input type="hidden" Name="Cost" id="totalFee" />
           </div>
           <div className="mt-2 rounded border p-2">
             <div className="form-check">
@@ -322,7 +309,6 @@ function RegisterToPicnic() {
             <button type="submit" id="register" className="btn btn-primary btn-block"> Register</button>
           </div>
         </form>
-        )}
       </div>
       <Notification
         show={modalShow}
