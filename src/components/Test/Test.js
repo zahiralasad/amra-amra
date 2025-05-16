@@ -1,10 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "bootstrap/dist/css/bootstrap.css";
 import Nav from 'react-bootstrap/Nav';
 import Dropdown from 'react-bootstrap/Dropdown';
 import logo from "./logo_in_header.png"
 
 function Test() {
+  const filePath = "https://amra-amra.se/form_data.txt";
+  const [fileContent, setFileContent] = useState("")
+  
+
+  // useEffect(() =>{
+  //   setFileContent(JSON.stringify(filePath, null));
+    
+  // },[]);
+
+  const handleClick = async() => {
+    try {
+      const response = await fetch(filePath);
+      if (!response.ok) {
+        throw new Error("Failed to fetch the file");
+      }
+      const text = await response.text();
+      setFileContent(text);
+
+    } catch (error) {
+      console.error("Error fetching the file:", error);
+      setFileContent("Error fetching the file");
+    } 
+  }
+
   // async function createPaymentRequest(amount, message, payerAlias) {
   //   const instructionUUID = createId();
   
@@ -31,9 +55,15 @@ function Test() {
   //     console.error(error);
   //   }
   // }
-  // return (
-  //   <button onClick={createPaymentRequest}>Swish</button>
-  // )
+  return (
+<div>
+      <button onClick={handleClick} className="btn btn-primary">Fetch File Content</button>
+      <div className="mt-3">
+        <h5>File Content:</h5>
+        <pre>{fileContent || "Click the button to fetch file content"}</pre>
+      </div>
+    </div>
+  );
 };
 
 

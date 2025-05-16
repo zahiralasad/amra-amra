@@ -21,8 +21,9 @@ function RegisterToPicnic() {
   const [message, setMessage] = useState("");
 
   const [modalShow, setModalShow] = useState(false);
-  const [clearForm, setClearForm] = useState(false);
-  const url = 'https://script.google.com/macros/s/AKfycbxDY3yAoz4dHJtWv9JfL9Xkb7yLhvl28urLLd_X7UsD3Tc_A1pCBlVKz_eMuRHuAosF/exec';
+  // const [clearForm, setClearForm] = useState(false);
+  // const url = 'https://script.google.com/macros/s/AKfycbxDY3yAoz4dHJtWv9JfL9Xkb7yLhvl28urLLd_X7UsD3Tc_A1pCBlVKz_eMuRHuAosF/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbygjUsAQ_VPGK7SD_pZDoYgvcKFsJZIqSEGvn55u7FfKU5-dkETjJyq1FtW7fSviN2xKw/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
 
   const [adultCost, setAdultCost] = useState(450);
@@ -48,7 +49,7 @@ function RegisterToPicnic() {
   };
 
   function Submit(e) {
-    // document.getElementById("register").disabled = true;
+    document.getElementById("register").disabled = true;
     const formElm = document.querySelector('form');
     e.preventDefault();
     const formData = new FormData(formElm);
@@ -56,8 +57,11 @@ function RegisterToPicnic() {
     axios.post(url, formData)
       .then(response => {
         console.log(response.data)
-        if (response.data === "successful") {
+        if (Array.isArray(response.data) && response.data[0] === "successful") {
+          formData.append("Code",response.data[1]);
           sendEmail(formData);
+          document.getElementById("register").disabled = false;
+          document.getElementById("picnicForm").reset();
         } else {
           setTitle("Warning");
           setMessage(JSON.stringify(response.data));
@@ -89,11 +93,11 @@ function RegisterToPicnic() {
   }
 
   const sendEmail = (fData) => {
-    fData.append('request', 'sendemail');
+    fData.append('request', 'picnicRegistrationEmail');
     axios.post(apiUrl, fData)
       .then(response => {
         console.log(response.data);
-        setClearForm(true);
+        //setClearForm(true);
         setTitle("Registration Completed");
         setMessage(response.data);
         setModalShow(true);
@@ -105,9 +109,9 @@ function RegisterToPicnic() {
         setModalShow(true);
       })
     //alert(error));
-    if (clearForm === true) {
-      document.getElementById("picnicForm").reset();
-    }
+    // if (clearForm === true) {
+    //   document.getElementById("picnicForm").reset();
+    // }
   }
 
   const handleNumberForPlayer = (number, catgo) => {
@@ -185,7 +189,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex mb-3 input-group border-bottom pb-1">
                 <i className="bi bi-people-fill me-2"></i>
-                <span className="input-group-text"> Number of adults</span>
+                <span className="input-group-text"> Number of 12+ old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "Adult")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
@@ -226,7 +230,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex input-group mb-3 border-bottom pb-1">
                 <i className="bi bi-person-standing me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids over 3 old</span>
+                <span className="input-group-text text-wrap"> Number of kids between 3 to 12 years old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "BigKid")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
@@ -265,7 +269,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="input-group  mb-3 border-bottom pb-1">
                 <i className="bi bi-person-arms-up me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids upto 3 years old</span>
+                <span className="input-group-text text-wrap"> Number of kids under 3 years old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "SmallKid")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
