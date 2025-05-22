@@ -19,6 +19,7 @@ function RegisterToPicnic() {
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
+  const [today, seToday] = useState(new Date());
 
   const [modalShow, setModalShow] = useState(false);
   // const [clearForm, setClearForm] = useState(false);
@@ -42,9 +43,8 @@ function RegisterToPicnic() {
   })
 
   const isDateExpired = () => {
-    const dateString = "2025-05-30";
+    const dateString = "2025-06-30";
     const givenDate = new Date(dateString);
-    const today = new Date();
     return givenDate < today;
   };
 
@@ -53,6 +53,7 @@ function RegisterToPicnic() {
     const formElm = document.querySelector('form');
     e.preventDefault();
     const formData = new FormData(formElm);
+    formData.append("Date", today);
 
     axios.post(url, formData)
       .then(response => {
