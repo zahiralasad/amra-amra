@@ -53,7 +53,7 @@ function RegisterToPicnic() {
     const formElm = document.querySelector('form');
     e.preventDefault();
     const formData = new FormData(formElm);
-    formData.append("Date", today);
+    formData.append("Date", today.toLocaleDateString());
 
     axios.post(url, formData)
       .then(response => {
