@@ -20,11 +20,14 @@ function RegisterToPicnic() {
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
   const [today, seToday] = useState(new Date());
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   const [modalShow, setModalShow] = useState(false);
   // const [clearForm, setClearForm] = useState(false);
   // const url = 'https://script.google.com/macros/s/AKfycbxDY3yAoz4dHJtWv9JfL9Xkb7yLhvl28urLLd_X7UsD3Tc_A1pCBlVKz_eMuRHuAosF/exec';
-  const url = 'https://script.google.com/macros/s/AKfycbzdorES5v7-TslUOFRrUDd6XsF3NTnYAkqBL5ic-rt07cZLUaOtVSnntPtznABDrsEmOA/exec';
+  // const url = 'https://script.google.com/macros/s/AKfycbzdorES5v7-TslUOFRrUDd6XsF3NTnYAkqBL5ic-rt07cZLUaOtVSnntPtznABDrsEmOA/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbyZJEtTcsTgpmwOqgTeX5wZv4gOJPZjj7Ym9ZiCzs4nM2ogPN3PGVnwWc0zDCA2MxmwfA/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
 
   const [adultCost, setAdultCost] = useState(450);
@@ -40,7 +43,22 @@ function RegisterToPicnic() {
       totalFeeRef.current.value = cost;
       costRef.current.innerHTML = cost;
     }
-  })
+  });
+
+  useEffect(() => {
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.data);
+        // setEntries(data.data); // Update the state with JSON data
+        setLoading(false);
+        //getColumnsData(data.data);
+      })
+      .catch(error => {
+        setError(error.message);
+        setLoading(false);
+      });
+  }, []);
 
   const isDateExpired = () => {
     const dateString = "2025-06-30";
