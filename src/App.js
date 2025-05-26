@@ -53,7 +53,7 @@ function App() {
               <Route path="picnic2021" element={<Picnic2021/>} />
               <Route path="picnic2019" element={<Picnic2019/>} />
               <Route path="picnic" element={<Picnic/>} />
-              <Route path="registertopicnic1510" element={<RegisterToPicnic/>} />
+              <Route path="registertopicnic" element={<RegisterToPicnic/>} />
 
               {/************ Indor Games *************/}
               <Route path="entryform1213" element={<RegisterToEnter/>} />

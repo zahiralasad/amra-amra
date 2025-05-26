@@ -22,18 +22,21 @@ function RegisterToPicnic() {
   const [today, seToday] = useState(new Date());
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [busSeatsFilled, setBusSeatsFilled] = useState(0);
+  const [carSeatsFilled, setCarSeatsFilled] = useState(0);
 
   const [modalShow, setModalShow] = useState(false);
   // const [clearForm, setClearForm] = useState(false);
-  // const url = 'https://script.google.com/macros/s/AKfycbxDY3yAoz4dHJtWv9JfL9Xkb7yLhvl28urLLd_X7UsD3Tc_A1pCBlVKz_eMuRHuAosF/exec';
-  // const url = 'https://script.google.com/macros/s/AKfycbzdorES5v7-TslUOFRrUDd6XsF3NTnYAkqBL5ic-rt07cZLUaOtVSnntPtznABDrsEmOA/exec';
-  const url = 'https://script.google.com/macros/s/AKfycbyZJEtTcsTgpmwOqgTeX5wZv4gOJPZjj7Ym9ZiCzs4nM2ogPN3PGVnwWc0zDCA2MxmwfA/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbwQhbhclREXQNP3cTzV8T4-wI1Uw9BLan81ahKxjtFn5qu7vLrGnHT2vpXlg0B3mI4R/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
 
   const [adultCost, setAdultCost] = useState(450);
   const [kidCost, setKidCost] = useState(350);
   const totalFeeRef = useRef(null); // Reference for the hidden input
   const costRef = useRef(null);
+
+  const maxBusSeats = 210;
+  const maxCarSeats = 40;
 
   useEffect(() => {
     let cost = numberOfAdults * adultCost + numberOfBigkids * kidCost + numberOfSmallkids * 0;
@@ -49,9 +52,11 @@ function RegisterToPicnic() {
     fetch(url)
       .then(response => response.json())
       .then(data => {
-        console.log(data.data);
+        //console.log(data.busSeats);
         // setEntries(data.data); // Update the state with JSON data
         setLoading(false);
+        setBusSeatsFilled(data.busSeats);
+        setCarSeatsFilled(data.carSeats);
         //getColumnsData(data.data);
       })
       .catch(error => {
@@ -178,27 +183,29 @@ function RegisterToPicnic() {
         <img src={banner} className="img-fluid" />
       </div>
       <div className="mt-1 p-2 rounded bg-dark">
-        {isDateExpired() && <div className="text-center  text-white my-5">Registrion date to the picnic has passed. Please contact us for further information</div>}
-        {!isDateExpired() && (
+      {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
+      {error && <div className="text-center  text-white my-5">Error: {error}</div>}
+      {isDateExpired() && <div className="text-center  text-white my-5">Registrion date to the picnic has passed. Please contact us for further information</div>}
+      {!loading && !error && !isDateExpired() && (
           <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="form-group input-group  mb-3">
                 <i className="bi bi-bus-front-fill me-2"></i>
                 <span className="input-group-text me-1" style={{ width: "120px" }}>Prefered Transport: </span>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" onChange={(event) => adjustPrice(event.target.value)} required />
+                  <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats}/>
                   <label className="form-check-label" htmlFor="busstop1">
                     Bus from Sollentuna
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" name="Busstop" value="Kungens Kurva" id="busstop2" onChange={(event) => adjustPrice(event.target.value)} required />
+                  <input className="form-check-input" type="radio" name="Busstop" value="Kungens Kurva" id="busstop2" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats}/>
                   <label className="form-check-label" htmlFor="busstop2">
                     Bus from Kungens Kurva
                   </label>
                 </div>
                 <div className="form-check">
-                  <input className="form-check-input" type="radio" name="Busstop" value="Car" id="busstop3" onChange={(event) => adjustPrice(event.target.value)} required />
+                  <input className="form-check-input" type="radio" name="Busstop" value="Car" id="busstop3" onChange={(event) => adjustPrice(event.target.value)} required disabled={carSeatsFilled >= maxCarSeats}/>
                   <label className="form-check-label" htmlFor="busstop3">
                     Own Car
                   </label>
