@@ -37,7 +37,7 @@ function RegisterToPicnic() {
   const costRef = useRef(null);
 
   const maxBusSeats = 280;
-  const maxCarSeats = 40;
+  const maxCarSeats = 20;
 
   useEffect(() => {
     let cost = numberOfAdults * adultCost + numberOfBigkids * kidCost + numberOfSmallkids * 0;
