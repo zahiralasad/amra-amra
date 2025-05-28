@@ -24,6 +24,7 @@ function RegisterToPicnic() {
   const [error, setError] = useState(null);
   const [busSeatsFilled, setBusSeatsFilled] = useState(0);
   const [carSeatsFilled, setCarSeatsFilled] = useState(0);
+  const [seatsFilled, setSeatsFilled] = useState(false);
 
   const [modalShow, setModalShow] = useState(false);
   // const [clearForm, setClearForm] = useState(false);
@@ -35,7 +36,7 @@ function RegisterToPicnic() {
   const totalFeeRef = useRef(null); // Reference for the hidden input
   const costRef = useRef(null);
 
-  const maxBusSeats = 210;
+  const maxBusSeats = 280;
   const maxCarSeats = 40;
 
   useEffect(() => {
@@ -57,6 +58,9 @@ function RegisterToPicnic() {
         setLoading(false);
         setBusSeatsFilled(data.busSeats);
         setCarSeatsFilled(data.carSeats);
+        if((data.busSeats >= maxBusSeats) && (data.carSeats >= maxCarSeats)){
+          setSeatsFilled(true);
+        }
         //getColumnsData(data.data);
       })
       .catch(error => {
@@ -186,7 +190,8 @@ function RegisterToPicnic() {
       {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
       {error && <div className="text-center  text-white my-5">Error: {error}</div>}
       {isDateExpired() && <div className="text-center  text-white my-5">Registrion date to the picnic has passed. Please contact us for further information</div>}
-      {!loading && !error && !isDateExpired() && (
+      {seatsFilled && <div className="text-center  text-white my-5">Unfortunately, we are unable to confirm your registration as all bus seats are fully booked. Please contact us for further information</div>}
+      {!loading && !error && !isDateExpired() && !seatsFilled && (
           <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="form-group input-group  mb-3">
