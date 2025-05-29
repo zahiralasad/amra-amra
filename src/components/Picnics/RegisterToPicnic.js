@@ -28,7 +28,7 @@ function RegisterToPicnic() {
 
   const [modalShow, setModalShow] = useState(false);
   // const [clearForm, setClearForm] = useState(false);
-  const url = 'https://script.google.com/macros/s/AKfycbwQhbhclREXQNP3cTzV8T4-wI1Uw9BLan81ahKxjtFn5qu7vLrGnHT2vpXlg0B3mI4R/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbzhJEYdp7P7JUUKobwayasrY5_9Vt8aR9i-DJMO1MvwaosZx6gK5eBvKtfcg_hEL8PgaA/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
 
   const [adultCost, setAdultCost] = useState(450);
