@@ -1,0 +1,9 @@
+.login-box {
+    display:block;
+}
+.react-datepicker__input-container input {
+    font-size: .8rem !important;   /* Match Bootstrap's default size */
+    padding: 0.375rem 0.75rem;     /* Match Bootstrap padding */
+    height: auto;                  /* Adjust height if needed */
+    line-height: 1.5;
+}

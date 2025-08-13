@@ -16,7 +16,7 @@ import Events from "./components/Events";
 import Info from "./components/Info";
 import Members from "./components/Members";
 import RegisterMember from "./components/RegisterMember";
-import StickyLoginButton from "./components/Admin/StickyLoginButton";
+// import StickyLoginButton from "./components/Admin/StickyLoginButton";
 import Checklist from "./components/Picnics/Checklist";
 import RegisterToEnter from "./components/IndoorGames/RegisterToEnter";
 import IndoorGamesTeams from "./components/IndoorGames/RegisterdTeams";
@@ -64,7 +64,7 @@ function App() {
             </Routes>
           </div>
         </div>
-        <StickyLoginButton/>
+        {/* <StickyLoginButton/> */}
       </div>
     </BrowserRouter>
   )

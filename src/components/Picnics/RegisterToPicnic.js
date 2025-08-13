@@ -25,22 +25,58 @@ function RegisterToPicnic() {
   const [busSeatsFilled, setBusSeatsFilled] = useState(0);
   const [carSeatsFilled, setCarSeatsFilled] = useState(0);
   const [seatsFilled, setSeatsFilled] = useState(false);
-
   const [modalShow, setModalShow] = useState(false);
   // const [clearForm, setClearForm] = useState(false);
-  const url = 'https://script.google.com/macros/s/AKfycbzhJEYdp7P7JUUKobwayasrY5_9Vt8aR9i-DJMO1MvwaosZx6gK5eBvKtfcg_hEL8PgaA/exec';
+  // const url = 'https://script.google.com/macros/s/AKfycbzhJEYdp7P7JUUKobwayasrY5_9Vt8aR9i-DJMO1MvwaosZx6gK5eBvKtfcg_hEL8PgaA/exec'; // picnic2025
+  const url = 'https://script.google.com/macros/s/AKfycbwDEhysFSGZ-0Ry5VuEBVlht2riKJwcJdumz9tLL_ADPtQuXS5z5yswg6s4RzYJZNhy/exec';
+  const dataUrl = "https://script.google.com/macros/s/AKfycbz9SF2NZp5yj_8PuVa5UpOG-WfQjMFOntbfdDbdcVp_wD4ie-bp_hP1GmU5pZvJptUh/exec";
   const apiUrl = "https://amra-amra.se/emailApi/";
 
-  const [adultCost, setAdultCost] = useState(450);
-  const [kidCost, setKidCost] = useState(350);
+  const [adultsFeeInBus, setAdultsFeeInBus] = useState(0);
+  const [adultsFeeInCar, setAdultsFeeInCar] = useState(0);
+  const [bigKidsFeeInBus, setBigKidsFeeInBus] = useState(0);
+  const [bigKidsFeeInCar, setBigKidsFeeInCar] = useState(0);
+  const [smallKidsFeeInBus, setSmallKidsFeeInBus] = useState(0);
+  const [smallKidsFeeInCar, setSmallKidsFeeInCar] = useState(0);
+  const [bigKidsFee, setBigKidsFee] = useState(0);
+  const [smallKidsFee, setSmallKidsFee] = useState(0);
+  const [adultsFee, setAdultsFee] = useState(0);
+  // const [adultCost, setAdultCost] = useState(450);
+  // const [kidCost, setKidCost] = useState(350);
+  const [maxBusSeats, setMaxBusSeats] = useState(0);
+  const [maxCarSeats, setMaxCarSeats] = useState(0);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const totalFeeRef = useRef(null); // Reference for the hidden input
   const costRef = useRef(null);
 
-  const maxBusSeats = 280;
-  const maxCarSeats = 20;
+  // const maxBusSeats = 280;
+  // const maxCarSeats = 20;
+
+  useEffect(()=>{
+    fetch(dataUrl)
+      .then(response =>response.json())
+      .then(data =>{
+        setLoading(false);
+        setAdultsFeeInBus(data.adultsFeeInBus);
+        setAdultsFeeInCar(data.adultsFeeInCar);
+        setBigKidsFeeInBus(data.bigKidsFeeInBus);
+        setBigKidsFeeInCar(data.bigKidsFeeInCar);
+        setSmallKidsFeeInBus(data.smallKidsFeeInBus);
+        setSmallKidsFeeInCar(data.smallKidsFeeInCar);
+        setMaxBusSeats(data.maxBusSeats);
+        setMaxCarSeats(data.maxCarSeats);
+        setStartDate(data.startDate);
+        setEndDate(data.endDate);
+      })
+      .catch(error => {
+        setError(error.message);
+        setLoading(false);
+      })
+  }, []);
 
   useEffect(() => {
-    let cost = numberOfAdults * adultCost + numberOfBigkids * kidCost + numberOfSmallkids * 0;
+    let cost = numberOfAdults * adultsFee + numberOfBigkids * bigKidsFee + numberOfSmallkids * smallKidsFee;
     // document.getElementById("totalFee").value = cost;
     // document.getElementById("cost").innerHTML = cost;
     if (totalFeeRef.current && costRef.current) {
@@ -50,6 +86,7 @@ function RegisterToPicnic() {
   });
 
   useEffect(() => {
+    if (maxBusSeats && maxCarSeats) {
     fetch(url)
       .then(response => response.json())
       .then(data => {
@@ -67,10 +104,11 @@ function RegisterToPicnic() {
         setError(error.message);
         setLoading(false);
       });
-  }, []);
+    }
+  }, [maxBusSeats, maxCarSeats]);
 
   const isDateExpired = () => {
-    const dateString = "2025-06-30";
+    const dateString = "2025-08-30";
     const givenDate = new Date(dateString);
     return givenDate < today;
   };
@@ -111,12 +149,12 @@ function RegisterToPicnic() {
     console.log("Selected vehicle:", vehicle);
     if(vehicle === "Car"){
       console.log(vehicle);
-      setAdultCost(350);
-      setKidCost(250);
+      setAdultsFee(adultsFeeInCar);
+      setBigKidsFee(250);
     }else {
       console.log(vehicle);
-      setAdultCost(450);
-      setKidCost(350);
+      setAdultsFee(450);
+      setBigKidsFee(350);
     }
   }
 
@@ -234,7 +272,7 @@ function RegisterToPicnic() {
                   <option value="9">9</option>
                   <option value="10">10</option>
                 </select>
-                <p className="ms-2">({adultCost}kr/adult)</p>
+                <p className="ms-2">({adultsFee}kr/adult)</p>
               </div>
               <div id="adultContainer">
                 {adults.map((adult, adultIndex) => {
@@ -275,7 +313,7 @@ function RegisterToPicnic() {
                   <option value="9">9</option>
                   <option value="10">10</option>
                 </select>
-                <p className="ms-2">({kidCost}kr/child)</p>
+                <p className="ms-2">({bigKidsFee}kr/child)</p>
               </div>
               <div id="bigKidContainer">
                 {bigKids.map((bigKid, bigKidIndex) => {
