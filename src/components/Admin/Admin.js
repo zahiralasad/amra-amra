@@ -40,7 +40,7 @@ function Admin() {
     const [floatingAd, setFloatingAd] = useState(null);
     const [codePrefix, setCodePrefix] = useState(null)
 
-    const dataUrl = 'https://script.google.com/macros/s/AKfycbyI8XesPwOH6gjcap6QPwYm6LPK1JviPgxJo-akz5FUasxz6JnyMPqEddUERE6xCR3t/exec';
+    const dataUrl = 'https://script.google.com/macros/s/AKfycbysHW9GVTvmUFq70OC638nhiBNoiDmR7RybkeMlN5Wl1jGAFIEshuM1dXxsfClI5m87/exec';
 
     const loadPicnicData = () => {
         fetch(dataUrl)
@@ -49,9 +49,12 @@ function Admin() {
                 console.log(data);
                 setLoading(false);
                 setPicnicName(data.picnicName);
-                setPicnicDate(data.picnicDate);
-                setStartDate(data.startDate);
-                setEndDate(data.endDate);
+                const formattedPicnicDate = new Date(data.picnicDate).toISOString().split("T")[0];
+                setPicnicDate(formattedPicnicDate);
+                const formattedStartDate = new Date(data.startDate).toISOString().split("T")[0];
+                setStartDate(formattedStartDate);
+                const formattedEndDate = new Date(data.endDate).toISOString().split("T")[0];
+                setEndDate(formattedEndDate);
                 setAcceptCar(data.acceptCar);
                 setMaxSmallKidsAge(data.maxSmallKidsAge);
                 setMaxBigKidsAge(data.maxBigKidsAge);
@@ -212,7 +215,8 @@ function Admin() {
                                                         <div className="input-group mb-3">
                                                             <span className="input-group-text">Picnic Date: </span>
                                                             <AmraAmraDatePicker
-                                                                value= {picnicDate}
+                                                                value = "picnicdate"
+                                                                date = {picnicDate}
                                                                 onChange = {setPicnicDate}
                                                             />
                                                         </div>
@@ -231,8 +235,10 @@ function Admin() {
                                                     <div className='col-6'>
                                                         <div className="input-group mb-3">
                                                             <span className="input-group-text">Registration Start Date: </span>
-                                                            <AmraAmraDatePicker                                                                
-                                                                value="registrationstartdate"                                                               
+                                                            <AmraAmraDatePicker   
+                                                                value = "startdate"                                                             
+                                                                date = {startDate}
+                                                                onChange = {setStartDate}                                                              
                                                             />
                                                         </div>
                                                     </div>
@@ -240,7 +246,9 @@ function Admin() {
                                                         <div className="input-group mb-3">
                                                             <span className="input-group-text">Registration End Date: </span>
                                                             <AmraAmraDatePicker
-                                                                value="registrationenddate" 
+                                                                value = "enddate"
+                                                                date = {endDate}
+                                                                onChange = {setEndDate}  
                                                             />
                                                         </div>
                                                     </div>
