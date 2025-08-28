@@ -6,7 +6,7 @@ import banner from "../../images/form-banner.jpg";
 import axios from 'axios';
 
 import "./picnic.css";
-import Notification from '../Notification';
+import Notification from '../Others/Notification';
 
 
 function Picnic2024() {

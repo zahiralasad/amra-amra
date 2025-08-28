@@ -6,7 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import axios from 'axios';
 
 // import "./picnic.css";
-import Notification from './Notification';
+import Notification from '../Others/Notification';
 
 
 function RegisterMember() {

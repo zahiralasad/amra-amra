@@ -14,8 +14,8 @@ import Admin from "./components/Admin/Admin";
 import Header from "./components/Header/Header"
 import Events from "./components/Events";
 import Info from "./components/Info";
-import Members from "./components/Members";
-import RegisterMember from "./components/RegisterMember";
+import Members from "./components/Members/Members";
+import RegisterMember from "./components/Members/RegisterMember";
 // import StickyLoginButton from "./components/Admin/StickyLoginButton";
 import Checklist from "./components/Picnics/Checklist";
 import RegisterToEnter from "./components/IndoorGames/RegisterToEnter";
@@ -39,12 +39,15 @@ function App() {
               <Route path="aboutus" element={<Aboutus/>} />
               <Route path="admin" element={<Admin/>} />
               <Route path="events" element={<Events/>} />
-              <Route path="members" element={<Members/>} />
-              <Route path="registermember" element={<RegisterMember/>} />
+              
               <Route path="info" element={<Info/>} />
               {/* <Route path="adminlogin" element={<StickyLoginButton/>} /> */}
               <Route path="checklist" element={<Checklist/>} />
               {/* <Route path="/" element={<Info />} /> */}
+
+              {/************ Members *************/}
+              <Route path="members" element={<Members/>} />
+              <Route path="registermember" element={<RegisterMember/>} />
 
               {/************ Picnics *************/}
               <Route path="picnic2024" element={<Picnic2024/>} />

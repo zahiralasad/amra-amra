@@ -6,7 +6,7 @@ import banner from "../../images/form-banner.jpg";
 import axios from 'axios';
 
 import "./picnic.css";
-import Notification from '../Notification';
+import Notification from '../Others/Notification';
 
 
 function RegisterToPicnic() {
@@ -29,24 +29,29 @@ function RegisterToPicnic() {
   // const [clearForm, setClearForm] = useState(false);
   // const url = 'https://script.google.com/macros/s/AKfycbzhJEYdp7P7JUUKobwayasrY5_9Vt8aR9i-DJMO1MvwaosZx6gK5eBvKtfcg_hEL8PgaA/exec'; // picnic2025
   const url = 'https://script.google.com/macros/s/AKfycbwDEhysFSGZ-0Ry5VuEBVlht2riKJwcJdumz9tLL_ADPtQuXS5z5yswg6s4RzYJZNhy/exec';
-  const dataUrl = "https://script.google.com/macros/s/AKfycbz9SF2NZp5yj_8PuVa5UpOG-WfQjMFOntbfdDbdcVp_wD4ie-bp_hP1GmU5pZvJptUh/exec";
+  const dataUrl = 'https://script.google.com/macros/s/AKfycbyI8XesPwOH6gjcap6QPwYm6LPK1JviPgxJo-akz5FUasxz6JnyMPqEddUERE6xCR3t/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
 
+  const [picnicName, setPicnicName] = useState(null);
+  const [picnicDate, setPicnicDate] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
+  const [acceptCar, setAcceptCar] = useState(null);
+  const [maxSmallKidsAge, setMaxSmallKidsAge] = useState(null);
+  const [maxBigKidsAge, setMaxBigKidsAge] = useState(null);
   const [adultsFeeInBus, setAdultsFeeInBus] = useState(0);
   const [adultsFeeInCar, setAdultsFeeInCar] = useState(0);
-  const [bigKidsFeeInBus, setBigKidsFeeInBus] = useState(0);
-  const [bigKidsFeeInCar, setBigKidsFeeInCar] = useState(0);
   const [smallKidsFeeInBus, setSmallKidsFeeInBus] = useState(0);
   const [smallKidsFeeInCar, setSmallKidsFeeInCar] = useState(0);
-  const [bigKidsFee, setBigKidsFee] = useState(0);
-  const [smallKidsFee, setSmallKidsFee] = useState(0);
-  const [adultsFee, setAdultsFee] = useState(0);
-  // const [adultCost, setAdultCost] = useState(450);
-  // const [kidCost, setKidCost] = useState(350);
+  const [bigKidsFeeInBus, setBigKidsFeeInBus] = useState(0);
+  const [bigKidsFeeInCar, setBigKidsFeeInCar] = useState(0);
   const [maxBusSeats, setMaxBusSeats] = useState(0);
   const [maxCarSeats, setMaxCarSeats] = useState(0);
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+  
+  const [adultsFee, setAdultsFee] = useState(null);
+  const [smallKidsFee, setSmallKidsFee] = useState(null);
+  const [bigKidsFee, setBigKidsFee] = useState(null);
+
   const totalFeeRef = useRef(null); // Reference for the hidden input
   const costRef = useRef(null);
 
@@ -57,17 +62,23 @@ function RegisterToPicnic() {
     fetch(dataUrl)
       .then(response =>response.json())
       .then(data =>{
+        console.log(data);
         setLoading(false);
-        setAdultsFeeInBus(data.adultsFeeInBus);
-        setAdultsFeeInCar(data.adultsFeeInCar);
-        setBigKidsFeeInBus(data.bigKidsFeeInBus);
-        setBigKidsFeeInCar(data.bigKidsFeeInCar);
-        setSmallKidsFeeInBus(data.smallKidsFeeInBus);
-        setSmallKidsFeeInCar(data.smallKidsFeeInCar);
-        setMaxBusSeats(data.maxBusSeats);
-        setMaxCarSeats(data.maxCarSeats);
+        setPicnicName(data.picnicName);
+        setPicnicDate(data.picnicDate.split("T")[0]);
         setStartDate(data.startDate);
         setEndDate(data.endDate);
+        setAcceptCar(data.acceptCar);
+        setMaxSmallKidsAge(data.maxSmallKidsAge);
+        setMaxBigKidsAge(data.maxBigKidsAge);
+        setAdultsFeeInBus(data.adultsFeeInBus);
+        setAdultsFeeInCar(data.adultsFeeInCar);
+        setSmallKidsFeeInBus(data.smallKidsFeeInBus);
+        setSmallKidsFeeInCar(data.smallKidsFeeInCar);
+        setBigKidsFeeInBus(data.bigKidsFeeInBus);
+        setBigKidsFeeInCar(data.bigKidsFeeInCar);
+        setMaxBusSeats(data.maxBusSeats);
+        setMaxCarSeats(data.maxCarSeats);        
       })
       .catch(error => {
         setError(error.message);
@@ -77,6 +88,7 @@ function RegisterToPicnic() {
 
   useEffect(() => {
     let cost = numberOfAdults * adultsFee + numberOfBigkids * bigKidsFee + numberOfSmallkids * smallKidsFee;
+    console.log(adultsFee);
     // document.getElementById("totalFee").value = cost;
     // document.getElementById("cost").innerHTML = cost;
     if (totalFeeRef.current && costRef.current) {
@@ -150,11 +162,13 @@ function RegisterToPicnic() {
     if(vehicle === "Car"){
       console.log(vehicle);
       setAdultsFee(adultsFeeInCar);
-      setBigKidsFee(250);
+      setBigKidsFee(bigKidsFeeInCar);
+      setSmallKidsFee(smallKidsFeeInCar);
     }else {
       console.log(vehicle);
-      setAdultsFee(450);
-      setBigKidsFee(350);
+      setAdultsFee(adultsFeeInBus);
+      setBigKidsFee(bigKidsFeeInBus);
+      setSmallKidsFee(smallKidsFeeInBus);
     }
   }
 
@@ -182,7 +196,7 @@ function RegisterToPicnic() {
 
   const handleNumberForPlayer = (number, catgo) => {
     console.log("Date Exired:", isDateExpired());
-    // console.log("Number: ",number);
+    console.log("Number: ",number);
     const count = parseInt(number, 10) || 0;
     // setPlayerData(count);
     // console.log("count: ", count);
@@ -208,6 +222,7 @@ function RegisterToPicnic() {
 
     if (catgo === "Adult") {
       setNumberOfAdults(count);
+      console.log(updatedPlayers);
       setAdults(updatedPlayers);
     } else if (catgo === "BigKid") {
       setNumberOfBigKids(count);
@@ -221,7 +236,7 @@ function RegisterToPicnic() {
   return (
     <div className="picnic">
       <div className="p-4 text-center rounded bg-dark">
-        <h4>Registration Form for Picnic 2025</h4>
+        <h4>Registration Form for {picnicName}</h4>
         <img src={banner} className="img-fluid" />
       </div>
       <div className="mt-1 p-2 rounded bg-dark">
@@ -258,7 +273,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex mb-3 input-group border-bottom pb-1">
                 <i className="bi bi-people-fill me-2"></i>
-                <span className="input-group-text"> Number of 12+ old</span>
+                <span className="input-group-text"> Number of {maxBigKidsAge}+ old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "Adult")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
@@ -299,7 +314,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex input-group mb-3 border-bottom pb-1">
                 <i className="bi bi-person-standing me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids between 3 to 12 years old</span>
+                <span className="input-group-text text-wrap"> Number of kids between {maxSmallKidsAge +1} to {maxBigKidsAge} years old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "BigKid")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
@@ -338,7 +353,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="input-group  mb-3 border-bottom pb-1">
                 <i className="bi bi-person-arms-up me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids under 3 years old</span>
+                <span className="input-group-text text-wrap"> Number of kids under {maxSmallKidsAge +1} years old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "SmallKid")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
@@ -352,7 +367,7 @@ function RegisterToPicnic() {
                   <option value="9">9</option>
                   <option value="10">10</option>
                 </select>
-                <p className="ms-2">(0kr/child)</p>
+                <p className="ms-2">({smallKidsFee}kr/child)</p>
               </div>
               <div id="smallKidContainer">
                 {smallKids.map((smallKid, smallKidIndex) => {

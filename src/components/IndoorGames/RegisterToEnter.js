@@ -5,7 +5,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import banner from "../../images/form-banner-1.jpg";
 
 import "../../css/form.css";
-import Notification from '../Notification';
+import Notification from '../Others/Notification';
 
 
 function RegisterToEnter() {

@@ -8,15 +8,69 @@ import './admin.css';
 import axios from 'axios';
 
 import AmraAmraDatePicker from '../Others/AmraAmraDatePicker';
+import Notification from '../Others/Notification';
 
 function Admin() {
     // console.log(localStorage.getItem("state"));
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [loggedUser, setLoggedUser] = useState("");
     const [activeForm, setActiveForm] = useState("");
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+    const [notificationTitle, setNotificationTitle] = useState(null);
+    const [notificationMessage, setNotificationMessage] = useState(null);
+    const [modalShow, setModalShow] = useState(false);
+
+    const [picnicName, setPicnicName] = useState(null);
     const [picnicDate, setPicnicDate] = useState(null);
-    const [registrationStartDate, setRegistrationStartDate] = useState(null);
-    const [registrationEndDate, setRegistrationEndDate] = useState(null);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const [acceptCar, setAcceptCar] = useState(null);
+    const [maxSmallKidsAge, setMaxSmallKidsAge] = useState(null);
+    const [maxBigKidsAge, setMaxBigKidsAge] = useState(null);
+    const [adultsFeeInBus, setAdultsFeeInBus] = useState(0);
+    const [adultsFeeInCar, setAdultsFeeInCar] = useState(0);
+    const [smallKidsFeeInBus, setSmallKidsFeeInBus] = useState(0);
+    const [smallKidsFeeInCar, setSmallKidsFeeInCar] = useState(0);
+    const [bigKidsFeeInBus, setBigKidsFeeInBus] = useState(0);
+    const [bigKidsFeeInCar, setBigKidsFeeInCar] = useState(0);
+    const [maxBusSeats, setMaxBusSeats] = useState(0);
+    const [maxCarSeats, setMaxCarSeats] = useState(0);
+    const [busStops, setBusStops] = useState(null);
+    const [floatingAd, setFloatingAd] = useState(null);
+    const [codePrefix, setCodePrefix] = useState(null)
+
+    const dataUrl = 'https://script.google.com/macros/s/AKfycbyI8XesPwOH6gjcap6QPwYm6LPK1JviPgxJo-akz5FUasxz6JnyMPqEddUERE6xCR3t/exec';
+
+    const loadPicnicData = () => {
+        fetch(dataUrl)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                setLoading(false);
+                setPicnicName(data.picnicName);
+                setPicnicDate(data.picnicDate);
+                setStartDate(data.startDate);
+                setEndDate(data.endDate);
+                setAcceptCar(data.acceptCar);
+                setMaxSmallKidsAge(data.maxSmallKidsAge);
+                setMaxBigKidsAge(data.maxBigKidsAge);
+                setAdultsFeeInBus(data.adultsFeeInBus);
+                setAdultsFeeInCar(data.adultsFeeInCar);
+                setSmallKidsFeeInBus(data.smallKidsFeeInBus);
+                setSmallKidsFeeInCar(data.smallKidsFeeInCar);
+                setBigKidsFeeInBus(data.bigKidsFeeInBus);
+                setBigKidsFeeInCar(data.bigKidsFeeInCar);
+                setMaxBusSeats(data.maxBusSeats);
+                setMaxCarSeats(data.maxCarSeats);
+                setBusStops(data.busStops);
+                setFloatingAd(data.floatingAd);
+            })
+            .catch(error => {
+                setError(error.message);
+                setLoading(false);
+            })
+    };
 
     useEffect(() => {
         const state = localStorage.getItem("state");
@@ -62,11 +116,38 @@ function Admin() {
             })
             .catch(error => alert(error));
     }
-    const handlePicnicInfo = () => {
+    const handlePicnicInfo = (e) => {
+        e.preventDefault();
+        const formElm = document.querySelector('form');
+        const formData = new FormData(formElm);
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+
+        // axios.post(dataUrl, formData)
+        //     .then(response => {
+        //         console.log(response.data)
+        //         if (response.data === "successful") {
+
+        //             // document.getElementById("register").disabled = false;
+        //         } else {
+        //             setNotificationTitle("Warning");
+        //             setNotificationMessage(JSON.stringify(response.data));
+        //             setModalShow(true);
+        //             //document.getElementById("register").disabled = false;
+        //         }
+        //     }).catch(error => {
+        //         setNotificationTitle("Error");
+        //         setNotificationMessage(JSON.stringify(error));
+        //         setModalShow(true);
+        //     });
 
     }
     const handleGameInfo = () => {
 
+    }
+    const handlePicnicDate = (date) => {
+        setPicnicDate(date);
     }
 
     return (
@@ -96,158 +177,248 @@ function Admin() {
                         <div className='col-2 border-end text-start p-3'>
                             <div><strong>Admin:</strong> {loggedUser}</div>
                             <hr />
-                            <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => setActiveForm("picnic")}>Picnic</button>
+                            <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => { setActiveForm("picnic"); loadPicnicData() }}>Picnic</button>
                             <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => setActiveForm("games")}>Games</button>
                             <button className="btn btn-link text-danger p-0 d-block" onClick={handleLogout}>Logout</button>
                         </div>
                         <div className='col-10 p-4'>
+                            {/* {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>} */}
                             {activeForm === "picnic" && (
                                 <div>
-                                    <h5>Information for Picnic Registration Form</h5>
-                                    <form onSubmit={handlePicnicInfo}>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Picnic Title: </span>
-                                                <input
-                                                    className="form-control"
-                                                    placeholder="Example: Picnic 2025"
-                                                    type="text" name="picnictitle"
-                                                    id="picnictitle">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Picnic Date: </span>
-                                                <AmraAmraDatePicker 
-                                                className="form-control"
-                                                />
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Registration Start Date: </span>
-                                                <AmraAmraDatePicker 
-                                                className="form-control"
-                                                />
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Registration End Date: </span>
-                                                <AmraAmraDatePicker 
-                                                className="form-control"
-                                                />
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Allow Car Registration: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="allowcarregistration"
-                                                    id="allowcarregistration">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Small Kids Max Age: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="smallkidsmaxage"
-                                                    id="smallkidsmaxage">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Big Kids Max Age: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="bigkidsmaxage"
-                                                    id="bigkidsmaxage">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Adult Fee in Bus: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="adultfeeinbus"
-                                                    id="adultfeeinbus">
-                                                </input>
-                                                
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Adult Fee in Car: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="adultfeeincar"
-                                                    id="adultfeeincar">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Big Kids Fee in Bus: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="bigkidsfeeinbus"
-                                                    id="bigkidsfeeinbus">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Big Kids Fee in Car: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="bigkidsfeeincar"
-                                                    id="bigkidsfeeincar">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Small Kids Fee in Bus: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="smallkidsfeeinbus"
-                                                    id="smallkidsfeeinbus">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Small Kids Fee in Car: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="smallkidsfeeincar"
-                                                    id="smallkidsfeeincar">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Max Bus Seats: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="maxbusseats"
-                                                    id="maxbusseats">
-                                                </input>
-                                            </div>
-                                            
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Max Car Seats: </span>
-                                                <input
-                                                    className="form-control"                                                
-                                                    type="text" name="maxcarseats"
-                                                    id="maxcarseats">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Bus Stops: </span>
-                                                <input
-                                                    className="form-control" 
-                                                    placeholder="Example: Sollentuna, Tumba"                                               
-                                                    type="text" name="busstops"
-                                                    id="busstops">
-                                                </input>
-                                            </div>
-                                            <div className="input-group mb-3">
-                                                <span className="input-group-text">Floating Ad Text: </span>
-                                                <input
-                                                    className="form-control" 
-                                                    placeholder="Example: Registration for Picnic 2026 will open soon ...."                                               
-                                                    type="text" name="floatingadtext"
-                                                    id="floatingadtext">
-                                                </input>
-                                            </div>
-                                    </form>
+                                    {loading && (
+                                        <div className="text-center  text-white my-5">Please wait while loading the from .........</div>
+                                    )}
+                                    {!loading && (
+                                        <>
+                                            <h5>Information for Picnic Registration Form</h5>
+
+                                            <form onSubmit={handlePicnicInfo}>
+                                                <div className='row'>
+                                                    <div className="input-group mb-3">
+                                                        <span className="input-group-text">Picnic Title: </span>
+                                                        <input
+                                                            className="form-control"
+                                                            placeholder="Example: Picnic 2025"
+                                                            type="text" name="picnicname"
+                                                            id="picnicname"
+                                                            value={picnicName}
+                                                            onChange={(e) => setPicnicName(e.target.value)}
+                                                        >
+                                                        </input>
+                                                    </div>
+                                                </div>
+                                                <div className='row'>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Picnic Date: </span>
+                                                            <AmraAmraDatePicker
+                                                                value= {picnicDate}
+                                                                onChange = {setPicnicDate}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Allow Car Registration: </span>
+                                                            <select className="custom-select">
+                                                                <option value="no" selected>No</option>
+                                                                <option value="yes">Yes</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='row'>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Registration Start Date: </span>
+                                                            <AmraAmraDatePicker                                                                
+                                                                value="registrationstartdate"                                                               
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6 '>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Registration End Date: </span>
+                                                            <AmraAmraDatePicker
+                                                                value="registrationenddate" 
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Registration Prefix: </span>
+                                                            <select
+                                                                className="custom-select"
+                                                                name="codeprefix"
+                                                                value={codePrefix}
+                                                                onChange={(e) => setCodePrefix(e.target.value)}>
+                                                                <option value="AA">AA</option>
+                                                                <option value="BB">BB</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Bus Stops: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="busstops"
+                                                                id="busstops"
+                                                                value={busStops}
+                                                                onChange={(e) => setBusStops(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='row'>
+
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Small Kids Max Age: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="smallkidsmaxage"
+                                                                id="smallkidsmaxage"
+                                                                value={maxSmallKidsAge}
+                                                                onChange={(e) => setMaxSmallKidsAge(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Big Kids Max Age: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="bigkidsmaxage"
+                                                                id="bigkidsmaxage"
+                                                                value={maxBigKidsAge}
+                                                                onChange={(e) => setMaxBigKidsAge(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Adult Fee in Bus: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="adultfeeinbus"
+                                                                id="adultfeeinbus"
+                                                                value={adultsFeeInBus}
+                                                                onChange={(e) => setAdultsFeeInBus(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Adult Fee in Car: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="adultfeeincar"
+                                                                id="adultfeeincar"
+                                                                value={adultsFeeInCar}
+                                                                onChange={(e) => setAdultsFeeInCar(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Big Kids Fee in Bus: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="bigkidsfeeinbus"
+                                                                id="bigkidsfeeinbus"
+                                                                value={bigKidsFeeInBus}
+                                                                onChange={(e) => setBigKidsFeeInBus(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Big Kids Fee in Car: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="bigkidsfeeincar"
+                                                                id="bigkidsfeeincar"
+                                                                value={bigKidsFeeInCar}
+                                                                onChange={(e) => setBigKidsFeeInCar(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Small Kids Fee in Bus: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="smallkidsfeeinbus"
+                                                                id="smallkidsfeeinbus"
+                                                                value={smallKidsFeeInBus}
+                                                                onChange={(e) => setSmallKidsFeeInBus(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Small Kids Fee in Car: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="smallkidsfeeincar"
+                                                                id="smallkidsfeeincar"
+                                                                value={smallKidsFeeInCar}
+                                                                onChange={(e) => setSmallKidsFeeInCar(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Max Bus Seats: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="maxbusseats"
+                                                                id="maxbusseats"
+                                                                value={maxBusSeats}
+                                                                onChange={(e) => setMaxBusSeats(e.target.value)}>
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                    <div className='col-6'>
+                                                        <div className="input-group mb-3">
+                                                            <span className="input-group-text">Max Car Seats: </span>
+                                                            <input
+                                                                className="form-control"
+                                                                type="text" name="maxcarseats"
+                                                                id="maxcarseats"
+                                                                value={maxCarSeats}
+                                                                onChange={(e) => setMaxCarSeats(e.target.value)}
+                                                            >
+                                                            </input>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className='row'>
+                                                    <div className="input-group mb-3">
+                                                        <span className="input-group-text">Floating Ad Text: </span>
+                                                        <input
+                                                            className="form-control"
+                                                            placeholder="Example: Registration for Picnic 2026 will open soon ...."
+                                                            type="text" name="floatingad"
+                                                            id="floatingad"
+                                                            value={floatingAd}
+                                                            onChange={(e) => setFloatingAd(e.target.value)}
+                                                        >
+                                                        </input>
+                                                    </div>
+                                                </div>
+                                                <div className="form-group">
+                                                    <button type="submit" id="register" className="btn btn-primary btn-block"> Update</button>
+                                                </div>
+                                            </form>
+                                        </>)}
                                     {/* Your picnic form content here */}
                                 </div>
                             )}
                             {activeForm === "games" && (
                                 <div>
                                     <h5>Games Form</h5>
-
                                     <form onSubmit={handleGameInfo}>
                                         sdkfls
                                         <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
@@ -270,6 +441,12 @@ function Admin() {
                     </div>
                 )}
             </div>
+            <Notification
+                show={modalShow}
+                onHide={() => setModalShow(false)}
+                title={notificationTitle}
+                message={notificationMessage}
+            />
         </div>
         // <Modal
         //     size="lg"
