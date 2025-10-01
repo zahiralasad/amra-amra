@@ -20,6 +20,7 @@ import RegisterMember from "./components/Members/RegisterMember";
 import Checklist from "./components/Picnics/Checklist";
 import RegisterToEnter from "./components/IndoorGames/RegisterToEnter";
 import IndoorGamesTeams from "./components/IndoorGames/RegisterdTeams";
+import RegisterToNetwork from "./components/NetworkingBuilding/RegisterToNetwork";
 import Test from "./components/Test/Test";
 
 import "./App.css"
@@ -59,10 +60,13 @@ function App() {
               <Route path="registertopicnic" element={<RegisterToPicnic/>} />
 
               {/************ Indor Games *************/}
+              <Route path="registertonetwork" element={<RegisterToNetwork/>} />
+
+              {/****** Carrier Building Network ******/}
               <Route path="entryform1213" element={<RegisterToEnter/>} />
               <Route path="indoorteams" element = {<IndoorGamesTeams/>}/>
 
-              {/************ Test *************/}
+              {/**************** Test ****************/}
               <Route path="test" element={<Test/>} />
             </Routes>
           </div>

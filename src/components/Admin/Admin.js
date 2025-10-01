@@ -9,6 +9,7 @@ import axios from 'axios';
 
 import AmraAmraDatePicker from '../Others/AmraAmraDatePicker';
 import Notification from '../Others/Notification';
+import MeetingNoteBook from './MeetingNoteBook';
 
 function Admin() {
     // console.log(localStorage.getItem("state"));
@@ -182,6 +183,7 @@ function Admin() {
                             <hr />
                             <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => { setActiveForm("picnic"); loadPicnicData() }}>Picnic</button>
                             <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => setActiveForm("games")}>Games</button>
+                            <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => setActiveForm("meetingnotebook")}>Meeting Note Book</button>
                             <button className="btn btn-link text-danger p-0 d-block" onClick={handleLogout}>Logout</button>
                         </div>
                         <div className='col-10 p-4'>
@@ -217,7 +219,7 @@ function Admin() {
                                                             <AmraAmraDatePicker
                                                                 value = "picnicdate"
                                                                 date = {picnicDate}
-                                                                onChange = {setPicnicDate}
+                                                                // onChange = {setPicnicDate}
                                                             />
                                                         </div>
                                                     </div>
@@ -238,7 +240,7 @@ function Admin() {
                                                             <AmraAmraDatePicker   
                                                                 value = "startdate"                                                             
                                                                 date = {startDate}
-                                                                onChange = {setStartDate}                                                              
+                                                                // onChange = {setStartDate}                                                              
                                                             />
                                                         </div>
                                                     </div>
@@ -248,7 +250,7 @@ function Admin() {
                                                             <AmraAmraDatePicker
                                                                 value = "enddate"
                                                                 date = {endDate}
-                                                                onChange = {setEndDate}  
+                                                                // onChange = {setEndDate}  
                                                             />
                                                         </div>
                                                     </div>
@@ -438,6 +440,9 @@ function Admin() {
                                     </form>
                                     {/* Your games form content here */}
                                 </div>
+                            )}
+                            {activeForm === "meetingnotebook" && (
+                                <MeetingNoteBook/>
                             )}
                             {!activeForm && (
                                 <div>

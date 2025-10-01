@@ -7,3 +7,11 @@
     height: auto;                  /* Adjust height if needed */
     line-height: 1.5;
 }
+
+.agenda-input {
+  resize: none; /* prevent manual resizing */
+  overflow: hidden;
+  min-height: 30px; /* Bootstrap input-group-text default height */
+  max-height: 200px; /* Optional limit */
+  box-sizing: border-box;
+}
