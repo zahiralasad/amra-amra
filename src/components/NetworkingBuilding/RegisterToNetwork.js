@@ -13,10 +13,11 @@ function RegisterToNetwork() {
     const [title, setTitle] = useState(null);
     const [message, setMessage] = useState(null);
     const [response, setResponse] = useState(null);
+    const [selected, setSelected] = useState(null);
 
     const [seatBooked, setSeatBooked] = useState(null);
 
-    const url = 'https://script.google.com/macros/s/AKfycbyWNqsxnPXK0vFgNblrZrinz8HuvCYvS6Jn8NBqh51_5WaUI3qDjsRZLc0SVoCu1T3X/exec';
+    const url = 'https://script.google.com/macros/s/AKfycbxImKSfp7Dh4vDHTCEFwTpq2qoXaL8T8p5HbJNtoPi06EvLjuVEwiH0gBlebu7oKuSy/exec';
     const apiUrl = "https://amra-amra.se/emailApi/";
 
     useEffect(() => {
@@ -43,6 +44,7 @@ function RegisterToNetwork() {
     }, []);
 
     function Submit(e) {
+        document.getElementById("register").disabled = true;
         e.preventDefault();
         const formElm = document.querySelector('form');
         const formData = new FormData(formElm);
@@ -57,13 +59,13 @@ function RegisterToNetwork() {
                 if (Array.isArray(response.data) && response.data[0] === "successful") {
                     // formData.append("Code", response.data[1]);
                     sendEmail(formData);
-                    // document.getElementById("register").disabled = false;
-                    // document.getElementById("picnicForm").reset();
+                    document.getElementById("register").disabled = false;
+                    document.getElementById("networkForm").reset();
                 } else {
                     setTitle("Warning");
                     setMessage(JSON.stringify(response.data));
                     setModalShow(true);
-                    // document.getElementById("register").disabled = false;
+                    document.getElementById("register").disabled = false;
                 }
             }).catch(error => setResponse(error));
 
@@ -102,7 +104,7 @@ function RegisterToNetwork() {
     return (
         <div className="picnic">
             <div className="p-4 text-center rounded bg-dark">
-                <h4>Registration Form for the Carrier & Network Building Event</h4>
+                <h4>Registration Form for the "Career Pathways: Networking for Bangladeshis in Sweden" Event</h4>
                 {/* <img src={banner} className="img-fluid" /> */}
             </div>
             <div className="mt-1 p-2 rounded bg-dark">
@@ -133,25 +135,25 @@ function RegisterToNetwork() {
                                             </div>
                                         )}
                                         {!seatsFilled && (
-                                            <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
+                                            <form className="needs-validation" id="networkForm" onSubmit={(e) => Submit(e)}>
                                                 <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                                                     <div className="form-group input-group  mb-3">
                                                         <i className="bi bi-person-fill me-2"></i>
-                                                        <span className="input-group-text" style={{ width: "80px" }}>Name</span>
+                                                        <span className="input-group-text" style={{ width: "60px" }}>Name:</span>
                                                         <input name="Name" className="form-control" placeholder="Full Name" type="text" required />
                                                     </div>
                                                 </div>
                                                 <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                                                     <div className="form-group input-group  mb-3">
                                                         <i className="bi bi-envelope-fill me-2"></i>
-                                                        <span className="input-group-text" style={{ width: "80px" }}>Email</span>
+                                                        <span className="input-group-text" style={{ width: "60px" }}>Email:</span>
                                                         <input name="Email" className="form-control" placeholder="Email address" type="email" required />
                                                     </div>
                                                 </div>
                                                 <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                                                     <div className="form-group input-group  mb-3">
                                                         <i className="bi bi-telephone-fill me-2"></i>
-                                                        <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
+                                                        <span className="input-group-text" style={{ width: "60px" }}>Phone:</span>
                                                         <input name="Phone" className="form-control" placeholder="Phone number" type="text" required />
                                                     </div>
                                                 </div>
@@ -207,7 +209,7 @@ function RegisterToNetwork() {
                                                     <div className="form-group input-group  mb-3">
                                                         {/* <i className="bi bi-book-fill me-2"></i>  */}
                                                         <i className="bi bi-mortarboard me-2"></i>
-                                                        <span className="input-group-text" style={{ width: "160px" }}>Highest level of Education: </span>
+                                                        <span className="input-group-text" style={{ width: "165px" }}>Highest level of Education: </span>
                                                         <input name="Education" className="form-control" placeholder="" type="text" required />
                                                     </div>
                                                 </div>
@@ -215,7 +217,7 @@ function RegisterToNetwork() {
                                                     <div className="form-group input-group  mb-3">
                                                         <i className="bi bi-bank me-2"></i>
                                                         {/* <i className="bi bi-journal-bookmark"></i> */}
-                                                        <span className="input-group-text" style={{ width: "130px" }}>Educational institute:</span>
+                                                        <span className="input-group-text" style={{ width: "135px" }}>Educational institute:</span>
                                                         <input name="Institue" className="form-control" placeholder="" type="text" required />
                                                     </div>
                                                 </div>
@@ -230,8 +232,13 @@ function RegisterToNetwork() {
                                                 <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                                                     <div className="form-group input-group  mb-3">
                                                         <i className="bi bi-journal-bookmark me-2"></i>
-                                                        <span className="input-group-text" style={{ width: "190px" }}>Carrier interest/Interested Field:</span>
-                                                        <select className="custom-select" name="Subject">
+                                                        <span className="input-group-text" style={{ width: "105px" }}>Carrier interest:</span>
+                                                        <select
+                                                            className="custom-select"
+                                                            name="Subject"
+                                                            value={selected}
+                                                            onChange={(e) => setSelected(e.target.value)}
+                                                        >
                                                             <option value="Läkare" selected>Läkare</option>
                                                             <option value="Sjuksköterska">Sjuksköterska</option>
                                                             <option value="Undersköterska">Undersköterska</option>
@@ -250,14 +257,23 @@ function RegisterToNetwork() {
                                                             <option value="Personlig assistent">Personlig assistent</option>
                                                             <option value="Social Handlägare">Social Handlägare</option>
                                                             <option value="Resturang Chef">Resturang Chef</option>
+                                                            <option value="Others">Others</option>
                                                         </select>
+                                                        {selected === "Others" && (
+                                                            <input
+                                                                name="ExtSubject"
+                                                                type="text"
+                                                                className="form-control ms-2"
+                                                                placeholder="Please specify..."
+                                                            />
+                                                        )}
                                                     </div>
                                                 </div>
                                                 <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                                                     <div className="form-group input-group  mb-3">
                                                         <i className="bi bi-chat-dots me-2"></i>
                                                         {/* <i className="bi bi-journal-bookmark"></i> */}
-                                                        <span className="input-group-text" style={{ width: "130px" }}>Comment:</span>
+                                                        <span className="input-group-text" style={{ width: "80px" }}>Comment:</span>
                                                         <textarea
                                                             name="Comment"
                                                             className="form-control"
@@ -273,7 +289,7 @@ function RegisterToNetwork() {
                                                     <div className="form-check">
                                                         <input className="form-check-input" type="checkbox" name="Swish" id="swish" required />
                                                         <label className="form-check-label" htmlFor="swish">
-                                                            I have swished 30kr to 1230432419
+                                                            I have swished 20kr to 1230432419
                                                         </label>
                                                         <span id="swishTo" className="swishto ms-2 h9"></span>
                                                     </div>

@@ -39,9 +39,9 @@ function Admin() {
     const [maxCarSeats, setMaxCarSeats] = useState(0);
     const [busStops, setBusStops] = useState(null);
     const [floatingAd, setFloatingAd] = useState(null);
-    const [codePrefix, setCodePrefix] = useState(null)
+    const [codePrefix, setCodePrefix] = useState(null);
 
-    const dataUrl = 'https://script.google.com/macros/s/AKfycbysHW9GVTvmUFq70OC638nhiBNoiDmR7RybkeMlN5Wl1jGAFIEshuM1dXxsfClI5m87/exec';
+    const dataUrl = 'https://script.google.com/macros/s/AKfycbzp9Bk3W9FPEdbWTVOki_AcQxwR3IKHRc0_zCyCTfH4cNvXAotM3NamU9eIc6HhXcWb/exec';
 
     const loadPicnicData = () => {
         fetch(dataUrl)
@@ -128,23 +128,23 @@ function Admin() {
             console.log(key, value);
         }
 
-        // axios.post(dataUrl, formData)
-        //     .then(response => {
-        //         console.log(response.data)
-        //         if (response.data === "successful") {
+        axios.post(dataUrl, formData)
+            .then(response => {
+                console.log(response.data)
+                if (response.data === "successful") {
 
-        //             // document.getElementById("register").disabled = false;
-        //         } else {
-        //             setNotificationTitle("Warning");
-        //             setNotificationMessage(JSON.stringify(response.data));
-        //             setModalShow(true);
-        //             //document.getElementById("register").disabled = false;
-        //         }
-        //     }).catch(error => {
-        //         setNotificationTitle("Error");
-        //         setNotificationMessage(JSON.stringify(error));
-        //         setModalShow(true);
-        //     });
+                    // document.getElementById("register").disabled = false;
+                } else {
+                    setNotificationTitle("Warning");
+                    setNotificationMessage(JSON.stringify(response.data));
+                    setModalShow(true);
+                    //document.getElementById("register").disabled = false;
+                }
+            }).catch(error => {
+                setNotificationTitle("Error");
+                setNotificationMessage(JSON.stringify(error));
+                setModalShow(true);
+            });
 
     }
     const handleGameInfo = () => {
@@ -226,7 +226,7 @@ function Admin() {
                                                     <div className='col-6'>
                                                         <div className="input-group mb-3">
                                                             <span className="input-group-text">Allow Car Registration: </span>
-                                                            <select className="custom-select">
+                                                            <select className="custom-select" name="acceptcar">
                                                                 <option value="no" selected>No</option>
                                                                 <option value="yes">Yes</option>
                                                             </select>
@@ -287,8 +287,8 @@ function Admin() {
                                                             <span className="input-group-text">Small Kids Max Age: </span>
                                                             <input
                                                                 className="form-control"
-                                                                type="text" name="smallkidsmaxage"
-                                                                id="smallkidsmaxage"
+                                                                type="text" name="maxsmallkidsage"
+                                                                id="maxsmallkidsage"
                                                                 value={maxSmallKidsAge}
                                                                 onChange={(e) => setMaxSmallKidsAge(e.target.value)}>
                                                             </input>
@@ -299,8 +299,8 @@ function Admin() {
                                                             <span className="input-group-text">Big Kids Max Age: </span>
                                                             <input
                                                                 className="form-control"
-                                                                type="text" name="bigkidsmaxage"
-                                                                id="bigkidsmaxage"
+                                                                type="text" name="maxbigkidsage"
+                                                                id="maxbigkidsage"
                                                                 value={maxBigKidsAge}
                                                                 onChange={(e) => setMaxBigKidsAge(e.target.value)}>
                                                             </input>
