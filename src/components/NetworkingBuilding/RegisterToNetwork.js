@@ -286,10 +286,10 @@ function RegisterToNetwork() {
                                                     </div>
                                                 </div>
                                                 <div className="mt-2 rounded border p-2">
-                                                    <div className="form-check">
-                                                        <input className="form-check-input" type="checkbox" name="Swish" id="swish" required />
+                                                    <div className="form-check">+
+                                                        <input className="form-check-input" type="checkbox" name="Swish" id="swish"/>
                                                         <label className="form-check-label" htmlFor="swish">
-                                                            I have swished 20kr to 1230432419
+                                                            I would like to contribute 20kr to the event and swish to 1230432419 (Optional)
                                                         </label>
                                                         <span id="swishTo" className="swishto ms-2 h9"></span>
                                                     </div>
