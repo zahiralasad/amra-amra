@@ -92,7 +92,7 @@ function RegisterToNetwork() {
         // }
     }
     const isDateExpired = () => {
-        const dateString = "2025-10-30";
+        const dateString = "2025-11-10";
         const givenDate = new Date(dateString);
         return givenDate < today;
     };
@@ -286,7 +286,7 @@ function RegisterToNetwork() {
                                                     </div>
                                                 </div>
                                                 <div className="mt-2 rounded border p-2">
-                                                    <div className="form-check">+
+                                                    <div className="form-check">
                                                         <input className="form-check-input" type="checkbox" name="Swish" id="swish"/>
                                                         <label className="form-check-label" htmlFor="swish">
                                                             I would like to contribute 20kr to the event and swish to 1230432419 (Optional)

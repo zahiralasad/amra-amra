@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 
-import Card from './Cards'
+import Card from './Card'
 
 function Events() {
     return (
@@ -15,7 +15,7 @@ function Events() {
                 button1={
                     <Link to='/registermember' className="btn btn-secondary" type="button" >
                         <img
-                            src={require("../images/picnic2025info.jpg")}
+                            src={require("../../images/picnic2025info.jpg")}
                             alt="Photos"
                             style={{height: "100%", objectFit: "cover", cursor: "pointer" }}
                         />

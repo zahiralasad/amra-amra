@@ -12,7 +12,7 @@ import Contacts from "./components/Contacts";
 import Aboutus from "./components/Aboutus";
 import Admin from "./components/Admin/Admin";
 import Header from "./components/Header/Header"
-import Events from "./components/Events";
+import Events from "./components/Events/Events";
 import Info from "./components/Info";
 import Members from "./components/Members/Members";
 import RegisterMember from "./components/Members/RegisterMember";
