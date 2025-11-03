@@ -124,7 +124,7 @@ function RegisterToNetwork() {
                             <>
                                 {isDateExpired() && (
                                     <div className="text-center  text-white my-5">
-                                        Registrion date to the picnic has passed. Please contact us for further information
+                                        Registrion date to this event has passed. Please contact us for further information
                                     </div>
                                 )}
                                 {!isDateExpired() && (

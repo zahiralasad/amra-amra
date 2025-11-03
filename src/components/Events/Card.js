@@ -19,8 +19,8 @@ function Card({ title, images, link }) {
               </Carousel.Item>
             ))}
           </Carousel>
-          <div className="card-img-overlay d-flex align-items-end p-2 ">
-            <h5 className="text-white w-100 text-center">{title}</h5>
+          <div className="card-img-overlay d-flex align-items-end p-">
+            <h5 className="text-white w-100 text-center bg-dark rounded">{title}</h5>
           </div>
         </div>
       </Link>

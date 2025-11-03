@@ -22,9 +22,9 @@ import RegisterToEnter from "./components/IndoorGames/RegisterToEnter";
 import IndoorGamesTeams from "./components/IndoorGames/RegisterdTeams";
 import RegisterToNetwork from "./components/NetworkingBuilding/RegisterToNetwork";
 import Test from "./components/Test/Test";
+import Gallery from "./components/Events/Gallery";
 
 import "./App.css"
-
 
 function App() {
   return (
@@ -40,7 +40,7 @@ function App() {
               <Route path="aboutus" element={<Aboutus/>} />
               <Route path="admin" element={<Admin/>} />
               <Route path="events" element={<Events/>} />
-              
+              <Route path="gallery" element={<Gallery/>} />
               <Route path="info" element={<Info/>} />
               {/* <Route path="adminlogin" element={<StickyLoginButton/>} /> */}
               <Route path="checklist" element={<Checklist/>} />

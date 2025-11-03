@@ -3,7 +3,7 @@ import React from 'react';
 function Contacts() {
     return (
         <div className='row'>
-        <div className="text-center text-white">
+        <div className="m-4 text-center text-white">
             <h5>Contacts</h5>
             <ul className='list-unstyled'>
                 <li>Jubaidul Haque Sobuz - 0762268977</li>

@@ -3,7 +3,7 @@ import React from 'react';
 function Members() {
     return (
         <div className='row'>
-            <div className="text-center text-white">
+            <div className="mt-4 text-center text-white">
                 <div>
                     <h6>
                         <a href="registermember">Register</a> to be a member of the Amra-Amra association

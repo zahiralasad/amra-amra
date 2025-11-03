@@ -3,7 +3,7 @@ import React from 'react';
 function Aboutus() {
     return (
         <div className='row'>
-        <div className="text-center text-white">
+        <div className="mt-4 text-center text-white">
             <dl>
                 <dt>‘আমরা-আমরা’ কী?</dt>    
                 <dd>‘আমরা-আমরা’ একটি অলাভজনক সামাজিক সংগঠন।</dd>

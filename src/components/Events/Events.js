@@ -3,58 +3,82 @@ import { Link } from "react-router-dom";
 
 import Card from './Card'
 
-import pic1 from "../../images/picnic2022.jpg";
-import pic2 from "../../images/picnic2024.jpg";
-import pic3 from "../../images/picnic2024.jpg";
-// import game1 from "../images/game2025_1.jpg";
-// import game2 from "../images/game2025_2.jpg";
+
+import picnic2025_01 from "../../images/picnic_2025_card_01.png";
+import picnic2025_02 from "../../images/picnic_2025_card_02.png";
+import picnic2025_03 from "../../images/picnic_2025_card_03.png";
+import carrier2025_01 from "../../images/carrier_pathway_2025_card_01.png";
+import carrier2025_02 from "../../images/carrier_pathway_2025_card_02.png";
+import carrier2025_03 from "../../images/carrier_pathway_2025_card_03.png";
+import indoorgames2025_01 from "../../images/indoor_games_2025_card_01.png";
+import indoorgames2025_02 from "../../images/indoor_games_2025_card_02.png";
+import indoorgames2025_03 from "../../images/indoor_games_2025_card_03.png";
+import flood2024_01 from "../../images/flood_2024_card_01.png";
+import flood2024_02 from "../../images/flood_2024_card_02.png";
+import flood2024_03 from "../../images/flood_2024_card_03.png";
+import picnic2024_01 from "../../images/picnic_2024_card_01.png";
+import picnic2024_02 from "../../images/picnic_2024_card_02.png";
+import picnic2024_03 from "../../images/picnic_2024_card_03.png";
+import picnic2023_01 from "../../images/picnic_2023_card_01.png";
+import picnic2023_02 from "../../images/picnic_2023_card_02.png";
+import picnic2023_03 from "../../images/picnic_2023_card_03.png";
+import picnic2022_01 from "../../images/picnic_2022_card_01.png";
+import picnic2022_02 from "../../images/picnic_2022_card_02.png";
+import picnic2022_03 from "../../images/picnic_2022_card_03.png";
+import picnic2019_01 from "../../images/picnic_2019_card_01.png";
+import picnic2019_02 from "../../images/picnic_2019_card_02.png";
+import picnic2019_03 from "../../images/picnic_2019_card_03.png";
+import picnic2014_01 from "../../images/picnic_2014_card_01.png";
+import picnic2014_02 from "../../images/picnic_2014_card_02.png";
+import picnic2014_03 from "../../images/picnic_2014_card_03.png";
 
 function Events() {
     return (
         <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'>
             <Card
                 title="Career Pathways 2025"
-                images={[pic1, pic2]}
+                images={[carrier2025_01, carrier2025_02, carrier2025_03]}
                 link="/indoorgames2025"
             />
             <Card
                 title="Indoor Games 2025"
-                images={[pic1, pic2]}
-                link="/indoorgames2025"
+                images={[indoorgames2025_01, indoorgames2025_02, indoorgames2025_03]}
+                link="/gallery"
+                state={{ year: 2025, tournament: "Indoor Games" }}
             />
             <Card
-                title="পিকনিক ২০২৫"
-                images={[pic1, pic2]}
+                title="বনভোজন ২০২৫"
+                images={[picnic2025_01, picnic2025_02, picnic2025_03]}
                 link="/picnic2025"
             />
             <Card
                 title="বন্যার্তদের পাশে 'আমরা-আমরা ২০২৪"
-                images={[pic1, pic2]}
+                images={[flood2024_01, flood2024_02, flood2024_03]}
                 link="/picnic2025"
             />
             <Card
-                title="পিকনিক ২০২৩"
-                images={[pic1, pic2]}
+                title="বনভোজন ২০২৪"
+                images={[picnic2024_01, picnic2024_02, picnic2024_03]}
                 link="/picnic2023"
             />
             <Card
-                title="পিকনিক ২০২৩"
-                images={[pic1, pic2]}
+                title="বনভোজন ২০২৩"
+                images={[picnic2023_01, picnic2023_02, picnic2023_03]}
                 link="/picnic2023"
             />
             <Card
-                title="পিকনিক ২০২৩"
-                images={[pic1, pic2]}
+                title="বনভোজন ২০২২"
+                images={[picnic2022_01, picnic2022_02, picnic2022_03]}
                 link="/picnic2023"
             />
             <Card
-                title="পিকনিক ২০২৩"
-                images={[pic1, pic2]}
+                title="বনভোজন ২০১৯"
+                images={[picnic2019_01, picnic2019_02, picnic2019_03]}
                 link="/picnic2023"
             />
             <Card
-                title="পিকনিক ২০২৩"
-                images={[pic1, pic2]}
+                title="বনভোজন ২০১৪"
+                images={[picnic2014_01, picnic2014_02, picnic2014_03]}
                 link="/picnic2023"
             />
         </div>
