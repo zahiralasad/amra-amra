@@ -60,50 +60,53 @@ function GuestList() {
                                 </div>
                             )}
                             {!error && showDetail && (
-                                <table className='table table-striped table-dark '>
-                                    <thead>
-                                        <tr>
-                                            <th>Entry</th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Check In</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {guests.map((guest, key) =>
-                                            <tr key={key}>
-                                                <td>{guest["Entry No."]}</td>
-                                                <td>{guest["Name"]}</td>
-                                                <td>{guest["Email"]}</td>
-                                                <td>{guest["Phone"]}</td>
-                                                <td>{guest["Check In"]}</td>
+                                <div className="table-container" style={{ overflowY: "auto" }}>
+                                    <table className='table table-striped table-dark '>
+                                        <thead>
+                                            <tr>
+                                                <th>Entry</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Phone</th>
+                                                <th>Check In</th>
                                             </tr>
-                                        )}
+                                        </thead>
+                                        <tbody>
+                                            {guests.map((guest, key) =>
+                                                <tr key={key}>
+                                                    <td>{guest["Entry No."]}</td>
+                                                    <td>{guest["Name"]}</td>
+                                                    <td>{guest["Email"]}</td>
+                                                    <td>{guest["Phone"]}</td>
+                                                    <td>{guest["Check In"]}</td>
+                                                </tr>
+                                            )}
 
-                                    </tbody>
-                                </table>
+                                        </tbody>
+                                    </table>
+                                </div>
                             )}
                             {!error && !showDetail && (
-                                <table className='table table-striped table-dark'>
-                                    <thead>
-                                        <tr>
-                                            <th>Name</th>
-                                            <th>Check In</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {guests.map((guest, key) =>
-                                            <tr key={key}>
-                                                <td>{guest["Name"]}</td>
-                                                <td>{guest["Check In"]}</td>
+                                <div className="table-container" style={{ overflowY: "auto" }}>
+                                    <table className='table table-striped table-dark'>
+                                        <thead>
+                                            <tr>
+                                                <th>Name</th>
+                                                <th>Check In</th>
                                             </tr>
-                                        )
-                                        }
+                                        </thead>
+                                        <tbody>
+                                            {guests.map((guest, key) =>
+                                                <tr key={key}>
+                                                    <td>{guest["Name"]}</td>
+                                                    <td>{guest["Check In"]}</td>
+                                                </tr>
+                                            )
+                                            }
 
-                                    </tbody>
-                                </table>
-
+                                        </tbody>
+                                    </table>
+                                </div>
                             )}
                         </>
                     )}
