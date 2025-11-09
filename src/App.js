@@ -25,6 +25,7 @@ import Test from "./components/Test/Test";
 import Gallery from "./components/Events/Gallery";
 import CheckGuest from "./components/NetworkingBuilding/CheckGuest";
 import CheckIn from "./components/NetworkingBuilding/CheckIn";
+import GuestList from "./components/NetworkingBuilding/GuestList";
 
 import "./App.css";
 
@@ -66,6 +67,7 @@ function App() {
               <Route path="registertonetwork" element={<RegisterToNetwork/>} />
               <Route path="checkguest" element={<CheckGuest/>} />
               <Route path="checkin" element={<CheckIn/>} />
+              <Route path="guestlist" element={<GuestList/>} />
 
               {/****** Carrier Building Network ******/}
               <Route path="entryform1213" element={<RegisterToEnter/>} />
