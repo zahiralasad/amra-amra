@@ -39,7 +39,7 @@ function RegisterToGame() {
   const [clearForm, setClearForm] = useState(false);
 
   // const url = 'https://script.google.com/macros/s/AKfycby5oTs-F0XfLQ5eKzJJ183u4ziTtRxzeYwLwT81-njo1tyla405pvm_qSULsYLvBma8/exec';
-  const url = 'https://script.google.com/macros/s/AKfycbzqbsXeuw7j8de1rgUzvat_XO0ToNjU03KcdGgPWhXIIh20EijzmlhIEzBN26MI-cpuBw/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbx4_DOECQtBj-vbc-cA2SiIqViAGMS_5efyWv7lygqXgBYFGotUzwdUfWHHe4iL6wNqdw/exec';
 
   const apiUrl = "https://amra-amra.se/emailApi/";
 
@@ -373,7 +373,7 @@ function RegisterToGame() {
       catgo === "smallKids"
         ? Array.from({ length: count }, (_, index) => ({
           id: `${catgo}${index + 1}`,
-          age: "<=5",
+          age: "<=4",
           name: "",
           ownCode: "",
           selectedGames: [],
@@ -381,14 +381,14 @@ function RegisterToGame() {
         : catgo === "bigKids"
           ? Array.from({ length: count }, (_, index) => ({
             id: `${catgo}${index + 1}`,
-            age: "6+",
+            age: "4+",
             name: "",
             ownCode: generateCode(),
             selectedGames: [],
           }))
           : Array.from({ length: count }, (_, index) => ({
             id: `${catgo}${index + 1}`,
-            age: "13+",
+            age: "10+",
             name: "",
             ownCode: generateCode(),
             selectedGames: [],
@@ -798,7 +798,7 @@ function RegisterToGame() {
                         "Chess",
                         "ChessKids",
                         "FiveStones",
-                        "PenFight",
+                        "PenFightSingles",
                         "Uno"
                       ];
 
@@ -826,7 +826,7 @@ function RegisterToGame() {
                           || (gameName === "Chess")
                           || (gameName === "ChessKids")
                           || (gameName === "FiveStones")
-                          || (gameName === "PenFight")
+                          || (gameName === "PenFightSingles")
                           || (gameName === "LudoSingles")
                           || (gameName === "LudoKidsSingles")
                           || (gameName === "Uno")) {
@@ -842,7 +842,7 @@ function RegisterToGame() {
                           || (gameName === "Chess")
                           || (gameName === "ChessKids")
                           || (gameName === "FiveStones")
-                          || (gameName === "PenFight")
+                          || (gameName === "PenFightSingles")
                           || (gameName === "LudoSingles")
                           || (gameName === "LudoKidsSingles")
                           || (gameName === "Uno")) {
@@ -880,7 +880,7 @@ function RegisterToGame() {
                             && game.name != "LudoKidsSingles"
                             && game.name != "Chess"
                             && game.name != "ChessKids"
-                            && game.name != "PenFight"
+                            && game.name != "PenFightSingles"
                             && game.name != "FiveStones"
                             && game.name != "Uno") {
                             infoText = "Enter code from your partner or leave it empty";
