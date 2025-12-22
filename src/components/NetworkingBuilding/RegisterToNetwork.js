@@ -6,7 +6,7 @@ import Notification from '../Others/Notification';
 
 function RegisterToNetwork() {
     const [loading, setLoading] = useState(true);
-    const [today, seToday] = useState(new Date());
+    const [today, setToday] = useState(new Date());
     const [error, setError] = useState(null);
     const [seatsFilled, setSeatsFilled] = useState(false);
     const [modalShow, setModalShow] = useState(false);

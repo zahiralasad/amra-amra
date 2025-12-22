@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import Card from './Card'
 
-
+import indoorgames2026_01 from "../../images/indoor_games_2026_card_01.png";
 import picnic2025_01 from "../../images/picnic_2025_card_01.png";
 import picnic2025_02 from "../../images/picnic_2025_card_02.png";
 import picnic2025_03 from "../../images/picnic_2025_card_03.png";
@@ -35,6 +35,11 @@ import picnic2014_03 from "../../images/picnic_2014_card_03.png";
 function Events() {
     return (
         <div className='row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3'>
+            <Card
+                title="Indoor Games 2026"
+                images={[indoorgames2026_01]}
+                link="/indoorgames2026"
+            />
             <Card
                 title="Career Pathways 2025"
                 images={[carrier2025_01, carrier2025_02, carrier2025_03]}

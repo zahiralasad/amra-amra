@@ -20,6 +20,7 @@ import RegisterMember from "./components/Members/RegisterMember";
 import Checklist from "./components/Picnics/Checklist";
 import RegisterToEnter from "./components/IndoorGames/RegisterToEnter";
 import IndoorGamesTeams from "./components/IndoorGames/RegisterdTeams";
+import RegisterToGame from "./components/IndoorGames/RegisterToGame";
 import RegisterToNetwork from "./components/NetworkingBuilding/RegisterToNetwork";
 import Test from "./components/Test/Test";
 import Gallery from "./components/Events/Gallery";
@@ -63,15 +64,16 @@ function App() {
               <Route path="picnic" element={<Picnic/>} />
               <Route path="registertopicnic" element={<RegisterToPicnic/>} />
 
-              {/************ Indor Games *************/}
+              {/****** Carrier Building Network ******/}
               <Route path="registertonetwork" element={<RegisterToNetwork/>} />
               <Route path="checkguest" element={<CheckGuest/>} />
               <Route path="checkin" element={<CheckIn/>} />
               <Route path="guestlist" element={<GuestList/>} />
 
-              {/****** Carrier Building Network ******/}
+              {/************ Indor Games *************/}
               <Route path="entryform1213" element={<RegisterToEnter/>} />
               <Route path="indoorteams" element = {<IndoorGamesTeams/>}/>
+              <Route path="registertogame" element={<RegisterToGame/>} />
 
               {/**************** Test ****************/}
               <Route path="test" element={<Test/>} />
