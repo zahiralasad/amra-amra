@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import banner from "../../images/form-banner-1.jpg";
+import banner from "../../images/form-banner-indoorgame-2026.png";
 
 import "../../css/form.css";
 import Notification from '../Others/Notification';
@@ -23,12 +23,12 @@ function RegisterToGame() {
   const [ttKidsSingles, setTtKidsSingles] = useState([]);
   const [ttDoubles, setTtDoubles] = useState([]);
   const [carromDoubles, setCarromDoubles] = useState([]);
-  const [carromWomenDoubles, setCarromWomenDoubles] = useState([]);
+  const [penFightSingles, setPenFightSingles] = useState([]);
+  const [penFightKidsSingles, setPenFightKidsSingles] = useState([]);
   const [internationalBridge, setInternationalBridge] = useState([]);
   const [card29, setCard29] = useState([]);
-  const [callBridge, setCallBridge] = useState([]);
+  const [fiveStones, setFiveStones] = useState([]);
   const [ludoSingles, setLudoSingles] = useState([]);
-  const [ludoKidsSingles, setLudoKidsSingles] = useState([]);
   const [ludoDoubles, setLudoDoubles] = useState([]);
   const [chess, setChess] = useState([]);
   const [chessKids, setChessKids] = useState([]);
@@ -46,11 +46,11 @@ function RegisterToGame() {
   const maxTTSinglesTeams = 16;
   const maxTTKidsSinglesTeams = 16;
   const maxTTDoublesTeams = 16;
-  const maxCarromDoublesteams = 16;
-  const maxCarromWomenDoublesteams = 16;
+  const maxCarromDoublesTeams = 16;
+  const maxPenFightSinglesTeams = 16;
+  const maxPenFightKidsSinglesTeams = 16;
   const maxInternationalbridgeTeams = 16;
   const Max29Teams = 16;
-  const maxCallbridgeTeams = 16;
   const maxLudoSinglesTeams = 16;
   const maxLudoKidsSinglesTeams = 16;
   const maxLudoDoublesTeams = 16;
@@ -61,6 +61,7 @@ function RegisterToGame() {
 
   const totalFeeRef = useRef(null); // Reference for the hidden input
   const costRef = useRef(null);
+  const [totalFee, setTotalFee]= useState(null)
 
 
   const [numberOfMales, setNumberOfMales] = useState(0);
@@ -111,6 +112,7 @@ function RegisterToGame() {
     // console.log("Kids Game Cost: ",kidsGameCost);
     // let cost = males * 120 + females * 120 + bigkids * 80 + gameCost;
     let cost = numberOfMales * 150 + numberOfFemales * 150 + numberOfBigKids * 100 + maleGameCost + femaleGameCost + kidsGameCost;
+    setTotalFee(cost);
     // let cost = 100;
     // document.getElementById("totalFee").value = cost;
     // document.getElementById("cost").innerHTML = cost;
@@ -163,19 +165,19 @@ function RegisterToGame() {
     } else if (game === "TableTannisDoubles") {
       seatAvailable = maxTTDoublesTeams - ttDoubles.length;
     } else if (game === "CarromDoubles") {
-      seatAvailable = maxCarromDoublesteams - carromDoubles.length;
-    } else if (game === "CarromWomenDoubles") {
-      seatAvailable = maxCarromWomenDoublesteams - carromWomenDoubles.length;
+      seatAvailable = maxCarromDoublesTeams - carromDoubles.length;
+    } else if (game === "PenFightSingles") {
+      seatAvailable = maxPenFightSinglesTeams - penFightSingles.length;
     } else if (game === "InternationalBridge") {
       seatAvailable = maxInternationalbridgeTeams - internationalBridge.length;
     } else if (game === "29") {
       seatAvailable = Max29Teams - card29.length;
-    } else if (game === "CallBridge") {
-      seatAvailable = maxCallbridgeTeams - callBridge.length;
+    } else if (game === "FiveStones") {
+      seatAvailable = maxFiveStonesTeams - fiveStones.length;
     } else if (game === "LudoSingles") {
       seatAvailable = maxLudoSinglesTeams - ludoSingles.length;
-    } else if (game === "LudoKidsSingles") {
-      seatAvailable = maxLudoKidsSinglesTeams - ludoKidsSingles.length;
+    } else if (game === "PenFightKidsSingles") {
+      seatAvailable = maxPenFightKidsSinglesTeams - penFightKidsSingles.length;
     } else if (game === "LudoDoubles") {
       seatAvailable = maxLudoDoublesTeams - ludoDoubles.length;
     } else if (game === "Chess") {
@@ -184,6 +186,12 @@ function RegisterToGame() {
       seatAvailable = maxChessKidsTeams - chessKids.length;
     } else if (game === "Uno") {
       seatAvailable = maxUnoTeams - uno.length;
+    } else if (game === "PenFightSingles") {
+      seatAvailable = maxUnoTeams - uno.length;
+    } else if (game === "PenFightKidsSingles") {
+      seatAvailable = maxUnoTeams - uno.length;
+    } else if (game === "FiveStones") {
+      seatAvailable = maxFiveStonesTeams - fiveStones.length;
     } else {
       seatAvailable = 16;
     }
@@ -210,9 +218,9 @@ function RegisterToGame() {
       .map((entry) => entry["Carrom Doubles"])
       .filter((value, index, self) => self.indexOf(value) === index));
 
-    setCarromWomenDoubles(entries
-      .filter((entry) => entry["Carrom Women Doubles"])
-      .map((entry) => entry["Carrom Women Doubles"])
+    setPenFightSingles(entries
+      .filter((entry) => entry["কলম খেলা"])
+      .map((entry) => entry["কলম খেলা"])
       .filter((value, index, self) => self.indexOf(value) === index));
 
     setInternationalBridge(entries
@@ -225,17 +233,17 @@ function RegisterToGame() {
       .map((entry) => entry["29"])
       .filter((value, index, self) => self.indexOf(value) === index));
 
-    setCallBridge(entries
-      .filter((entry) => entry["Call Bridge"])
-      .map((entry) => entry["Call Bridge"]));
+    setFiveStones(entries
+      .filter((entry) => entry["পাচগুটি"])
+      .map((entry) => entry["পাচগুটি"]));
 
     setLudoSingles(entries
       .filter((entry) => entry["Ludo Singles"])
       .map((entry) => entry["Ludo Singles"]));
 
-    setLudoKidsSingles(entries
-      .filter((entry) => entry["Ludo Kids Singles"])
-      .map((entry) => entry["Ludo Kids Singles"]));
+    setPenFightKidsSingles(entries
+      .filter((entry) => entry["কলম খেলা Kids"])
+      .map((entry) => entry["কলম খেলা Kids"]));
 
     setLudoDoubles(entries
       .filter((entry) => entry["Ludo Doubles"])
@@ -338,6 +346,7 @@ function RegisterToGame() {
 
   const sendEmail = (fData) => {
     fData.append('request', 'indoorgame'); // need to change
+    fData.append('TotalFee', totalFee);
     fData.forEach((value, key) => {
       console.log(`${key}: ${value}`);
     });
@@ -958,7 +967,7 @@ function RegisterToGame() {
               <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                 <div className="d-flex input-group mb-3 border-bottom pb-1">
                   <i className="bi bi-person-standing me-2"></i>
-                  <span className="input-group-text text-wrap"> Number of children between 5 to 10 years old</span>
+                  <span className="input-group-text text-wrap"> Number of children between 5 to 13 years old</span>
                   {/* <select className="custom-select" onChange={(event) => addInput(event.target.value, "bigKidContainer")}> */}
                   <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "bigKids")}>
                     <option value="0" selected>0</option>
