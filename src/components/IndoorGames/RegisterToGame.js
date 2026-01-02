@@ -45,15 +45,15 @@ function RegisterToGame() {
 
   const maxTTSinglesTeams = 16;
   const maxTTKidsSinglesTeams = 16;
-  const maxTTDoublesTeams = 16;
-  const maxCarromDoublesTeams = 16;
+  const maxTTDoublesTeams = 32;
+  const maxCarromDoublesTeams = 32;
   const maxPenFightSinglesTeams = 16;
   const maxPenFightKidsSinglesTeams = 16;
   const maxInternationalbridgeTeams = 16;
   const Max29Teams = 16;
   const maxLudoSinglesTeams = 16;
   const maxLudoKidsSinglesTeams = 16;
-  const maxLudoDoublesTeams = 16;
+  const maxLudoDoublesTeams = 32;
   const maxChessTeams = 16;
   const maxChessKidsTeams = 16;
   const maxUnoTeams = 16;
@@ -89,7 +89,8 @@ function RegisterToGame() {
   { id: "InternationalBridge", name: "InternationalBridge", label: "International Bridge " },
   { id: "29", name: "29", label: "29 " },
   { id: "LudoDoubles", name: "LudoDoubles", label: "Ludo Doubles " },
-  { id: "LudoSingles", name: "LudoSingles", label: "Ludo Women's Singles " }]);
+  { id: "LudoSingles", name: "LudoSingles", label: "Ludo Women's Singles " },
+  { id: "Chess", name: "Chess", label: "Chess " }]);
   const [kidsGames] = useState([{ id: "ChessKids", name: "ChessKids", label: "Chess Kids" },
   { id: "PenFightKidsSingles", name: "PenFightKidsSingles", label: "কলম খেলা Kid's Singles " },
   { id: "TableTannisKidsSingles", name: "TableTannisKidsSingles", label: "Table Tennis Kid's Singles " },
