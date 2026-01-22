@@ -51,12 +51,12 @@ function RegisterToGame() {
   const maxPenFightKidsSinglesTeams = 16;
   const maxInternationalbridgeTeams = 16;
   const Max29Teams = 16;
-  const maxLudoSinglesTeams = 16;
+  const maxLudoSinglesTeams = 24;
   const maxLudoKidsSinglesTeams = 16;
   const maxLudoDoublesTeams = 32;
-  const maxChessTeams = 16;
+  const maxChessTeams = 24;
   const maxChessKidsTeams = 16;
-  const maxUnoTeams = 16;
+  const maxUnoTeams = 32;
   const maxFiveStonesTeams = 16;
 
   const totalFeeRef = useRef(null); // Reference for the hidden input
