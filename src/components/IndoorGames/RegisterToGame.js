@@ -54,7 +54,7 @@ function RegisterToGame() {
   const maxLudoSinglesTeams = 24;
   const maxLudoKidsSinglesTeams = 16;
   const maxLudoDoublesTeams = 32;
-  const maxChessTeams = 24;
+  const maxChessTeams = 32;
   const maxChessKidsTeams = 16;
   const maxUnoTeams = 32;
   const maxFiveStonesTeams = 16;
