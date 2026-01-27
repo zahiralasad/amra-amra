@@ -150,7 +150,7 @@ function RegisterToGame() {
   }, []);
 
   const isDateExpired = () => {
-    const dateString = "2025-03-30";
+    const dateString = "2026-01-26";
     const givenDate = new Date(dateString);
     const today = new Date();
     return givenDate < today;
@@ -433,9 +433,12 @@ function RegisterToGame() {
 
   return (
     <div className="row">
-      {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
-      {error && <div className="text-center  text-white my-5">Error: {error}</div>}
-      {!loading && !error && (
+      {isDateExpired && (
+        <div className="text-center  text-white my-5">Registrion date to the Indoor Games event has passed. Please contact us for further information</div>
+      )}
+      {!isDateExpired && loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
+      {!isDateExpired && !loading && error && <div className="text-center  text-white my-5">Error: {error}</div>}
+      {!isDateExpired && !loading && !error && (
         <div className="form">
           <div className="p-4 text-center rounded bg-dark">
             <h4>Registration Form for the Indoor Games Event</h4>
