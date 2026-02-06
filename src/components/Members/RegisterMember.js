@@ -17,8 +17,19 @@ function RegisterMember() {
     const [modalShow, setModalShow] = useState(false);
     const [clearForm, setClearForm] = useState(false);
 
-    const url = "https://script.google.com/macros/s/AKfycbxVm_9DZp1D6-DLd34RmA8f9thfMTiaZ1iwghkuUQDK-_-5TT_QgVZuCgj2_WOYqGx4_g/exec";
+    const url = "https://script.google.com/macros/s/AKfycbyqjOdhiH1BH17reWc3ajxTuNM9A7dOSybiBQ7twQIdnZlE28GCIWST7E9cuHYK_fG6Xg/exec";
     const apiUrl = "https://amra-amra.se/emailApi/";
+
+
+    // Get current date
+    const currentDate = new Date();
+    const currentDateString = currentDate.toISOString().split('T')[0]; // "2026-02-07"
+
+    // Define the special offer date
+    const specialOfferDate = '2026-02-07';
+
+    // Check if today is the special offer date
+    const isSpecialOfferDay = currentDateString === specialOfferDate;
 
     function CheckExpired() {
 
@@ -68,7 +79,8 @@ function RegisterMember() {
 
         axios.post(url, formData)
             .then(response => {
-                if (response.data === "successful") {
+                if (response.data.status === "successful") {
+                    formData.append('Code',response.data.code);
                     sendEmail(formData);
                     console.log("successful");
                 } else {
@@ -100,7 +112,7 @@ function RegisterMember() {
                             <span className="input-group-text">Date of birth: </span>
                             <AmraAmraDatePicker
                                 value="DateOfBirth"
-                                //date={picnicDate}
+                            //date={picnicDate}
                             />
                         </div>
                     </div>
@@ -129,8 +141,14 @@ function RegisterMember() {
                     <div className="mt-2 rounded border p-2">
                         <div>
                             Membership fee:
-                            <s style={{ color: 'red' }}> 100kr</s>
-                            <span> (25kr for today)</span>
+                            {isSpecialOfferDay ? (
+                                <>
+                                    <s style={{ color: 'red', marginLeft: '8px' }}> 100kr</s>
+                                    <span style={{ marginLeft: '8px' }}> (25kr for today)</span>
+                                </>
+                            ) : (
+                                <span style={{ marginLeft: '8px' }}>100kr</span>
+                            )}
                         </div>
                         <div>Pay to Bankgiro: 577-0623</div>
                         <div className="pb-3">Or Swish to Bankgiro: 1230432419</div>
