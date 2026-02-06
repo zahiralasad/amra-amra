@@ -7,6 +7,7 @@ import axios from 'axios';
 
 // import "./picnic.css";
 import Notification from '../Others/Notification';
+import AmraAmraDatePicker from '../Others/AmraAmraDatePicker';
 
 
 function RegisterMember() {
@@ -16,7 +17,7 @@ function RegisterMember() {
     const [modalShow, setModalShow] = useState(false);
     const [clearForm, setClearForm] = useState(false);
 
-    const url = "https://script.google.com/macros/s/AKfycbyNJ8bOqFrEaQ4CPUjbDmsqokym-Hj3QxYB54JwaAmaS1lGxb2BVm2-vfoZw3J59haawA/exec";
+    const url = "https://script.google.com/macros/s/AKfycbyd5PNM9CtMijQzhSD_WM7u6x50M4XkREzSL3YWVZlUFD56o0S9089CKp-KhFd1A2yQ3A/exec";
     const apiUrl = "https://amra-amra.se/emailApi/";
 
     function CheckExpired() {
@@ -54,7 +55,11 @@ function RegisterMember() {
         console.log("Submitted")
         document.getElementById("register").disabled = true;
         const formData = new FormData(formFile)
-        
+
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value);
+        }
+
 
         // fetch("https://script.google.com/macros/s/AKfycbwD_ff2bXXvsCNRy5IoEnhkX2IpHUcO3tk04Yzu-hcuwvzEef7n5nZYMVZ-qBotI1xNIg/exec", {
         //     method: "POST",
@@ -90,6 +95,17 @@ function RegisterMember() {
                         </div>
                     </div>
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+                        <div className="input-group  mb-3">
+                            <i className="bi bi-calendar-fill me-2"></i>
+                            <span className="input-group-text">Date of birth: </span>
+                            <AmraAmraDatePicker
+                                value="DateOfBirth"
+                                //date={picnicDate}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                         <div className="form-group input-group  mb-3">
                             <i className="bi bi-envelope-fill me-2"></i>
                             <span className="input-group-text" style={{ width: "80px" }}>Email</span>
@@ -111,12 +127,17 @@ function RegisterMember() {
                         </div>
                     </div>
                     <div className="mt-2 rounded border p-2">
-                        <div>Membership fee: 100kr</div>
-                        <div className="pb-3">Pay to Bankgiro: 577-0623</div>
+                        <div>
+                            Membership fee:
+                            <s style={{ color: 'red' }}> 100kr</s>
+                            <span> (25kr for today)</span>
+                        </div>
+                        <div>Pay to Bankgiro: 577-0623</div>
+                        <div className="pb-3">Or Swish to Bankgiro: 1230432419</div>
                         <div className="form-check">
                             <input className="form-check-input" type="checkbox" Name="Swish" id="swish" required />
                             <label className="form-check-label" htmlFor="swish">
-                                I have paid the membership fee. 
+                                I have paid the membership fee.
                             </label>
                             <span id="swishTo" className="swishto ms-2 h9"></span>
                         </div>
