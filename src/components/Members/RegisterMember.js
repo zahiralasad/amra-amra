@@ -17,7 +17,7 @@ function RegisterMember() {
     const [modalShow, setModalShow] = useState(false);
     const [clearForm, setClearForm] = useState(false);
 
-    const url = "https://script.google.com/macros/s/AKfycbyd5PNM9CtMijQzhSD_WM7u6x50M4XkREzSL3YWVZlUFD56o0S9089CKp-KhFd1A2yQ3A/exec";
+    const url = "https://script.google.com/macros/s/AKfycbxVm_9DZp1D6-DLd34RmA8f9thfMTiaZ1iwghkuUQDK-_-5TT_QgVZuCgj2_WOYqGx4_g/exec";
     const apiUrl = "https://amra-amra.se/emailApi/";
 
     function CheckExpired() {
