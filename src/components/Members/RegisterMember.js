@@ -112,6 +112,7 @@ function RegisterMember() {
                             <span className="input-group-text">Date of birth: </span>
                             <AmraAmraDatePicker
                                 value="DateOfBirth"
+                                placeHolderText="Example: 1995-12-22"
                             //date={picnicDate}
                             />
                         </div>
