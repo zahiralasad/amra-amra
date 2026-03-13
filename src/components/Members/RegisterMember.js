@@ -18,7 +18,7 @@ function RegisterMember() {
     const [clearForm, setClearForm] = useState(false);
     const [isJunior, setIsJunior] = useState(false);
 
-    const url = "https://script.google.com/macros/s/AKfycbyqjOdhiH1BH17reWc3ajxTuNM9A7dOSybiBQ7twQIdnZlE28GCIWST7E9cuHYK_fG6Xg/exec";
+    const url = "https://script.google.com/macros/s/AKfycbzQou_14Gnvwjmktjq3uF_78bbtPUji9Ocz7TMA-bNz0gp9OSQctPTZdLI6ZvVdVonouw/exec";
     const apiUrl = "https://amra-amra.se/emailApi/";
 
 
@@ -156,19 +156,27 @@ function RegisterMember() {
                         </div>
 
                     </div>
-
+                    {isJunior && (
+                        <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+                            <div className="input-group  mb-3">
+                                <i className="bi bi-person-vcard-fill me-2"></i>
+                                <span className="input-group-text">Parent's ID: </span>
+                                <input Name="ParentsId" className="form-control" placeholder="Example: M012" type="text" required />
+                            </div>
+                        </div>
+                    )}
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                         <div className="form-group input-group  mb-3">
                             <i className="bi bi-envelope-fill me-2"></i>
                             <span className="input-group-text" style={{ width: "80px" }}>Email</span>
-                            <input Name="Email" className="form-control" placeholder="Email address" type="email" required />
+                            <input Name="Email" className="form-control" placeholder="Email address" type="email" required={!isJunior} />
                         </div>
                     </div>
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                         <div className="form-group input-group  mb-3">
                             <i className="bi bi-telephone-fill me-2"></i>
                             <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
-                            <input Name="Phone" className="form-control" placeholder="Phone number" type="tel" required />
+                            <input Name="Phone" className="form-control" placeholder="Phone number" type="tel" required={!isJunior} />
                         </div>
                     </div>
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
