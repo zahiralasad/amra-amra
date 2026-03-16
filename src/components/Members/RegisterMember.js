@@ -169,14 +169,14 @@ function RegisterMember() {
                         <div className="form-group input-group  mb-3">
                             <i className="bi bi-envelope-fill me-2"></i>
                             <span className="input-group-text" style={{ width: "80px" }}>Email</span>
-                            <input Name="Email" className="form-control" placeholder="Email address" type="email" required={!isJunior} />
+                            <input Name="Email" className="form-control" placeholder={isJunior ? "Email address(Optional)" : "Email address"} type="email" required={!isJunior} />
                         </div>
                     </div>
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                         <div className="form-group input-group  mb-3">
                             <i className="bi bi-telephone-fill me-2"></i>
                             <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
-                            <input Name="Phone" className="form-control" placeholder="Phone number" type="tel" required={!isJunior} />
+                            <input Name="Phone" className="form-control" placeholder={isJunior ? "Phone number(Optional)" : "Phone number"} type="tel" required={!isJunior} />
                         </div>
                     </div>
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
