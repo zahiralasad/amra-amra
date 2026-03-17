@@ -17,8 +17,10 @@ function RegisterMember() {
     const [modalShow, setModalShow] = useState(false);
     const [clearForm, setClearForm] = useState(false);
     const [isJunior, setIsJunior] = useState(false);
+    const [inputData,setInputData] = useState([])
 
     const url = "https://script.google.com/macros/s/AKfycbzQou_14Gnvwjmktjq3uF_78bbtPUji9Ocz7TMA-bNz0gp9OSQctPTZdLI6ZvVdVonouw/exec";
+    const dataUrl = "https://amra-amra.se/db/";
     const apiUrl = "https://amra-amra.se/emailApi/";
 
 
@@ -31,6 +33,25 @@ function RegisterMember() {
 
     // Check if today is the special offer date
     const isSpecialOfferDay = currentDateString === specialOfferDate;
+    
+    useEffect(()=>{
+        let fData = new FormData();
+        fData.append('request', "memberinput");
+        axios.post(dataUrl, fData)
+        // axios.post(dataUrl, {request: "memberinput"})
+            .then(function (response) {
+                if (response.data !== "") {
+                    const data = response.data;
+                    // console.log(response.data[0]);
+                    setInputData(response.data[0]);
+                }
+                else {
+                    alert("Failed to login, please try with correct credential");
+                }
+            })
+            .catch(error => alert(error));
+        
+    },[]);
 
     function CheckExpired() {
 
@@ -53,7 +74,7 @@ function RegisterMember() {
     const handleDateChange = (date) => {
         if (date) {
             const age = calculateAge(date);
-            setIsJunior(age < 20);
+            setIsJunior(age < inputData.junior_max_age);
         } else {
             setIsJunior(false);
         }
@@ -189,13 +210,16 @@ function RegisterMember() {
                     <div className="mt-2 rounded border p-2">
 
 
-                        {isJunior && <>Membership fee: 0kr </>}
+                        {isJunior && <>Membership fee: {inputData.junior_fee}kr </>}
                         {isSpecialOfferDay && !isJunior && (
                             <div>
                                 <div>
                                     Membership fee:
-                                    <s style={{ color: 'red', marginLeft: '8px' }}> 100kr</s>
-                                    <span style={{ marginLeft: '8px' }}> (25kr for today)</span>
+                                    <s style={{ color: 'red', marginLeft: '8px' }}> {inputData.adult_fee}kr</s>
+                                    <span style={{ marginLeft: '8px' }}> ({inputData.discounted_adult_fee}kr for today)</span>
+                                </div>
+                                <div>Junior Membership fee:
+                                    <span style={{ marginLeft: '8px' }}>{inputData.discounted_junior_fee}kr</span>
                                 </div>
                                 <div>Pay to Bankgiro: 577-0623</div>
                                 <div className="pb-3">Or Swish to Bankgiro: 1230432419</div>
@@ -211,7 +235,10 @@ function RegisterMember() {
                         {!isSpecialOfferDay && !isJunior && (
                             <div>
                                 <div>Membership fee:
-                                    <span style={{ marginLeft: '8px' }}>100kr</span>
+                                    <span style={{ marginLeft: '8px' }}>{inputData.adult_fee}kr</span>
+                                </div>
+                                <div>Junior Membership fee:
+                                    <span style={{ marginLeft: '8px' }}>{inputData.junior_fee}kr</span>
                                 </div>
                                 <div>Pay to Bankgiro: 577-0623</div>
                                 <div className="pb-3">Or Swish to Bankgiro: 1230432419</div>
