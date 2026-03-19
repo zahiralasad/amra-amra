@@ -29,14 +29,13 @@ function RegisterToPicnic() {
   // const [clearForm, setClearForm] = useState(false);
   // const url = 'https://script.google.com/macros/s/AKfycbzhJEYdp7P7JUUKobwayasrY5_9Vt8aR9i-DJMO1MvwaosZx6gK5eBvKtfcg_hEL8PgaA/exec'; // picnic2025
   const url = 'https://script.google.com/macros/s/AKfycbwDEhysFSGZ-0Ry5VuEBVlht2riKJwcJdumz9tLL_ADPtQuXS5z5yswg6s4RzYJZNhy/exec';
-  const dataUrl = "https://amra-amra.se/db/";
-  // const dataUrl1 = 'https://script.google.com/macros/s/AKfycbysHW9GVTvmUFq70OC638nhiBNoiDmR7RybkeMlN5Wl1jGAFIEshuM1dXxsfClI5m87/exec';
+  const dataUrl = 'https://script.google.com/macros/s/AKfycbysHW9GVTvmUFq70OC638nhiBNoiDmR7RybkeMlN5Wl1jGAFIEshuM1dXxsfClI5m87/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
 
   const [picnicName, setPicnicName] = useState(null);
   const [picnicDate, setPicnicDate] = useState(null);
-
-  // const [endDate, setEndDate] = useState(null);
+  const [startDate, setStartDate] = useState(null);
+  const [endDate, setEndDate] = useState(null);
   const [acceptCar, setAcceptCar] = useState(null);
   const [maxSmallKidsAge, setMaxSmallKidsAge] = useState(null);
   const [maxBigKidsAge, setMaxBigKidsAge] = useState(null);
@@ -48,63 +47,44 @@ function RegisterToPicnic() {
   const [bigKidsFeeInCar, setBigKidsFeeInCar] = useState(0);
   const [maxBusSeats, setMaxBusSeats] = useState(0);
   const [maxCarSeats, setMaxCarSeats] = useState(0);
-  const [prefix, setPrefix] = useState(null);
+  
   const [adultsFee, setAdultsFee] = useState(null);
   const [smallKidsFee, setSmallKidsFee] = useState(null);
   const [bigKidsFee, setBigKidsFee] = useState(null);
-  const [busStops, setBusStops] = useState(null);
-  const [registrationNotAvailable, setRegistrationNotAvailable] = useState(null);
-
 
   const totalFeeRef = useRef(null); // Reference for the hidden input
   const costRef = useRef(null);
 
-  const [inputData, setInputData] = useState([])
-
   // const maxBusSeats = 280;
   // const maxCarSeats = 20;
 
-  useEffect(() => {
-    axios.get(`${dataUrl}?request=picnicinput`)
-      .then(function (response) {
-        if (response.data !== "") {
-          console.log(response.data);
-          setLoading(false);
-          setPicnicName(response.data[0].picnic_name);
-          setPicnicDate(response.data[0].picnic_date);
-          setAcceptCar(response.data[0].car);
-          setMaxSmallKidsAge(response.data[0].max_small_kids_age);
-          setMaxBigKidsAge(response.data[0].max_big_kids_age);
-          setAdultsFeeInBus(response.data[0].adults_fee_for_bus);
-          setAdultsFeeInCar(response.data[0].adults_fee_for_car);
-          setSmallKidsFeeInBus(response.data[0].small_kids_fee_for_bus);
-          setSmallKidsFeeInCar(response.data[0].small_kids_fee_for_car);
-          setBigKidsFeeInBus(response.data[0].big_kids_fee_for_bus);
-          setBigKidsFeeInCar(response.data[0].big_kids_fee_for_car);
-          setMaxBusSeats(response.data[0].max_bus_seats);
-          setMaxCarSeats(response.data[0].max_car_seats);
-          setPrefix(response.data[0].registration_code_prefix);
-          setBusStops(response.data[0].bus_stops.split(","));
-          if (response.data[0].car === "yes")
-            setAcceptCar(true);
-          else
-            setAcceptCar(false);
-          const endDate = new Date(response.data[0].registration_end);
-          const startDate = new Date(response.data[0].registration_start);
-          setRegistrationNotAvailable(today < startDate || today > endDate);
-          // console.log("registrationNotAvailable: ", today < startDate || today > endDate);
-        }
-        else {
-          alert("Failed to fetch inputs for picnic form");
-        }
+  useEffect(()=>{
+    fetch(dataUrl)
+      .then(response =>response.json())
+      .then(data =>{
+        console.log(data);
+        setLoading(false);
+        setPicnicName(data.picnicName);
+        setPicnicDate(data.picnicDate.split("T")[0]);
+        setStartDate(data.startDate);
+        setEndDate(data.endDate);
+        setAcceptCar(data.acceptCar);
+        setMaxSmallKidsAge(data.maxSmallKidsAge);
+        setMaxBigKidsAge(data.maxBigKidsAge);
+        setAdultsFeeInBus(data.adultsFeeInBus);
+        setAdultsFeeInCar(data.adultsFeeInCar);
+        setSmallKidsFeeInBus(data.smallKidsFeeInBus);
+        setSmallKidsFeeInCar(data.smallKidsFeeInCar);
+        setBigKidsFeeInBus(data.bigKidsFeeInBus);
+        setBigKidsFeeInCar(data.bigKidsFeeInCar);
+        setMaxBusSeats(data.maxBusSeats);
+        setMaxCarSeats(data.maxCarSeats);        
       })
       .catch(error => {
         setError(error.message);
         setLoading(false);
       })
-
   }, []);
-
 
   useEffect(() => {
     let cost = numberOfAdults * adultsFee + numberOfBigkids * bigKidsFee + numberOfSmallkids * smallKidsFee;
@@ -119,35 +99,31 @@ function RegisterToPicnic() {
 
   useEffect(() => {
     if (maxBusSeats && maxCarSeats) {
-      fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          //console.log(data.busSeats);
-          // setEntries(data.data); // Update the state with JSON data
-          setLoading(false);
-          setBusSeatsFilled(data.busSeats);
-          setCarSeatsFilled(data.carSeats);
-          if ((data.busSeats >= maxBusSeats) && (data.carSeats >= maxCarSeats)) {
-            setSeatsFilled(true);
-          }
-          //getColumnsData(data.data);
-        })
-        .catch(error => {
-          setError(error.message);
-          setLoading(false);
-        });
+    fetch(url)
+      .then(response => response.json())
+      .then(data => {
+        //console.log(data.busSeats);
+        // setEntries(data.data); // Update the state with JSON data
+        setLoading(false);
+        setBusSeatsFilled(data.busSeats);
+        setCarSeatsFilled(data.carSeats);
+        if((data.busSeats >= maxBusSeats) && (data.carSeats >= maxCarSeats)){
+          setSeatsFilled(true);
+        }
+        //getColumnsData(data.data);
+      })
+      .catch(error => {
+        setError(error.message);
+        setLoading(false);
+      });
     }
   }, [maxBusSeats, maxCarSeats]);
 
-  // useEffect(() =>{
-  //   console.log(endDate);
-  //   console.log(today);
-  //   const givenDate = new Date(endDate);
-  //   setDateExpired(givenDate < today)
-
-  // },[]);
-
-
+  const isDateExpired = () => {
+    const dateString = "2025-08-30";
+    const givenDate = new Date(dateString);
+    return givenDate < today;
+  };
 
   function Submit(e) {
     document.getElementById("register").disabled = true;
@@ -160,7 +136,7 @@ function RegisterToPicnic() {
       .then(response => {
         console.log(response.data)
         if (Array.isArray(response.data) && response.data[0] === "successful") {
-          formData.append("Code", response.data[1]);
+          formData.append("Code",response.data[1]);
           sendEmail(formData);
           document.getElementById("register").disabled = false;
           document.getElementById("picnicForm").reset();
@@ -173,15 +149,22 @@ function RegisterToPicnic() {
       }).catch(error => setResponse(error));
   }
 
+  // const randomName = () => {
+  //   const numbers = ["Zahir Al-Asad (0760141646)", "Hossain Jahan Adil Mahmud (0704050314)", "Md Shawon Hasan Reza (0739109544)", "Zamil Abedin (0763944016)", "Md Tarek Hasan (0700295808)"];
+  //   const randomIndex = Math.floor(Math.random() * numbers.length);
+  //   const number = numbers[randomIndex];
+  //   document.getElementById('swishTo').innerHTML = number;
+  //   document.getElementById('swish').value = number;
+  // }
 
   const adjustPrice = (vehicle) => {
     console.log("Selected vehicle:", vehicle);
-    if (vehicle === "Car") {
+    if(vehicle === "Car"){
       console.log(vehicle);
       setAdultsFee(adultsFeeInCar);
       setBigKidsFee(bigKidsFeeInCar);
       setSmallKidsFee(smallKidsFeeInCar);
-    } else {
+    }else {
       console.log(vehicle);
       setAdultsFee(adultsFeeInBus);
       setBigKidsFee(bigKidsFeeInBus);
@@ -212,8 +195,8 @@ function RegisterToPicnic() {
   }
 
   const handleNumberForPlayer = (number, catgo) => {
-    // console.log("Date Exired:", registrationDateExpired);
-    console.log("Number: ", number);
+    console.log("Date Exired:", isDateExpired());
+    console.log("Number: ",number);
     const count = parseInt(number, 10) || 0;
     // setPlayerData(count);
     // console.log("count: ", count);
@@ -257,36 +240,34 @@ function RegisterToPicnic() {
         <img src={banner} className="img-fluid" />
       </div>
       <div className="mt-1 p-2 rounded bg-dark">
-        {registrationNotAvailable && <div className="text-center  text-white my-5">Registrion to the picnic is available. Please contact us for further information</div>}
-        {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
-        {error && <div className="text-center  text-white my-5">Error: {error}</div>}
-        {seatsFilled && <div className="text-center  text-white my-5">Unfortunately, we are unable to confirm your registration as all bus seats are fully booked. Please contact us for further information</div>}
-        {!loading && !error && !registrationNotAvailable && !seatsFilled && (
+      {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
+      {error && <div className="text-center  text-white my-5">Error: {error}</div>}
+      {isDateExpired() && <div className="text-center  text-white my-5">Registrion date to the picnic has passed. Please contact us for further information</div>}
+      {seatsFilled && <div className="text-center  text-white my-5">Unfortunately, we are unable to confirm your registration as all bus seats are fully booked. Please contact us for further information</div>}
+      {!loading && !error && !isDateExpired() && !seatsFilled && (
           <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="form-group input-group  mb-3">
                 <i className="bi bi-bus-front-fill me-2"></i>
                 <span className="input-group-text me-1" style={{ width: "120px" }}>Prefered Transport: </span>
-                <div className="form-check me-1">
-                  <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats}/>
                   <label className="form-check-label" htmlFor="busstop1">
-                    Bus from {busStops[0]}
+                    Bus from Sollentuna
                   </label>
                 </div>
-                <div className="form-check me-1">
-                  <input className="form-check-input" type="radio" name="Busstop" value="Kungens Kurva" id="busstop2" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="Busstop" value="Kungens Kurva" id="busstop2" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats}/>
                   <label className="form-check-label" htmlFor="busstop2">
-                    Bus from {busStops[1]}
+                    Bus from Kungens Kurva
                   </label>
                 </div>
-                {acceptCar &&
-                  <div className="form-check me-1">
-                    <input className="form-check-input" type="radio" name="Busstop" value="Car" id="busstop3" onChange={(event) => adjustPrice(event.target.value)} required disabled={carSeatsFilled >= maxCarSeats} />
-                    <label className="form-check-label" htmlFor="busstop3">
-                      Own Car
-                    </label>
-                  </div>
-                }
+                <div className="form-check">
+                  <input className="form-check-input" type="radio" name="Busstop" value="Car" id="busstop3" onChange={(event) => adjustPrice(event.target.value)} required disabled={carSeatsFilled >= maxCarSeats}/>
+                  <label className="form-check-label" htmlFor="busstop3">
+                    Own Car
+                  </label>
+                </div>
               </div>
             </div>
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
@@ -333,7 +314,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex input-group mb-3 border-bottom pb-1">
                 <i className="bi bi-person-standing me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids between {maxSmallKidsAge + 1} to {maxBigKidsAge} years old</span>
+                <span className="input-group-text text-wrap"> Number of kids between {maxSmallKidsAge +1} to {maxBigKidsAge} years old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "BigKid")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
@@ -372,7 +353,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="input-group  mb-3 border-bottom pb-1">
                 <i className="bi bi-person-arms-up me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids under {maxSmallKidsAge + 1} years old</span>
+                <span className="input-group-text text-wrap"> Number of kids under {maxSmallKidsAge +1} years old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "SmallKid")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>

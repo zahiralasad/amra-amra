@@ -17,7 +17,7 @@ function RegisterMember() {
     const [modalShow, setModalShow] = useState(false);
     const [clearForm, setClearForm] = useState(false);
     const [isJunior, setIsJunior] = useState(false);
-    const [inputData,setInputData] = useState([])
+    const [inputData, setInputData] = useState([])
 
     const url = "https://script.google.com/macros/s/AKfycbzQou_14Gnvwjmktjq3uF_78bbtPUji9Ocz7TMA-bNz0gp9OSQctPTZdLI6ZvVdVonouw/exec";
     const dataUrl = "https://amra-amra.se/db/";
@@ -33,25 +33,42 @@ function RegisterMember() {
 
     // Check if today is the special offer date
     const isSpecialOfferDay = currentDateString === specialOfferDate;
-    
-    useEffect(()=>{
-        let fData = new FormData();
-        fData.append('request', "memberinput");
-        axios.post(dataUrl, fData)
-        // axios.post(dataUrl, {request: "memberinput"})
+
+    useEffect(() => {
+        axios.get(`${dataUrl}?request=memberinput`)
             .then(function (response) {
                 if (response.data !== "") {
+                    // console.log(response.data);
                     const data = response.data;
                     // console.log(response.data[0]);
                     setInputData(response.data[0]);
                 }
                 else {
-                    alert("Failed to login, please try with correct credential");
+                    alert("Failed to fetch inputs for member form");
                 }
             })
             .catch(error => alert(error));
-        
-    },[]);
+
+    }, []);
+
+    // useEffect(()=>{
+    //     let fData = new FormData();
+    //     fData.append('request', "memberinput");
+    //     axios.post(dataUrl, fData)
+    //     // axios.post(dataUrl, {request: "memberinput"})
+    //         .then(function (response) {
+    //             if (response.data !== "") {
+    //                 const data = response.data;
+    //                 // console.log(response.data[0]);
+    //                 setInputData(response.data[0]);
+    //             }
+    //             else {
+    //                 alert("Failed to login, please try with correct credential");
+    //             }
+    //         })
+    //         .catch(error => alert(error));
+
+    // },[]);
 
     function CheckExpired() {
 
