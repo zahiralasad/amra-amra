@@ -333,7 +333,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex input-group mb-3 border-bottom pb-1">
                 <i className="bi bi-person-standing me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids between {maxSmallKidsAge + 1} to {maxBigKidsAge} years old</span>
+                <span className="input-group-text text-wrap"> Number of kids between {maxSmallKidsAge} to {maxBigKidsAge} years old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "BigKid")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
@@ -372,7 +372,7 @@ function RegisterToPicnic() {
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="input-group  mb-3 border-bottom pb-1">
                 <i className="bi bi-person-arms-up me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids under {maxSmallKidsAge + 1} years old</span>
+                <span className="input-group-text text-wrap"> Number of kids under {maxSmallKidsAge} years old</span>
                 <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "SmallKid")}>
                   <option value="0" selected>0</option>
                   <option value="1">1</option>
