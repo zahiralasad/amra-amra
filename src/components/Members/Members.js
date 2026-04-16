@@ -30,14 +30,35 @@ function Members() {
             });
     }
 
+    // Combine + sort
+    const sortedMembers = members
+        .map((member, index) => ({
+            member,
+            id: ids[index],
+        }))
+        .sort((a, b) => {
+            const getPriority = (id) => {
+                if (id.startsWith("BM")) return 1;
+                if (id.startsWith("M")) return 2;
+                if (id.startsWith("JM")) return 3;
+                return 4;
+            };
+            console.log(getPriority);
+            return (
+                getPriority(a.id) - getPriority(b.id) ||
+                a.id.localeCompare(b.id)
+            );
+        });
+
+
     return (
         <div className='row'>
             <div className="mt-4 text-center text-white">
                 <div>
                     <h6>
                         <div>Want to become a member of Amra-Amra?</div>
-                        <a href="registermember" className="btn btn-primary">Register</a> 
-                        
+                        <a href="registermember" className="btn btn-primary">Register</a>
+
                     </h6>
                 </div>
                 <div className='pt-5'>
@@ -54,15 +75,12 @@ function Members() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {members.map((member, index) => {
-                                        const id = ids[index];
-                                        return (
-                                            <tr key={index}>
-                                                <td>{id}</td>
-                                                <td>{member}</td>
-                                            </tr>
-                                        )
-                                    })}
+                                    {sortedMembers.map((item, index) => (
+                                        <tr key={index}>
+                                            <td>{item.id}</td>
+                                            <td>{item.member}</td>
+                                        </tr>
+                                    ))}
                                 </tbody>
                             </table>
                         </div>
