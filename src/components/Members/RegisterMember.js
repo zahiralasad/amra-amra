@@ -29,10 +29,13 @@ function RegisterMember() {
     const currentDateString = currentDate.toISOString().split('T')[0]; // "2026-02-07"
 
     // Define the special offer date
-    const specialOfferDate = '2026-03-10';
+    const specialOfferDateStart = '2026-04-15';
+    const specialOfferDateEnd = '2026-04-25';
 
     // Check if today is the special offer date
-    const isSpecialOfferDay = currentDateString === specialOfferDate;
+    const isSpecialOfferDay = specialOfferDateStart <= currentDateString && currentDateString <= specialOfferDateEnd;
+
+    console.log(isSpecialOfferDay);
 
     useEffect(() => {
         axios.get(`${dataUrl}?request=memberinput`)
@@ -50,25 +53,6 @@ function RegisterMember() {
             .catch(error => alert(error));
 
     }, []);
-
-    // useEffect(()=>{
-    //     let fData = new FormData();
-    //     fData.append('request', "memberinput");
-    //     axios.post(dataUrl, fData)
-    //     // axios.post(dataUrl, {request: "memberinput"})
-    //         .then(function (response) {
-    //             if (response.data !== "") {
-    //                 const data = response.data;
-    //                 // console.log(response.data[0]);
-    //                 setInputData(response.data[0]);
-    //             }
-    //             else {
-    //                 alert("Failed to login, please try with correct credential");
-    //             }
-    //         })
-    //         .catch(error => alert(error));
-
-    // },[]);
 
     function CheckExpired() {
 
@@ -135,12 +119,6 @@ function RegisterMember() {
         for (let [key, value] of formData.entries()) {
             console.log(key, value);
         }
-
-
-        // fetch("https://script.google.com/macros/s/AKfycbwD_ff2bXXvsCNRy5IoEnhkX2IpHUcO3tk04Yzu-hcuwvzEef7n5nZYMVZ-qBotI1xNIg/exec", {
-        //     method: "POST",
-        //     body: formData,
-        // })
 
         axios.post(url, formData)
             .then(response => {

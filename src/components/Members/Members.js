@@ -42,7 +42,7 @@ function Members() {
                 </div>
                 <div className='pt-5'>
                     <h6>Amra-Amra Members</h6>
-                    {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
+                    {loading && <div className="text-center  text-white my-5">Please wait while loading the member list .........</div>}
                     {error && <div className="text-center  text-white my-5">Error: {error}</div>}
                     {!loading && !error && (
                         <div className="p-2 border border-white rounded text-center">

@@ -19,7 +19,7 @@ function RegisterToPicnic() {
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const [today, seToday] = useState(new Date());
+  const [today, seToday] = useState(new Date().toISOString().split('T')[0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [busSeatsFilled, setBusSeatsFilled] = useState(0);
@@ -30,6 +30,7 @@ function RegisterToPicnic() {
   // const url = 'https://script.google.com/macros/s/AKfycbzhJEYdp7P7JUUKobwayasrY5_9Vt8aR9i-DJMO1MvwaosZx6gK5eBvKtfcg_hEL8PgaA/exec'; // picnic2025
   const url = 'https://script.google.com/macros/s/AKfycbwDEhysFSGZ-0Ry5VuEBVlht2riKJwcJdumz9tLL_ADPtQuXS5z5yswg6s4RzYJZNhy/exec';
   const dataUrl = "https://amra-amra.se/db/";
+  const memberUrl = "https://script.google.com/macros/s/AKfycbw3zL12yxAeHhFubKpPNm2DXIeINp7_RZYPij4oKjiBzRUuY6aVEFFUCdBQugIeUsMljg/exec";
   // const dataUrl1 = 'https://script.google.com/macros/s/AKfycbysHW9GVTvmUFq70OC638nhiBNoiDmR7RybkeMlN5Wl1jGAFIEshuM1dXxsfClI5m87/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
 
@@ -53,7 +54,10 @@ function RegisterToPicnic() {
   const [smallKidsFee, setSmallKidsFee] = useState(null);
   const [bigKidsFee, setBigKidsFee] = useState(null);
   const [busStops, setBusStops] = useState(null);
+  const [registrationStartDateForMembers, setRegistrationStartDateForMembers] = useState(null);
   const [registrationNotAvailable, setRegistrationNotAvailable] = useState(null);
+  const [isMember, setIsMember] = useState(null);
+  const [members, setMembers] = useState(null);
 
 
   const totalFeeRef = useRef(null); // Reference for the hidden input
@@ -89,10 +93,15 @@ function RegisterToPicnic() {
             setAcceptCar(true);
           else
             setAcceptCar(false);
-          const endDate = new Date(response.data[0].registration_end);
-          const startDate = new Date(response.data[0].registration_start);
+          // setRegistrationStartDateForMembers(response.data[0].registration_start_date_for_members);
+          // const startDate = new Date(response.data[0].registration_start);
+          // const endDate = new Date(response.data[0].registration_end);
+          setRegistrationStartDateForMembers("2026-05-01");
+          const startDate = "2026-05-01";
+          const endDate = "2026-05-15";
           setRegistrationNotAvailable(today < startDate || today > endDate);
-          // console.log("registrationNotAvailable: ", today < startDate || today > endDate);
+          console.log(today);
+          console.log("registrationNotAvailable: ", today < startDate || today > endDate);
         }
         else {
           alert("Failed to fetch inputs for picnic form");
@@ -105,6 +114,22 @@ function RegisterToPicnic() {
 
   }, []);
 
+  useEffect(() => {
+    axios.get(`${dataUrl}?request=memberinput`)
+      .then(function (response) {
+        if (response.data !== "") {
+          console.log(response.data);
+        }
+        else {
+          alert("Failed to fetch member data");
+        }
+      })
+      .catch(error => {
+        setError(error.message);
+        setLoading(false);
+      })
+
+  }, []);
 
   useEffect(() => {
     let cost = numberOfAdults * adultsFee + numberOfBigkids * bigKidsFee + numberOfSmallkids * smallKidsFee;
@@ -155,6 +180,7 @@ function RegisterToPicnic() {
     e.preventDefault();
     const formData = new FormData(formElm);
     formData.append("Date", today.toLocaleDateString());
+    formData.append("request", "picnic");
 
     axios.post(url, formData)
       .then(response => {
@@ -250,6 +276,10 @@ function RegisterToPicnic() {
     }
   }
 
+  // const handleIfMember = (isMember) => {
+  //   isMember
+  // }
+
   return (
     <div className="picnic">
       <div className="p-4 text-center rounded bg-dark">
@@ -263,6 +293,30 @@ function RegisterToPicnic() {
         {seatsFilled && <div className="text-center  text-white my-5">Unfortunately, we are unable to confirm your registration as all bus seats are fully booked. Please contact us for further information</div>}
         {!loading && !error && !registrationNotAvailable && !seatsFilled && (
           <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
+            <div className="mt-2 rounded border p-2">
+              <div className="form-check">
+                <label className="form-check-label me-3 mb-2" htmlFor="swish">
+                  Are you a MEMBER?
+                </label>
+                <select className="custom-select" onChange={(event) => setIsMember(event.target.value)}>
+                  <option value="no" selected>No</option>
+                  <option value="yes">Yes</option>
+                </select>
+                {isMember === "yes" &&
+                  <div>
+                    <label className="form-check-label me-1 " htmlFor="swish">
+                      Enter you member ID:
+                    </label>
+                    <input
+                      className=""
+                      placeholder="Full Name"
+                      type="text" name=""
+                      id=""
+                      required></input>
+                  </div>
+                }
+              </div>
+            </div>
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="form-group input-group  mb-3">
                 <i className="bi bi-bus-front-fill me-2"></i>

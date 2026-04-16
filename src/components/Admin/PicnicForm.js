@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AmraAmraDatePicker from '../Others/AmraAmraDatePicker';
 import axios from 'axios';
 
-function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow}) {
+function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow }) {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
@@ -26,40 +26,44 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
     const [floatingAd, setFloatingAd] = useState(null);
     const [codePrefix, setCodePrefix] = useState(null);
 
-    const dataUrl = 'https://script.google.com/macros/s/AKfycbzp9Bk3W9FPEdbWTVOki_AcQxwR3IKHRc0_zCyCTfH4cNvXAotM3NamU9eIc6HhXcWb/exec';
+    const url = 'https://script.google.com/macros/s/AKfycbzp9Bk3W9FPEdbWTVOki_AcQxwR3IKHRc0_zCyCTfH4cNvXAotM3NamU9eIc6HhXcWb/exec';
+    const dataUrl = "https://amra-amra.se/db/";
 
-     useEffect(() => {
-        fetch(dataUrl)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
+    useEffect(() => {
+        axios.get(`${dataUrl}?request=picnicinput`)
+            .then(function (response) {
+                // console.log(response.data);
                 setLoading(false);
-                setPicnicName(data.picnicName);
-                const formattedPicnicDate = new Date(data.picnicDate).toISOString().split("T")[0];
-                setPicnicDate(formattedPicnicDate);
-                const formattedStartDate = new Date(data.startDate).toISOString().split("T")[0];
-                setStartDate(formattedStartDate);
-                const formattedEndDate = new Date(data.endDate).toISOString().split("T")[0];
-                setEndDate(formattedEndDate);
-                setAcceptCar(data.acceptCar);
-                setMaxSmallKidsAge(data.maxSmallKidsAge);
-                setMaxBigKidsAge(data.maxBigKidsAge);
-                setAdultsFeeInBus(data.adultsFeeInBus);
-                setAdultsFeeInCar(data.adultsFeeInCar);
-                setSmallKidsFeeInBus(data.smallKidsFeeInBus);
-                setSmallKidsFeeInCar(data.smallKidsFeeInCar);
-                setBigKidsFeeInBus(data.bigKidsFeeInBus);
-                setBigKidsFeeInCar(data.bigKidsFeeInCar);
-                setMaxBusSeats(data.maxBusSeats);
-                setMaxCarSeats(data.maxCarSeats);
-                setBusStops(data.busStops);
-                setFloatingAd(data.floatingAd);
+                setPicnicName(response.data[0].picnic_name);
+
+                // Convert string date to Date object for the date picker
+                const picnicDateObj = new Date(response.data[0].picnic_date);
+                setPicnicDate(picnicDateObj);
+
+                const registrationStartDateObj = new Date(response.data[0].registration_start);
+                setStartDate(registrationStartDateObj);
+                const registrationEndDateObj = new Date(response.data[0].registration_end);
+                setStartDate(registrationEndDateObj);
+
+                setAcceptCar(response.data[0].car);
+                setMaxSmallKidsAge(response.data[0].max_small_kids_age);
+                setMaxBigKidsAge(response.data[0].max_big_kids_age);
+                setAdultsFeeInBus(response.data[0].adults_fee_for_bus);
+                setAdultsFeeInCar(response.data[0].adults_fee_for_car);
+                setSmallKidsFeeInBus(response.data[0].small_kids_fee_for_bus);
+                setSmallKidsFeeInCar(response.data[0].small_kids_fee_for_car);
+                setBigKidsFeeInBus(response.data[0].big_kids_fee_for_bus);
+                setBigKidsFeeInCar(response.data[0].big_kids_fee_for_car);
+                setMaxBusSeats(response.data[0].max_bus_seats);
+                setMaxCarSeats(response.data[0].max_car_seats);
+                setBusStops(response.data[0].bus_stops);
+                setFloatingAd(response.data[0].floaging_ad_text);
             })
             .catch(error => {
                 setError(error.message);
                 setLoading(false);
             })
-    },[loading]);
+    }, []);
 
     const handlePicnicInfo = (e) => {
         e.preventDefault();
