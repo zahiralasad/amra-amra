@@ -18,6 +18,7 @@ function RegisterMember() {
     const [clearForm, setClearForm] = useState(false);
     const [isJunior, setIsJunior] = useState(false);
     const [inputData, setInputData] = useState([])
+    const [isSpecialOfferDay, setIsSpecialOfferDay] = useState(false)
 
     const url = "https://script.google.com/macros/s/AKfycbzQou_14Gnvwjmktjq3uF_78bbtPUji9Ocz7TMA-bNz0gp9OSQctPTZdLI6ZvVdVonouw/exec";
     const dataUrl = "https://amra-amra.se/db/";
@@ -29,22 +30,27 @@ function RegisterMember() {
     const currentDateString = currentDate.toISOString().split('T')[0]; // "2026-02-07"
 
     // Define the special offer date
-    const specialOfferDateStart = '2026-04-15';
-    const specialOfferDateEnd = '2026-04-25';
+    // const specialOfferDateStart = '2026-04-15';
+    // const specialOfferDateEnd = '2026-04-25';
 
     // Check if today is the special offer date
-    const isSpecialOfferDay = specialOfferDateStart <= currentDateString && currentDateString <= specialOfferDateEnd;
+    // const isSpecialOfferDay = specialOfferDateStart <= currentDateString && currentDateString <= specialOfferDateEnd;
 
-    console.log(isSpecialOfferDay);
+    // console.log(isSpecialOfferDay);
 
     useEffect(() => {
         axios.get(`${dataUrl}?request=memberinput`)
             .then(function (response) {
                 if (response.data !== "") {
-                    // console.log(response.data);
+                    // console.log(response);
                     const data = response.data;
                     // console.log(response.data[0]);
                     setInputData(response.data[0]);
+
+                    const specialOfferDateStart = response.data[0].offer_day_start;
+                    const specialOfferDateEnd = response.data[0].offer_day_end;
+                    // Check if today is the special offer date
+                    setIsSpecialOfferDay(specialOfferDateStart <= currentDateString && currentDateString <= specialOfferDateEnd);
                 }
                 else {
                     alert("Failed to fetch inputs for member form");

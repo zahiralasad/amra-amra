@@ -22,7 +22,7 @@ function Members() {
                 setLoading(false);
                 setMembers(data.names);
                 setIds(data.ids);
-                console.log(data.names)
+                // console.log(data.names)
             })
             .catch(error => {
                 setError(error.message);
@@ -30,7 +30,7 @@ function Members() {
             });
     }
 
-    // Combine + sort
+    // Combine + sort // need to understand this code
     const sortedMembers = members
         .map((member, index) => ({
             member,
@@ -43,7 +43,6 @@ function Members() {
                 if (id.startsWith("JM")) return 3;
                 return 4;
             };
-            console.log(getPriority);
             return (
                 getPriority(a.id) - getPriority(b.id) ||
                 a.id.localeCompare(b.id)
