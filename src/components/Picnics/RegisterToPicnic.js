@@ -94,12 +94,12 @@ function RegisterToPicnic() {
             setAcceptCar(true);
           else
             setAcceptCar(false);
-          // const startDateForMember = new Date(response.data[0].registration_start_date_for_members);
-          // const startDate = new Date(response.data[0].registration_start);
-          // const endDate = new Date(response.data[0].registration_end);
-          const startDateForMember = new Date("2026-04-12");
-          const startDate = new Date("2026-04-22");
-          const endDate = new Date("2026-05-15");
+          const startDateForMember = new Date(response.data[0].registration_start_date_for_members);
+          const startDate = new Date(response.data[0].registration_start);
+          const endDate = new Date(response.data[0].registration_end);
+          // const startDateForMember = new Date("2026-04-12");
+          // const startDate = new Date("2026-04-22");
+          // const endDate = new Date("2026-05-15");
           const currentDate = new Date(today);
 
           // Reset time to midnight for accurate date comparison
