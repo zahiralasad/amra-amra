@@ -11,16 +11,24 @@ import AmraAmraDatePicker from '../Others/AmraAmraDatePicker';
 
 
 function RegisterMember() {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
     const [response, setResponse] = useState("");
     const [title, setTitle] = useState("");
     const [message, setMessage] = useState("");
     const [modalShow, setModalShow] = useState(false);
     const [clearForm, setClearForm] = useState(false);
     const [isJunior, setIsJunior] = useState(false);
-    const [inputData, setInputData] = useState([])
-    const [isSpecialOfferDay, setIsSpecialOfferDay] = useState(false)
+    const [inputData, setInputData] = useState([]);
+    const [isSpecialOfferDay, setIsSpecialOfferDay] = useState(false);
+    const [parentsId, setParentsId] = useState("");
+    const [parentsInfo, setParentsInfo] = useState("");
+    const [members, setMembers] = useState(null);
+    const [validMember, setValidMember] = useState(null);
+
 
     const url = "https://script.google.com/macros/s/AKfycbzQou_14Gnvwjmktjq3uF_78bbtPUji9Ocz7TMA-bNz0gp9OSQctPTZdLI6ZvVdVonouw/exec";
+    const memberUrl = "https://script.google.com/macros/s/AKfycbw3zL12yxAeHhFubKpPNm2DXIeINp7_RZYPij4oKjiBzRUuY6aVEFFUCdBQugIeUsMljg/exec";
     const dataUrl = "https://amra-amra.se/db/";
     const apiUrl = "https://amra-amra.se/emailApi/";
 
@@ -60,9 +68,46 @@ function RegisterMember() {
 
     }, []);
 
+    useEffect(() => {
+        axios.get(memberUrl)
+            .then(function (response) {
+                if (response.data !== "") {
+                    // console.log(response.data.ids);
+                    setMembers(response.data);
+                }
+                else {
+                    alert("Failed to fetch member data");
+                }
+            })
+            .catch(error => {
+                setError(error.message);
+                setLoading(false);
+            })
+
+    }, []);
     function CheckExpired() {
 
     }
+
+    const validateParentsID = (value) => {
+        setParentsId(value); 
+        if (value.length >= 5) {
+            console.log(value);
+            const isMember = members.ids.includes(value);
+            if (isMember) {                
+                const parentsName= members.names[members.ids.indexOf(value)]
+                console.log(parentsName);
+                setValidMember(true);
+                setParentsId(value);
+                console.log(isMember);
+                setParentsInfo("Parent's Name: " + parentsName)
+            } else {
+                setParentsInfo("Could't not find your parent's ID");
+                setValidMember(false);
+            }
+        }
+    }
+
     const calculateAge = (birthDate) => {
         if (!birthDate) return null;
 
@@ -183,8 +228,18 @@ function RegisterMember() {
                             <div className="input-group  mb-3">
                                 <i className="bi bi-person-vcard-fill me-2"></i>
                                 <span className="input-group-text">Parent's ID: </span>
-                                <input Name="ParentsId" className="form-control" placeholder="Example: M012" type="text" required />
+                                <input
+                                    Name="ParentsId"
+                                    className="form-control"
+                                    placeholder="Example: M012"
+                                    type="text"
+                                    value={parentsId}
+                                    onChange={(e) => validateParentsID(e.target.value)}
+                                    onBlur={() => {if (!validMember) setParentsId("");}}
+                                    required />
                             </div>
+                            <p className="ms-2 text-danger">{parentsInfo}</p>
+                            
                         </div>
                     )}
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
@@ -209,8 +264,6 @@ function RegisterMember() {
                         </div>
                     </div>
                     <div className="mt-2 rounded border p-2">
-
-
                         {isJunior && <>Membership fee: {inputData.junior_fee}kr </>}
                         {isSpecialOfferDay && !isJunior && (
                             <div>
