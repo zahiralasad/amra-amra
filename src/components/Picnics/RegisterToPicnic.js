@@ -21,6 +21,9 @@ function RegisterToPicnic() {
   const [message, setMessage] = useState("");
   const [today, seToday] = useState(new Date().toISOString().split('T')[0]);
   const [loading, setLoading] = useState(true);
+  const [loadFormInput, setLoadFormInput] = useState(true);
+  const [loadMembersInput, setLoadMembersInput] = useState(true);
+  const [loadMembersData, setLoadMembersData] = useState(true);
   const [error, setError] = useState(null);
   const [busSeatsFilled, setBusSeatsFilled] = useState(0);
   const [carSeatsFilled, setCarSeatsFilled] = useState(0);
@@ -74,7 +77,7 @@ function RegisterToPicnic() {
       .then(function (response) {
         if (response.data !== "") {
           console.log(response.data);
-          setLoading(false);
+          setLoadFormInput(false);
           setPicnicName(response.data[0].picnic_name);
           setPicnicDate(response.data[0].picnic_date);
           setAcceptCar(response.data[0].car);
@@ -94,12 +97,12 @@ function RegisterToPicnic() {
             setAcceptCar(true);
           else
             setAcceptCar(false);
-          const startDateForMember = new Date(response.data[0].registration_start_date_for_members);
-          const startDate = new Date(response.data[0].registration_start);
-          const endDate = new Date(response.data[0].registration_end);
-          // const startDateForMember = new Date("2026-04-12");
-          // const startDate = new Date("2026-04-22");
-          // const endDate = new Date("2026-05-15");
+          // const startDateForMember = new Date(response.data[0].registration_start_date_for_members);
+          // const startDate = new Date(response.data[0].registration_start);
+          // const endDate = new Date(response.data[0].registration_end);
+          const startDateForMember = new Date("2026-04-12");
+          const startDate = new Date("2026-05-25");
+          const endDate = new Date("2026-05-15");
           const currentDate = new Date(today);
 
           // Reset time to midnight for accurate date comparison
@@ -124,7 +127,7 @@ function RegisterToPicnic() {
       })
       .catch(error => {
         setError(error.message);
-        setLoading(false);
+        setLoadFormInput(false);
       })
 
   }, []);
@@ -141,7 +144,7 @@ function RegisterToPicnic() {
       })
       .catch(error => {
         setError(error.message);
-        setLoading(false);
+        setLoadMembersInput(false);
       })
 
   }, []);
@@ -192,7 +195,7 @@ function RegisterToPicnic() {
       })
       .catch(error => {
         setError(error.message);
-        setLoading(false);
+        setLoadMembersData(false);
       })
 
   }, []);
@@ -367,200 +370,200 @@ function RegisterToPicnic() {
           </form>
         }
         {!registrationOpenDateForMembersOnly && !registrationAvailable && <div className="text-center  text-white my-5">Registrion to the picnic is not available. Please contact us for further information</div>}
-        {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
+        {loading && loadFormInput && loadMembersInput && loadMembersData && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
         {error && <div className="text-center  text-white my-5">Error: {error}</div>}
         {seatsFilled && <div className="text-center  text-white my-5">Unfortunately, we are unable to confirm your registration as all bus seats are fully booked. Please contact us for further information</div>}
         {((validMember && registrationOpenDateForMembersOnly)
           ||
           (!loading &&
-          !error &&
-          !seatsFilled &&
-          !registrationOpenDateForMembersOnly &&
-          registrationAvailable))
+            !error &&
+            !seatsFilled &&
+            !registrationOpenDateForMembersOnly &&
+            registrationAvailable))
           &&
           (<form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
-              <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-                <div className="form-group input-group  mb-3">
-                  <i className="bi bi-bus-front-fill me-2"></i>
-                  <span className="input-group-text me-1" style={{ width: "120px" }}>Prefered Transport: </span>
-                  <div className="form-check me-1">
-                    <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
-                    <label className="form-check-label" htmlFor="busstop1">
-                      Bus from {busStops[0]}
-                    </label>
-                  </div>
-                  <div className="form-check me-1">
-                    <input className="form-check-input" type="radio" name="Busstop" value="Kungens Kurva" id="busstop2" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
-                    <label className="form-check-label" htmlFor="busstop2">
-                      Bus from {busStops[1]}
-                    </label>
-                  </div>
-                  {acceptCar &&
-                    <div className="form-check me-1">
-                      <input className="form-check-input" type="radio" name="Busstop" value="Car" id="busstop3" onChange={(event) => adjustPrice(event.target.value)} required disabled={carSeatsFilled >= maxCarSeats} />
-                      <label className="form-check-label" htmlFor="busstop3">
-                        Own Car
-                      </label>
-                    </div>
-                  }
-                </div>
-              </div>
-              <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-                <div className="d-flex mb-3 input-group border-bottom pb-1">
-                  <i className="bi bi-people-fill me-2"></i>
-                  <span className="input-group-text"> Number of {maxBigKidsAge}+ old</span>
-                  <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "Adult")}>
-                    <option value="0" selected>0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>
-                  <p className="ms-2">({adultsFee}kr/adult)</p>
-                </div>
-                <div id="adultContainer">
-                  {adults.map((adult, adultIndex) => {
-                    // console.log(adult);
-                    // console.log(adultIndex);
-                    return (
-                      <div key={adultIndex}>
-                        <div className="input-group mb-3">
-                          <i className="bi bi-person-fill me-2"></i>
-                          <span className="input-group-text">{adult.id}</span>
-                          <input
-                            className="form-control"
-                            placeholder="Full Name"
-                            type="text" name={adult.id}
-                            id={adult.id}
-                            required></input>
-                        </div>
-
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-              <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-                <div className="d-flex input-group mb-3 border-bottom pb-1">
-                  <i className="bi bi-person-standing me-2"></i>
-                  <span className="input-group-text text-wrap"> Number of kids between {maxSmallKidsAge} to {maxBigKidsAge} years old</span>
-                  <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "BigKid")}>
-                    <option value="0" selected>0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>
-                  <p className="ms-2">({bigKidsFee}kr/child)</p>
-                </div>
-                <div id="bigKidContainer">
-                  {bigKids.map((bigKid, bigKidIndex) => {
-                    // console.log(bigKid.id);
-                    return (
-                      <div key={bigKidIndex}>
-                        <div className="input-group mb-3">
-                          <i className="bi bi-person-fill me-2"></i>
-                          <span className="input-group-text">{bigKid.id}</span>
-                          <input
-                            className="form-control"
-                            placeholder="Full Name"
-                            type="text" name={bigKid.id}
-                            id={bigKid.id}
-                            required></input>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-              <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-                <div className="input-group  mb-3 border-bottom pb-1">
-                  <i className="bi bi-person-arms-up me-2"></i>
-                  <span className="input-group-text text-wrap"> Number of kids under {maxSmallKidsAge} years old</span>
-                  <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "SmallKid")}>
-                    <option value="0" selected>0</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                    <option value="8">8</option>
-                    <option value="9">9</option>
-                    <option value="10">10</option>
-                  </select>
-                  <p className="ms-2">({smallKidsFee}kr/child)</p>
-                </div>
-                <div id="smallKidContainer">
-                  {smallKids.map((smallKid, smallKidIndex) => {
-                    // console.log(smallKid);
-                    return (
-                      <div key={smallKidIndex}>
-                        <div className="input-group mb-3">
-                          <i className="bi bi-person-fill me-2"></i>
-                          <span className="input-group-text">{smallKid.id}</span>
-                          <input
-                            className="form-control"
-                            placeholder="Full Name"
-                            type="text" name={smallKid.id}
-                            id={smallKid.id}
-                            required></input>
-                        </div>
-                      </div>
-                    )
-                  })}
-                </div>
-              </div>
-
-              <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-                <div className="form-group input-group  mb-3">
-                  <i className="bi bi-envelope-fill me-2"></i>
-                  <span className="input-group-text" style={{ width: "80px" }}>Email</span>
-                  <input Name="Email" className="form-control" placeholder="Email address" type="email" required />
-                </div>
-              </div>
-              <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-                <div className="form-group input-group  mb-3">
-                  <i className="bi bi-telephone-fill me-2"></i>
-                  <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
-                  <input Name="Phone" className="form-control" placeholder="Phone number" type="text" required />
-                </div>
-              </div>
-
-              <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-                <div className="form-group input-group ">
-                  <p className="mx-2">Total fee:</p>
-                  <p className="p" Name="Cost" id="cost" ref={costRef}></p>
-                  <p>kr</p>
-                </div>
-                <input type="hidden" Name="Cost" id="totalFee" ref={totalFeeRef} />
-              </div>
-              <div className="mt-2 rounded border p-2">
-                <div className="form-check">
-                  <input className="form-check-input" type="checkbox" Name="Swish" id="swish" required />
-                  <label className="form-check-label" htmlFor="swish">
-                    I have swished to 1230432419
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="form-group input-group  mb-3">
+                <i className="bi bi-bus-front-fill me-2"></i>
+                <span className="input-group-text me-1" style={{ width: "120px" }}>Prefered Transport: </span>
+                <div className="form-check me-1">
+                  <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
+                  <label className="form-check-label" htmlFor="busstop1">
+                    Bus from {busStops[0]}
                   </label>
-                  <span id="swishTo" className="swishto ms-2 h9"></span>
                 </div>
+                <div className="form-check me-1">
+                  <input className="form-check-input" type="radio" name="Busstop" value="Kungens Kurva" id="busstop2" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
+                  <label className="form-check-label" htmlFor="busstop2">
+                    Bus from {busStops[1]}
+                  </label>
+                </div>
+                {acceptCar &&
+                  <div className="form-check me-1">
+                    <input className="form-check-input" type="radio" name="Busstop" value="Car" id="busstop3" onChange={(event) => adjustPrice(event.target.value)} required disabled={carSeatsFilled >= maxCarSeats} />
+                    <label className="form-check-label" htmlFor="busstop3">
+                      Own Car
+                    </label>
+                  </div>
+                }
               </div>
-              <div className="form-group mt-3">
-                <button type="submit" id="register" className="btn btn-primary btn-block"> Register</button>
+            </div>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="d-flex mb-3 input-group border-bottom pb-1">
+                <i className="bi bi-people-fill me-2"></i>
+                <span className="input-group-text"> Number of {maxBigKidsAge}+ old</span>
+                <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "Adult")}>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <p className="ms-2">({adultsFee}kr/adult)</p>
               </div>
-            </form>
+              <div id="adultContainer">
+                {adults.map((adult, adultIndex) => {
+                  // console.log(adult);
+                  // console.log(adultIndex);
+                  return (
+                    <div key={adultIndex}>
+                      <div className="input-group mb-3">
+                        <i className="bi bi-person-fill me-2"></i>
+                        <span className="input-group-text">{adult.id}</span>
+                        <input
+                          className="form-control"
+                          placeholder="Full Name"
+                          type="text" name={adult.id}
+                          id={adult.id}
+                          required></input>
+                      </div>
+
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="d-flex input-group mb-3 border-bottom pb-1">
+                <i className="bi bi-person-standing me-2"></i>
+                <span className="input-group-text text-wrap"> Number of kids between {maxSmallKidsAge} to {maxBigKidsAge} years old</span>
+                <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "BigKid")}>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <p className="ms-2">({bigKidsFee}kr/child)</p>
+              </div>
+              <div id="bigKidContainer">
+                {bigKids.map((bigKid, bigKidIndex) => {
+                  // console.log(bigKid.id);
+                  return (
+                    <div key={bigKidIndex}>
+                      <div className="input-group mb-3">
+                        <i className="bi bi-person-fill me-2"></i>
+                        <span className="input-group-text">{bigKid.id}</span>
+                        <input
+                          className="form-control"
+                          placeholder="Full Name"
+                          type="text" name={bigKid.id}
+                          id={bigKid.id}
+                          required></input>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="input-group  mb-3 border-bottom pb-1">
+                <i className="bi bi-person-arms-up me-2"></i>
+                <span className="input-group-text text-wrap"> Number of kids under {maxSmallKidsAge} years old</span>
+                <select className="custom-select" onChange={(event) => handleNumberForPlayer(event.target.value, "SmallKid")}>
+                  <option value="0" selected>0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+                <p className="ms-2">({smallKidsFee}kr/child)</p>
+              </div>
+              <div id="smallKidContainer">
+                {smallKids.map((smallKid, smallKidIndex) => {
+                  // console.log(smallKid);
+                  return (
+                    <div key={smallKidIndex}>
+                      <div className="input-group mb-3">
+                        <i className="bi bi-person-fill me-2"></i>
+                        <span className="input-group-text">{smallKid.id}</span>
+                        <input
+                          className="form-control"
+                          placeholder="Full Name"
+                          type="text" name={smallKid.id}
+                          id={smallKid.id}
+                          required></input>
+                      </div>
+                    </div>
+                  )
+                })}
+              </div>
+            </div>
+
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="form-group input-group  mb-3">
+                <i className="bi bi-envelope-fill me-2"></i>
+                <span className="input-group-text" style={{ width: "80px" }}>Email</span>
+                <input Name="Email" className="form-control" placeholder="Email address" type="email" required />
+              </div>
+            </div>
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="form-group input-group  mb-3">
+                <i className="bi bi-telephone-fill me-2"></i>
+                <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
+                <input Name="Phone" className="form-control" placeholder="Phone number" type="text" required />
+              </div>
+            </div>
+
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="form-group input-group ">
+                <p className="mx-2">Total fee:</p>
+                <p className="p" Name="Cost" id="cost" ref={costRef}></p>
+                <p>kr</p>
+              </div>
+              <input type="hidden" Name="Cost" id="totalFee" ref={totalFeeRef} />
+            </div>
+            <div className="mt-2 rounded border p-2">
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" Name="Swish" id="swish" required />
+                <label className="form-check-label" htmlFor="swish">
+                  I have swished to 1230432419
+                </label>
+                <span id="swishTo" className="swishto ms-2 h9"></span>
+              </div>
+            </div>
+            <div className="form-group mt-3">
+              <button type="submit" id="register" className="btn btn-primary btn-block"> Register</button>
+            </div>
+          </form>
           )}
       </div>
       <Notification

@@ -17,9 +17,9 @@ function Home() {
                             <p className='text-center' style={{ fontSize: "clamp(12px, 2vw, 15px)" }}>
                                 প্রতিবারের মতো আমরা-আমরা এবারও আমাদের সবাইকে নিয়ে পিকনিক আয়োজন করতে যাচ্ছে।
                                 খুব শিগ্রী রেজিষ্ট্রেণ ফর্ম ওপেন করা হব। <br /><br />
-                                দিন - ২৬ এ জুলাই ২০২৫। <br />
+                                দিন - ২৫ এ জুলাই ২০২৬। <br />
                                 স্থান - <br />
-                                বাস ছাড়ার সময় - ৮টা ৩০।
+                                বাস ছাড়ার সময় - ।
                             </p>
                             <Link className="btn" type="button" to='/registertopicnic' style={{ fontSize: "clamp(12px, 2vw, 15px)", backgroundColor: "red", color: "white" }}>Register</Link>
                         </div>

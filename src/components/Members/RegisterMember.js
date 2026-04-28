@@ -11,7 +11,9 @@ import AmraAmraDatePicker from '../Others/AmraAmraDatePicker';
 
 
 function RegisterMember() {
-    const [loading, setLoading] = useState(true);
+    const [loadFormInput, setLoadFormInput] = useState(true);
+    const [loadMembersData, setLoadMembersData] = useState(true);
+    // const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [response, setResponse] = useState("");
     const [title, setTitle] = useState("");
@@ -59,13 +61,18 @@ function RegisterMember() {
                     const specialOfferDateEnd = response.data[0].offer_day_end;
                     // Check if today is the special offer date
                     setIsSpecialOfferDay(specialOfferDateStart <= currentDateString && currentDateString <= specialOfferDateEnd);
+                    setLoadFormInput(false);
                 }
                 else {
                     alert("Failed to fetch inputs for member form");
                 }
             })
-            .catch(error => alert(error));
-
+            .catch(error => {
+                setError(error.message);
+                setLoadFormInput(false)
+                //alert(error)
+            }
+            );
     }, []);
 
     useEffect(() => {
@@ -74,14 +81,15 @@ function RegisterMember() {
                 if (response.data !== "") {
                     // console.log(response.data.ids);
                     setMembers(response.data);
+                    setLoadMembersData(false);
                 }
                 else {
-                    alert("Failed to fetch member data");
+                    alert("Failed to fetch members data");
                 }
             })
             .catch(error => {
                 setError(error.message);
-                setLoading(false);
+                setLoadMembersData(false);
             })
 
     }, []);
@@ -90,12 +98,12 @@ function RegisterMember() {
     }
 
     const validateParentsID = (value) => {
-        setParentsId(value); 
+        setParentsId(value);
         if (value.length >= 5) {
             console.log(value);
             const isMember = members.ids.includes(value);
-            if (isMember) {                
-                const parentsName= members.names[members.ids.indexOf(value)]
+            if (isMember) {
+                const parentsName = members.names[members.ids.indexOf(value)]
                 console.log(parentsName);
                 setValidMember(true);
                 setParentsId(value);
@@ -192,6 +200,7 @@ function RegisterMember() {
                 {/* <img src={banner} className="img-fluid" /> */}
             </div>
             <div className="mt-1 p-2 rounded bg-dark">
+                {loadFormInput && loadMembersData && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
                 <form className="needs-validation" id="memberForm" onSubmit={(e) => Submit(e)}>
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
                         <div className="input-group  mb-3">
@@ -235,11 +244,11 @@ function RegisterMember() {
                                     type="text"
                                     value={parentsId}
                                     onChange={(e) => validateParentsID(e.target.value)}
-                                    onBlur={() => {if (!validMember) setParentsId("");}}
+                                    onBlur={() => { if (!validMember) setParentsId(""); }}
                                     required />
                             </div>
                             <p className="ms-2 text-danger">{parentsInfo}</p>
-                            
+
                         </div>
                     )}
                     <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
@@ -270,7 +279,7 @@ function RegisterMember() {
                                 <div>
                                     Membership fee:
                                     <s style={{ color: 'red', marginLeft: '8px' }}> {inputData.adult_fee}kr</s>
-                                    <span style={{ marginLeft: '8px' }}> ({inputData.discounted_adult_fee}kr for today)</span>
+                                    <span style={{ marginLeft: '8px' }}> ({inputData.discounted_adult_fee}kr now)</span>
                                 </div>
                                 <div>Junior Membership fee:
                                     <span style={{ marginLeft: '8px' }}>{inputData.discounted_junior_fee}kr</span>
