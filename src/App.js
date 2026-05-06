@@ -6,7 +6,7 @@ import Picnic2023 from "./components/Picnics/Picnic2023";
 import Picnic2022 from "./components/Picnics/Picnic2022";
 import Picnic2021 from "./components/Picnics/Picnic2021";
 import Picnic2019 from "./components/Picnics/Picnic2019";
-import Picnic from "./components/Picnics/Picnic";
+import Picnic from "./components/Picnics/RegisterToPicnic_v4";
 import RegisterToPicnic from "./components/Picnics/RegisterToPicnic";
 import Contacts from "./components/Contacts";
 import Aboutus from "./components/Aboutus";
@@ -61,7 +61,7 @@ function App() {
               <Route path="picnic2022" element={<Picnic2022/>} />
               <Route path="picnic2021" element={<Picnic2021/>} />
               <Route path="picnic2019" element={<Picnic2019/>} />
-              <Route path="picnic" element={<Picnic/>} />
+              <Route path="picnictest" element={<Picnic/>} />
               <Route path="registertopicnic" element={<RegisterToPicnic/>} />
 
               {/****** Carrier Building Network ******/}
