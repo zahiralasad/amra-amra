@@ -143,7 +143,6 @@ function RegisterToPicnic() {
       .then(function (response) {
         if (response.data !== "") {
           console.log(response.data);
-          setLoadMembersInput(false);
         }
         else {
           alert("Failed to fetch member data");
@@ -168,25 +167,6 @@ function RegisterToPicnic() {
   });
 
   useEffect(() => {
-    axios.get(memberUrl)
-      .then(function (response) {
-        if (response.data !== "") {
-          // console.log(response.data.ids);
-          setMembers(response.data);
-          setLoadMembersData(false);
-        }
-        else {
-          alert("Failed to fetch member data");
-        }
-      })
-      .catch(error => {
-        setError(error.message);
-        setLoadMembersData(false);
-      })
-
-  }, []);
-
-  useEffect(() => {
     if (maxBusSeats && maxCarSeats) {
       fetch(url)
         .then(response => response.json())
@@ -208,21 +188,23 @@ function RegisterToPicnic() {
     }
   }, [maxBusSeats, maxCarSeats]);
 
-  // const showForm = error;
-  // const showForm = () => {
-  //   if (error) {
-  //     setResponse("Error: " + error);
-  //     return false;
-  //   }
-  //   return false;
-  // };
-  // console.log("ShowForm: ", showForm());
-  // &&
-  // !loading &&
-  // !loadFormInput &&
-  // !loadMembersData &&
-  // !seatsFilled &&
-  // (registrationAvailable || (registrationOpenDateForMembersOnly && validMember));
+  useEffect(() => {
+    axios.get(memberUrl)
+      .then(function (response) {
+        if (response.data !== "") {
+          // console.log(response.data.ids);
+          setMembers(response.data);
+        }
+        else {
+          alert("Failed to fetch member data");
+        }
+      })
+      .catch(error => {
+        setError(error.message);
+        setLoadMembersData(false);
+      })
+
+  }, []);
 
   function validateMember(e) {
     e.preventDefault();
@@ -236,19 +218,10 @@ function RegisterToPicnic() {
     console.log(members.names[members.ids.indexOf(enteredMemberId)]);
     // console.log(isValidMember);
 
+
     console.log("Entered Member ID:", enteredMemberId);
     console.log("Type of enteredMemberId:", typeof enteredMemberId);
     console.log("Form Event", e);
-
-    // clear form
-    // document.getElementById('picnicform').reset();
-    // Reset form data
-    setAdults([]);
-    setNumberOfAdults(0);
-    setBigKids([]);
-    setNumberOfBigKids(0);
-    setSmallKids([]);
-    setNumberOfSmallKids(0);
     // members.ids.map()
   }
 
@@ -409,28 +382,15 @@ function RegisterToPicnic() {
                     Enter your member ID:
                   </label>
                   <input
-                    placeholder="Member ID"
+                    className=""
+                    placeholder="Member id"
                     type="text"
+                    name=""
                     id="memberId"
                     value={enteredMemberId}
-                    onChange={(e) => {
-                      setEnteredMemberId(e.target.value);
-                      setValidMember(null);
-                    }}
+                    onChange={(e) => setEnteredMemberId(e.target.value)}
                     required
                   />
-
-                  {/* Add this line right after the input */}
-                  {validMember === false && (
-                    <p className="text-danger mt-1">
-                      ❌ Member ID <strong>{enteredMemberId}</strong> is not valid. Please check and try again.
-                    </p>
-                  )}
-                  {validMember === true && (
-                    <p className="text-success mt-1">
-                      ✓ Welcome <strong>{memberName}</strong>!
-                    </p>
-                  )}
                   {/* Submit button inside member condition */}
                   <div className="mt-2 mb-3">
                     <button type="submit" className="btn btn-info">
@@ -442,22 +402,18 @@ function RegisterToPicnic() {
             </div>
           </form>
         }
-        {error ? (
-          <div className="text-center text-white my-5">Error: {error}</div>
-
-        ) : (loading || loadFormInput || loadMembersData || loadMembersInput) ? (
-          <div className="text-center text-white my-5">Please wait while loading internally...</div>
-
-        ) : (!registrationOpenDateForMembersOnly && !registrationAvailable) ? (
-          <div className="text-center text-white my-5">
-            Registration is not available. Please contact us for further information.
-          </div>
-
-        ) : seatsFilled ? (
-          <div className="text-center text-white my-5">
-            All seats are fully booked. Please contact us for further information.
-          </div>
-        ) : (registrationAvailable || (registrationOpenDateForMembersOnly && validMember)) ?
+        {!registrationOpenDateForMembersOnly && !registrationAvailable && <div className="text-center  text-white my-5">Registrion to the picnic is not available. Please contact us for further information</div>}
+        {loading && loadFormInput && loadMembersInput && loadMembersData && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>}
+        {error && <div className="text-center  text-white my-5">Error: {error}</div>}
+        {seatsFilled && <div className="text-center  text-white my-5">Unfortunately, we are unable to confirm your registration as all bus seats are fully booked. Please contact us for further information</div>}
+        {((validMember && registrationOpenDateForMembersOnly)
+          ||
+          (!loading &&
+            !error &&
+            !seatsFilled &&
+            !registrationOpenDateForMembersOnly &&
+            registrationAvailable))
+          &&
           (<form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="form-group input-group  mb-3">
@@ -466,13 +422,13 @@ function RegisterToPicnic() {
                 <div className="form-check me-1">
                   <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
                   <label className="form-check-label" htmlFor="busstop1">
-                    Bus from {busStops?.[0]}
+                    Bus from {busStops[0]}
                   </label>
                 </div>
                 <div className="form-check me-1">
                   <input className="form-check-input" type="radio" name="Busstop" value="Kungens Kurva" id="busstop2" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
                   <label className="form-check-label" htmlFor="busstop2">
-                    Bus from {busStops?.[1]}
+                    Bus from {busStops[1]}
                   </label>
                 </div>
                 {acceptCar &&
@@ -675,7 +631,7 @@ function RegisterToPicnic() {
               <button type="submit" id="register" className="btn btn-primary btn-block"> Register</button>
             </div>
           </form>
-          ) : null}
+          )}
       </div>
       <Notification
         show={modalShow}
