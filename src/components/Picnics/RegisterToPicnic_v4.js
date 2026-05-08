@@ -15,7 +15,7 @@ function RegisterToPicnic() {
   const [bigKids, setBigKids] = useState([]);
   const [numberOfBigkids, setNumberOfBigKids] = useState(0);
   const [smallKids, setSmallKids] = useState([]);
-  const [numberOfSmallkids, setNumberOfSmallKids] = useState([]);
+  const [numberOfSmallkids, setNumberOfSmallKids] = useState(0);
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
@@ -29,43 +29,49 @@ function RegisterToPicnic() {
   const [carSeatsFilled, setCarSeatsFilled] = useState(0);
   const [seatsFilled, setSeatsFilled] = useState(false);
   const [modalShow, setModalShow] = useState(false);
-  // const [clearForm, setClearForm] = useState(false);
-  // const url = 'https://script.google.com/macros/s/AKfycbzhJEYdp7P7JUUKobwayasrY5_9Vt8aR9i-DJMO1MvwaosZx6gK5eBvKtfcg_hEL8PgaA/exec'; // picnic2025
+
   const url = 'https://script.google.com/macros/s/AKfycbwDEhysFSGZ-0Ry5VuEBVlht2riKJwcJdumz9tLL_ADPtQuXS5z5yswg6s4RzYJZNhy/exec';
   const dataUrl = "https://amra-amra.se/db/";
   const memberUrl = "https://script.google.com/macros/s/AKfycbw3zL12yxAeHhFubKpPNm2DXIeINp7_RZYPij4oKjiBzRUuY6aVEFFUCdBQugIeUsMljg/exec";
-  // const dataUrl1 = 'https://script.google.com/macros/s/AKfycbysHW9GVTvmUFq70OC638nhiBNoiDmR7RybkeMlN5Wl1jGAFIEshuM1dXxsfClI5m87/exec';
   const apiUrl = "https://amra-amra.se/emailApi/";
 
   const [picnicName, setPicnicName] = useState(null);
   const [picnicDate, setPicnicDate] = useState(null);
 
-  // const [endDate, setEndDate] = useState(null);
   const [acceptCar, setAcceptCar] = useState(null);
   const [maxSmallKidsAge, setMaxSmallKidsAge] = useState(null);
   const [maxBigKidsAge, setMaxBigKidsAge] = useState(null);
-  const [adultsFeeInBus, setAdultsFeeInBus] = useState(0);
-  const [adultsFeeInCar, setAdultsFeeInCar] = useState(0);
-  const [smallKidsFeeInBus, setSmallKidsFeeInBus] = useState(0);
-  const [smallKidsFeeInCar, setSmallKidsFeeInCar] = useState(0);
-  const [bigKidsFeeInBus, setBigKidsFeeInBus] = useState(0);
-  const [bigKidsFeeInCar, setBigKidsFeeInCar] = useState(0);
   const [maxBusSeats, setMaxBusSeats] = useState(0);
   const [maxCarSeats, setMaxCarSeats] = useState(0);
   const [prefix, setPrefix] = useState(null);
-  const [adultsFee, setAdultsFee] = useState(null);
-  const [smallKidsFee, setSmallKidsFee] = useState(null);
-  const [bigKidsFee, setBigKidsFee] = useState(null);
   const [busStops, setBusStops] = useState(null);
   const [registrationOpenDateForMembersOnly, setRegistrationOpenDateForMembersOnly] = useState(null);
   const [registrationAvailable, setRegistrationAvailable] = useState(null);
   const [members, setMembers] = useState(null);
   const [isMember, setIsMember] = useState(null);
   const [validMember, setValidMember] = useState(null);
-
   const [memberName, setMemberName] = useState("");
   const [enteredMemberId, setEnteredMemberId] = useState("");
-  const [familyMembers, setFamilyMembers] = useState([]);
+
+  const [adultMemberFeeInBus, setAdultMemberFeeInBus] = useState(0);
+  const [adultMemberFeeInCar, setAdultMemberFeeInCar] = useState(0);
+  const [juniorMemberFeeInBus, setJuniorMemberFeeInBus] = useState(0);
+  const [juniorMemberFeeInCar, setJuniorMemberFeeInCar] = useState(0);
+  const [adultNonMemberFeeInBus, setAdultNonMemberFeeInBus] = useState(0);
+  const [adultNonMemberFeeInCar, setAdultNonMemberFeeInCar] = useState(0);
+  const [juniorNonMemberFeeInBus, setJuniorNonMemberFeeInBus] = useState(0);
+  const [juniorNonMemberFeeInCar, setJuniorNonMemberFeeInCar] = useState(0);
+
+  const [smallKidsFeeInBus, setSmallKidsFeeInBus] = useState(0);  // 0kr (bus)
+  const [smallKidsFeeInCar, setSmallKidsFeeInCar] = useState(0);  // 0kr (car)
+
+
+  const [adultMemberFee, setAdultMemberFee] = useState(0);         // bus:430 | car:360
+  const [juniorMemberFee, setJuniorMemberFee] = useState(0);       // bus:350 | car:280
+  const [adultNonMemberFee, setAdultNonMemberFee] = useState(0);   // bus:475 | car:390
+  const [juniorNonMemberFee, setJuniorNonMemberFee] = useState(0); // bus:375 | car:290
+
+  const [smallKidsFee, setSmallKidsFee] = useState(0);             // bus:0   | car:0
 
   const isBMorGM = validMember && (enteredMemberId.startsWith("BM") || enteredMemberId.startsWith("M"));
   const isJM = validMember && enteredMemberId.startsWith("JM");
@@ -75,8 +81,22 @@ function RegisterToPicnic() {
 
   const [inputData, setInputData] = useState([])
 
-  // const maxBusSeats = 280;
-  // const maxCarSeats = 20;
+  const getMemberType = (id) => {
+    if (!id) return null;
+    if (id.startsWith("BM") || id.startsWith("M")) return "adult_member";
+    if (id.startsWith("JM")) return "junior_member";
+    return null;
+  };
+
+  const getFeeForPerson = (memberType, category) => {
+    if (category === "SmallKid") return smallKidsFee; // ✅ CHANGED: was hardcoded 0, now uses state
+    switch (memberType) {
+      case "adult_member": return adultMemberFee;
+      case "junior_member": return juniorMemberFee;
+      default:
+        return category === "Adult" ? adultNonMemberFee : juniorNonMemberFee;
+    }
+  };
 
   useEffect(() => {
     axios.get(`${dataUrl}?request=picnicinput`)
@@ -86,23 +106,26 @@ function RegisterToPicnic() {
           setLoadFormInput(false);
           setPicnicName(response.data[0].picnic_name);
           setPicnicDate(response.data[0].picnic_date);
-          setAcceptCar(response.data[0].car);
-          setMaxSmallKidsAge(response.data[0].max_small_kids_age);
-          setMaxBigKidsAge(response.data[0].max_big_kids_age);
-          setAdultsFeeInBus(response.data[0].adults_fee_for_bus);
-          setAdultsFeeInCar(response.data[0].adults_fee_for_car);
-          setSmallKidsFeeInBus(response.data[0].small_kids_fee_for_bus);
-          setSmallKidsFeeInCar(response.data[0].small_kids_fee_for_car);
-          setBigKidsFeeInBus(response.data[0].big_kids_fee_for_bus);
-          setBigKidsFeeInCar(response.data[0].big_kids_fee_for_car);
-          setMaxBusSeats(response.data[0].max_bus_seats);
-          setMaxCarSeats(response.data[0].max_car_seats);
+          setMaxSmallKidsAge(Number(response.data[0].max_small_kids_age));
+          setMaxBigKidsAge(Number(response.data[0].max_big_kids_age));
+          setMaxBusSeats(Number(response.data[0].max_bus_seats));
+          setMaxCarSeats(Number(response.data[0].max_car_seats));
           setPrefix(response.data[0].registration_code_prefix);
           setBusStops(response.data[0].bus_stops.split(","));
-          if (response.data[0].car === "yes")
-            setAcceptCar(true);
-          else
-            setAcceptCar(false);
+          setAcceptCar(response.data[0].car === "yes"); // ✅ CHANGED: simplified one-liner
+          // setAcceptCar(response.data[0].car);                      
+          setAdultMemberFeeInBus(Number(response.data[0].adult_member_fee_bus));
+          setAdultMemberFeeInCar(Number(response.data[0].adult_member_fee_car));
+          setJuniorMemberFeeInBus(Number(response.data[0].junior_member_fee_bus));
+          setJuniorMemberFeeInCar(Number(response.data[0].junior_member_fee_car));
+          setAdultNonMemberFeeInBus(Number(response.data[0].adult_non_member_fee_bus));
+          setAdultNonMemberFeeInCar(Number(response.data[0].adult_non_member_fee_car));
+          setJuniorNonMemberFeeInBus(Number(response.data[0].junior_non_member_fee_bus));
+          setJuniorNonMemberFeeInCar(Number(response.data[0].junior_non_member_fee_car));
+
+          setSmallKidsFeeInBus(Number(response.data[0].small_kids_fee_bus));
+          setSmallKidsFeeInCar(Number(response.data[0].small_kids_fee_car));
+
           // const startDateForMember = new Date(response.data[0].registration_start_date_for_members);
           // const startDate = new Date(response.data[0].registration_start);
           // const endDate = new Date(response.data[0].registration_end);
@@ -110,22 +133,22 @@ function RegisterToPicnic() {
           const startDate = new Date("2026-05-25");
           const endDate = new Date("2026-05-15");
           const currentDate = new Date(today);
-
           // Reset time to midnight for accurate date comparison
           startDateForMember.setHours(0, 0, 0, 0);
           startDate.setHours(0, 0, 0, 0);
           endDate.setHours(0, 0, 0, 0);
           currentDate.setHours(0, 0, 0, 0);
-
+          // setBusStops(response.data[0].bus_stops.split(","));
+          // if (response.data[0].car === "yes")
+          //   setAcceptCar(true);
+          // else
+          //   setAcceptCar(false);        
           setRegistrationOpenDateForMembersOnly(currentDate >= startDateForMember && currentDate < startDate);
-          // setRegistrationOpenDateForMembersOnly(today >= response.data[0].registration_start_date_for_members || today <= startDate);
           setRegistrationAvailable(currentDate >= startDate && currentDate <= endDate);
-          console.log("Today: ", currentDate);
 
+          console.log("Today: ", currentDate);
           console.log("Start Date: ", startDate);
           console.log("End Date: ", endDate);
-          console.log("registrationAvailableForMember: ", currentDate >= startDateForMember && currentDate < startDate);
-          console.log("registrationAvailable: ", currentDate >= startDate && currentDate <= endDate);
         }
         else {
           alert("Failed to fetch inputs for picnic form");
@@ -142,11 +165,12 @@ function RegisterToPicnic() {
     axios.get(`${dataUrl}?request=memberinput`)
       .then(function (response) {
         if (response.data !== "") {
-          console.log(response.data);
+          // console.log(response.data);
           setLoadMembersInput(false);
         }
         else {
           alert("Failed to fetch member data");
+          setLoadMembersInput(false);
         }
       })
       .catch(error => {
@@ -155,17 +179,6 @@ function RegisterToPicnic() {
       })
 
   }, []);
-
-  useEffect(() => {
-    let cost = numberOfAdults * adultsFee + numberOfBigkids * bigKidsFee + numberOfSmallkids * smallKidsFee;
-    console.log(adultsFee);
-    // document.getElementById("totalFee").value = cost;
-    // document.getElementById("cost").innerHTML = cost;
-    if (totalFeeRef.current && costRef.current) {
-      totalFeeRef.current.value = cost;
-      costRef.current.innerHTML = cost;
-    }
-  });
 
   useEffect(() => {
     axios.get(memberUrl)
@@ -177,6 +190,7 @@ function RegisterToPicnic() {
         }
         else {
           alert("Failed to fetch member data");
+          setLoadMembersData(false);
         }
       })
       .catch(error => {
@@ -208,48 +222,52 @@ function RegisterToPicnic() {
     }
   }, [maxBusSeats, maxCarSeats]);
 
-  // const showForm = error;
-  // const showForm = () => {
-  //   if (error) {
-  //     setResponse("Error: " + error);
-  //     return false;
-  //   }
-  //   return false;
-  // };
-  // console.log("ShowForm: ", showForm());
-  // &&
-  // !loading &&
-  // !loadFormInput &&
-  // !loadMembersData &&
-  // !seatsFilled &&
-  // (registrationAvailable || (registrationOpenDateForMembersOnly && validMember));
+  useEffect(() => {
+    const adultsCost = adults.reduce((sum, adult, index) => {
+      const type = (index === 0 && isBMorGM) ? "adult_member" : (adult.memberType || "non_member");
+      return sum + getFeeForPerson(type, "Adult");
+    }, 0);
+
+    const bigKidsCost = bigKids.reduce((sum, kid, index) => {
+      const type = (index === 0 && isJM) ? "junior_member" : (kid.memberType || "non_member");
+      return sum + getFeeForPerson(type, "BigKid");
+    }, 0);
+
+    const smallKidsCost = smallKids.reduce((sum) => sum + smallKidsFee, 0);
+
+    const total = adultsCost + bigKidsCost + smallKidsCost;
+
+    if (totalFeeRef.current && costRef.current) {
+      totalFeeRef.current.value = total;
+      costRef.current.innerHTML = total;
+    }
+  }, [
+    adults, bigKids, smallKids,
+    adultMemberFee, juniorMemberFee,
+    adultNonMemberFee, juniorNonMemberFee,
+    smallKidsFee, // added to deps
+    isBMorGM, isJM
+  ]);
 
   function validateMember(e) {
     e.preventDefault();
-    const memberIdInput = document.getElementById("memberId");
-    const enteredMemberId = memberIdInput ? memberIdInput.value : "";
 
-    // console.log(members.ids);
-    setValidMember(members.ids.includes(enteredMemberId));
-    console.log(members.ids.includes(enteredMemberId));
-    setMemberName(members.names[members.ids.indexOf(enteredMemberId)]); // need to update it.
-    console.log(members.names[members.ids.indexOf(enteredMemberId)]);
-    // console.log(isValidMember);
+    const memberIndex = members.ids.indexOf(enteredMemberId);
+    const isValid = memberIndex !== -1;
 
-    console.log("Entered Member ID:", enteredMemberId);
-    console.log("Type of enteredMemberId:", typeof enteredMemberId);
-    console.log("Form Event", e);
+    setValidMember(isValid);
 
-    // clear form
-    // document.getElementById('picnicform').reset();
-    // Reset form data
-    setAdults([]);
-    setNumberOfAdults(0);
-    setBigKids([]);
-    setNumberOfBigKids(0);
-    setSmallKids([]);
-    setNumberOfSmallKids(0);
-    // members.ids.map()
+    if (isValid) {
+      setMemberName(members.names[memberIndex]);
+    } else {
+      setMemberName("");
+      setAdults([]);
+      setNumberOfAdults(0);
+      setBigKids([]);
+      setNumberOfBigKids(0);
+      setSmallKids([]);
+      setNumberOfSmallKids(0);
+    }
   }
 
   useEffect(() => {
@@ -257,8 +275,10 @@ function RegisterToPicnic() {
       setNumberOfAdults(prev => (prev === 0 ? 1 : prev));
       setAdults(prev => {
         const base = prev.length === 0
-          ? [{ id: "Adult1", age: "13+", name: memberName }]
-          : prev.map((a, i) => i === 0 ? { ...a, name: memberName } : a);
+          ? [{ id: "Adult1", age: "13+", name: memberName, memberId: enteredMemberId, memberType: "adult_member" }]
+          : prev.map((a, i) => i === 0
+            ? { ...a, name: memberName, memberId: enteredMemberId, memberType: "adult_member" }
+            : a);
         return base;
       });
     }
@@ -266,8 +286,10 @@ function RegisterToPicnic() {
       setNumberOfBigKids(prev => (prev === 0 ? 1 : prev));
       setBigKids(prev => {
         const base = prev.length === 0
-          ? [{ id: "BigKid1", age: "3+", name: memberName }]
-          : prev.map((a, i) => i === 0 ? { ...a, name: memberName } : a);
+          ? [{ id: "BigKid1", age: "3+", name: memberName, memberId: enteredMemberId, memberType: "junior_member" }]
+          : prev.map((a, i) => i === 0
+            ? { ...a, name: memberName, memberId: enteredMemberId, memberType: "junior_member" }
+            : a);
         return base;
       });
     }
@@ -284,7 +306,7 @@ function RegisterToPicnic() {
 
     axios.post(url, formData)
       .then(response => {
-        console.log(response.data)
+        console.log(response.data);
         if (Array.isArray(response.data) && response.data[0] === "successful") {
           formData.append("Code", response.data[1]);
           sendEmail(formData);
@@ -299,28 +321,28 @@ function RegisterToPicnic() {
       }).catch(error => setResponse(error));
   }
 
-
   const adjustPrice = (vehicle) => {
     console.log("Selected vehicle:", vehicle);
     if (vehicle === "Car") {
-      console.log(vehicle);
-      setAdultsFee(adultsFeeInCar);
-      setBigKidsFee(bigKidsFeeInCar);
-      setSmallKidsFee(smallKidsFeeInCar);
+      setAdultMemberFee(adultMemberFeeInCar);         // 360kr
+      setJuniorMemberFee(juniorMemberFeeInCar);       // 280kr
+      setAdultNonMemberFee(adultNonMemberFeeInCar);   // 390kr
+      setJuniorNonMemberFee(juniorNonMemberFeeInCar); // 290kr
+      setSmallKidsFee(smallKidsFeeInCar);             // 0kr
     } else {
-      console.log(vehicle);
-      setAdultsFee(adultsFeeInBus);
-      setBigKidsFee(bigKidsFeeInBus);
-      setSmallKidsFee(smallKidsFeeInBus);
+      setAdultMemberFee(adultMemberFeeInBus);         // 430kr
+      setJuniorMemberFee(juniorMemberFeeInBus);       // 350kr
+      setAdultNonMemberFee(adultNonMemberFeeInBus);   // 475kr
+      setJuniorNonMemberFee(juniorNonMemberFeeInBus); // 375kr
+      setSmallKidsFee(smallKidsFeeInBus);             // 0kr
     }
-  }
+  };
 
   const sendEmail = (fData) => {
     fData.append('request', 'picnicRegistrationEmail');
     axios.post(apiUrl, fData)
       .then(response => {
         console.log(response.data);
-        //setClearForm(true);
         setTitle("Registration Completed");
         setMessage(response.data);
         setModalShow(true);
@@ -330,58 +352,54 @@ function RegisterToPicnic() {
         setTitle("Failed to Register");
         setMessage(error);
         setModalShow(true);
-      })
-    //alert(error));
-    // if (clearForm === true) {
-    //   document.getElementById("picnicForm").reset();
-    // }
-  }
-
+      });
+  };
+    
   const handleNumberForParticipent = (number, catgo) => {
-    // console.log("Date Exired:", registrationDateExpired);
-    console.log("Number: ", number);
+    // console.log("Number: ", number);
     let count = parseInt(number, 10) || 0;
-    // setPlayerData(count);
-    // console.log("count: ", count);
-
+ 
     if (catgo === "Adult" && isBMorGM) count = Math.max(1, count);
     if (catgo === "BigKid" && isJM) count = Math.max(1, count);
-
-    const updatedParticipents =
-      catgo === "SmallKid"
-        ? Array.from({ length: count }, (_, index) => ({
-          id: `${catgo}${index + 1}`,
-          age: "<=3",
-          name: "",
-        }))
-        : catgo === "BigKid"
-          ? Array.from({ length: count }, (_, index) => ({
-            id: `${catgo}${index + 1}`,
-            age: "3+",
-            name: index === 0 && isJM ? memberName : "",
-          }))
-          : Array.from({ length: count }, (_, index) => ({
-            id: `${catgo}${index + 1}`,
-            age: "13+",
-            name: index === 0 && isBMorGM ? memberName : "",
-          }));
-
+ 
     if (catgo === "Adult") {
       setNumberOfAdults(count);
-      console.log(updatedParticipents);
-      setAdults(updatedParticipents);
+      setAdults(prev => Array.from({ length: count }, (_, index) => {
+        if (prev[index]) return prev[index];
+        return {
+          id: `Adult${index + 1}`,
+          age: "13+",
+          name: index === 0 && isBMorGM ? memberName : "",
+          memberId: index === 0 && isBMorGM ? enteredMemberId : "",
+          memberType: index === 0 && isBMorGM ? "adult_member" : "non_member",
+        };
+      }));
     } else if (catgo === "BigKid") {
       setNumberOfBigKids(count);
-      setBigKids(updatedParticipents);
+      setBigKids(prev => Array.from({ length: count }, (_, index) => {
+        if (prev[index]) return prev[index];
+        return {
+          id: `BigKid${index + 1}`,
+          age: "3+",
+          name: index === 0 && isJM ? memberName : "",
+          memberId: index === 0 && isJM ? enteredMemberId : "",
+          memberType: index === 0 && isJM ? "junior_member" : "non_member",
+        };
+      }));
     } else {
       setNumberOfSmallKids(count);
-      setSmallKids(updatedParticipents);
+      setSmallKids(prev => Array.from({ length: count }, (_, index) => {
+        if (prev[index]) return prev[index];
+        return {
+          id: `SmallKid${index + 1}`,
+          age: "<=3",
+          name: "",
+          memberId: "",
+          memberType: "free",
+        };
+      }));
     }
-  }
-
-  // const handleIfMember = (isMember) => {
-  //   isMember
-  // }
+  };
 
   return (
     <div className="picnic">
@@ -390,7 +408,9 @@ function RegisterToPicnic() {
         <img src={banner} className="img-fluid" />
       </div>
       <div className="mt-1 p-2 rounded bg-dark">
-        {registrationOpenDateForMembersOnly &&
+
+        {/* Validation form — stays visible during members-only period */}
+        {registrationOpenDateForMembersOnly && (
           <form className="needs-validation" id="validationForm" onSubmit={(e) => validateMember(e)}>
             <div className="form-check">
               <label className="form-check-label me-3 mb-2" htmlFor="">
@@ -398,14 +418,15 @@ function RegisterToPicnic() {
               </label>
               <select className="custom-select" onChange={(event) => {
                 setIsMember(event.target.value);
-                setValidMember(false);
+                setValidMember(null); //  null to reset cleanly
+                setEnteredMemberId(""); //  clear ID on dropdown change
               }}>
-                <option value="no" selected>No</option>
+                <option value="no" defaultValue>No</option>
                 <option value="yes">Yes</option>
               </select>
-              {isMember === "yes" &&
+              {isMember === "yes" && (
                 <div>
-                  <label className="form-check-label me-1" htmlFor="swish">
+                  <label className="form-check-label me-1" htmlFor="memberId">
                     Enter your member ID:
                   </label>
                   <input
@@ -415,12 +436,10 @@ function RegisterToPicnic() {
                     value={enteredMemberId}
                     onChange={(e) => {
                       setEnteredMemberId(e.target.value);
-                      setValidMember(null);
+                      setValidMember(null); // reset to null while typing
                     }}
                     required
                   />
-
-                  {/* Add this line right after the input */}
                   {validMember === false && (
                     <p className="text-danger mt-1">
                       ❌ Member ID <strong>{enteredMemberId}</strong> is not valid. Please check and try again.
@@ -431,22 +450,20 @@ function RegisterToPicnic() {
                       ✓ Welcome <strong>{memberName}</strong>!
                     </p>
                   )}
-                  {/* Submit button inside member condition */}
                   <div className="mt-2 mb-3">
-                    <button type="submit" className="btn btn-info">
-                      Validate
-                    </button>
+                    <button type="submit" className="btn btn-info">Validate</button>
                   </div>
                 </div>
-              }
+              )}
             </div>
           </form>
-        }
+        )}
+
         {error ? (
           <div className="text-center text-white my-5">Error: {error}</div>
 
         ) : (loading || loadFormInput || loadMembersData || loadMembersInput) ? (
-          <div className="text-center text-white my-5">Please wait while loading internally...</div>
+          <div className="text-center text-white my-5">Please wait while loading...</div>
 
         ) : (!registrationOpenDateForMembersOnly && !registrationAvailable) ? (
           <div className="text-center text-white my-5">
@@ -457,58 +474,80 @@ function RegisterToPicnic() {
           <div className="text-center text-white my-5">
             All seats are fully booked. Please contact us for further information.
           </div>
-        ) : (registrationAvailable || (registrationOpenDateForMembersOnly && validMember)) ?
-          (<form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
+
+        ) : (registrationAvailable || (registrationOpenDateForMembersOnly && validMember === true)) ? (
+          <form className="needs-validation" id="picnicForm" onSubmit={(e) => Submit(e)}>
+
+            {/* Transport */}
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-              <div className="form-group input-group  mb-3">
+              <div className="form-group input-group mb-3">
                 <i className="bi bi-bus-front-fill me-2"></i>
-                <span className="input-group-text me-1" style={{ width: "120px" }}>Prefered Transport: </span>
+                <span className="input-group-text me-1" style={{ width: "120px" }}>Preferred Transport:</span>
                 <div className="form-check me-1">
-                  <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
+                  <input className="form-check-input" type="radio" name="Busstop" value="Sollentuna" id="busstop1"
+                    onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
                   <label className="form-check-label" htmlFor="busstop1">
                     Bus from {busStops?.[0]}
                   </label>
                 </div>
                 <div className="form-check me-1">
-                  <input className="form-check-input" type="radio" name="Busstop" value="Kungens Kurva" id="busstop2" onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
+                  <input className="form-check-input" type="radio" name="Busstop" value="Kungens Kurva" id="busstop2"
+                    onChange={(event) => adjustPrice(event.target.value)} required disabled={busSeatsFilled >= maxBusSeats} />
                   <label className="form-check-label" htmlFor="busstop2">
                     Bus from {busStops?.[1]}
                   </label>
                 </div>
-                {acceptCar &&
+                {acceptCar && (
                   <div className="form-check me-1">
-                    <input className="form-check-input" type="radio" name="Busstop" value="Car" id="busstop3" onChange={(event) => adjustPrice(event.target.value)} required disabled={carSeatsFilled >= maxCarSeats} />
-                    <label className="form-check-label" htmlFor="busstop3">
-                      Own Car
-                    </label>
+                    <input className="form-check-input" type="radio" name="Busstop" value="Car" id="busstop3"
+                      onChange={(event) => adjustPrice(event.target.value)} required disabled={carSeatsFilled >= maxCarSeats} />
+                    <label className="form-check-label" htmlFor="busstop3">Own Car</label>
                   </div>
-                }
+                )}
               </div>
             </div>
+
+            {/* Adults (12+) */}
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex mb-3 input-group border-bottom pb-1">
                 <i className="bi bi-people-fill me-2"></i>
-                <span className="input-group-text"> Number of {maxBigKidsAge}+ old</span>
-                <select className="custom-select" onChange={(event) => handleNumberForParticipent(event.target.value, "Adult")}>
-                  {!isBMorGM && <option value="0" selected>0</option>}
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                <span className="input-group-text">Number of {maxBigKidsAge}+ old</span>
+                <select className="custom-select" value={numberOfAdults}
+                  onChange={(event) => handleNumberForParticipent(event.target.value, "Adult")}>
+                  {!isBMorGM && <option value="0">0</option>}
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => <option key={n} value={n}>{n}</option>)}
                 </select>
-                <p className="ms-2">({adultsFee}kr/adult)</p>
+                <p className="ms-2 small text-white-50">
+                  Adult member: {adultMemberFee}kr &nbsp;|&nbsp;
+                  {/* Junior member: {juniorMemberFee}kr &nbsp;|&nbsp; */}
+                  Non-member: {adultNonMemberFee}kr
+                </p>
               </div>
               <div id="adultContainer">
                 {adults.map((adult, adultIndex) => {
-                  // console.log(adult);
-                  // console.log(adultIndex);
                   const isLockedSlot = adultIndex === 0 && isBMorGM;
+
+                  const personFee = getFeeForPerson(
+                    isLockedSlot ? "adult_member" : (adult.memberType || "non_member"),
+                    "Adult"
+                  );
+
+                  const handleMemberIdChange = (e) => {
+                    const enteredId = e.target.value;
+                    const memberIndex = members?.ids.indexOf(enteredId);
+                    const isValid = memberIndex !== -1 && enteredId !== "";
+                    const memberType = isValid ? getMemberType(enteredId) : "non_member";
+
+                    setAdults(prev => prev.map((a, i) =>
+                      i === adultIndex ? {
+                        ...a,
+                        memberId: enteredId,
+                        name: isValid ? members.names[memberIndex] : a.name,
+                        memberType: memberType, // stores type not just boolean
+                      } : a
+                    ));
+                  };
+
                   return (
                     <div key={adultIndex}>
                       <div className="input-group mb-3">
@@ -520,148 +559,185 @@ function RegisterToPicnic() {
                           type="text"
                           name={adult.id}
                           id={adult.id}
-                          value={isLockedSlot ? memberName : undefined}
-                          onChange={isLockedSlot ? () => { } : undefined}
+                          value={isLockedSlot ? memberName : (adult.name || "")}
+                          onChange={isLockedSlot ? () => { } : (e) =>
+                            setAdults(prev => prev.map((a, i) =>
+                              i === adultIndex ? { ...a, name: e.target.value } : a
+                            ))
+                          }
                           disabled={isLockedSlot}
                           style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
-                          required>
-                        </input>
+                          required
+                        />
                         <input
                           className="form-control ms-2"
                           placeholder="Member ID (optional)"
                           type="text"
                           name={`${adult.id}_MemberId`}
                           id={`${adult.id}_MemberId`}
-                          defaultValue={isLockedSlot ? enteredMemberId : ""}
+                          value={isLockedSlot ? enteredMemberId : (adult.memberId || "")}
                           disabled={isLockedSlot}
                           style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
+                          onChange={isLockedSlot ? () => { } : handleMemberIdChange}
                         />
+                        <span className="input-group-text ms-1">{personFee} kr</span>
                       </div>
-
                     </div>
-                  )
+                  );
                 })}
               </div>
             </div>
+
+            {/* Big Kids (4–12) */}
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="d-flex input-group mb-3 border-bottom pb-1">
                 <i className="bi bi-person-standing me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids between {maxSmallKidsAge} to {maxBigKidsAge} years old</span>
-                <select className="custom-select" onChange={(event) => handleNumberForParticipent(event.target.value, "BigKid")}>
-                  {!isJM && <option value="0" selected>0</option>}
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+                <span className="input-group-text text-wrap">
+                  Number of kids between {maxSmallKidsAge} to {maxBigKidsAge} years old
+                </span>
+                <select className="custom-select" value={numberOfBigkids}
+                  onChange={(event) => handleNumberForParticipent(event.target.value, "BigKid")}>
+                  {!isJM && <option value="0">0</option>}
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => <option key={n} value={n}>{n}</option>)}
                 </select>
-                <p className="ms-2">({bigKidsFee}kr/child)</p>
+                <p className="ms-2 small text-white-50">
+                  Junior member: {juniorMemberFee}kr &nbsp;|&nbsp;
+                  Non-member: {juniorNonMemberFee}kr
+                </p>
               </div>
               <div id="bigKidContainer">
                 {bigKids.map((bigKid, bigKidIndex) => {
-                  // console.log(bigKid.id);
                   const isLockedSlot = bigKidIndex === 0 && isJM;
+
+                  const personFee = getFeeForPerson(
+                    isLockedSlot ? "junior_member" : (bigKid.memberType || "non_member"),
+                    "BigKid"
+                  );
+                  
+                  const handleMemberIdChange = (e) => {
+                    const enteredId = e.target.value;
+                    const memberIndex = members?.ids.indexOf(enteredId);
+                    const isValidJM = memberIndex !== -1 && enteredId !== "" && enteredId.startsWith("JM");
+                    const memberType = isValidJM ? "junior_member" : "non_member";
+
+                    setBigKids(prev => prev.map((a, i) =>
+                      i === bigKidIndex ? {
+                        ...a,
+                        memberId: enteredId,
+                        name: isValidJM ? members.names[memberIndex] : a.name,
+                        memberType: memberType,
+                      } : a
+                    ));
+                  };
+
                   return (
                     <div key={bigKidIndex}>
                       <div className="input-group mb-3">
                         <i className="bi bi-person-fill me-2"></i>
-                        <span className="input-group-text">{bigKid.id}</span>
+                        <span className="input-group-text">{bigKid.id}</span>                        
                         <input
                           className="form-control"
                           placeholder="Full Name"
                           type="text"
                           name={bigKid.id}
                           id={bigKid.id}
-                          value={isLockedSlot ? memberName : undefined}
-                          onChange={isLockedSlot ? () => { } : undefined}
+                          value={isLockedSlot ? memberName : (bigKid.name || "")}
+                          onChange={isLockedSlot ? () => { } : (e) =>
+                            setBigKids(prev => prev.map((a, i) =>
+                              i === bigKidIndex ? { ...a, name: e.target.value } : a
+                            ))
+                          }
                           disabled={isLockedSlot}
                           style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
-                          required>
-                        </input>
+                          required
+                        />                       
                         <input
                           className="form-control ms-2"
                           placeholder="Member ID (optional)"
                           type="text"
-                          name={`${bigKids.id}_MemberId`}
-                          id={`${bigKids.id}_MemberId`}
-                          defaultValue={isLockedSlot ? enteredMemberId : ""}
+                          name={`${bigKid.id}_MemberId`}
+                          id={`${bigKid.id}_MemberId`}
+                          value={isLockedSlot ? enteredMemberId : (bigKid.memberId || "")}
                           disabled={isLockedSlot}
                           style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
+                          onChange={isLockedSlot ? () => { } : handleMemberIdChange}
                         />
+                        <span className="input-group-text ms-1">{personFee} kr</span>
                       </div>
                     </div>
-                  )
-                })}
-              </div>
-            </div>
-            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-              <div className="input-group  mb-3 border-bottom pb-1">
-                <i className="bi bi-person-arms-up me-2"></i>
-                <span className="input-group-text text-wrap"> Number of kids under {maxSmallKidsAge} years old</span>
-                <select className="custom-select" onChange={(event) => handleNumberForParticipent(event.target.value, "SmallKid")}>
-                  <option value="0" selected>0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
-                </select>
-                <p className="ms-2">({smallKidsFee}kr/child)</p>
-              </div>
-              <div id="smallKidContainer">
-                {smallKids.map((smallKid, smallKidIndex) => {
-                  // console.log(smallKid);
-                  return (
-                    <div key={smallKidIndex}>
-                      <div className="input-group mb-3">
-                        <i className="bi bi-person-fill me-2"></i>
-                        <span className="input-group-text">{smallKid.id}</span>
-                        <input
-                          className="form-control"
-                          placeholder="Full Name"
-                          type="text" name={smallKid.id}
-                          id={smallKid.id}
-                          required></input>
-                      </div>
-                    </div>
-                  )
+                  );
                 })}
               </div>
             </div>
 
+            {/* Small Kids (under 4) — fee from DB, currently 0kr */}
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-              <div className="form-group input-group  mb-3">
+              <div className="input-group mb-3 border-bottom pb-1">
+                <i className="bi bi-person-arms-up me-2"></i>
+                <span className="input-group-text text-wrap">
+                  Number of kids under {maxSmallKidsAge} years old
+                </span>
+                <select className="custom-select"
+                  onChange={(event) => handleNumberForParticipent(event.target.value, "SmallKid")}>
+                  {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => <option key={n} value={n}>{n}</option>)}
+                </select>              
+                <p className="ms-2 small text-white-50">
+                  Bus: {smallKidsFeeInBus === 0 ? "Free" : `${smallKidsFeeInBus}kr`} &nbsp;|&nbsp;
+                  Car: {smallKidsFeeInCar === 0 ? "Free" : `${smallKidsFeeInCar}kr`}
+                </p>
+              </div>
+              <div id="smallKidContainer">
+                {smallKids.map((smallKid, smallKidIndex) => (
+                  <div key={smallKidIndex}>
+                    <div className="input-group mb-3">
+                      <i className="bi bi-person-fill me-2"></i>
+                      <span className="input-group-text">{smallKid.id}</span>
+                      <input
+                        className="form-control"
+                        placeholder="Full Name"
+                        type="text"
+                        name={smallKid.id}
+                        id={smallKid.id}
+                        required
+                      />                      
+                      <span className="input-group-text ms-1">
+                        {smallKidsFee === 0 ? "Free" : `${smallKidsFee} kr`}
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Email */}
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="form-group input-group mb-3">
                 <i className="bi bi-envelope-fill me-2"></i>
                 <span className="input-group-text" style={{ width: "80px" }}>Email</span>
                 <input Name="Email" className="form-control" placeholder="Email address" type="email" required />
               </div>
             </div>
+
+            {/* Phone */}
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-              <div className="form-group input-group  mb-3">
+              <div className="form-group input-group mb-3">
                 <i className="bi bi-telephone-fill me-2"></i>
                 <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
                 <input Name="Phone" className="form-control" placeholder="Phone number" type="text" required />
               </div>
             </div>
 
+            {/* Total Fee */}
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
-              <div className="form-group input-group ">
-                <p className="mx-2">Total fee:</p>
+              <div className="form-group input-group">
+                <p className="mx-2">Total fee:</p>                
                 <p className="p" Name="Cost" id="cost" ref={costRef}></p>
                 <p>kr</p>
               </div>
               <input type="hidden" Name="Cost" id="totalFee" ref={totalFeeRef} />
             </div>
+
+            {/* Swish */}
             <div className="mt-2 rounded border p-2">
               <div className="form-check">
                 <input className="form-check-input" type="checkbox" Name="Swish" id="swish" required />
@@ -671,12 +747,14 @@ function RegisterToPicnic() {
                 <span id="swishTo" className="swishto ms-2 h9"></span>
               </div>
             </div>
+
             <div className="form-group mt-3">
-              <button type="submit" id="register" className="btn btn-primary btn-block"> Register</button>
+              <button type="submit" id="register" className="btn btn-primary btn-block">Register</button>
             </div>
           </form>
-          ) : null}
+        ) : null}
       </div>
+
       <Notification
         show={modalShow}
         onHide={() => setModalShow(false)}
@@ -686,7 +764,5 @@ function RegisterToPicnic() {
     </div>
   );
 }
-
-
 
 export default RegisterToPicnic;
