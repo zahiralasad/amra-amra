@@ -30,7 +30,8 @@ function RegisterToPicnic() {
   const [seatsFilled, setSeatsFilled] = useState(false);
   const [modalShow, setModalShow] = useState(false);
 
-  const url = 'https://script.google.com/macros/s/AKfycbwDEhysFSGZ-0Ry5VuEBVlht2riKJwcJdumz9tLL_ADPtQuXS5z5yswg6s4RzYJZNhy/exec';
+  // const url = 'https://script.google.com/macros/s/AKfycbwDEhysFSGZ-0Ry5VuEBVlht2riKJwcJdumz9tLL_ADPtQuXS5z5yswg6s4RzYJZNhy/exec';
+  const url = 'https://script.google.com/macros/s/AKfycby49e6NRCFUy4pGadoI1DRaNdaRKtypr5c3QRrIlsQ3ta3fkpqbU83hcC-T_u90cr-_/exec';
   const dataUrl = "https://amra-amra.se/db/";
   const memberUrl = "https://script.google.com/macros/s/AKfycbw3zL12yxAeHhFubKpPNm2DXIeINp7_RZYPij4oKjiBzRUuY6aVEFFUCdBQugIeUsMljg/exec";
   const apiUrl = "https://amra-amra.se/emailApi/";
@@ -252,6 +253,8 @@ function RegisterToPicnic() {
   function validateMember(e) {
     e.preventDefault();
 
+    if (!members) return; // ✅ guard — members not loaded yet
+
     const memberIndex = members.ids.indexOf(enteredMemberId);
     const isValid = memberIndex !== -1;
 
@@ -269,6 +272,35 @@ function RegisterToPicnic() {
       setNumberOfSmallKids(0);
     }
   }
+  const resetForm = () => {
+    // Reset validation form back to initial "Are you a member?" state
+    setIsMember(null);
+    setValidMember(null);
+    setEnteredMemberId("");
+    setMemberName("");
+
+    // Reset participant arrays and counts
+    setAdults([]);
+    setNumberOfAdults(0);
+    setBigKids([]);
+    setNumberOfBigKids(0);
+    setSmallKids([]);
+    setNumberOfSmallKids(0);
+
+    // Reset fees back to bus defaults
+    setAdultMemberFee(adultMemberFeeInBus);
+    setJuniorMemberFee(juniorMemberFeeInBus);
+    setAdultNonMemberFee(adultNonMemberFeeInBus);
+    setJuniorNonMemberFee(juniorNonMemberFeeInBus);
+    setSmallKidsFee(smallKidsFeeInBus);
+
+    // Reset total fee display
+    if (totalFeeRef.current) totalFeeRef.current.value = 0;
+    if (costRef.current) costRef.current.innerHTML = 0;
+
+    document.getElementById("validationForm")?.reset(); // ✅ resets validation form
+    document.getElementById("picnicForm")?.reset();
+  };
 
   useEffect(() => {
     if (isBMorGM && memberName) {
@@ -286,7 +318,7 @@ function RegisterToPicnic() {
       setNumberOfBigKids(prev => (prev === 0 ? 1 : prev));
       setBigKids(prev => {
         const base = prev.length === 0
-          ? [{ id: "BigKid1", age: "3+", name: memberName, memberId: enteredMemberId, memberType: "junior_member" }]
+          ? [{ id: "Junior1", age: "3+", name: memberName, memberId: enteredMemberId, memberType: "junior_member" }]
           : prev.map((a, i) => i === 0
             ? { ...a, name: memberName, memberId: enteredMemberId, memberType: "junior_member" }
             : a);
@@ -297,12 +329,18 @@ function RegisterToPicnic() {
 
 
   function Submit(e) {
-    document.getElementById("register").disabled = true;
-    const formElm = document.querySelector('form');
     e.preventDefault();
-    const formData = new FormData(formElm);
-    formData.append("Date", today.toLocaleDateString());
+    document.getElementById("register").disabled = true;
+
+    // const formElm = document.querySelector('picnicForm'); // instead using e.target, since its returning null
+    const formData = new FormData(e.target); // e.target alwasy refers to the form that triggered the submit event. 
+    formData.append("Date", new Date(today).toLocaleDateString());
     formData.append("request", "picnic");
+    formData.append("Prefix", prefix);
+
+    for (let pair of formData.entries()) {
+      console.log(pair[0] + ': ' + pair[1]);
+    }
 
     axios.post(url, formData)
       .then(response => {
@@ -311,7 +349,11 @@ function RegisterToPicnic() {
           formData.append("Code", response.data[1]);
           sendEmail(formData);
           document.getElementById("register").disabled = false;
-          document.getElementById("picnicForm").reset();
+          // document.getElementById("picnicForm").reset();          
+          // document.getElementById("validationForm")?.reset(); // ✅ resets validation form
+          // document.getElementById("picnicForm")?.reset();
+          e.target.reset();
+          resetForm();
         } else {
           setTitle("Warning");
           setMessage(JSON.stringify(response.data));
@@ -354,14 +396,14 @@ function RegisterToPicnic() {
         setModalShow(true);
       });
   };
-    
+
   const handleNumberForParticipent = (number, catgo) => {
     // console.log("Number: ", number);
     let count = parseInt(number, 10) || 0;
- 
+
     if (catgo === "Adult" && isBMorGM) count = Math.max(1, count);
     if (catgo === "BigKid" && isJM) count = Math.max(1, count);
- 
+
     if (catgo === "Adult") {
       setNumberOfAdults(count);
       setAdults(prev => Array.from({ length: count }, (_, index) => {
@@ -379,7 +421,7 @@ function RegisterToPicnic() {
       setBigKids(prev => Array.from({ length: count }, (_, index) => {
         if (prev[index]) return prev[index];
         return {
-          id: `BigKid${index + 1}`,
+          id: `Junior${index + 1}`,
           age: "3+",
           name: index === 0 && isJM ? memberName : "",
           memberId: index === 0 && isJM ? enteredMemberId : "",
@@ -391,7 +433,7 @@ function RegisterToPicnic() {
       setSmallKids(prev => Array.from({ length: count }, (_, index) => {
         if (prev[index]) return prev[index];
         return {
-          id: `SmallKid${index + 1}`,
+          id: `Kid${index + 1}`,
           age: "<=3",
           name: "",
           memberId: "",
@@ -416,11 +458,13 @@ function RegisterToPicnic() {
               <label className="form-check-label me-3 mb-2" htmlFor="">
                 Are you a MEMBER?
               </label>
-              <select className="custom-select" onChange={(event) => {
-                setIsMember(event.target.value);
-                setValidMember(null); //  null to reset cleanly
-                setEnteredMemberId(""); //  clear ID on dropdown change
-              }}>
+              <select className="custom-select"
+                value={isMember ?? "no"}
+                onChange={(event) => {
+                  setIsMember(event.target.value);
+                  setValidMember(null); //  null to reset cleanly
+                  setEnteredMemberId(""); //  clear ID on dropdown change
+                }}>
                 <option value="no" defaultValue>No</option>
                 <option value="yes">Yes</option>
               </select>
@@ -527,6 +571,8 @@ function RegisterToPicnic() {
                 {adults.map((adult, adultIndex) => {
                   const isLockedSlot = adultIndex === 0 && isBMorGM;
 
+                  const nameIsLocked = isLockedSlot || adult.memberType === "adult_member";
+
                   const personFee = getFeeForPerson(
                     isLockedSlot ? "adult_member" : (adult.memberType || "non_member"),
                     "Adult"
@@ -535,15 +581,17 @@ function RegisterToPicnic() {
                   const handleMemberIdChange = (e) => {
                     const enteredId = e.target.value;
                     const memberIndex = members?.ids.indexOf(enteredId);
-                    const isValid = memberIndex !== -1 && enteredId !== "";
-                    const memberType = isValid ? getMemberType(enteredId) : "non_member";
+
+                    const isValidAdult = memberIndex !== -1 && enteredId !== "" &&
+                      (enteredId.startsWith("BM") || enteredId.startsWith("M"));
+                    const memberType = isValidAdult ? "adult_member" : "non_member";
 
                     setAdults(prev => prev.map((a, i) =>
                       i === adultIndex ? {
                         ...a,
                         memberId: enteredId,
-                        name: isValid ? members.names[memberIndex] : a.name,
-                        memberType: memberType, // stores type not just boolean
+                        name: isValidAdult ? members.names[memberIndex] : "",
+                        memberType: memberType,
                       } : a
                     ));
                   };
@@ -560,12 +608,12 @@ function RegisterToPicnic() {
                           name={adult.id}
                           id={adult.id}
                           value={isLockedSlot ? memberName : (adult.name || "")}
-                          onChange={isLockedSlot ? () => { } : (e) =>
+                          onChange={nameIsLocked ? () => { } : (e) =>
                             setAdults(prev => prev.map((a, i) =>
                               i === adultIndex ? { ...a, name: e.target.value } : a
                             ))
                           }
-                          disabled={isLockedSlot}
+                          readOnly={nameIsLocked}
                           style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
                           required
                         />
@@ -576,7 +624,7 @@ function RegisterToPicnic() {
                           name={`${adult.id}_MemberId`}
                           id={`${adult.id}_MemberId`}
                           value={isLockedSlot ? enteredMemberId : (adult.memberId || "")}
-                          disabled={isLockedSlot}
+                          readOnly={isLockedSlot}
                           style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
                           onChange={isLockedSlot ? () => { } : handleMemberIdChange}
                         />
@@ -609,11 +657,13 @@ function RegisterToPicnic() {
                 {bigKids.map((bigKid, bigKidIndex) => {
                   const isLockedSlot = bigKidIndex === 0 && isJM;
 
+                  const nameIsLocked = isLockedSlot || bigKid.memberType === "junior_member";
+
                   const personFee = getFeeForPerson(
                     isLockedSlot ? "junior_member" : (bigKid.memberType || "non_member"),
                     "BigKid"
                   );
-                  
+
                   const handleMemberIdChange = (e) => {
                     const enteredId = e.target.value;
                     const memberIndex = members?.ids.indexOf(enteredId);
@@ -624,7 +674,7 @@ function RegisterToPicnic() {
                       i === bigKidIndex ? {
                         ...a,
                         memberId: enteredId,
-                        name: isValidJM ? members.names[memberIndex] : a.name,
+                        name: isValidJM ? members.names[memberIndex] : "",
                         memberType: memberType,
                       } : a
                     ));
@@ -634,7 +684,7 @@ function RegisterToPicnic() {
                     <div key={bigKidIndex}>
                       <div className="input-group mb-3">
                         <i className="bi bi-person-fill me-2"></i>
-                        <span className="input-group-text">{bigKid.id}</span>                        
+                        <span className="input-group-text">{bigKid.id}</span>
                         <input
                           className="form-control"
                           placeholder="Full Name"
@@ -642,15 +692,15 @@ function RegisterToPicnic() {
                           name={bigKid.id}
                           id={bigKid.id}
                           value={isLockedSlot ? memberName : (bigKid.name || "")}
-                          onChange={isLockedSlot ? () => { } : (e) =>
+                          onChange={nameIsLocked ? () => { } : (e) =>
                             setBigKids(prev => prev.map((a, i) =>
                               i === bigKidIndex ? { ...a, name: e.target.value } : a
                             ))
                           }
-                          disabled={isLockedSlot}
+                          readOnly={nameIsLocked}
                           style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
                           required
-                        />                       
+                        />
                         <input
                           className="form-control ms-2"
                           placeholder="Member ID (optional)"
@@ -658,7 +708,7 @@ function RegisterToPicnic() {
                           name={`${bigKid.id}_MemberId`}
                           id={`${bigKid.id}_MemberId`}
                           value={isLockedSlot ? enteredMemberId : (bigKid.memberId || "")}
-                          disabled={isLockedSlot}
+                          readOnly={isLockedSlot}
                           style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
                           onChange={isLockedSlot ? () => { } : handleMemberIdChange}
                         />
@@ -680,7 +730,7 @@ function RegisterToPicnic() {
                 <select className="custom-select"
                   onChange={(event) => handleNumberForParticipent(event.target.value, "SmallKid")}>
                   {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => <option key={n} value={n}>{n}</option>)}
-                </select>              
+                </select>
                 <p className="ms-2 small text-white-50">
                   Bus: {smallKidsFeeInBus === 0 ? "Free" : `${smallKidsFeeInBus}kr`} &nbsp;|&nbsp;
                   Car: {smallKidsFeeInCar === 0 ? "Free" : `${smallKidsFeeInCar}kr`}
@@ -699,7 +749,7 @@ function RegisterToPicnic() {
                         name={smallKid.id}
                         id={smallKid.id}
                         required
-                      />                      
+                      />
                       <span className="input-group-text ms-1">
                         {smallKidsFee === 0 ? "Free" : `${smallKidsFee} kr`}
                       </span>
@@ -714,7 +764,7 @@ function RegisterToPicnic() {
               <div className="form-group input-group mb-3">
                 <i className="bi bi-envelope-fill me-2"></i>
                 <span className="input-group-text" style={{ width: "80px" }}>Email</span>
-                <input Name="Email" className="form-control" placeholder="Email address" type="email" required />
+                <input name="Email" className="form-control" placeholder="Email address" type="email" required />
               </div>
             </div>
 
@@ -723,24 +773,24 @@ function RegisterToPicnic() {
               <div className="form-group input-group mb-3">
                 <i className="bi bi-telephone-fill me-2"></i>
                 <span className="input-group-text" style={{ width: "80px" }}>Phone</span>
-                <input Name="Phone" className="form-control" placeholder="Phone number" type="text" required />
+                <input name="Phone" className="form-control" placeholder="Phone number" type="text" required />
               </div>
             </div>
 
             {/* Total Fee */}
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
               <div className="form-group input-group">
-                <p className="mx-2">Total fee:</p>                
-                <p className="p" Name="Cost" id="cost" ref={costRef}></p>
+                <p className="mx-2">Total fee:</p>
+                <p className="p" name="Cost" id="cost" ref={costRef}></p>
                 <p>kr</p>
               </div>
-              <input type="hidden" Name="Cost" id="totalFee" ref={totalFeeRef} />
+              <input type="hidden" name="Cost" id="totalFee" ref={totalFeeRef} />
             </div>
 
             {/* Swish */}
             <div className="mt-2 rounded border p-2">
               <div className="form-check">
-                <input className="form-check-input" type="checkbox" Name="Swish" id="swish" required />
+                <input className="form-check-input" type="checkbox" name="Swish" id="swish" required />
                 <label className="form-check-label" htmlFor="swish">
                   I have swished to 1230432419
                 </label>
