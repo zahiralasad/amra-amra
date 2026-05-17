@@ -790,6 +790,27 @@ function RegisterToPicnic() {
             {/* Swish */}
             <div className="mt-2 rounded border p-2">
               <div className="form-check">
+                <input className="form-check-input" type="checkbox" name="Term1" id="term1" required />
+                <label className="form-check-label" htmlFor="term1">
+                  I confirm that everyone registered in this form belongs to the same family.
+                </label>
+                <span id="swishTo" className="swishto ms-2 h9"></span>
+              </div>
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" name="Term2" id="term2" required />
+                <label className="form-check-label" htmlFor="term2">
+                  My family and I agree to follow all picnic rules and instructions.
+                </label>
+                <span id="swishTo" className="swishto ms-2 h9"></span>
+              </div>
+              <div className="form-check">
+                <input className="form-check-input" type="checkbox" name="Term3" id="term3" required />
+                <label className="form-check-label" htmlFor="term3">
+                  We agree to help keep the spot clean and cooperate in necessary activities.
+                </label>
+                <span id="swishTo" className="swishto ms-2 h9"></span>
+              </div>
+              <div className="form-check">
                 <input className="form-check-input" type="checkbox" name="Swish" id="swish" required />
                 <label className="form-check-label" htmlFor="swish">
                   I have swished to 1230432419
