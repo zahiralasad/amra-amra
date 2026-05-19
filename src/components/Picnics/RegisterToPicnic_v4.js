@@ -107,8 +107,8 @@ function RegisterToPicnic() {
           setLoadFormInput(false);
           setPicnicName(response.data[0].picnic_name);
           setPicnicDate(response.data[0].picnic_date);
-          setMaxSmallKidsAge(Number(response.data[0].max_small_kids_age));
-          setMaxBigKidsAge(Number(response.data[0].max_big_kids_age));
+          setMaxSmallKidsAge(Number(response.data[0].max_kids_age));
+          setMaxBigKidsAge(Number(response.data[0].max_juniors_age));
           setMaxBusSeats(Number(response.data[0].max_bus_seats));
           setMaxCarSeats(Number(response.data[0].max_car_seats));
           setPrefix(response.data[0].registration_code_prefix);
@@ -124,8 +124,8 @@ function RegisterToPicnic() {
           setJuniorNonMemberFeeInBus(Number(response.data[0].junior_non_member_fee_bus));
           setJuniorNonMemberFeeInCar(Number(response.data[0].junior_non_member_fee_car));
 
-          setSmallKidsFeeInBus(Number(response.data[0].small_kids_fee_bus));
-          setSmallKidsFeeInCar(Number(response.data[0].small_kids_fee_car));
+          setSmallKidsFeeInBus(Number(response.data[0].kids_fee_bus));
+          setSmallKidsFeeInCar(Number(response.data[0].kids_fee_car));
 
           // const startDateForMember = new Date(response.data[0].registration_start_date_for_members);
           // const startDate = new Date(response.data[0].registration_start);
@@ -630,6 +630,13 @@ function RegisterToPicnic() {
                         />
                         <span className="input-group-text ms-1">{personFee} kr</span>
                       </div>
+                      {adultIndex > 0 &&
+                        <div className="form-check">
+                          <input className="form-check-input" type="checkbox" name="FamilyMember" id="familymember" required />
+                          <label className="form-check-label" htmlFor="familymember">
+                            I confirm this person is my family member.
+                          </label>
+                        </div>}
                     </div>
                   );
                 })}
@@ -782,7 +789,7 @@ function RegisterToPicnic() {
               <div className="form-group input-group">
                 <p className="mx-2">Total fee:</p>
                 <p className="p" name="Cost" id="cost" ref={costRef}></p>
-                <p>kr</p>
+                <p className="ms-1">kr</p>
               </div>
               <input type="hidden" name="Cost" id="totalFee" ref={totalFeeRef} />
             </div>

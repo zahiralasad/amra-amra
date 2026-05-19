@@ -9,17 +9,22 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
 
     const [picnicName, setPicnicName] = useState(null);
     const [picnicDate, setPicnicDate] = useState(null);
-    const [startDate, setStartDate] = useState(null);
+    const [startDateForMembers, setStartDateForMembers] = useState(null);
+    const [startDateForEverybody, setStartDateForEverybody] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const [acceptCar, setAcceptCar] = useState(null);
-    const [maxSmallKidsAge, setMaxSmallKidsAge] = useState(null);
-    const [maxBigKidsAge, setMaxBigKidsAge] = useState(null);
+    const [maxKidsAge, setMaxKidsAge] = useState(null);
+    const [maxJuniorsAge, setMaxJuniorsAge] = useState(null);
+    const [adultMembersFeeInBus, setAdultMembersFeeInBus] = useState(0);
+    const [adultMembersFeeInCar, setAdultMembersFeeInCar] = useState(0);
     const [adultsFeeInBus, setAdultsFeeInBus] = useState(0);
     const [adultsFeeInCar, setAdultsFeeInCar] = useState(0);
-    const [smallKidsFeeInBus, setSmallKidsFeeInBus] = useState(0);
-    const [smallKidsFeeInCar, setSmallKidsFeeInCar] = useState(0);
-    const [bigKidsFeeInBus, setBigKidsFeeInBus] = useState(0);
-    const [bigKidsFeeInCar, setBigKidsFeeInCar] = useState(0);
+    const [kidsFeeInBus, setKidsFeeInBus] = useState(0);
+    const [kidsFeeInCar, setKidsFeeInCar] = useState(0);
+    const [juniorMembersFeeInBus, setJuniorMembersFeeInBus] = useState(0);
+    const [juniorMembersFeeInCar, setJuniorMembersFeeInCar] = useState(0);
+    const [juniorsFeeInBus, setJuniorsFeeInBus] = useState(0);
+    const [juniorsFeeInCar, setJuniorsFeeInCar] = useState(0);
     const [maxBusSeats, setMaxBusSeats] = useState(0);
     const [maxCarSeats, setMaxCarSeats] = useState(0);
     const [busStops, setBusStops] = useState(null);
@@ -40,24 +45,35 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
                 const picnicDateObj = new Date(response.data[0].picnic_date);
                 setPicnicDate(picnicDateObj);
 
+                const registrationStartForMemberDateObj = new Date(response.data[0].registration_start_for_members);
+                setStartDateForMembers(registrationStartForMemberDateObj);
                 const registrationStartDateObj = new Date(response.data[0].registration_start);
-                setStartDate(registrationStartDateObj);
+                setStartDateForEverybody(registrationStartDateObj);
                 const registrationEndDateObj = new Date(response.data[0].registration_end);
-                setStartDate(registrationEndDateObj);
+                setEndDate(registrationEndDateObj);
 
                 setAcceptCar(response.data[0].car);
-                setMaxSmallKidsAge(response.data[0].max_small_kids_age);
-                setMaxBigKidsAge(response.data[0].max_big_kids_age);
-                setAdultsFeeInBus(response.data[0].adults_fee_for_bus);
-                setAdultsFeeInCar(response.data[0].adults_fee_for_car);
-                setSmallKidsFeeInBus(response.data[0].small_kids_fee_for_bus);
-                setSmallKidsFeeInCar(response.data[0].small_kids_fee_for_car);
-                setBigKidsFeeInBus(response.data[0].big_kids_fee_for_bus);
-                setBigKidsFeeInCar(response.data[0].big_kids_fee_for_car);
+
+                setMaxKidsAge(response.data[0].max_kids_age);
+                setMaxJuniorsAge(response.data[0].max_juniors_age);
+
+                setAdultMembersFeeInBus(response.data[0].adult_member_fee_bus);
+                setAdultMembersFeeInCar(response.data[0].adult_member_fee_car);
+                setAdultsFeeInBus(response.data[0].adult_non_member_fee_bus);
+                setAdultsFeeInCar(response.data[0].adult_non_member_fee_car);
+
+                setKidsFeeInBus(response.data[0].kids_fee_bus);
+                setKidsFeeInCar(response.data[0].kids_fee_car);
+
+                setJuniorMembersFeeInBus(response.data[0].junior_member_fee_bus);
+                setJuniorMembersFeeInCar(response.data[0].junior_member_fee_car);
+                setJuniorsFeeInBus(response.data[0].junior_non_member_fee_bus);
+                setJuniorsFeeInCar(response.data[0].junior_non_member_fee_car);
+
                 setMaxBusSeats(response.data[0].max_bus_seats);
                 setMaxCarSeats(response.data[0].max_car_seats);
                 setBusStops(response.data[0].bus_stops);
-                setFloatingAd(response.data[0].floaging_ad_text);
+                setFloatingAd(response.data[0].floating_ad_text);
             })
             .catch(error => {
                 setError(error.message);
@@ -73,6 +89,7 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
             console.log(key, value);
         }
 
+        formData.append("request", "picnicinput");
         axios.post(dataUrl, formData)
             .then(response => {
                 console.log(response.data)
@@ -145,10 +162,20 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
                         <div className='row'>
                             <div className='col-6'>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-text">Registration Start Date: </span>
+                                    <span className="input-group-text">Registration Start Date For Members: </span>
                                     <AmraAmraDatePicker
-                                        value="startdate"
-                                        date={startDate}
+                                        value="registrationstartdateformember"
+                                        date={startDateForMembers}
+                                    // onChange = {setStartDate}                                                              
+                                    />
+                                </div>
+                            </div>
+                            <div className='col-6'>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text">Registration Start Date For Everybody: </span>
+                                    <AmraAmraDatePicker
+                                        value="registrationstartdate"
+                                        date={startDateForEverybody}
                                     // onChange = {setStartDate}                                                              
                                     />
                                 </div>
@@ -157,7 +184,7 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
                                 <div className="input-group mb-3">
                                     <span className="input-group-text">Registration End Date: </span>
                                     <AmraAmraDatePicker
-                                        value="enddate"
+                                        value="registrationenddate"
                                         date={endDate}
                                     // onChange = {setEndDate}  
                                     />
@@ -193,35 +220,59 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
 
                             <div className='col-6'>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-text">Small Kids Max Age: </span>
+                                    <span className="input-group-text">Kids Max Age: </span>
                                     <input
                                         className="form-control"
-                                        type="text" name="maxsmallkidsage"
-                                        id="maxsmallkidsage"
-                                        value={maxSmallKidsAge}
-                                        onChange={(e) => setMaxSmallKidsAge(e.target.value)}>
+                                        type="text" name="maxkidsage"
+                                        id="maxkidsage"
+                                        value={maxKidsAge}
+                                        onChange={(e) => setMaxKidsAge(e.target.value)}>
                                     </input>
                                 </div>
                             </div>
                             <div className='col-6'>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-text">Big Kids Max Age: </span>
+                                    <span className="input-group-text">Juniors Max Age: </span>
                                     <input
                                         className="form-control"
-                                        type="text" name="maxbigkidsage"
-                                        id="maxbigkidsage"
-                                        value={maxBigKidsAge}
-                                        onChange={(e) => setMaxBigKidsAge(e.target.value)}>
+                                        type="text" name="maxjuniorsage"
+                                        id="maxjuniorsage"
+                                        value={maxJuniorsAge}
+                                        onChange={(e) => setMaxJuniorsAge(e.target.value)}>
                                     </input>
                                 </div>
                             </div>
                             <div className='col-6'>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-text">Adult Fee in Bus: </span>
+                                    <span className="input-group-text">Adult Member's Fee in Bus: </span>
                                     <input
                                         className="form-control"
-                                        type="text" name="adultfeeinbus"
-                                        id="adultfeeinbus"
+                                        type="text" name="adultmembersfeeinbus"
+                                        id="adultmembersfeeinbus"
+                                        value={adultMembersFeeInBus}
+                                        onChange={(e) => setAdultMembersFeeInBus(e.target.value)}>
+                                    </input>
+                                </div>
+                            </div>
+                            <div className='col-6'>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text">Adult Member's Fee in Car: </span>
+                                    <input
+                                        className="form-control"
+                                        type="text" name="adultmembersfeeincar"
+                                        id="adultmemberfeeincar"
+                                        value={adultMembersFeeInCar}
+                                        onChange={(e) => setAdultMembersFeeInCar(e.target.value)}>
+                                    </input>
+                                </div>
+                            </div>
+                            <div className='col-6'>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text">Adult Non-Member's Fee in Bus: </span>
+                                    <input
+                                        className="form-control"
+                                        type="text" name="adultsfeeinbus"
+                                        id="adulsfeeinbus"
                                         value={adultsFeeInBus}
                                         onChange={(e) => setAdultsFeeInBus(e.target.value)}>
                                     </input>
@@ -229,11 +280,11 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
                             </div>
                             <div className='col-6'>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-text">Adult Fee in Car: </span>
+                                    <span className="input-group-text">Adult Non-Member's Fee in Car: </span>
                                     <input
                                         className="form-control"
-                                        type="text" name="adultfeeincar"
-                                        id="adultfeeincar"
+                                        type="text" name="adultsfeeincar"
+                                        id="adultsfeeincar"
                                         value={adultsFeeInCar}
                                         onChange={(e) => setAdultsFeeInCar(e.target.value)}>
                                     </input>
@@ -241,25 +292,49 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
                             </div>
                             <div className='col-6'>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-text">Big Kids Fee in Bus: </span>
+                                    <span className="input-group-text">Junior Member's Fee in Bus: </span>
                                     <input
                                         className="form-control"
-                                        type="text" name="bigkidsfeeinbus"
-                                        id="bigkidsfeeinbus"
-                                        value={bigKidsFeeInBus}
-                                        onChange={(e) => setBigKidsFeeInBus(e.target.value)}>
+                                        type="text" name="juniormembersfeeinbus"
+                                        id="juniormembersfeeinbus"
+                                        value={juniorMembersFeeInBus}
+                                        onChange={(e) => setJuniorsFeeInBus(e.target.value)}>
                                     </input>
                                 </div>
                             </div>
                             <div className='col-6'>
                                 <div className="input-group mb-3">
-                                    <span className="input-group-text">Big Kids Fee in Car: </span>
+                                    <span className="input-group-text">Junior Member's Fee in Car: </span>
                                     <input
                                         className="form-control"
-                                        type="text" name="bigkidsfeeincar"
-                                        id="bigkidsfeeincar"
-                                        value={bigKidsFeeInCar}
-                                        onChange={(e) => setBigKidsFeeInCar(e.target.value)}>
+                                        type="text" name="juniormembersfeeincar"
+                                        id="juniormembersfeeincar"
+                                        value={juniorMembersFeeInCar}
+                                        onChange={(e) => setJuniorsFeeInCar(e.target.value)}>
+                                    </input>
+                                </div>
+                            </div>
+                            <div className='col-6'>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text">Junior Non-Member's Fee in Bus: </span>
+                                    <input
+                                        className="form-control"
+                                        type="text" name="juniorsfeeinbus"
+                                        id="juniorsfeeinbus"
+                                        value={juniorsFeeInBus}
+                                        onChange={(e) => setJuniorsFeeInBus(e.target.value)}>
+                                    </input>
+                                </div>
+                            </div>
+                            <div className='col-6'>
+                                <div className="input-group mb-3">
+                                    <span className="input-group-text">Junior Non-Member's Fee in Car: </span>
+                                    <input
+                                        className="form-control"
+                                        type="text" name="juniorsfeeincar"
+                                        id="juniorsfeeincar"
+                                        value={juniorsFeeInCar}
+                                        onChange={(e) => setJuniorsFeeInCar(e.target.value)}>
                                     </input>
                                 </div>
                             </div>
@@ -268,10 +343,10 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
                                     <span className="input-group-text">Small Kids Fee in Bus: </span>
                                     <input
                                         className="form-control"
-                                        type="text" name="smallkidsfeeinbus"
-                                        id="smallkidsfeeinbus"
-                                        value={smallKidsFeeInBus}
-                                        onChange={(e) => setSmallKidsFeeInBus(e.target.value)}>
+                                        type="text" name="kidsfeeinbus"
+                                        id="kidsfeeinbus"
+                                        value={kidsFeeInBus}
+                                        onChange={(e) => setKidsFeeInBus(e.target.value)}>
                                     </input>
                                 </div>
                             </div>
@@ -280,10 +355,10 @@ function PicnicForm({ setNotificationTitle, setNotificationMessage, setModalShow
                                     <span className="input-group-text">Small Kids Fee in Car: </span>
                                     <input
                                         className="form-control"
-                                        type="text" name="smallkidsfeeincar"
-                                        id="smallkidsfeeincar"
-                                        value={smallKidsFeeInCar}
-                                        onChange={(e) => setSmallKidsFeeInCar(e.target.value)}>
+                                        type="text" name="kidsfeeincar"
+                                        id="kidsfeeincar"
+                                        value={kidsFeeInCar}
+                                        onChange={(e) => setKidsFeeInCar(e.target.value)}>
                                     </input>
                                 </div>
                             </div>
