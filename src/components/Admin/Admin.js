@@ -13,6 +13,7 @@ import MeetingNoteBook from './MeetingNoteBook';
 import PicnicForm from "./PicnicForm";
 import HomeForm from "./HomeForm";
 import IndoorGamesForm from "./IndoorGamesForm"
+import ReceiptForm from "./ReceiptForm";
 
 function Admin() {
     // console.log(localStorage.getItem("state"));
@@ -105,6 +106,7 @@ function Admin() {
                             <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => { setActiveForm("picnic"); }}>Picnic</button>
                             <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => setActiveForm("games")}>Games</button>
                             <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => setActiveForm("meetingnotebook")}>Meeting Note Book</button>
+                            <button className="btn btn-link text-white p-0 d-block mb-2" onClick={() => setActiveForm("receipts")}>Receipts</button>
                             <button className="btn btn-link text-danger p-0 d-block" onClick={handleLogout}>Logout</button>
                         </div>
                         <div className='col-10 p-4'>
@@ -128,6 +130,13 @@ function Admin() {
                             )}
                             {activeForm === "meetingnotebook" && (
                                 <MeetingNoteBook
+                                    setNotificationTitle={setNotificationTitle}
+                                    setNotificationMessage={setNotificationMessage}
+                                    setModalShow={setModalShow}
+                                />
+                            )}
+                            {activeForm === "receipts" && (
+                                <ReceiptForm
                                     setNotificationTitle={setNotificationTitle}
                                     setNotificationMessage={setNotificationMessage}
                                     setModalShow={setModalShow}

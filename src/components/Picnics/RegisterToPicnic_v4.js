@@ -31,7 +31,7 @@ function RegisterToPicnic() {
   const [modalShow, setModalShow] = useState(false);
 
   // const url = 'https://script.google.com/macros/s/AKfycbwDEhysFSGZ-0Ry5VuEBVlht2riKJwcJdumz9tLL_ADPtQuXS5z5yswg6s4RzYJZNhy/exec';
-  const url = 'https://script.google.com/macros/s/AKfycby49e6NRCFUy4pGadoI1DRaNdaRKtypr5c3QRrIlsQ3ta3fkpqbU83hcC-T_u90cr-_/exec';
+  const url = 'https://script.google.com/macros/s/AKfycbzAE1DhkGuKpWDIPwNC-e74EnS0zQfNl28vtin-_aNuw8FrnRx7dmwZrtIlaB4jkXy0/exec';
   const dataUrl = "https://amra-amra.se/db/";
   const memberUrl = "https://script.google.com/macros/s/AKfycbw3zL12yxAeHhFubKpPNm2DXIeINp7_RZYPij4oKjiBzRUuY6aVEFFUCdBQugIeUsMljg/exec";
   const apiUrl = "https://amra-amra.se/emailApi/";
@@ -255,7 +255,21 @@ function RegisterToPicnic() {
 
     if (!members) return; // ✅ guard — members not loaded yet
 
-    const memberIndex = members.ids.indexOf(enteredMemberId);
+    const id = enteredMemberId.trim();
+
+    if (id.startsWith("JM")) {
+      setValidMember(false);
+      setMemberName("");
+      return;
+    }
+
+    // if (!id.startsWith("BM") && !id.startsWith("M")) { // need to check this condition
+    //   setValidMember(false);
+    //   setMemberName("");
+    //   return;
+    // }
+
+    const memberIndex = members.ids.indexOf(id);
     const isValid = memberIndex !== -1;
 
     setValidMember(isValid);
@@ -480,13 +494,22 @@ function RegisterToPicnic() {
                     value={enteredMemberId}
                     onChange={(e) => {
                       setEnteredMemberId(e.target.value);
-                      setValidMember(null); // reset to null while typing
+                      setValidMember(null); // reset to null while typing                      
+                      // reset the form.
+                      setMemberName("");
+                      setAdults([]);
+                      setNumberOfAdults(0);
+                      setBigKids([]);
+                      setNumberOfBigKids(0);
+                      setSmallKids([]);
+                      setNumberOfSmallKids(0);
+
                     }}
                     required
                   />
                   {validMember === false && (
                     <p className="text-danger mt-1">
-                      ❌ Member ID <strong>{enteredMemberId}</strong> is not valid. Please check and try again.
+                      ❌ Member ID <strong>{enteredMemberId}</strong> is not valid or you are not Adult Member. Please check and try again.
                     </p>
                   )}
                   {validMember === true && (
@@ -579,11 +602,11 @@ function RegisterToPicnic() {
                   );
 
                   const handleMemberIdChange = (e) => {
-                    const enteredId = e.target.value;
+                    const enteredId = e.target.value.trim();
                     const memberIndex = members?.ids.indexOf(enteredId);
 
                     const isValidAdult = memberIndex !== -1 && enteredId !== "" &&
-                      (enteredId.startsWith("BM") || enteredId.startsWith("M"));
+                      (enteredId.startsWith("BM") || enteredId.startsWith("M") || enteredId.startsWith("JM"));
                     const memberType = isValidAdult ? "adult_member" : "non_member";
 
                     setAdults(prev => prev.map((a, i) =>
@@ -672,7 +695,7 @@ function RegisterToPicnic() {
                   );
 
                   const handleMemberIdChange = (e) => {
-                    const enteredId = e.target.value;
+                    const enteredId = e.target.value.trim();
                     const memberIndex = members?.ids.indexOf(enteredId);
                     const isValidJM = memberIndex !== -1 && enteredId !== "" && enteredId.startsWith("JM");
                     const memberType = isValidJM ? "junior_member" : "non_member";

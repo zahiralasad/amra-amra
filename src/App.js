@@ -60,8 +60,7 @@ function App() {
               <Route path="picnic2023" element={<Picnic2023/>} />
               <Route path="picnic2022" element={<Picnic2022/>} />
               <Route path="picnic2021" element={<Picnic2021/>} />
-              <Route path="picnic2019" element={<Picnic2019/>} />
-              <Route path="picnictest" element={<Picnic/>} />
+              <Route path="picnic2019" element={<Picnic2019/>} />              
               <Route path="registertopicnic" element={<RegisterToPicnic/>} />
 
               {/****** Carrier Building Network ******/}
@@ -76,7 +75,9 @@ function App() {
               <Route path="registertogame" element={<RegisterToGame/>} />
 
               {/**************** Test ****************/}
+              <Route path="picnictest" element={<Picnic/>} />
               <Route path="test" element={<Test/>} />
+              
             </Routes>
           </div>
         </div>
