@@ -1,12 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar/Sidebar_old";
 import Home from "./components/Home/Home";
-import Picnic2024 from "./components/Picnics/Picnic2024";
-import Picnic2023 from "./components/Picnics/Picnic2023";
-import Picnic2022 from "./components/Picnics/Picnic2022";
-import Picnic2021 from "./components/Picnics/Picnic2021";
-import Picnic2019 from "./components/Picnics/Picnic2019";
-import Picnic from "./components/Picnics/RegisterToPicnic_v4";
 import RegisterToPicnic from "./components/Picnics/RegisterToPicnic";
 import Contacts from "./components/Contacts";
 import Aboutus from "./components/Aboutus";
@@ -22,11 +16,15 @@ import RegisterToEnter from "./components/IndoorGames/RegisterToEnter";
 import IndoorGamesTeams from "./components/IndoorGames/RegisterdTeams";
 import RegisterToGame from "./components/IndoorGames/RegisterToGame";
 import RegisterToNetwork from "./components/NetworkingBuilding/RegisterToNetwork";
-import Test from "./components/Test/Test";
 import Gallery from "./components/Events/Gallery";
 import CheckGuest from "./components/NetworkingBuilding/CheckGuest";
 import CheckIn from "./components/NetworkingBuilding/CheckIn";
 import GuestList from "./components/NetworkingBuilding/GuestList";
+
+//*********** Test ***********//
+import Picnic4 from "./components/Picnics/RegisterToPicnic_v4";
+import Picnic5 from "./components/Picnics/RegisterToPicnic_v5";
+import Test from "./components/Test/Test";
 
 import "./App.css";
 
@@ -55,12 +53,7 @@ function App() {
               <Route path="members" element={<Members/>} />
               <Route path="registermember" element={<RegisterMember/>} />
 
-              {/************ Picnics *************/}
-              <Route path="picnic2024" element={<Picnic2024/>} />
-              <Route path="picnic2023" element={<Picnic2023/>} />
-              <Route path="picnic2022" element={<Picnic2022/>} />
-              <Route path="picnic2021" element={<Picnic2021/>} />
-              <Route path="picnic2019" element={<Picnic2019/>} />              
+              {/************ Picnics *************/}             
               <Route path="registertopicnic" element={<RegisterToPicnic/>} />
 
               {/****** Carrier Building Network ******/}
@@ -75,9 +68,10 @@ function App() {
               <Route path="registertogame" element={<RegisterToGame/>} />
 
               {/**************** Test ****************/}
-              <Route path="picnictest" element={<Picnic/>} />
+              <Route path="picnictest" element={<Picnic4/>} />
+              <Route path="picnic5" element={<Picnic5/>} />
               <Route path="test" element={<Test/>} />
-              
+
             </Routes>
           </div>
         </div>

@@ -79,7 +79,7 @@ function RegisterMember() {
         axios.get(memberUrl)
             .then(function (response) {
                 if (response.data !== "") {
-                    // console.log(response.data.ids);
+                    //console.log(response.data.ids);
                     setMembers(response.data);
                     setLoadMembersData(false);
                 }
@@ -99,7 +99,7 @@ function RegisterMember() {
 
     const validateParentsID = (value) => {
         setParentsId(value);
-        if (value.length >= 5) {
+        if (value.length >= 4) {
             console.log(value);
             const isMember = members.ids.includes(value);
             if (isMember) {

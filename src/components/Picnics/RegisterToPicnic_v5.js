@@ -7,11 +7,14 @@ import axios from 'axios';
 
 import "./picnic.css";
 import Notification from '../Others/Notification';
+import AmraAmraDatePicker from '../Others/AmraAmraDatePicker';
 
 
 function RegisterToPicnic() {
   const [adults, setAdults] = useState([]);
   const [numberOfAdults, setNumberOfAdults] = useState(0);
+  const [numberOfkids, setNumberOfKids] = useState(0);
+  const [kidsDetail, setKidsDetail] = useState([]);
   const [bigKids, setBigKids] = useState([]);
   const [numberOfBigkids, setNumberOfBigKids] = useState(0);
   const [smallKids, setSmallKids] = useState([]);
@@ -76,6 +79,9 @@ function RegisterToPicnic() {
 
   const isBMorGM = validMember && (enteredMemberId.startsWith("BM") || enteredMemberId.startsWith("M"));
   const isJM = validMember && enteredMemberId.startsWith("JM");
+  // const [isJunior, setIsJunior] = useState(false);
+  const [isBigKid, setIsBigKid] = useState(false);
+  const [isSmallKid, setIsSmallKid] = useState(false);
 
   const totalFeeRef = useRef(null); // Reference for the hidden input
   const costRef = useRef(null);
@@ -132,13 +138,13 @@ function RegisterToPicnic() {
           const endDate = new Date(response.data[0].registration_end);
           // const startDateForMember = new Date("2026-04-12");
           // const startDate = new Date("2026-05-25");
-          // const endDate = new Date("2026-05-15");
+          // const endDate = new Date("2026-06-15");
           const currentDate = new Date(today);
           // Reset time to midnight for accurate date comparison
-          // startDateForMember.setHours(0, 0, 0, 0);
-          // startDate.setHours(0, 0, 0, 0);
-          // endDate.setHours(0, 0, 0, 0);
-          // currentDate.setHours(0, 0, 0, 0);
+          startDateForMember.setHours(0, 0, 0, 0);
+          startDate.setHours(0, 0, 0, 0);
+          endDate.setHours(0, 0, 0, 0);
+          currentDate.setHours(0, 0, 0, 0);
           // setBusStops(response.data[0].bus_stops.split(","));
           // if (response.data[0].car === "yes")
           //   setAcceptCar(true);
@@ -147,9 +153,8 @@ function RegisterToPicnic() {
           setRegistrationOpenDateForMembersOnly(currentDate >= startDateForMember && currentDate < startDate);
           setRegistrationAvailable(currentDate >= startDate && currentDate <= endDate);
 
-          console.log(new Date().toLocaleString('sv-SE'))
-          console.log("today: ", startDateForMember);
-          console.log("currentday: ", currentDate);
+          console.log("MemberStart: ", startDateForMember);
+          console.log("Today: ", currentDate);
           console.log("Start Date: ", startDate);
           console.log("End Date: ", endDate);
         }
@@ -414,7 +419,9 @@ function RegisterToPicnic() {
   };
 
   const handleNumberForParticipent = (number, catgo) => {
-    // console.log("Number: ", number);
+    console.log("Number: ", number);
+    console.log("Catagory: ", catgo);
+
     let count = parseInt(number, 10) || 0;
 
     if (catgo === "Adult" && isBMorGM) count = Math.max(1, count);
@@ -444,6 +451,18 @@ function RegisterToPicnic() {
           memberType: index === 0 && isJM ? "junior_member" : "non_member",
         };
       }));
+    } else if (catgo === "Kids") {
+      setNumberOfKids(count);
+      setKidsDetail(prev => Array.from({ length: count }, (_, index) => {
+        if (prev[index]) return prev[index];
+        return {
+          id: `Kid${index + 1}`,
+          age: "",
+          name: "",
+          memberId: "",
+          memberType: "free",
+        };
+      }));
     } else {
       setNumberOfSmallKids(count);
       setSmallKids(prev => Array.from({ length: count }, (_, index) => {
@@ -458,6 +477,29 @@ function RegisterToPicnic() {
       }));
     }
   };
+
+  const calculateAge = (birthDate) => {
+    if (!birthDate) return null;
+
+    const today = new Date();
+    const birth = new Date(birthDate);
+    let age = today.getFullYear() - birth.getFullYear();
+    const monthDiff = today.getMonth() - birth.getMonth();
+
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+      age--
+    }
+    console.log(age);
+    return age;
+  }
+
+  const handleDateChange = (date) => {
+    if (date) {
+      const age = calculateAge(date);
+      setIsSmallKid(age < inputData.maxSmallKidsAge);
+      setIsBigKid(inputData.maxSmallKidsAge < age < inputData.maxBigKidsAge);
+    } 
+  }
 
   return (
     <div className="picnic">
@@ -667,6 +709,105 @@ function RegisterToPicnic() {
                 })}
               </div>
             </div>
+
+            {/* trying to identify kids catagory by thier date of birt*/}
+            <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">
+              <div className="d-flex input-group mb-3 border-bottom pb-1">
+                <i className="bi bi-person-standing me-2"></i>
+                <span className="input-group-text text-wrap">
+                  Number of kids
+                </span>
+                <select className="custom-select" value={numberOfBigkids}
+                  onChange={(event) => handleNumberForParticipent(event.target.value, "Kids")}>
+                  {!isJM && <option value="0">0</option>}
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => <option key={n} value={n}>{n}</option>)}
+                </select>
+                <p className="ms-2 small text-white-50">
+                  Junior member: {juniorMemberFee}kr &nbsp;|&nbsp;
+                  Non-member: {juniorNonMemberFee}kr
+                </p>
+              </div>
+              <div id="KidContainer">
+                {kidsDetail.map((bigKid, bigKidIndex) => {
+                  const isLockedSlot = bigKidIndex === 0 && isJM;
+
+                  const nameIsLocked = isLockedSlot || bigKid.memberType === "junior_member";
+
+                  const personFee = getFeeForPerson(
+                    isLockedSlot ? "junior_member" : (bigKid.memberType || "non_member"),
+                    "BigKid"
+                  );
+
+                  const handleMemberIdChange = (e) => {
+                    const enteredId = e.target.value.trim();
+                    const memberIndex = members?.ids.indexOf(enteredId);
+                    const isValidJM = memberIndex !== -1 && enteredId !== "" && enteredId.startsWith("JM");
+                    const memberType = isValidJM ? "junior_member" : "non_member";
+
+                    setKidsDetail(prev => prev.map((a, i) =>
+                      i === bigKidIndex ? {
+                        ...a,
+                        memberId: enteredId,
+                        age:"",
+                        name: isValidJM ? members.names[memberIndex] : "",
+                        memberType: memberType,
+                      } : a
+                    ));
+                  };
+
+                  return (
+                    <div key={bigKidIndex}>
+                      <div className="input-group  mb-3">
+                        <span className="input-group-text me-2">{bigKid.id}</span>
+                        <span className="input-group-text">Date of birth: </span>
+                        <AmraAmraDatePicker
+                          value="DateOfBirth"
+                          placeHolderText="Example: 1995-12-22"
+                          onDateChange={handleDateChange}
+                        //date={picnicDate}
+                        />
+                        {/* {isJunior && (
+                          <span name="Junior" className="badge bg-warning text-dark ms-2 align-self-center">
+                            Junior
+                          </span>
+                        )} */}                      
+                        
+                        <input
+                          className="form-control ms-2"
+                          placeholder="Full Name"
+                          type="text"
+                          name={bigKid.id}
+                          id={bigKid.id}
+                          value={isLockedSlot ? memberName : (bigKid.name || "")}
+                          onChange={nameIsLocked ? () => { } : (e) =>
+                            setKidsDetail(prev => prev.map((a, i) =>
+                              i === bigKidIndex ? { ...a, name: e.target.value } : a
+                            ))
+                          }
+                          readOnly={nameIsLocked}
+                          style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
+                          required
+                        />
+                        <input
+                          className="form-control ms-2"
+                          placeholder="Member ID (optional)"
+                          type="text"
+                          name={`${bigKid.id}_MemberId`}
+                          id={`${bigKid.id}_MemberId`}
+                          value={isLockedSlot ? enteredMemberId : (bigKid.memberId || "")}
+                          readOnly={isLockedSlot}
+                          style={isLockedSlot ? { backgroundColor: "#e9ecef", cursor: "not-allowed" } : {}}
+                          onChange={isLockedSlot ? () => { } : handleMemberIdChange}
+                        />
+                        <span className="input-group-text ms-1">{personFee} kr</span>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+
 
             {/* Big Kids (4–12) */}
             <div className="ps-1 pe-1 pt-3 pb-2 mb-1 rounded border">

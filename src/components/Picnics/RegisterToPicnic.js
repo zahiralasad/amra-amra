@@ -19,7 +19,7 @@ function RegisterToPicnic() {
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
   const [message, setMessage] = useState("");
-  const [today, seToday] = useState(new Date().toISOString().split('T')[0]);
+  const [today, seToday] = useState(new Date().toLocaleDateString('sv-SE'));
   const [loading, setLoading] = useState(true);
   const [loadFormInput, setLoadFormInput] = useState(true);
   const [loadMembersInput, setLoadMembersInput] = useState(true);
@@ -130,9 +130,10 @@ function RegisterToPicnic() {
           // const startDateForMember = new Date(response.data[0].registration_start_date_for_members);
           // const startDate = new Date(response.data[0].registration_start);
           // const endDate = new Date(response.data[0].registration_end);
-          const startDateForMember = new Date("2026-04-12");
-          const startDate = new Date("2026-05-25");
-          const endDate = new Date("2026-05-15");
+          const startDateForMember = new Date("2026-05-22");
+          const startDate = new Date("2026-05-27");
+          const endDate = new Date("2026-06-10");
+
           const currentDate = new Date(today);
           // Reset time to midnight for accurate date comparison
           startDateForMember.setHours(0, 0, 0, 0);
@@ -150,6 +151,7 @@ function RegisterToPicnic() {
           console.log("Today: ", currentDate);
           console.log("Start Date: ", startDate);
           console.log("End Date: ", endDate);
+          console.log("members", members)
         }
         else {
           alert("Failed to fetch inputs for picnic form");
@@ -534,7 +536,7 @@ function RegisterToPicnic() {
 
         ) : (!registrationOpenDateForMembersOnly && !registrationAvailable) ? (
           <div className="text-center text-white my-5">
-            Registration is not available. Please contact us for further information.
+            Registration is currently unavailable. Please contact us for further information.
           </div>
 
         ) : seatsFilled ? (
@@ -762,8 +764,9 @@ function RegisterToPicnic() {
                   {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(n => <option key={n} value={n}>{n}</option>)}
                 </select>
                 <p className="ms-2 small text-white-50">
-                  Bus: {smallKidsFeeInBus === 0 ? "Free" : `${smallKidsFeeInBus}kr`} &nbsp;|&nbsp;
-                  Car: {smallKidsFeeInCar === 0 ? "Free" : `${smallKidsFeeInCar}kr`}
+                  {/* Bus: {smallKidsFeeInBus === 0 ? "Free" : `${smallKidsFeeInBus}kr`} &nbsp;|&nbsp;
+                  Car: {smallKidsFeeInCar === 0 ? "Free" : `${smallKidsFeeInCar}kr`} */}
+                  Registration fee: 0 kr | No individual bus seat
                 </p>
               </div>
               <div id="smallKidContainer">
