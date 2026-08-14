@@ -2,6 +2,7 @@ import React from "react";
 import './banner.css';
 import logo from './logo_122x100.jpg';
 import SlideShow from "../Home/Slideshow";
+import Data from "../DataHandle/Alldata"
 
 function Banner() {
     return (
@@ -35,7 +36,7 @@ function Banner() {
 
             <div className="row">
                 <div className="Ad-field">
-                    <h5>"Amra-Amra Picnic 2026" On 25th July</h5>
+                    {/* <h5>"Amra-Amra Picnic 2026" On 25th July</h5> */}
                 </div>
             </div>
         </div>
