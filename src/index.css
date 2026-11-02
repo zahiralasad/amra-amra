@@ -1,13 +1,250 @@
+/* =========================================
+   AMRA-AMRA — GLOBAL DESIGN SYSTEM
+   ========================================= */
+
+:root {
+  /* Brand */
+  --color-primary: #006a4e;
+  --color-primary-dark: #004b37;
+  --color-primary-light: #e8f4ef;
+
+  --color-red: #f42a41;
+  --color-red-dark: #d91f34;
+
+  --color-gold: #f4b942;
+
+  /* Background */
+  --color-background: #fffdf7;
+  --color-surface: #ffffff;
+  --color-soft: #f4f8f5;
+
+  /* Text */
+  --color-text: #17211c;
+  --color-text-light: #59645e;
+  --color-border: #e4e9e6;
+
+  /* Layout */
+  --container-width: 1200px;
+  --section-space: 80px;
+
+  /* UI */
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+
+  --shadow-sm: 0 4px 15px rgba(0, 75, 55, 0.07);
+  --shadow-md: 0 12px 35px rgba(0, 75, 55, 0.12);
+
+  --transition: 0.25s ease;
+}
+
+/* Reset */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+
+  font-family:
+    "Noto Sans Bengali",
+    "Hind Siliguri",
+    "Segoe UI",
+    Arial,
     sans-serif;
+
+  background: var(--color-background);
+  color: var(--color-text);
+
+  font-size: 16px;
+  line-height: 1.6;
+
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+body,
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* =========================================
+   SHARED LAYOUT
+   ========================================= */
+
+.container {
+  width: min(100% - 40px, var(--container-width));
+  margin-inline: auto;
+}
+
+.section {
+  padding: var(--section-space) 0;
+}
+
+.section-soft {
+  background: var(--color-soft);
+}
+
+/* =========================================
+   TYPOGRAPHY
+   ========================================= */
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4.8rem);
+  line-height: 1.12;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+}
+
+p {
+  color: var(--color-text-light);
+}
+
+/* =========================================
+   COMMON BUTTONS
+   ========================================= */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+
+  min-height: 48px;
+  padding: 11px 24px;
+
+  border: 0;
+  border-radius: 999px;
+
+  font-size: 1rem;
+  font-weight: 600;
+
+  transition:
+    transform var(--transition),
+    background var(--transition),
+    box-shadow var(--transition);
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-primary {
+  background: var(--color-red);
+  color: white;
+  box-shadow: 0 7px 20px rgba(244, 42, 65, 0.2);
+}
+
+.btn-primary:hover {
+  background: var(--color-red-dark);
+}
+
+.btn-secondary {
+  background: var(--color-primary);
+  color: white;
+}
+
+.btn-secondary:hover {
+  background: var(--color-primary-dark);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+/* =========================================
+   COMMON CARDS
+   ========================================= */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+
+  transition:
+    transform var(--transition),
+    box-shadow var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 768px) {
+  :root {
+    --section-space: 55px;
+  }
+
+  .container {
+    width: min(100% - 30px, var(--container-width));
+  }
+
+  body {
+    font-size: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  :root {
+    --section-space: 45px;
+  }
+
+  .container {
+    width: min(100% - 24px, var(--container-width));
+  }
 }

@@ -1,70 +1,91 @@
-import React, { useEffect, useState } from 'react';
-import "bootstrap/dist/css/bootstrap.css";
-import Nav from 'react-bootstrap/Nav';
-import Dropdown from 'react-bootstrap/Dropdown';
-import logo from "./logo_in_header.png"
+import { useEffect, useState } from "react";
+import axios from 'axios';
 
-function Test() {
-  const filePath = "https://amra-amra.se/form_data.txt";
-  const [fileContent, setFileContent] = useState("")
-  
-
-  // useEffect(() =>{
-  //   setFileContent(JSON.stringify(filePath, null));
+function ImageManager() {
+    const [images, setImages] = useState([]); // array of image objects or URLs
+    const dataUrl = "https://amra-amra.se/db/";
+    const [error, setError] = useState(null);
     
-  // },[]);
+  useEffect(() => {
+    const table="members";
+    axios.get(dataUrl, {
+            params: { request: "getatablesdata", table }
+            })
+      .then(function (response) {
+        if (response.data !== "") {
+          console.log(response.data);
+        //   setLoadMembersInput(false);
+        }
+        else {
+          alert("Failed to fetch member data");
+        //   setLoadMembersInput(false);
+        }
+      })
+      .catch(error => {
+        setError(error.message);
+        // setLoadMembersInput(false);
+      })
 
-  const handleClick = async() => {
-    try {
-      const response = await fetch(filePath);
-      if (!response.ok) {
-        throw new Error("Failed to fetch the file");
-      }
-      const text = await response.text();
-      setFileContent(text);
+  }, []);
+    const addImages = (files) => {
+        const newImages = Array.from(files).map((file) => ({
+            id: crypto.randomUUID(), // unique key for removal + React list key
+            file,                    // the actual File object, needed if uploading later
+            url: URL.createObjectURL(file), // temp local preview URL
+        }));
+        setImages((prev) => [...prev, ...newImages]);
+    };
 
-    } catch (error) {
-      console.error("Error fetching the file:", error);
-      setFileContent("Error fetching the file");
-    } 
-  }
+    const removeImage = (id) => {
+        setImages((prev) => prev.filter((img) => img.id !== id));
+    };
 
-  // async function createPaymentRequest(amount, message, payerAlias) {
-  //   const instructionUUID = createId();
-  
-  //   const data = {
-  //     payeeAlias: '1234679304',
-  //     currency: 'SEK',
-  //     callbackUrl: 'https://your-callback-url.com',
-  //     amount,
-  //     message,
-  //     payerAlias,
-  //     callbackIdentifier: '11A86BE70EA346E4B1C39C874173F478',
-  //   };
-  
-  //   try {
-  //     const response = await client.put(
-  //       `https://mss.cpc.getswish.net/swish-cpcapi/api/v2/paymentrequests/${instructionUUID}`,
-  //       data
-  //     );
-  
-  //     if (response.status === 201) {
-  //       return { id: instructionUUID };
-  //     }
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-  return (
-<div>
-      <button onClick={handleClick} className="btn btn-primary">Fetch File Content</button>
-      <div className="mt-3">
-        <h5>File Content:</h5>
-        <pre>{fileContent || "Click the button to fetch file content"}</pre>
-      </div>
-    </div>
-  );
-};
+    const handleFileChange = (e) => {
+        if (e.target.files.length > 0) {
+            addImages(e.target.files);
+            e.target.value = ""; // allows re-selecting the same file later
+        }
+    };
 
+    return (
+        <div>
+            <input
+                type="file"
+                accept="image/*"
+                multiple
+                onChange={handleFileChange}
+            />
 
-export default Test;
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
+                {images.map((img) => (
+                    <div key={img.id} style={{ position: "relative" }}>
+                        <img
+                            src={img.url}
+                            alt=""
+                            style={{ width: "120px", height: "120px", objectFit: "cover" }}
+                        />
+                        <button
+                            onClick={() => removeImage(img.id)}
+                            style={{
+                                position: "absolute",
+                                top: "2px",
+                                right: "2px",
+                                background: "red",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "50%",
+                                width: "20px",
+                                height: "20px",
+                                cursor: "pointer",
+                            }}
+                        >
+                            ×
+                        </button>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+}
+
+export default ImageManager;

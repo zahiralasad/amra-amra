@@ -112,7 +112,11 @@ function Admin() {
                         <div className='col-10 p-4'>
                             {/* {loading && <div className="text-center  text-white my-5">Please wait while loading the from .........</div>} */}
                             {activeForm === "home" && (
-                                <HomeForm />
+                                <HomeForm
+                                    setNotificationTitle={setNotificationTitle}
+                                    setNotificationMessage={setNotificationMessage}
+                                    setModalShow={setModalShow}
+                                />
                             )}
                             {activeForm === "picnic" && (
                                 <PicnicForm

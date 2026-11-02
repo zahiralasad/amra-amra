@@ -1,90 +1,133 @@
-import React, { useState, useEffect } from 'react';
-import "bootstrap/dist/css/bootstrap.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
-import Nav from 'react-bootstrap/Nav';
-import Dropdown from 'react-bootstrap/Dropdown';
-import logo from "./logo_in_header.png"
-import "./header.css";
+import React, { useState } from "react";
+import { NavLink, Link } from "react-router-dom";
+import { useLanguage } from "../Context/LanguageContext";
+import "./Header.css";
 
+import logo from "../../images/logo.png";
 
 function Header() {
-  const [activeKey, setActiveKey] = useState('');
-  const [showMenu, setShowMenu] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
-  useEffect(() => {
-    const storedKey = localStorage.getItem('eventKey');
-    if (storedKey) {
-      setActiveKey(storedKey);
-    }
-    console.log(activeKey);
-  })
-  const handleSelect = (selectedKey) => {
-    localStorage.setItem("eventKey", selectedKey);
-    // setActiveKey(selectedKey);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const closeMenu = () => {
+    setMenuOpen(false);
   };
 
-  const toggleMenu = () => {
-    document.getElementById("smallmenu").classList.toggle('show');
-    document.getElementById("crossicon").classList.toggle('show');
-    document.getElementById("burgericon").classList.toggle('hide');
-  }
-
   return (
-    <div className="row" id="header">
-      <div className="row text-white" id="menuicons">
-        <div className='col mx-2'>
-          <img className="" src={logo} alt="logo" style={{ height: "36px" }} />
-          <span className="mx-2 text-white">আমরা-আমরা</span>
-        </div>
-        <div className='col-2 text-end'>
-          <i id="crossicon" className="bi bi-x" onClick={toggleMenu}></i>
-          <i id="burgericon" className="bi bi-list fs-3" onClick={toggleMenu}></i>
+    <header className="site-header">
+      <div className="container header-inner">
+
+        {/* BRAND */}
+        <Link
+          to="/"
+          className="header-brand"
+          onClick={closeMenu}
+        >
+          <img
+            src={logo}
+            alt="আমরা-আমরা"
+            className="header-logo"
+          />
+
+          <div className="header-brand-text">
+            <strong>আমরা-আমরা</strong>
+
+            <span>
+              {language === "bn"
+                ? "একতা • সংস্কৃতি • সবার জন্য"
+                : "Unity • Culture • Community"}
+            </span>
+          </div>
+        </Link>
+
+
+        {/* DESKTOP / MOBILE NAVIGATION */}
+        <nav
+          className={`header-nav ${menuOpen ? "menu-open" : ""
+            }`}
+        >
+          <NavLink to="/" onClick={closeMenu}>
+            {t("nav.home")}
+          </NavLink>
+
+          <NavLink to="/events" onClick={closeMenu}>
+            {t("nav.events")}
+          </NavLink>
+
+          <NavLink to="/aboutus" onClick={closeMenu}>
+            {t("nav.about")}
+          </NavLink>
+
+          <NavLink to="/members" onClick={closeMenu}>
+            {t("nav.members")}
+          </NavLink>
+
+          <NavLink to="/gallery" onClick={closeMenu}>
+            {t("nav.gallery")}
+          </NavLink>
+
+          <NavLink to="/contacts" onClick={closeMenu}>
+            {t("nav.contact")}
+          </NavLink>
+        </nav>
+
+
+        {/* RIGHT SIDE */}
+        <div className="header-actions">
+
+          {/* LANGUAGE */}
+          <div className="language-switcher">
+            <button
+              type="button"
+              className={
+                language === "bn"
+                  ? "selected"
+                  : ""
+              }
+              onClick={() => setLanguage("bn")}
+            >
+              বাংলা
+            </button>
+
+            <span>|</span>
+
+            <button
+              type="button"
+              className={
+                language === "en"
+                  ? "selected"
+                  : ""
+              }
+              onClick={() => setLanguage("en")}
+            >
+              EN
+            </button>
+          </div>
+
+
+          {/* HAMBURGER */}
+          <button
+            type="button"
+            className={`menu-toggle ${menuOpen ? "open" : ""
+              }`}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label={
+              menuOpen
+                ? "Close navigation menu"
+                : "Open navigation menu"
+            }
+            aria-expanded={menuOpen}
+          >
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+
         </div>
       </div>
-      <Nav fill variant="tabs" id="smallmenu" activeKey={activeKey} onSelect={handleSelect} defaultActiveKey="/home">
-        <Nav.Item>
-          <Nav.Link eventKey="home" href="/">Home</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="events" href="events">Events</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="contacts" href="contacts">Contacts</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="aboutus" href="aboutus">About Us</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="members" href="members">Members</Nav.Link>
-        </Nav.Item>
-      </Nav>
-
-      <Nav fill variant="tabs" id="bigmenu" activeKey={activeKey} onSelect={handleSelect} defaultActiveKey="/home">
-        <Nav.Item>
-          <img className="" src={logo} alt="logo" style={{ height: "36px" }} />
-          <span className="mx-2 text-white">আমরা-আমরা</span>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="home" href="/">Home</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="events" href="events">Events</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="contacts" href="contacts">Contacts</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="aboutus" href="aboutus">About Us</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="members" href="members">Members</Nav.Link>
-        </Nav.Item>
-        <Nav.Item>
-          <Nav.Link eventKey="admin" href="admin">Admin</Nav.Link>
-        </Nav.Item>
-      </Nav>
-    </div>
+    </header>
   );
-};
+}
 
 export default Header;
