@@ -15,7 +15,8 @@ import Checklist from "./components/Picnics/Checklist";
 import RegisterToEnter from "./components/IndoorGames/RegisterToEnter";
 import IndoorGamesTeams from "./components/IndoorGames/RegisterdTeams";
 import RegisterToGame from "./components/IndoorGames/RegisterToGame";
-import RegisterToNetwork from "./components/NetworkingBuilding/RegisterToNetwork";
+import RegisterToNetwork from "./components/RegistrationForms/RegisterToNetwork";
+import EventDetails from "./components/Events/EventDetails";
 import Gallery from "./components/Events/Gallery";
 import CheckGuest from "./components/NetworkingBuilding/CheckGuest";
 import CheckIn from "./components/NetworkingBuilding/CheckIn";
@@ -43,6 +44,10 @@ function App() {
             <Route path="aboutus" element={<AboutUs />} />
             <Route path="admin" element={<Admin />} />
             <Route path="events" element={<Events />} />
+            <Route
+              path="/events/:eventId"
+              element={<EventDetails />}
+            />
             <Route path="gallery" element={<Gallery />} />
             <Route path="info" element={<Info />} />
 
@@ -57,7 +62,7 @@ function App() {
             />
 
             <Route
-              path="registertonetwork"
+              path="/registertonetwork"
               element={<RegisterToNetwork />}
             />
 

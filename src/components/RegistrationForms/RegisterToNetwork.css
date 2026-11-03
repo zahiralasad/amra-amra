@@ -1,0 +1,1216 @@
+/* ======================================================
+   NETWORK REGISTRATION PAGE
+====================================================== */
+
+.network-registration-page {
+    width: 100%;
+    min-height: 100vh;
+
+    background: var(--color-background);
+    color: var(--color-text);
+}
+
+
+/* ======================================================
+   BREADCRUMB
+====================================================== */
+
+.network-registration-breadcrumb {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    gap: 8px;
+
+    padding-top: 24px;
+    padding-bottom: 18px;
+
+    color: var(--color-text-light);
+
+    font-size: 0.78rem;
+}
+
+.network-registration-breadcrumb a {
+    color: var(--color-primary);
+
+    font-weight: 500;
+
+    text-decoration: none;
+
+    transition: color 0.2s ease;
+}
+
+.network-registration-breadcrumb a:hover {
+    color: var(--color-red);
+}
+
+.network-registration-breadcrumb>span:last-child {
+    color: var(--color-text);
+
+    font-weight: 500;
+}
+
+
+/* ======================================================
+   PAGE HEADER
+====================================================== */
+
+.network-registration-header {
+    width: 100%;
+
+    padding: 12px 0 38px;
+}
+
+.network-registration-header-content {
+    max-width: 760px;
+
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.network-registration-label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 13px;
+
+    padding: 6px 14px;
+
+    border-radius: 30px;
+
+    background: #ffe5e7;
+    color: var(--color-red);
+
+    font-size: 0.75rem;
+    font-weight: 700;
+
+    letter-spacing: 0.2px;
+}
+
+.network-registration-header h1 {
+    margin: 0;
+
+    color: var(--color-primary-dark);
+
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 750;
+    line-height: 1.15;
+}
+
+.network-registration-header h2 {
+    margin: 7px 0 0;
+
+    color: var(--color-primary);
+
+    font-size: clamp(1.1rem, 2.2vw, 1.5rem);
+    font-weight: 600;
+    line-height: 1.35;
+}
+
+.network-registration-header p {
+    max-width: 520px;
+
+    margin: 14px auto 0;
+
+    color: var(--color-text-light);
+
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
+
+/* ======================================================
+   REGISTRATION SECTION
+====================================================== */
+
+.network-registration-section {
+    width: 100%;
+
+    padding: 0 0 75px;
+}
+
+
+/* ======================================================
+   MAIN FORM CARD
+====================================================== */
+
+.network-registration-card {
+    width: 100%;
+    max-width: 900px;
+
+    margin: 0 auto;
+
+    overflow: hidden;
+
+    border: 1px solid var(--color-border);
+    border-radius: 20px;
+
+    background: #ffffff;
+
+    box-shadow: var(--shadow-md);
+}
+
+
+/* ======================================================
+   FORM CARD HEADER
+====================================================== */
+
+.network-form-heading {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    padding: 23px 28px;
+
+    border-bottom: 1px solid var(--color-border);
+
+    background:
+        linear-gradient(110deg,
+            #edf7f2 0%,
+            #f8fbf9 100%);
+}
+
+.network-form-heading-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 42px;
+
+    border-radius: 50%;
+
+    background: var(--color-primary);
+    color: #ffffff;
+
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.network-form-heading h2 {
+    margin: 0 0 3px;
+
+    color: var(--color-primary-dark);
+
+    font-size: 1.25rem;
+    font-weight: 750;
+}
+
+.network-form-heading p {
+    margin: 0;
+
+    color: var(--color-text-light);
+
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+
+/* ======================================================
+   FORM
+====================================================== */
+
+.network-registration-form {
+    width: 100%;
+
+    padding: 0;
+}
+
+
+/* ======================================================
+   FORM SECTION
+====================================================== */
+
+.network-form-section {
+    padding: 30px 32px;
+
+    border-bottom: 1px solid var(--color-border);
+}
+
+.network-form-section:last-of-type {
+    border-bottom: 0;
+}
+
+
+/* ======================================================
+   SECTION TITLE
+====================================================== */
+
+.network-form-section-title {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 13px;
+
+    margin-bottom: 24px;
+}
+
+.network-form-section-title>span {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex: 0 0 34px;
+
+    border-radius: 50%;
+
+    background: var(--color-primary-light);
+    color: var(--color-primary);
+
+    font-size: 0.72rem;
+    font-weight: 750;
+}
+
+.network-form-section-title h3 {
+    margin: 0 0 3px;
+
+    color: var(--color-primary-dark);
+
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.network-form-section-title p {
+    margin: 0;
+
+    color: var(--color-text-light);
+
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+
+/* ======================================================
+   FORM GRID
+====================================================== */
+
+.network-form-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+.network-field {
+    min-width: 0;
+}
+
+.network-field-full {
+    grid-column: 1 / -1;
+}
+
+
+/* ======================================================
+   LABELS
+====================================================== */
+
+.network-field>label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: var(--color-text);
+
+    font-size: 0.8rem;
+    font-weight: 650;
+}
+
+.network-field>label>span {
+    margin-left: 3px;
+
+    color: var(--color-red);
+}
+
+
+/* ======================================================
+   INPUTS
+====================================================== */
+
+.network-field input[type="text"],
+.network-field input[type="email"],
+.network-field select,
+.network-field textarea {
+    width: 100%;
+
+    min-height: 46px;
+
+    padding: 10px 13px;
+
+    border: 1px solid #dce3df;
+    border-radius: 9px;
+
+    outline: none;
+
+    background: #ffffff;
+    color: var(--color-text);
+
+    font-family: inherit;
+    font-size: 0.85rem;
+
+    box-sizing: border-box;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.network-field input::placeholder,
+.network-field textarea::placeholder {
+    color: #9aa39e;
+}
+
+
+/* ======================================================
+   INPUT FOCUS
+====================================================== */
+
+.network-field input[type="text"]:focus,
+.network-field input[type="email"]:focus,
+.network-field select:focus,
+.network-field textarea:focus {
+    border-color: var(--color-primary);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(0, 106, 78, 0.08);
+}
+
+
+/* ======================================================
+   SELECT
+====================================================== */
+
+.network-field select {
+    cursor: pointer;
+
+    appearance: auto;
+}
+
+
+/* ======================================================
+   TEXTAREA
+====================================================== */
+
+.network-field textarea {
+    min-height: 110px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+
+/* ======================================================
+   OTHER CAREER INPUT
+====================================================== */
+
+.network-other-input {
+    margin-top: 10px;
+}
+
+
+/* ======================================================
+   RADIO CHOICES
+====================================================== */
+
+.network-choice-group {
+    display: flex;
+    flex-wrap: wrap;
+
+    gap: 10px;
+}
+
+.network-choice {
+    position: relative;
+
+    min-width: 115px;
+
+    cursor: pointer;
+}
+
+.network-choice input {
+    position: absolute;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.network-choice>span {
+    min-height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 8px 18px;
+
+    border: 1px solid #dce3df;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: var(--color-text);
+
+    font-size: 0.82rem;
+    font-weight: 500;
+
+    transition:
+        border-color 0.2s ease,
+        background-color 0.2s ease,
+        color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.network-choice:hover>span {
+    border-color: #9bc7b8;
+
+    background: #f7fbf9;
+}
+
+
+/* CHECKED */
+
+.network-choice input:checked+span {
+    border-color: var(--color-primary);
+
+    background: var(--color-primary-light);
+    color: var(--color-primary-dark);
+
+    font-weight: 700;
+
+    box-shadow:
+        inset 0 0 0 1px var(--color-primary);
+}
+
+
+/* KEYBOARD FOCUS */
+
+.network-choice input:focus-visible+span {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+
+/* ======================================================
+   AGE GROUP
+====================================================== */
+
+.network-age-group {
+    display: grid;
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 10px;
+}
+
+.network-age-group .network-choice {
+    min-width: 0;
+}
+
+
+/* ======================================================
+   CONTRIBUTION
+====================================================== */
+
+.network-contribution {
+    margin-top: 22px;
+
+    padding: 17px 18px;
+
+    border: 1px solid #eadfbe;
+    border-radius: 12px;
+
+    background:
+        linear-gradient(110deg,
+            #fffdf5 0%,
+            #fff8e7 100%);
+}
+
+.network-contribution>label {
+    display: flex;
+    align-items: flex-start;
+
+    gap: 12px;
+
+    margin: 0;
+
+    cursor: pointer;
+}
+
+.network-contribution input[type="checkbox"] {
+    position: absolute;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* CUSTOM CHECKBOX */
+
+.network-contribution-check {
+    position: relative;
+
+    width: 20px;
+    height: 20px;
+
+    display: block;
+
+    flex: 0 0 20px;
+
+    margin-top: 2px;
+
+    border: 1.5px solid #b8b09a;
+    border-radius: 5px;
+
+    background: #ffffff;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.network-contribution input:checked+.network-contribution-check {
+    border-color: var(--color-primary);
+
+    background: var(--color-primary);
+}
+
+.network-contribution input:checked+.network-contribution-check::after {
+    content: "";
+
+    position: absolute;
+
+    left: 6px;
+    top: 2px;
+
+    width: 5px;
+    height: 10px;
+
+    border: solid #ffffff;
+
+    border-width: 0 2px 2px 0;
+
+    transform: rotate(45deg);
+}
+
+
+/* CONTRIBUTION TEXT */
+
+.network-contribution-text {
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.network-contribution-text strong {
+    color: var(--color-primary-dark);
+
+    font-size: 0.84rem;
+    font-weight: 700;
+}
+
+.network-contribution-text small {
+    color: var(--color-text-light);
+
+    font-size: 0.77rem;
+    line-height: 1.55;
+}
+
+
+/* ======================================================
+   SUBMIT AREA
+====================================================== */
+
+.network-form-submit {
+    padding: 27px 32px 31px;
+
+    text-align: center;
+
+    background: #fbfcfb;
+}
+
+.network-register-button {
+    min-width: 190px;
+    min-height: 48px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 11px 25px;
+
+    border: 0;
+    border-radius: 30px;
+
+    background: var(--color-red);
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 0.88rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 16px rgba(244, 42, 65, 0.2);
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.network-register-button:hover:not(:disabled) {
+    background: var(--color-red-dark);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 20px rgba(244, 42, 65, 0.25);
+}
+
+.network-register-button:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.network-register-button:disabled {
+    opacity: 0.6;
+
+    cursor: not-allowed;
+}
+
+.network-register-button span:last-child {
+    font-size: 1rem;
+}
+
+
+/* SUBMIT NOTE */
+
+.network-form-submit p {
+    max-width: 450px;
+
+    margin: 11px auto 0;
+
+    color: var(--color-text-light);
+
+    font-size: 0.72rem;
+    line-height: 1.5;
+}
+
+
+/* ======================================================
+   LOADING
+====================================================== */
+
+.network-form-message {
+    min-height: 250px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 14px;
+
+    padding: 35px;
+
+    text-align: center;
+}
+
+.network-form-message p {
+    margin: 0;
+
+    color: var(--color-text-light);
+
+    font-size: 0.85rem;
+}
+
+
+/* SPINNER */
+
+.network-loading-spinner {
+    width: 34px;
+    height: 34px;
+
+    border: 3px solid var(--color-primary-light);
+    border-top-color: var(--color-primary);
+    border-radius: 50%;
+
+    animation:
+        networkSpinner 0.8s linear infinite;
+}
+
+@keyframes networkSpinner {
+
+    to {
+        transform: rotate(360deg);
+    }
+
+}
+
+
+/* ======================================================
+   ALERTS
+====================================================== */
+
+.network-form-alert {
+    margin: 28px 32px;
+
+    padding: 18px 20px;
+
+    border-radius: 11px;
+}
+
+.network-form-alert strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    font-size: 0.9rem;
+}
+
+.network-form-alert p {
+    margin: 0;
+
+    font-size: 0.8rem;
+    line-height: 1.6;
+}
+
+
+/* ERROR */
+
+.network-form-alert-error {
+    border: 1px solid #f3c6cb;
+
+    background: #fff0f1;
+    color: #9d1f2d;
+}
+
+
+/* WARNING */
+
+.network-form-alert-warning {
+    border: 1px solid #ead7a4;
+
+    background: #fff9e9;
+    color: #70591e;
+}
+
+
+/* ======================================================
+   TABLET
+   <= 900px
+====================================================== */
+
+@media (max-width: 900px) {
+
+    .network-registration-card {
+        max-width: 760px;
+    }
+
+    .network-form-section {
+        padding: 27px 27px;
+    }
+
+    .network-form-submit {
+        padding:
+            25px 27px 29px;
+    }
+
+}
+
+
+/* ======================================================
+   TABLET / LARGE MOBILE
+   <= 768px
+====================================================== */
+
+@media (max-width: 768px) {
+
+    /* BREADCRUMB */
+
+    .network-registration-breadcrumb {
+        padding-top: 18px;
+        padding-bottom: 15px;
+    }
+
+
+    /* HEADER */
+
+    .network-registration-header {
+        padding:
+            8px 0 30px;
+    }
+
+    .network-registration-header h1 {
+        font-size: 2rem;
+    }
+
+    .network-registration-header h2 {
+        font-size: 1.15rem;
+    }
+
+
+    /* FORM */
+
+    .network-registration-card {
+        border-radius: 16px;
+    }
+
+    .network-form-heading {
+        padding: 20px 23px;
+    }
+
+    .network-form-section {
+        padding: 25px 23px;
+    }
+
+    .network-form-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+    .network-field-full {
+        grid-column: auto;
+    }
+
+
+    /* AGE */
+
+    .network-age-group {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    /* SUBMIT */
+
+    .network-form-submit {
+        padding: 24px 23px 27px;
+    }
+
+}
+
+
+/* ======================================================
+   MOBILE
+   <= 600px
+====================================================== */
+
+@media (max-width: 600px) {
+
+    /* ==================================================
+       PAGE
+    ================================================== */
+
+    .network-registration-section {
+        padding-bottom: 48px;
+    }
+
+
+    /* ==================================================
+       BREADCRUMB
+    ================================================== */
+
+    .network-registration-breadcrumb {
+        gap: 6px;
+
+        padding-top: 14px;
+        padding-bottom: 13px;
+
+        font-size: 0.7rem;
+    }
+
+
+    /* ==================================================
+       HEADER
+    ================================================== */
+
+    .network-registration-header {
+        padding:
+            5px 0 25px;
+    }
+
+    .network-registration-header-content {
+        padding:
+            0 5px;
+    }
+
+    .network-registration-label {
+        margin-bottom: 10px;
+
+        padding: 5px 11px;
+
+        font-size: 0.68rem;
+    }
+
+    .network-registration-header h1 {
+        font-size: 1.75rem;
+    }
+
+    .network-registration-header h2 {
+        margin-top: 5px;
+
+        font-size: 1rem;
+    }
+
+    .network-registration-header p {
+        margin-top: 11px;
+
+        font-size: 0.82rem;
+        line-height: 1.6;
+    }
+
+
+    /* ==================================================
+       CARD
+    ================================================== */
+
+    .network-registration-card {
+        border-radius: 14px;
+    }
+
+
+    /* ==================================================
+       CARD HEADING
+    ================================================== */
+
+    .network-form-heading {
+        gap: 11px;
+
+        padding: 18px 17px;
+    }
+
+    .network-form-heading-icon {
+        width: 38px;
+        height: 38px;
+
+        flex-basis: 38px;
+
+        font-size: 0.85rem;
+    }
+
+    .network-form-heading h2 {
+        font-size: 1.08rem;
+    }
+
+    .network-form-heading p {
+        font-size: 0.74rem;
+    }
+
+
+    /* ==================================================
+       SECTIONS
+    ================================================== */
+
+    .network-form-section {
+        padding:
+            23px 17px;
+    }
+
+    .network-form-section-title {
+        gap: 10px;
+
+        margin-bottom: 20px;
+    }
+
+    .network-form-section-title>span {
+        width: 31px;
+        height: 31px;
+
+        flex-basis: 31px;
+
+        font-size: 0.67rem;
+    }
+
+    .network-form-section-title h3 {
+        font-size: 0.98rem;
+    }
+
+    .network-form-section-title p {
+        font-size: 0.72rem;
+    }
+
+
+    /* ==================================================
+       FIELDS
+    ================================================== */
+
+    .network-form-grid {
+        gap: 16px;
+    }
+
+    .network-field>label {
+        margin-bottom: 6px;
+
+        font-size: 0.77rem;
+    }
+
+    .network-field input[type="text"],
+    .network-field input[type="email"],
+    .network-field select,
+    .network-field textarea {
+        min-height: 44px;
+
+        padding: 9px 11px;
+
+        border-radius: 8px;
+
+        font-size: 0.8rem;
+    }
+
+    .network-field textarea {
+        min-height: 100px;
+    }
+
+
+    /* ==================================================
+       CHOICES
+    ================================================== */
+
+    .network-choice-group {
+        display: grid;
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 8px;
+    }
+
+    .network-choice {
+        min-width: 0;
+    }
+
+    .network-choice>span {
+        min-height: 41px;
+
+        padding: 8px 10px;
+
+        border-radius: 8px;
+
+        font-size: 0.78rem;
+    }
+
+    .network-age-group {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    /* ==================================================
+       CONTRIBUTION
+    ================================================== */
+
+    .network-contribution {
+        margin-top: 18px;
+
+        padding: 15px 14px;
+    }
+
+    .network-contribution-text strong {
+        font-size: 0.8rem;
+    }
+
+    .network-contribution-text small {
+        font-size: 0.72rem;
+    }
+
+
+    /* ==================================================
+       SUBMIT
+    ================================================== */
+
+    .network-form-submit {
+        padding:
+            22px 17px 25px;
+    }
+
+    .network-register-button {
+        width: 100%;
+        min-width: 0;
+
+        min-height: 46px;
+
+        font-size: 0.84rem;
+    }
+
+    .network-form-submit p {
+        font-size: 0.68rem;
+    }
+
+
+    /* ==================================================
+       ALERT
+    ================================================== */
+
+    .network-form-alert {
+        margin: 20px 17px;
+
+        padding: 16px;
+    }
+
+}
+
+
+/* ======================================================
+   SMALL MOBILE
+   <= 400px
+====================================================== */
+
+@media (max-width: 400px) {
+
+    .network-registration-header h1 {
+        font-size: 1.55rem;
+    }
+
+    .network-registration-header h2 {
+        font-size: 0.94rem;
+    }
+
+    .network-form-heading {
+        padding:
+            17px 15px;
+    }
+
+    .network-form-section {
+        padding:
+            21px 15px;
+    }
+
+    .network-choice-group,
+    .network-age-group {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .network-choice>span {
+        padding:
+            7px 7px;
+
+        font-size: 0.74rem;
+    }
+
+    .network-form-submit {
+        padding:
+            20px 15px 23px;
+    }
+
+    .network-form-alert {
+        margin:
+            18px 15px;
+    }
+
+}
